@@ -7,6 +7,7 @@
 //
 
 #import "JCAppDelegate.h"
+#import "JCSignUpViewController.h"
 
 @implementation JCAppDelegate
 
@@ -16,6 +17,11 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    // TODO unless logged in
+    JCSignUpViewController *signupController = [[JCSignUpViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:signupController];
+    [self.window setRootViewController:navController];
     return YES;
 }
 

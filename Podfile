@@ -1,5 +1,7 @@
 platform :ios, "7.0"
 
 target "JourneyCapture" do
-	pod 'ReactiveCocoa', '2.1.4'
+	pod 'ReactiveCocoa'
+    pod 'ReactiveViewModel'
+    pod 'libextobjc'
 end
