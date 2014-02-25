@@ -107,23 +107,15 @@
 		831EDB4F18BCBB33001468E4 /* JourneyCapture */ = {
 			isa = PBXGroup;
 			children = (
-				831EDB5818BCBB33001468E4 /* JCAppDelegate.h */,
-				831EDB5918BCBB33001468E4 /* JCAppDelegate.m */,
+				838C16D418BCBBEB0053BFB1 /* Application */,
+				838C16D518BCBBEB0053BFB1 /* Library */,
+				838C16D618BCBBEB0053BFB1 /* Models */,
+				838C16D718BCBBEB0053BFB1 /* Support */,
+				838C16D818BCBBEB0053BFB1 /* ViewModels */,
+				838C16D918BCBBEB0053BFB1 /* Views */,
 				831EDB5B18BCBB34001468E4 /* Images.xcassets */,
-				831EDB5018BCBB33001468E4 /* Supporting Files */,
 			);
 			path = JourneyCapture;
-			sourceTree = "<group>";
-		};
-		831EDB5018BCBB33001468E4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				831EDB5118BCBB33001468E4 /* JourneyCapture-Info.plist */,
-				831EDB5218BCBB33001468E4 /* InfoPlist.strings */,
-				831EDB5518BCBB33001468E4 /* main.m */,
-				831EDB5718BCBB33001468E4 /* JourneyCapture-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		831EDB6818BCBB34001468E4 /* JourneyCaptureTests */ = {
@@ -142,6 +134,54 @@
 				831EDB6B18BCBB34001468E4 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		838C16D418BCBBEB0053BFB1 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				831EDB5818BCBB33001468E4 /* JCAppDelegate.h */,
+				831EDB5918BCBB33001468E4 /* JCAppDelegate.m */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		838C16D518BCBBEB0053BFB1 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		838C16D618BCBBEB0053BFB1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		838C16D718BCBBEB0053BFB1 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				831EDB5118BCBB33001468E4 /* JourneyCapture-Info.plist */,
+				831EDB5218BCBB33001468E4 /* InfoPlist.strings */,
+				831EDB5518BCBB33001468E4 /* main.m */,
+				831EDB5718BCBB33001468E4 /* JourneyCapture-Prefix.pch */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		838C16D818BCBBEB0053BFB1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		838C16D918BCBBEB0053BFB1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +310,7 @@
 				831EDB5318BCBB33001468E4 /* en */,
 			);
 			name = InfoPlist.strings;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		831EDB6B18BCBB34001468E4 /* InfoPlist.strings */ = {
@@ -361,8 +402,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JourneyCapture/JourneyCapture-Prefix.pch";
-				INFOPLIST_FILE = "JourneyCapture/JourneyCapture-Info.plist";
+				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/JourneyCapture/Support/JourneyCapture-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -374,8 +415,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JourneyCapture/JourneyCapture-Prefix.pch";
-				INFOPLIST_FILE = "JourneyCapture/JourneyCapture-Info.plist";
+				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/JourneyCapture/Support/JourneyCapture-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -392,7 +433,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JourneyCapture/JourneyCapture-Prefix.pch";
+				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -415,7 +456,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JourneyCapture/JourneyCapture-Prefix.pch";
+				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
 				INFOPLIST_FILE = "JourneyCaptureTests/JourneyCaptureTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -442,6 +483,7 @@
 				831EDB7418BCBB34001468E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		831EDB7518BCBB34001468E4 /* Build configuration list for PBXNativeTarget "JourneyCaptureTests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +492,7 @@
 				831EDB7718BCBB34001468E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
