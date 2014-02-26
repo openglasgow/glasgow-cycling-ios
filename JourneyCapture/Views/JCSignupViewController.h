@@ -1,5 +1,5 @@
 //
-//  JCSignUpViewController.h
+//  JCSignupViewController.h
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 25/02/2014.
@@ -10,7 +10,7 @@
 
 @class JCSignupViewModel, JCSignupView;
 
-@interface JCSignUpViewController : UIViewController
+@interface JCSignupViewController : UIViewController
 
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
 @property (strong, nonatomic) JCSignupView *signupView;

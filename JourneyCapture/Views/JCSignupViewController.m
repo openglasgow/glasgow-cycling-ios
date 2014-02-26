@@ -1,20 +1,20 @@
 //
-//  JCSignUpViewController.m
+//  JCSignupViewController.m
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 25/02/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "JCSignUpViewController.h"
+#import "JCSignupViewController.h"
 #import "JCSignupViewModel.h"
 #import "JCSignupView.h"
 
-@interface JCSignUpViewController ()
+@interface JCSignupViewController ()
 
 @end
 
-@implementation JCSignUpViewController
+@implementation JCSignupViewController
 @synthesize viewModel;
 @synthesize signupView;
 
@@ -50,7 +50,7 @@
                                                                              action:nil];
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [self.viewModel signUp];
+            [self.viewModel signup];
             [subscriber sendCompleted];
             return nil;
         }];

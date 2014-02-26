@@ -40,7 +40,7 @@
 
 /* Begin PBXFileReference section */
 		12E8303FB46D4087967CEECE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		830C31CC18BCDF4800B7CC47 /* JCSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignUpViewController.h; sourceTree = "<group>"; };
+		830C31CC18BCDF4800B7CC47 /* JCSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewController.h; sourceTree = "<group>"; };
 		830C31CD18BCDF4800B7CC47 /* JCSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignUpViewController.m; sourceTree = "<group>"; };
 		831EDB4618BCBB33001468E4 /* JourneyCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JourneyCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		831EDB4918BCBB33001468E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -165,7 +165,7 @@
 		834663A418BE332C0056F692 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				830C31CC18BCDF4800B7CC47 /* JCSignUpViewController.h */,
+				830C31CC18BCDF4800B7CC47 /* JCSignupViewController.h */,
 				830C31CD18BCDF4800B7CC47 /* JCSignUpViewController.m */,
 				837B15A418BDF31F000EEFAB /* JCSignupView.h */,
 				837B15A518BDF31F000EEFAB /* JCSignupView.m */,

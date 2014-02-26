@@ -7,7 +7,7 @@
 //
 
 #import "JCAppDelegate.h"
-#import "JCSignUpViewController.h"
+#import "JCSignupViewController.h"
 
 @implementation JCAppDelegate
 
