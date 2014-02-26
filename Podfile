@@ -4,4 +4,7 @@ target "JourneyCapture" do
 	pod 'ReactiveCocoa'
     pod 'ReactiveViewModel'
     pod 'libextobjc'
+    pod 'Masonry'
+    pod 'AFNetworking'
+    pod 'GSKeychain'
 end

@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class JCSignupViewModel;
+@class JCSignupViewModel, JCSignupView;
 
 @interface JCSignUpViewController : UIViewController
 
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
-@property (strong, nonatomic) UITextField *emailField;
-@property (strong, nonatomic) UITextField *passwordField;
-@property (strong, nonatomic) UITextField *firstNameField;
-@property (strong, nonatomic) UITextField *lastNameField;
+@property (strong, nonatomic) JCSignupView *signupView;
 
 @end

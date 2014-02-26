@@ -8,6 +8,7 @@
 
 #import "JCSignUpViewController.h"
 #import "JCSignupViewModel.h"
+#import "JCSignupView.h"
 
 @interface JCSignUpViewController ()
 
@@ -15,7 +16,7 @@
 
 @implementation JCSignUpViewController
 @synthesize viewModel;
-@synthesize emailField, passwordField, firstNameField, lastNameField;
+@synthesize signupView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,35 +50,24 @@
                                                                              action:nil];
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            NSLog(@"Sign Up tapped");
+            [self.viewModel signUp];
             [subscriber sendCompleted];
-            
             return nil;
         }];
     }];
     
     // Form
-    int textFieldWidth = 220;
-    int textFieldX = self.view.center.x - (textFieldWidth/2);
-    self.emailField = [[UITextField alloc] initWithFrame:CGRectMake(textFieldX, 100, textFieldWidth, 31)];
-    [self.emailField setBorderStyle:UITextBorderStyleRoundedRect];
-    RAC(self.viewModel, email) = self.emailField.rac_textSignal;
-    [self.view addSubview:self.emailField];
-    
-    self.passwordField = [[UITextField alloc] initWithFrame:CGRectMake(textFieldX, 151, textFieldWidth, 31)];
-    [self.passwordField setBorderStyle:UITextBorderStyleRoundedRect];
-    RAC(self.viewModel, password) = self.passwordField.rac_textSignal;
-    [self.view addSubview:self.passwordField];
-    
-    self.firstNameField = [[UITextField alloc] initWithFrame:CGRectMake(textFieldX, 202, textFieldWidth, 31)];
-    [self.firstNameField setBorderStyle:UITextBorderStyleRoundedRect];
-    RAC(self.viewModel, firstName) = self.firstNameField.rac_textSignal;
-    [self.view addSubview:self.firstNameField];
-    
-    self.lastNameField = [[UITextField alloc] initWithFrame:CGRectMake(textFieldX, 253, textFieldWidth, 31)];
-    [self.lastNameField setBorderStyle:UITextBorderStyleRoundedRect];
-    RAC(self.viewModel, lastName) = self.lastNameField.rac_textSignal;
-    [self.view addSubview:self.lastNameField];
+    CGRect signupFrame = self.view.frame;
+    signupFrame.origin.y = 74;
+    self.signupView = [[JCSignupView alloc] initWithFrame:signupFrame viewModel:self.viewModel];
+    [self.view addSubview:self.signupView];
+    UIView *superview = self.view;
+    [self.signupView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(superview.mas_top).offset(74);
+        make.bottom.equalTo(superview.mas_bottom);
+        make.left.equalTo(superview).with.offset(10);
+        make.right.equalTo(superview).with.offset(-10);
+    }];
     
     RAC(self, navigationItem.rightBarButtonItem.enabled) = self.viewModel.isValidDetails;
 }

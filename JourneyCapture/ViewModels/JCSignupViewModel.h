@@ -17,4 +17,6 @@
 
 @property (nonatomic, strong) RACSignal *isValidDetails;
 
+- (void)signUp;
+
 @end

@@ -1,4 +1,23 @@
 PODS:
+  - AFNetworking (2.1.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.1.0):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.1.0)
+  - AFNetworking/Security (2.1.0)
+  - AFNetworking/Serialization (2.1.0)
+  - AFNetworking/UIKit (2.1.0):
+    - AFNetworking/NSURLConnection
+  - GSKeychain (1.0.0)
   - libextobjc (0.4):
     - libextobjc/EXTADT
     - libextobjc/EXTConcreteProtocol
@@ -34,6 +53,7 @@ PODS:
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4)
   - libextobjc/UmbrellaHeader (0.4)
+  - Masonry (0.4.0)
   - ReactiveCocoa (2.2.4):
     - ReactiveCocoa/Core
     - ReactiveCocoa/no-arc
@@ -44,12 +64,18 @@ PODS:
     - ReactiveCocoa (~> 2.1)
 
 DEPENDENCIES:
+  - AFNetworking
+  - GSKeychain
   - libextobjc
+  - Masonry
   - ReactiveCocoa
   - ReactiveViewModel
 
 SPEC CHECKSUMS:
+  AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
+  GSKeychain: 59439fa4bb05d21f2cbd4b67e7133c2572cc8dc4
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
+  Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
   ReactiveCocoa: 953a45dda30674fe704d1d9c77cc874141742f47
   ReactiveViewModel: f636ab3e06b5e69664b69c883fcdb457ab5cb0cb
 

@@ -23,6 +23,8 @@
 		831EDB6F18BCBB34001468E4 /* JourneyCaptureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 831EDB6E18BCBB34001468E4 /* JourneyCaptureTests.m */; };
 		8328838718BCF805001EDB87 /* JCSignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83560C4E18BCE146004CE63C /* JCSignupViewModel.m */; };
 		83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83560C4E18BCE146004CE63C /* JCSignupViewModel.m */; };
+		837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B15A518BDF31F000EEFAB /* JCSignupView.m */; };
+		837B15A818BE023B000EEFAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B15A718BE023B000EEFAB /* QuartzCore.framework */; };
 		C9CAF877669E47C28D85FDA4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E8303FB46D4087967CEECE /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,9 @@
 		831EDB6E18BCBB34001468E4 /* JourneyCaptureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JourneyCaptureTests.m; sourceTree = "<group>"; };
 		83560C4D18BCE146004CE63C /* JCSignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewModel.h; sourceTree = "<group>"; };
 		83560C4E18BCE146004CE63C /* JCSignupViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupViewModel.m; sourceTree = "<group>"; };
+		837B15A418BDF31F000EEFAB /* JCSignupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupView.h; sourceTree = "<group>"; };
+		837B15A518BDF31F000EEFAB /* JCSignupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupView.m; sourceTree = "<group>"; };
+		837B15A718BE023B000EEFAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B9F63CCEB7BE445CAC45BA08 /* libPods-JourneyCapture.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JourneyCapture.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFAE2B91575B49EFA76C55F4 /* Pods-JourneyCapture.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JourneyCapture.xcconfig"; path = "Pods/Pods-JourneyCapture.xcconfig"; sourceTree = "<group>"; };
@@ -68,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				837B15A818BE023B000EEFAB /* QuartzCore.framework in Frameworks */,
 				831EDB4C18BCBB33001468E4 /* CoreGraphics.framework in Frameworks */,
 				831EDB4E18BCBB33001468E4 /* UIKit.framework in Frameworks */,
 				831EDB4A18BCBB33001468E4 /* Foundation.framework in Frameworks */,
@@ -113,6 +119,7 @@
 		831EDB4818BCBB33001468E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				837B15A718BE023B000EEFAB /* QuartzCore.framework */,
 				831EDB4918BCBB33001468E4 /* Foundation.framework */,
 				831EDB4B18BCBB33001468E4 /* CoreGraphics.framework */,
 				831EDB4D18BCBB33001468E4 /* UIKit.framework */,
@@ -155,6 +162,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		834663A418BE332C0056F692 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				830C31CC18BCDF4800B7CC47 /* JCSignUpViewController.h */,
+				830C31CD18BCDF4800B7CC47 /* JCSignUpViewController.m */,
+				837B15A418BDF31F000EEFAB /* JCSignupView.h */,
+				837B15A518BDF31F000EEFAB /* JCSignupView.m */,
+			);
+			name = SignUp;
+			sourceTree = "<group>";
+		};
+		834663A518BE33360056F692 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				83560C4D18BCE146004CE63C /* JCSignupViewModel.h */,
+				83560C4E18BCE146004CE63C /* JCSignupViewModel.m */,
+			);
+			name = SignUp;
+			sourceTree = "<group>";
+		};
 		838C16D418BCBBEB0053BFB1 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,8 +219,7 @@
 		838C16D818BCBBEB0053BFB1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				83560C4D18BCE146004CE63C /* JCSignupViewModel.h */,
-				83560C4E18BCE146004CE63C /* JCSignupViewModel.m */,
+				834663A518BE33360056F692 /* SignUp */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -201,8 +227,7 @@
 		838C16D918BCBBEB0053BFB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				830C31CC18BCDF4800B7CC47 /* JCSignUpViewController.h */,
-				830C31CD18BCDF4800B7CC47 /* JCSignUpViewController.m */,
+				834663A418BE332C0056F692 /* SignUp */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -340,6 +365,7 @@
 			files = (
 				830C31CE18BCDF4800B7CC47 /* JCSignUpViewController.m in Sources */,
 				83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */,
+				837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */,
 				831EDB5618BCBB33001468E4 /* main.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
 			);

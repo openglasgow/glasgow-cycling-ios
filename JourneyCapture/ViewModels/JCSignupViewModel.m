@@ -7,6 +7,8 @@
 //
 
 #import "JCSignupViewModel.h"
+#import <AFNetworking/AFNetworking.h>
+#import <GSKeychain/GSKeychain.h>
 
 @implementation JCSignupViewModel
 @synthesize email, password, firstName, lastName, isValidDetails;
@@ -31,6 +33,39 @@
                                             }];
     
     return self;
+}
+
+- (void)signUp
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dob = [formatter stringFromDate:[NSDate date]];
+    
+    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",
+                              password, @"password",
+                              firstName, @"first_name",
+                              lastName, @"last_name",
+                              dob, @"dob",
+                              @(1), @"gender",
+                              nil];
+    NSDictionary *signupParams = [NSDictionary dictionaryWithObject:userData forKey:@"user"];
+    [manager POST:@"http://localhost:3000/signup.json"
+       parameters:signupParams
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              // Registered, store user token
+              NSLog(@"Register success");
+              NSLog(@"%@", responseObject);
+              NSString *userToken = [responseObject objectForKey:@"user_token"];
+              if (userToken) {
+                  [[GSKeychain systemKeychain] setSecret:userToken forKey:@"user_token"];
+                  [[GSKeychain systemKeychain] setSecret:email forKey:@"user_email"];
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"Failure");
+              NSLog(@"%@", error);
+          }
+     ];
 }
 
 @end
