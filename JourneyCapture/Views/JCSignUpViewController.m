@@ -50,7 +50,7 @@
                                                                              action:nil];
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [self.viewModel signUp];
+            [self.viewModel signup];
             [subscriber sendCompleted];
             return nil;
         }];

@@ -35,7 +35,7 @@
     return self;
 }
 
-- (void)signUp
+- (void)signup
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
