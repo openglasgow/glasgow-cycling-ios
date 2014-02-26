@@ -18,15 +18,6 @@
 @synthesize viewModel;
 @synthesize signupView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)init
 {
     self = [super init];
@@ -41,6 +32,8 @@
 {
     NSLog(@"Loading view");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+
     // Nav bar
     [[self navigationItem] setTitle:@"Sign Up"];
     
@@ -49,11 +42,8 @@
                                                                              target:nil
                                                                              action:nil];
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [self.viewModel signup];
-            [subscriber sendCompleted];
-            return nil;
-        }];
+        [self.viewModel signup];
+        return [RACSignal empty];
     }];
     
     // Form

@@ -7,7 +7,7 @@
 //
 
 #import "JCAppDelegate.h"
-#import "JCSignupViewController.h"
+#import "JCWelcomeViewController.h"
 
 @implementation JCAppDelegate
 
@@ -19,8 +19,8 @@
     [self.window makeKeyAndVisible];
     
     // TODO unless logged in
-    JCSignUpViewController *signupController = [[JCSignUpViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:signupController];
+    JCWelcomeViewController *welcomeController = [[JCWelcomeViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:welcomeController];
     [self.window setRootViewController:navController];
     return YES;
 }
