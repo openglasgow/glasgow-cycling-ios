@@ -9,6 +9,7 @@
 #import "JCUserViewController.h"
 #import "JCUserViewModel.h"
 #import "JCUserView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface JCUserViewController ()
 
@@ -46,34 +47,60 @@
     }];
     
     // Route buttons
+    UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
+    
     self.myRoutesButton = [[UIButton alloc] init];
     [self.myRoutesButton setTitle:@"My Routes" forState:UIControlStateNormal];
-    [self.myRoutesButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+    [self.myRoutesButton setBackgroundColor:buttonColor];
+    self.myRoutesButton.layer.cornerRadius = 8.0f;
     [self.view addSubview:self.myRoutesButton];
     
     [self.myRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(detailsView.mas_bottom).with.offset(15);
         make.centerX.equalTo(self.view.mas_centerX);
+        make.left.equalTo(self.view.mas_left).with.offset(30);
+        make.left.equalTo(self.view.mas_right).with.offset(-30);
+        make.height.equalTo(@(45));
     }];
     
     self.nearbyRoutesButton = [[UIButton alloc] init];
     [self.nearbyRoutesButton setTitle:@"Nearby Routes" forState:UIControlStateNormal];
-    [self.nearbyRoutesButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+    [self.nearbyRoutesButton setBackgroundColor:buttonColor];
+    self.nearbyRoutesButton.layer.cornerRadius = 8.0f;
     [self.view addSubview:self.nearbyRoutesButton];
     
     [self.nearbyRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.myRoutesButton.mas_bottom).with.offset(15);
         make.centerX.equalTo(self.view.mas_centerX);
+        make.left.equalTo(self.view.mas_left).with.offset(30);
+        make.left.equalTo(self.view.mas_right).with.offset(-30);
+        make.height.equalTo(@(45));
     }];
     
     self.createRouteButton = [[UIButton alloc] init];
     [self.createRouteButton setTitle:@"Create Route" forState:UIControlStateNormal];
-    [self.createRouteButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+    [self.createRouteButton setBackgroundColor:buttonColor];
+    self.createRouteButton.layer.cornerRadius = 8.0f;
     [self.view addSubview:self.createRouteButton];
     
     [self.createRouteButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nearbyRoutesButton.mas_bottom).with.offset(15);
         make.centerX.equalTo(self.view.mas_centerX);
+        make.left.equalTo(self.view.mas_left).with.offset(30);
+        make.left.equalTo(self.view.mas_right).with.offset(-30);
+        make.bottom.lessThanOrEqualTo(self.view.mas_bottom).with.offset(-15).with.priorityHigh();
+        make.height.equalTo(@(90)).with.priorityLow();
+    }];
+    
+    // Background map image view
+    UIImage *mapImage = [UIImage imageNamed:@"map"];
+    self.mapImageView = [[UIImageView alloc] initWithImage:mapImage];
+    [self.view insertSubview:self.mapImageView belowSubview:detailsView];
+    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top);
+        make.height.equalTo(@(257.5)); // TODO dynamic - FIX issue with this moving firstNameField
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
     }];
     
     [[self navigationItem] setTitle:self.viewModel.firstName];

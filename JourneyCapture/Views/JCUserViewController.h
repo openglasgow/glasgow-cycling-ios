@@ -11,6 +11,7 @@
 
 @interface JCUserViewController : UIViewController
 @property (strong, nonatomic) JCUserViewModel *viewModel;
+@property (strong, nonatomic) UIImageView *mapImageView;
 @property (strong, nonatomic) UIButton *myRoutesButton;
 @property (strong, nonatomic) UIButton *nearbyRoutesButton;
 @property (strong, nonatomic) UIButton *createRouteButton;

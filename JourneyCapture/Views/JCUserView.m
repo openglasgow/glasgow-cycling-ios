@@ -8,6 +8,7 @@
 
 #import "JCUserView.h"
 #import "JCUserViewModel.h"
+//#import <QuartzCore/QuartzCore.h>
 
 @implementation JCUserView
 @synthesize viewModel;
@@ -22,7 +23,8 @@
         return nil;
     }
     self.viewModel = userViewModel;
-    [self setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.5]];
+    [self setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.85]];
+//    self.layer.cornerRadius = 0.8f;
     int padding = 12;
 
     // Name
@@ -39,7 +41,7 @@
     [self addSubview:self.lastNameLabel];
 
     [self.firstNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(padding);
+        make.top.equalTo(self.mas_top).with.offset(padding);
         make.left.equalTo(self.mas_left).with.offset(padding);
     }];
 
