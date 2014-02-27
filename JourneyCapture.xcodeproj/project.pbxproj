@@ -22,6 +22,9 @@
 		831EDB6D18BCBB34001468E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 831EDB6B18BCBB34001468E4 /* InfoPlist.strings */; };
 		831EDB6F18BCBB34001468E4 /* JourneyCaptureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 831EDB6E18BCBB34001468E4 /* JourneyCaptureTests.m */; };
 		8328838718BCF805001EDB87 /* JCSignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83560C4E18BCE146004CE63C /* JCSignupViewModel.m */; };
+		8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8341421118BF55B70020CF97 /* JCUserViewController.m */; };
+		8341421518BF55C20020CF97 /* JCUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8341421418BF55C20020CF97 /* JCUserView.m */; };
+		8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8341421718BF55E80020CF97 /* JCUserViewModel.m */; };
 		83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83560C4E18BCE146004CE63C /* JCSignupViewModel.m */; };
 		837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B15A518BDF31F000EEFAB /* JCSignupView.m */; };
 		837B15A818BE023B000EEFAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B15A718BE023B000EEFAB /* QuartzCore.framework */; };
@@ -63,6 +66,12 @@
 		831EDB6A18BCBB34001468E4 /* JourneyCaptureTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JourneyCaptureTests-Info.plist"; sourceTree = "<group>"; };
 		831EDB6C18BCBB34001468E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		831EDB6E18BCBB34001468E4 /* JourneyCaptureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JourneyCaptureTests.m; sourceTree = "<group>"; };
+		8341421018BF55B70020CF97 /* JCUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUserViewController.h; sourceTree = "<group>"; };
+		8341421118BF55B70020CF97 /* JCUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCUserViewController.m; sourceTree = "<group>"; };
+		8341421318BF55C20020CF97 /* JCUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUserView.h; sourceTree = "<group>"; };
+		8341421418BF55C20020CF97 /* JCUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCUserView.m; sourceTree = "<group>"; };
+		8341421618BF55E80020CF97 /* JCUserViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUserViewModel.h; sourceTree = "<group>"; };
+		8341421718BF55E80020CF97 /* JCUserViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCUserViewModel.m; sourceTree = "<group>"; };
 		83560C4D18BCE146004CE63C /* JCSignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewModel.h; sourceTree = "<group>"; };
 		83560C4E18BCE146004CE63C /* JCSignupViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupViewModel.m; sourceTree = "<group>"; };
 		837B15A418BDF31F000EEFAB /* JCSignupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupView.h; sourceTree = "<group>"; };
@@ -177,6 +186,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8341420E18BF55A30020CF97 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8341421618BF55E80020CF97 /* JCUserViewModel.h */,
+				8341421718BF55E80020CF97 /* JCUserViewModel.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		8341420F18BF55A90020CF97 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8341421318BF55C20020CF97 /* JCUserView.h */,
+				8341421418BF55C20020CF97 /* JCUserView.m */,
+				8341421018BF55B70020CF97 /* JCUserViewController.h */,
+				8341421118BF55B70020CF97 /* JCUserViewController.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
 		834663A418BE332C0056F692 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +263,7 @@
 		838C16D818BCBBEB0053BFB1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				8341420E18BF55A30020CF97 /* User */,
 				83BA021B18BE3E5600EE7787 /* Signin */,
 				834663A518BE33360056F692 /* Signup */,
 			);
@@ -243,6 +273,7 @@
 		838C16D918BCBBEB0053BFB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8341420F18BF55A90020CF97 /* User */,
 				83BA021D18BE3E6F00EE7787 /* Welcome */,
 				83BA021E18BE3E7300EE7787 /* Signin */,
 				834663A418BE332C0056F692 /* Signup */,
@@ -418,10 +449,13 @@
 				83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */,
 				837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */,
 				831EDB5618BCBB33001468E4 /* main.m in Sources */,
+				8341421518BF55C20020CF97 /* JCUserView.m in Sources */,
 				83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */,
+				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
 				83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */,
 				83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */,
+				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

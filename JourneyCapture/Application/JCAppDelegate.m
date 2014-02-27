@@ -8,6 +8,8 @@
 
 #import "JCAppDelegate.h"
 #import "JCWelcomeViewController.h"
+#import "JCUserViewController.h"
+#import <GSKeychain/GSKeychain.h>
 
 @implementation JCAppDelegate
 
@@ -18,9 +20,14 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    // TODO unless logged in
-    JCWelcomeViewController *welcomeController = [[JCWelcomeViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:welcomeController];
+    BOOL loggedIn = [[GSKeychain systemKeychain] secretForKey:@"user_token"] != nil;
+    UIViewController *rootController;
+    if (loggedIn) {
+        rootController = [[JCUserViewController alloc] init];
+    } else {
+        rootController = [[JCWelcomeViewController alloc] init];
+    }
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootController];
     [self.window setRootViewController:navController];
     return YES;
 }

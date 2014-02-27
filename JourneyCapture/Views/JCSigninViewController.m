@@ -9,6 +9,7 @@
 #import "JCSigninViewController.h"
 #import "JCSigninView.h"
 #import "JCSigninViewModel.h"
+#import "JCUserViewController.h"
 
 @interface JCSigninViewController ()
 
@@ -47,6 +48,8 @@
             NSLog(@"Login::error");
         } completed:^{
             NSLog(@"Login::completed");
+            JCUserViewController *userController = [[JCUserViewController alloc] init];
+            [self.navigationController pushViewController:userController animated:YES];
         }];
         return [RACSignal empty];
     }];
