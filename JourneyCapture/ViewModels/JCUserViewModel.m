@@ -21,7 +21,7 @@
     self.favouriteRouteName = @"London Rd to Hope St";
     self.routesThisMonth = @(13);
     self.secondsThisMonth = @(51120);
-    self.metersThisMonth = @(36);
+    self.metersThisMonth = @(36000);
     return self;
 }
 @end

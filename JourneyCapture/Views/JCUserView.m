@@ -138,14 +138,17 @@
 
     self.timeThisMonthLabel = [[UILabel alloc] init];
     [self.timeThisMonthLabel setFont:statsFont];
-    NSString *secondsThisMonth = [NSString stringWithFormat:@"%@ seconds this month", self.viewModel.secondsThisMonth];
+    int seconds = [self.viewModel.secondsThisMonth intValue];
+    int hours = seconds / 3600;
+    int minutes = (seconds - (hours * 3600)) / 60;
+    NSString *secondsThisMonth = [NSString stringWithFormat:@"%d:%2d hours this month", hours, minutes];
     [self.timeThisMonthLabel setText:secondsThisMonth];
     [self addSubview:self.timeThisMonthLabel];
 
     self.distanceThisMonthLabel = [[UILabel alloc] init];
     [self.distanceThisMonthLabel setFont:statsFont];
-    NSString *distanceThisMonth = [NSString stringWithFormat:@"%@m travelled this month",
-                                   self.viewModel.metersThisMonth];
+    NSString *distanceThisMonth = [NSString stringWithFormat:@"%@km travelled this month",
+                                   @(self.viewModel.metersThisMonth.intValue / 1000)];
     [self.distanceThisMonthLabel setText:distanceThisMonth];
     [self addSubview:self.distanceThisMonthLabel];
 
