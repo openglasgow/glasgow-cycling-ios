@@ -11,7 +11,8 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCSignupViewModel
-@synthesize email, password, firstName, lastName, isValidDetails;
+@synthesize email, password, firstName, lastName;
+@synthesize isValidDetails;
 
 - (id)init
 {
@@ -62,7 +63,7 @@
                   [[GSKeychain systemKeychain] setSecret:email forKey:@"user_email"];
               }
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Failure");
+              NSLog(@"Signin failure");
               NSLog(@"%@", error);
           }
      ];

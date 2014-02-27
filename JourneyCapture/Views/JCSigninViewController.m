@@ -1,59 +1,63 @@
 //
-//  JCSignupViewController.m
+//  JCSigninViewController.m
 //  JourneyCapture
 //
-//  Created by Chris Sloey on 25/02/2014.
+//  Created by Chris Sloey on 26/02/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "JCSignupViewController.h"
-#import "JCSignupViewModel.h"
-#import "JCSignupView.h"
+#import "JCSigninViewController.h"
+#import "JCSigninView.h"
+#import "JCSigninViewModel.h"
 
-@interface JCSignupViewController ()
+@interface JCSigninViewController ()
 
 @end
 
-@implementation JCSignupViewController
+@implementation JCSigninViewController
 @synthesize viewModel;
-@synthesize signupView;
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.viewModel = [[JCSignupViewModel alloc] init];
-        NSLog(@"Init signup controller");
+        self.viewModel = [[JCSigninViewModel alloc] init];
     }
     return self;
 }
 
-- (void)loadView
+-(void)loadView
 {
-    NSLog(@"Loading view");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-
-    // Nav bar
-    [[self navigationItem] setTitle:@"Sign Up"];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Up"
+    // Nav bar
+    [[self navigationItem] setTitle:@"Sign In"];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign In"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:nil
                                                                              action:nil];
     RAC(self, navigationItem.rightBarButtonItem.enabled) = self.viewModel.isValidDetails;
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [self.viewModel signup];
+        RACSignal *signinSignal = [self.viewModel signin];
+        [signinSignal subscribeNext:^(id x) {
+            NSLog(@"Login::next");
+        } error:^(NSError *error) {
+            NSLog(@"Login::error");
+        } completed:^{
+            NSLog(@"Login::completed");
+        }];
         return [RACSignal empty];
     }];
     
     // Form
-    CGRect signupFrame = self.view.frame;
-    signupFrame.origin.y = 74;
-    self.signupView = [[JCSignupView alloc] initWithFrame:signupFrame viewModel:self.viewModel];
-    [self.view addSubview:self.signupView];
+    CGRect signinFrame = self.view.frame;
+    signinFrame.origin.y = 74;
+    UIView *signinView = [[JCSigninView alloc] initWithFrame:signinFrame viewModel:self.viewModel];
+    [self.view addSubview:signinView];
     UIView *superview = self.view;
-    [self.signupView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [signinView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(superview.mas_top).offset(74);
         make.bottom.equalTo(superview.mas_bottom);
         make.left.equalTo(superview).with.offset(10);
@@ -64,7 +68,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"View loaded");
 	// Do any additional setup after loading the view.
 }
 

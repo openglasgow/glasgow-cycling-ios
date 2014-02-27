@@ -8,6 +8,7 @@
 
 #import "JCWelcomeViewController.h"
 #import "JCWelcomeView.h"
+#import "JCSigninViewController.h"
 #import "JCSignupViewController.h"
 
 @interface JCWelcomeViewController ()
@@ -45,6 +46,13 @@
     
     
     // Actions
+    welcomeView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        NSLog(@"Signin tapped");
+        JCSigninViewController *signinController = [[JCSigninViewController alloc] init];
+        [self.navigationController pushViewController:signinController animated:YES];
+        return [RACSignal empty];
+    }];
+    
     welcomeView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signup tapped");
         JCSignupViewController *signupController = [[JCSignupViewController alloc] init];
