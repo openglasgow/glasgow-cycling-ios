@@ -8,7 +8,10 @@
 
 #import "JCUserViewController.h"
 #import "JCUserViewModel.h"
+
 #import "JCRoutesViewController.h"
+#import "JCRoutesListViewModel.h"
+
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -47,9 +50,10 @@
         make.bottom.equalTo(detailsView.distanceThisMonthView.mas_bottom).with.offset(15);
     }];
     
-    // Route buttons
+    // Buttons
     UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
     
+    // My routes button
     self.myRoutesButton = [[UIButton alloc] init];
     [self.myRoutesButton setTitle:@"My Routes" forState:UIControlStateNormal];
     [self.myRoutesButton setBackgroundColor:buttonColor];
@@ -65,11 +69,14 @@
     }];
     
     self.myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] init];
+        JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
+        [routesViewModel setTitle:@"My Routes"];
+        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
         [self.navigationController pushViewController:routesController animated:YES];
         return [RACSignal empty];
     }];
     
+    // Nearby routes button
     self.nearbyRoutesButton = [[UIButton alloc] init];
     [self.nearbyRoutesButton setTitle:@"Nearby Routes" forState:UIControlStateNormal];
     [self.nearbyRoutesButton setBackgroundColor:buttonColor];
@@ -84,6 +91,14 @@
         make.height.equalTo(@(45));
     }];
     
+    self.nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
+        [routesViewModel setTitle:@"Nearby Routes"];
+        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
+        [self.navigationController pushViewController:routesController animated:YES];
+        return [RACSignal empty];
+    }];
+    
     //FIX height breaks on transition
     self.createRouteButton = [[UIButton alloc] init];
     [self.createRouteButton setTitle:@"Create Route" forState:UIControlStateNormal];
@@ -96,8 +111,7 @@
         make.centerX.equalTo(self.view.mas_centerX);
         make.left.equalTo(self.view.mas_left).with.offset(30);
         make.left.equalTo(self.view.mas_right).with.offset(-30);
-        make.bottom.lessThanOrEqualTo(self.view.mas_bottom).with.offset(-15).with.priorityHigh();
-        make.height.equalTo(@(90)).with.priorityLow();
+        make.height.equalTo(@(80));
     }];
     
     // Background map image view

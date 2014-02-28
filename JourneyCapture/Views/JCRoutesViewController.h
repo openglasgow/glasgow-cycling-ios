@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JCRoutesListViewModel;
 
-@interface JCRoutesViewController : UIViewController
+@interface JCRoutesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@property (strong, nonatomic) JCRoutesListViewModel *viewModel;
 
+- (id)initWithViewModel:(JCRoutesListViewModel *)routesViewModel;
 @end
