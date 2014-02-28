@@ -44,8 +44,8 @@
     [self.view addSubview:detailsView];
     int navBarHeight = self.navigationController.navigationBar.frame.size.height;
     [detailsView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).with.offset(15);
-        make.right.equalTo(self.view.mas_right).with.offset(-15);
+        make.left.equalTo(self.view.mas_left).with.offset(22);
+        make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // Extra 20 for status bar
         make.bottom.equalTo(detailsView.distanceThisMonthView.mas_bottom).with.offset(15);
     }];
@@ -63,8 +63,8 @@
     [self.myRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(detailsView.mas_bottom).with.offset(15);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.left.equalTo(self.view.mas_left).with.offset(30);
-        make.left.equalTo(self.view.mas_right).with.offset(-30);
+        make.left.equalTo(self.view.mas_left).with.offset(22);
+        make.left.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(45));
     }];
     
@@ -86,8 +86,8 @@
     [self.nearbyRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.myRoutesButton.mas_bottom).with.offset(15);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.left.equalTo(self.view.mas_left).with.offset(30);
-        make.left.equalTo(self.view.mas_right).with.offset(-30);
+        make.left.equalTo(self.view.mas_left).with.offset(22);
+        make.left.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(45));
     }];
     
@@ -109,8 +109,8 @@
     [self.createRouteButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nearbyRoutesButton.mas_bottom).with.offset(15);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.left.equalTo(self.view.mas_left).with.offset(30);
-        make.left.equalTo(self.view.mas_right).with.offset(-30);
+        make.left.equalTo(self.view.mas_left).with.offset(22);
+        make.left.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(80));
     }];
     

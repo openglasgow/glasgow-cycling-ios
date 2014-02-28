@@ -8,7 +8,7 @@
 
 #import "JCUserView.h"
 #import "JCUserViewModel.h"
-//#import <QuartzCore/QuartzCore.h>
+#import <QuartzCore/QuartzCore.h>
 
 @implementation JCUserView
 @synthesize viewModel;
@@ -24,7 +24,8 @@
     }
     self.viewModel = userViewModel;
     [self setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.85]];
-//    self.layer.cornerRadius = 0.8f;
+    self.layer.masksToBounds = YES;
+    self.layer.cornerRadius = 8.0f;
     int padding = 12;
 
     // Name
@@ -51,7 +52,7 @@
     }];
 
     // Profile
-    UIImage *profileImage = [UIImage imageNamed:@"clock-50"];
+    UIImage *profileImage = [UIImage imageNamed:@"profile-pic"];
     self.profileImageView = [[UIImageView alloc] initWithImage:profileImage];
     [self addSubview:self.profileImageView];
 
@@ -64,8 +65,11 @@
 
     // Settings
     self.settingsButton = [[UIButton alloc] init];
-    [self.settingsButton setTitle:@"S" forState:UIControlStateNormal];
+    UIImage *settingsImage = [UIImage imageNamed:@"gear-button"];
+    [self.settingsButton setBackgroundImage:settingsImage forState:UIControlStateNormal];
     [self.settingsButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    self.settingsButton.layer.masksToBounds = YES;
+    self.settingsButton.layer.cornerRadius = 8.0f;
     [self addSubview:self.settingsButton];
 
     [self.settingsButton mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -9,6 +9,7 @@
 #import "JCRoutesViewController.h"
 #import "JCRouteCell.h"
 #import "JCRoutesListViewModel.h"
+#import "JCRouteViewController.h"
 
 @interface JCRoutesViewController ()
 
@@ -75,6 +76,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 160.0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    JCRouteViewModel *routeModel = self.viewModel.routes[indexPath.row];
+    JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeModel];
+    [self.navigationController pushViewController:routeController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

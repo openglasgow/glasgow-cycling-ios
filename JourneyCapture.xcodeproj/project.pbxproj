@@ -30,6 +30,8 @@
 		83B3484F18C09EFF00D59FB9 /* JCRouteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3484E18C09EFF00D59FB9 /* JCRouteCell.m */; };
 		83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */; };
 		83B3485518C0A7F100D59FB9 /* JCRouteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485418C0A7F100D59FB9 /* JCRouteViewModel.m */; };
+		83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */; };
+		83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */; };
 		83B5DECB18BFA3130032F7E1 /* JCRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DECA18BFA3130032F7E1 /* JCRoutesViewController.m */; };
 		83BA022118BE3E8E00EE7787 /* JCWelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022018BE3E8E00EE7787 /* JCWelcomeView.m */; };
 		83BA022418BE3E9F00EE7787 /* JCWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022318BE3E9F00EE7787 /* JCWelcomeViewController.m */; };
@@ -86,6 +88,10 @@
 		83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRoutesListViewModel.m; sourceTree = "<group>"; };
 		83B3485318C0A7F100D59FB9 /* JCRouteViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteViewModel.h; sourceTree = "<group>"; };
 		83B3485418C0A7F100D59FB9 /* JCRouteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteViewModel.m; sourceTree = "<group>"; };
+		83B3485718C0BCFC00D59FB9 /* JCRouteSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteSummaryView.h; sourceTree = "<group>"; };
+		83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteSummaryView.m; sourceTree = "<group>"; };
+		83B3485A18C0BD1F00D59FB9 /* JCRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteViewController.h; sourceTree = "<group>"; };
+		83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteViewController.m; sourceTree = "<group>"; };
 		83B5DEC918BFA3130032F7E1 /* JCRoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRoutesViewController.h; sourceTree = "<group>"; };
 		83B5DECA18BFA3130032F7E1 /* JCRoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRoutesViewController.m; sourceTree = "<group>"; };
 		83BA021F18BE3E8E00EE7787 /* JCWelcomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCWelcomeView.h; sourceTree = "<group>"; };
@@ -289,8 +295,20 @@
 				834663A418BE332C0056F692 /* Signup */,
 				8341420F18BF55A90020CF97 /* User */,
 				83B5DEC418BFA1F10032F7E1 /* Routes List */,
+				83B3485618C0BCD100D59FB9 /* Route */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		83B3485618C0BCD100D59FB9 /* Route */ = {
+			isa = PBXGroup;
+			children = (
+				83B3485718C0BCFC00D59FB9 /* JCRouteSummaryView.h */,
+				83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */,
+				83B3485A18C0BD1F00D59FB9 /* JCRouteViewController.h */,
+				83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */,
+			);
+			name = Route;
 			sourceTree = "<group>";
 		};
 		83B5DEC418BFA1F10032F7E1 /* Routes List */ = {
@@ -492,8 +510,10 @@
 				83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */,
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				83B3485518C0A7F100D59FB9 /* JCRouteViewModel.m in Sources */,
+				83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
 				83B3484F18C09EFF00D59FB9 /* JCRouteCell.m in Sources */,
+				83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */,
 				83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */,
 				83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */,
 				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,

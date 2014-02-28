@@ -8,6 +8,7 @@
 
 #import "JCRouteCell.h"
 #import "JCRouteViewModel.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation JCRouteCell
 @synthesize nameLabel, safetyRatingLabel, safetyRatingView, lastUsedLabel, lastUsedView,
@@ -36,6 +37,8 @@
     }];
     
     [self.contentView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.8]];
+    self.contentView.layer.masksToBounds = YES;
+    self.contentView.layer.cornerRadius = 8.0f;
     
     // Name
     UIFont *nameFont = [UIFont fontWithName:@"Helvetica Neue"
@@ -92,7 +95,7 @@
     
     // Details labels
     UIFont *detailsFont = [UIFont fontWithName:@"Helvetica Neue"
-                                          size:14.0];
+                                        size:12.0];
     self.safetyRatingLabel = [[UILabel alloc] init];
     [self.safetyRatingLabel setFont:detailsFont];
     [self.safetyRatingLabel setText:self.viewModel.safetyRating];
