@@ -41,7 +41,7 @@
     NSDictionary *userParams = [NSDictionary dictionaryWithObject:signinParams forKey:@"user"];
     
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager GET:@"http://localhost:3000/signin.json"
+        AFHTTPRequestOperation *op = [manager GET:@"http://188.226.184.33/signin.json"
           parameters:userParams
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  // Registered, store user token

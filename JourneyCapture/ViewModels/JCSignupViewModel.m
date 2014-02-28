@@ -51,7 +51,7 @@
                               @(1), @"gender",
                               nil];
     NSDictionary *signupParams = [NSDictionary dictionaryWithObject:userData forKey:@"user"];
-    [manager POST:@"http://localhost:3000/signup.json"
+    [manager POST:@"http://188.226.184.33/signup.json"
        parameters:signupParams
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               // Registered, store user token

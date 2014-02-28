@@ -39,14 +39,14 @@
     
     // Name
     UIFont *nameFont = [UIFont fontWithName:@"Helvetica Neue"
-                                       size:17.0];
+                                       size:20.0];
     self.nameLabel = [[UILabel alloc] init];
     [self.nameLabel setFont:nameFont];
     [self.nameLabel setText:self.viewModel.name];
     [self.contentView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).with.offset(15);
-        make.top.equalTo(self.contentView.mas_top).with.offset(10);
+        make.top.equalTo(self.contentView.mas_top).with.offset(12);
     }];
     
     // Details images
@@ -54,7 +54,7 @@
     self.safetyRatingView = [[UIImageView alloc] initWithImage:safetyImage];
     [self.contentView addSubview:self.safetyRatingView];
     [self.safetyRatingView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameLabel.mas_bottom).with.offset(5);
+        make.top.equalTo(self.nameLabel.mas_bottom).with.offset(10);
         make.left.equalTo(self.nameLabel.mas_left);
         make.width.equalTo(@(12));
         make.height.equalTo(@(12));
@@ -64,7 +64,7 @@
     self.lastUsedView = [[UIImageView alloc] initWithImage:lastUsedImage];
     [self.contentView addSubview:self.lastUsedView];
     [self.lastUsedView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.safetyRatingView.mas_bottom).with.offset(5);
+        make.top.equalTo(self.safetyRatingView.mas_bottom).with.offset(10);
         make.left.equalTo(self.nameLabel.mas_left);
         make.width.equalTo(@(12));
         make.height.equalTo(@(12));
@@ -74,7 +74,7 @@
     self.estimatedTimeView = [[UIImageView alloc] initWithImage:estimatedTimeImage];
     [self.contentView addSubview:self.estimatedTimeView];
     [self.estimatedTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lastUsedView.mas_bottom).with.offset(5);
+        make.top.equalTo(self.lastUsedView.mas_bottom).with.offset(10);
         make.left.equalTo(self.nameLabel.mas_left);
         make.width.equalTo(@(12));
         make.height.equalTo(@(12));
@@ -84,7 +84,7 @@
     self.distanceView = [[UIImageView alloc] initWithImage:distanceImage];
     [self.contentView addSubview:self.distanceView];
     [self.distanceView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.estimatedTimeView.mas_bottom).with.offset(5);
+        make.top.equalTo(self.estimatedTimeView.mas_bottom).with.offset(10);
         make.left.equalTo(self.nameLabel.mas_left);
         make.width.equalTo(@(12));
         make.height.equalTo(@(12));
@@ -92,7 +92,7 @@
     
     // Details labels
     UIFont *detailsFont = [UIFont fontWithName:@"Helvetica Neue"
-                                          size:11.0];
+                                          size:14.0];
     self.safetyRatingLabel = [[UILabel alloc] init];
     [self.safetyRatingLabel setFont:detailsFont];
     [self.safetyRatingLabel setText:self.viewModel.safetyRating];
