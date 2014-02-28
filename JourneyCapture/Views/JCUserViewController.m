@@ -8,6 +8,7 @@
 
 #import "JCUserViewController.h"
 #import "JCUserViewModel.h"
+#import "JCRoutesViewController.h"
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -63,6 +64,12 @@
         make.height.equalTo(@(45));
     }];
     
+    self.myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] init];
+        [self.navigationController pushViewController:routesController animated:YES];
+        return [RACSignal empty];
+    }];
+    
     self.nearbyRoutesButton = [[UIButton alloc] init];
     [self.nearbyRoutesButton setTitle:@"Nearby Routes" forState:UIControlStateNormal];
     [self.nearbyRoutesButton setBackgroundColor:buttonColor];
@@ -77,6 +84,7 @@
         make.height.equalTo(@(45));
     }];
     
+    //FIX height breaks on transition
     self.createRouteButton = [[UIButton alloc] init];
     [self.createRouteButton setTitle:@"Create Route" forState:UIControlStateNormal];
     [self.createRouteButton setBackgroundColor:buttonColor];
