@@ -62,9 +62,8 @@
     
     [self.myRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(detailsView.mas_bottom).with.offset(15);
-        make.centerX.equalTo(self.view.mas_centerX);
         make.left.equalTo(self.view.mas_left).with.offset(22);
-        make.left.equalTo(self.view.mas_right).with.offset(-22);
+        make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(45));
     }];
     
@@ -85,9 +84,8 @@
     
     [self.nearbyRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.myRoutesButton.mas_bottom).with.offset(15);
-        make.centerX.equalTo(self.view.mas_centerX);
         make.left.equalTo(self.view.mas_left).with.offset(22);
-        make.left.equalTo(self.view.mas_right).with.offset(-22);
+        make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(45));
     }];
     
@@ -108,9 +106,8 @@
     
     [self.createRouteButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nearbyRoutesButton.mas_bottom).with.offset(15);
-        make.centerX.equalTo(self.view.mas_centerX);
         make.left.equalTo(self.view.mas_left).with.offset(22);
-        make.left.equalTo(self.view.mas_right).with.offset(-22);
+        make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(80));
     }];
     
