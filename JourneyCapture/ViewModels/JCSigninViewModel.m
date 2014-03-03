@@ -7,7 +7,7 @@
 //
 
 #import "JCSigninViewModel.h"
-#import <AFNetworking/AFNetworking.h>
+#import "JCAPIManager.h"
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCSigninViewModel
@@ -34,14 +34,14 @@
 -(RACSignal *)signin
 {
     NSLog(@"Sign in");
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    JCAPIManager *manager = [JCAPIManager manager];
     NSDictionary *signinParams = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",
                                   password, @"password",
                                   nil];
     NSDictionary *userParams = [NSDictionary dictionaryWithObject:signinParams forKey:@"user"];
     
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager GET:@"http://188.226.184.33/signin.json"
+        AFHTTPRequestOperation *op = [manager GET:@"/signin.json"
           parameters:userParams
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  // Registered, store user token

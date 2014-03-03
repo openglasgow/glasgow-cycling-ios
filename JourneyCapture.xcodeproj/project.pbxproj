@@ -38,6 +38,8 @@
 		83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022618BE474D00EE7787 /* JCSigninViewController.m */; };
 		83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022C18BE477700EE7787 /* JCSigninViewModel.m */; };
 		83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022F18BE482B00EE7787 /* JCSigninView.m */; };
+		83F811E118C49E860010B1CD /* JCJourneyModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83F811DF18C49E860010B1CD /* JCJourneyModel.xcdatamodeld */; };
+		83F811E418C4C1470010B1CD /* JCAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F811E318C4C1470010B1CD /* JCAPIManager.m */; };
 		EA1572DE908A4ADA8D403842 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E8303FB46D4087967CEECE /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +106,9 @@
 		83BA022C18BE477700EE7787 /* JCSigninViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninViewModel.m; sourceTree = "<group>"; };
 		83BA022E18BE482B00EE7787 /* JCSigninView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSigninView.h; sourceTree = "<group>"; };
 		83BA022F18BE482B00EE7787 /* JCSigninView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninView.m; sourceTree = "<group>"; };
+		83F811E018C49E860010B1CD /* JCJourneyModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JCJourneyModel.xcdatamodel; sourceTree = "<group>"; };
+		83F811E218C4C1470010B1CD /* JCAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAPIManager.h; sourceTree = "<group>"; };
+		83F811E318C4C1470010B1CD /* JCAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAPIManager.m; sourceTree = "<group>"; };
 		B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B9F63CCEB7BE445CAC45BA08 /* libPods-JourneyCapture.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JourneyCapture.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFAE2B91575B49EFA76C55F4 /* Pods-JourneyCapture.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JourneyCapture.xcconfig"; path = "Pods/Pods-JourneyCapture.xcconfig"; sourceTree = "<group>"; };
@@ -254,6 +259,8 @@
 		838C16D518BCBBEB0053BFB1 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				83F811E218C4C1470010B1CD /* JCAPIManager.h */,
+				83F811E318C4C1470010B1CD /* JCAPIManager.m */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -261,6 +268,7 @@
 		838C16D618BCBBEB0053BFB1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				83F811DF18C49E860010B1CD /* JCJourneyModel.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -498,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83F811E418C4C1470010B1CD /* JCAPIManager.m in Sources */,
 				83BA022118BE3E8E00EE7787 /* JCWelcomeView.m in Sources */,
 				830C31CE18BCDF4800B7CC47 /* JCSignupViewController.m in Sources */,
 				83BA022418BE3E9F00EE7787 /* JCWelcomeViewController.m in Sources */,
@@ -515,6 +524,7 @@
 				83B3484F18C09EFF00D59FB9 /* JCRouteCell.m in Sources */,
 				83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */,
 				83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */,
+				83F811E118C49E860010B1CD /* JCJourneyModel.xcdatamodeld in Sources */,
 				83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */,
 				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,
 			);
@@ -739,6 +749,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		83F811DF18C49E860010B1CD /* JCJourneyModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				83F811E018C49E860010B1CD /* JCJourneyModel.xcdatamodel */,
+			);
+			currentVersion = 83F811E018C49E860010B1CD /* JCJourneyModel.xcdatamodel */;
+			path = JCJourneyModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 831EDB3E18BCBB33001468E4 /* Project object */;
 }

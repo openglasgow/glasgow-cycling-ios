@@ -13,4 +13,5 @@
 @property (strong, nonatomic) NSNumber *routesThisMonth;
 @property (strong, nonatomic) NSNumber *secondsThisMonth;
 @property (strong, nonatomic) NSNumber *metersThisMonth;
+-(RACSignal *)loadDetails;
 @end

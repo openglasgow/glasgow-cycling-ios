@@ -7,6 +7,8 @@
 //
 
 #import "JCUserViewModel.h"
+#import "JCAPIManager.h"
+#import <GSKeychain/GSKeychain.h>
 
 @implementation JCUserViewModel
 @synthesize firstName, lastName, favouriteRouteName, routesThisMonth, secondsThisMonth, metersThisMonth;
@@ -24,4 +26,34 @@
     self.metersThisMonth = @(36000);
     return self;
 }
+
+-(RACSignal *)loadDetails
+{
+    NSLog(@"Loading user");
+    JCAPIManager *manager = [JCAPIManager manager];
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        AFHTTPRequestOperation *op = [manager GET:@"/details.json"
+                                       parameters:nil
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                              // Registered, store user token
+                                              NSLog(@"User load success");
+                                              NSLog(@"%@", responseObject);
+                                              [subscriber sendCompleted];
+                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              if ([operation.response statusCode] == 401) {
+                                                  // Unauthorized
+                                                  [[GSKeychain systemKeychain] removeAllSecrets];
+                                              }
+                                              NSLog(@"User load failure");
+                                              NSLog(@"%@", error);
+                                              [subscriber sendError:error];
+                                          }
+                                      ];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [op cancel];
+        }];
+    }];
+}
+
 @end

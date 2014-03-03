@@ -14,6 +14,7 @@
 
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "JCWelcomeViewController.h"
 
 @interface JCUserViewController ()
 
@@ -30,6 +31,15 @@
         return nil;
     }
     self.viewModel = [[JCUserViewModel alloc] init];
+    [[self.viewModel loadDetails] subscribeError:^(NSError *error) {
+        NSLog(@"Failed to load user - returning to welcome");
+        JCWelcomeViewController *welcomeController = [[JCWelcomeViewController alloc] init];
+        NSArray *viewControllerStack = @[welcomeController];
+        [self.navigationController setViewControllers:viewControllerStack];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } completed:^{
+        NSLog(@"User details loaded");
+    }];
     return self;
 }
 

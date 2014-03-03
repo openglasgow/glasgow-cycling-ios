@@ -7,7 +7,7 @@
 //
 
 #import "JCSignupViewModel.h"
-#import <AFNetworking/AFNetworking.h>
+#import "JCAPIManager.h"
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCSignupViewModel
@@ -38,7 +38,7 @@
 
 - (void)signup
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    JCAPIManager *manager = [JCAPIManager manager];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *dob = [formatter stringFromDate:[NSDate date]];
@@ -51,7 +51,7 @@
                               @(1), @"gender",
                               nil];
     NSDictionary *signupParams = [NSDictionary dictionaryWithObject:userData forKey:@"user"];
-    [manager POST:@"http://188.226.184.33/signup.json"
+    [manager POST:@"/signup.json"
        parameters:signupParams
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               // Registered, store user token

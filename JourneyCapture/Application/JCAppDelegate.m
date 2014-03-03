@@ -29,6 +29,9 @@
     }
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootController];
     [self.window setRootViewController:navController];
+    
+    // Core Data
+    [MagicalRecord setupAutoMigratingCoreDataStack];
     return YES;
 }
 

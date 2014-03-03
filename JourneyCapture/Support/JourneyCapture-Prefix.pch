@@ -13,10 +13,17 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+    // Pods
+    #import <ReactiveViewModel/ReactiveViewModel.h>
+    #import <ReactiveCocoa/ReactiveCocoa.h>
+    #import <libextobjc/EXTScope.h>
+    #import <Masonry/Masonry.h>
+    #import <CoreData+MagicalRecord.h>
 #endif
 
-// Pods
-#import <ReactiveViewModel/ReactiveViewModel.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
-#import <libextobjc/EXTScope.h>
-#import <Masonry/Masonry.h>
+#if TARGET_IPHONE_SIMULATOR
+static NSString *const API_URI = @"http://0.0.0.0:3000/";
+#else
+static NSString *const API_URI = @"http://188.226.184.33/";
+#endif
