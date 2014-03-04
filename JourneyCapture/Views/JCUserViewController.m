@@ -57,10 +57,20 @@
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // Extra 20 for status bar
-        make.bottom.greaterThanOrEqualTo(detailsView.distanceThisMonthView.mas_bottom).with.offset(15);
-        make.bottom.greaterThanOrEqualTo(detailsView.settingsButton.mas_bottom).with.offset(15);
+        make.bottom.equalTo(detailsView.settingsButton.mas_bottom).with.offset(15);
     }];
-    
+
+    // Background map image view
+    UIImage *mapImage = [UIImage imageNamed:@"map"];
+    self.mapImageView = [[UIImageView alloc] initWithImage:mapImage];
+    [self.view insertSubview:self.mapImageView belowSubview:detailsView];
+    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top);
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(detailsView.mas_bottom).with.offset(15);
+    }];
+
     // Buttons
     UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
     
@@ -72,7 +82,7 @@
     [self.view addSubview:self.myRoutesButton];
     
     [self.myRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(detailsView.mas_bottom).with.offset(15);
+        make.top.equalTo(self.mapImageView.mas_bottom).with.offset(15);
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(45));
@@ -108,7 +118,6 @@
         return [RACSignal empty];
     }];
     
-    //FIX height breaks on transition
     self.createRouteButton = [[UIButton alloc] init];
     [self.createRouteButton setTitle:@"Create Route" forState:UIControlStateNormal];
     [self.createRouteButton setBackgroundColor:buttonColor];
@@ -121,18 +130,8 @@
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(80));
     }];
-    
-    // Background map image view
-    UIImage *mapImage = [UIImage imageNamed:@"map"];
-    self.mapImageView = [[UIImageView alloc] initWithImage:mapImage];
-    [self.view insertSubview:self.mapImageView belowSubview:detailsView];
-    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top);
-        make.height.equalTo(@(257.5)); // TODO dynamic - FIX issue with this moving firstNameField
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-    }];
-    
+
+    // Nav
     [[self navigationItem] setTitle:self.viewModel.firstName];
 }
 

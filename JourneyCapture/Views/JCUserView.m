@@ -45,11 +45,13 @@
     [self.firstNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).with.offset(padding);
         make.left.equalTo(self.mas_left).with.offset(padding);
+        make.height.equalTo(@(25));
     }];
 
     [self.lastNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.firstNameLabel.mas_top);
         make.left.equalTo(self.firstNameLabel.mas_right).with.offset(5);
+        make.height.equalTo(@(25));
     }];
 
     // Profile
