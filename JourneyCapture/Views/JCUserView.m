@@ -178,7 +178,7 @@
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceThisMonthLabel.text);
     RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.metersThisMonth);
     [[distanceModelChannel map:^(NSNumber *metersThisMonth){
-        return [NSString stringWithFormat:@"%@km travelled this month",
+        return [NSString stringWithFormat:@"%@ km travelled this month",
                 @([metersThisMonth intValue] / 1000)];
     }] subscribe:distanceLabelChannel];
     [self addSubview:self.distanceThisMonthLabel];
