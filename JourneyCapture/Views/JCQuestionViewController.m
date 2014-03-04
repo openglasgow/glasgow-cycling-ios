@@ -62,6 +62,7 @@
 {
     [super viewDidLoad];
     [self.navigationItem setTitle:self.questionModel.title];
+    [self.navigationItem setHidesBackButton:YES];
     [self.tableViewHeight uninstall];
     [self.answersTable mas_updateConstraints:^(MASConstraintMaker *make) {
         self.tableViewHeight = make.height.equalTo(@(self.questionModel.answers.count * 34.0));

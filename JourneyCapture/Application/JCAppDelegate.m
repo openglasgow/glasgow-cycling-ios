@@ -11,10 +11,6 @@
 #import "JCUserViewController.h"
 #import <GSKeychain/GSKeychain.h>
 
-#import "JCQuestionViewController.h"
-#import "JCQuestionViewModel.h"
-#import "JCQuestionListViewModel.h"
-
 @implementation JCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -27,9 +23,7 @@
     BOOL loggedIn = [[GSKeychain systemKeychain] secretForKey:@"user_token"] != nil;
     UIViewController *rootController;
     if (loggedIn) {
-        JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
-
-        rootController = [[JCQuestionViewController alloc] initWithViewModel:questionList questionIndex:0];
+        rootController = [[JCUserViewController alloc] init];
     } else {
         rootController = [[JCWelcomeViewController alloc] init];
     }
