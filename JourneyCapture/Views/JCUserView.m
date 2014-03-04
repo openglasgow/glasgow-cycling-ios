@@ -14,7 +14,8 @@
 @synthesize viewModel;
 @synthesize firstNameLabel, lastNameLabel,
         favouriteRouteView, favouriteRouteLabel, routesThisMonthView, routesThisMonthLabel,
-        timeThisMonthView, timeThisMonthLabel, distanceThisMonthView, distanceThisMonthLabel;
+        timeThisMonthView, timeThisMonthLabel, distanceThisMonthView, distanceThisMonthLabel,
+        routesLabelTop, routesViewTop, favouriteLabelTop, favouriteViewTop;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCUserViewModel *)userViewModel
 {
@@ -88,7 +89,7 @@
     [self addSubview:self.favouriteRouteView];
 
     [self.favouriteRouteView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+        self.favouriteViewTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
         make.left.equalTo(self.profileImageView.mas_right).with.offset(padding);
         make.width.equalTo(imageSize);
         make.height.equalTo(imageSize);
@@ -99,7 +100,7 @@
     [self addSubview:self.favouriteRouteLabel];
 
     [self.favouriteRouteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.favouriteRouteView.mas_top);
+        self.favouriteLabelTop = make.top.equalTo(self.favouriteRouteView.mas_top);
         make.left.equalTo(self.favouriteRouteView.mas_right).with.offset(padding);
     }];
 
@@ -109,7 +110,7 @@
     [self addSubview:self.routesThisMonthView];
 
     [self.routesThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
+        self.routesViewTop = make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
         make.left.equalTo(self.favouriteRouteView.mas_left);
         make.width.equalTo(imageSize);
         make.height.equalTo(imageSize);
@@ -125,7 +126,7 @@
     [self addSubview:self.routesThisMonthLabel];
 
     [self.routesThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.routesThisMonthView.mas_top);
+        self.routesLabelTop = make.top.equalTo(self.routesThisMonthView.mas_top);
         make.left.equalTo(self.favouriteRouteLabel.mas_left);
     }];
 
@@ -195,29 +196,35 @@
             [self.favouriteRouteLabel setHidden:NO];
             [self.favouriteRouteView setHidden:NO];
 
-            [self.favouriteRouteView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+            [self.favouriteViewTop uninstall];
+            [self.favouriteViewTop uninstall];
+            [self.favouriteRouteView mas_updateConstraints:^(MASConstraintMaker *make) {
+                self.favouriteViewTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
             }];
-            [self.favouriteRouteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+            [self.favouriteRouteLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                self.favouriteLabelTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
             }];
 
-            [self.routesThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
+            [self.routesViewTop uninstall];
+            [self.routesLabelTop uninstall];
+            [self.routesThisMonthView mas_updateConstraints:^(MASConstraintMaker *make) {
+                self.routesViewTop = make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
             }];
-            [self.routesThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
+            [self.routesThisMonthLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                self.routesLabelTop = make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
             }];
         } else {
             // Hide favourite route info
             [self.favouriteRouteLabel setHidden:YES];
             [self.favouriteRouteView setHidden:YES];
 
-            [self.routesThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+            [self.routesViewTop uninstall];
+            [self.routesLabelTop uninstall];
+            [self.routesThisMonthView mas_updateConstraints:^(MASConstraintMaker *make) {
+                self.routesViewTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
             }];
-            [self.routesThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+            [self.routesThisMonthLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                self.routesLabelTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
             }];
         }
     }];

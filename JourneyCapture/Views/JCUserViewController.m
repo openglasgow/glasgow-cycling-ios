@@ -57,7 +57,8 @@
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // Extra 20 for status bar
-        make.bottom.equalTo(detailsView.distanceThisMonthView.mas_bottom).with.offset(15);
+        make.bottom.greaterThanOrEqualTo(detailsView.distanceThisMonthView.mas_bottom).with.offset(15);
+        make.bottom.greaterThanOrEqualTo(detailsView.settingsButton.mas_bottom).with.offset(15);
     }];
     
     // Buttons

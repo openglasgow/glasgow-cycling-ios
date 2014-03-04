@@ -27,5 +27,12 @@
 @property (strong, nonatomic) UIImageView *distanceThisMonthView;
 @property (strong, nonatomic) UILabel *distanceThisMonthLabel;
 
+// Stats constraints which need to be updated depending on available data
+@property (strong, nonatomic) MASConstraint *favouriteLabelTop;
+@property (strong, nonatomic) MASConstraint *favouriteViewTop;
+@property (strong, nonatomic) MASConstraint *routesLabelTop;
+@property (strong, nonatomic) MASConstraint *routesViewTop;
+
+
 - (id)initWithFrame:(CGRect)frame viewModel:(JCUserViewModel *)userViewModel;
 @end
