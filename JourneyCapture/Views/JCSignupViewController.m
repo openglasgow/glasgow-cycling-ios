@@ -9,6 +9,7 @@
 #import "JCSignupViewController.h"
 #import "JCSignupViewModel.h"
 #import "JCSignupView.h"
+#import "JCUserViewController.h"
 
 @interface JCSignupViewController ()
 
@@ -43,7 +44,16 @@
                                                                              action:nil];
     RAC(self, navigationItem.rightBarButtonItem.enabled) = self.viewModel.isValidDetails;
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [self.viewModel signup];
+        RACSignal *signupSignal = [self.viewModel signup];
+        [signupSignal subscribeNext:^(id x) {
+            NSLog(@"Signup::next");
+        } error:^(NSError *error) {
+            NSLog(@"Signup::error");
+        } completed:^{
+            NSLog(@"Signup::completed");
+            JCUserViewController *userController = [[JCUserViewController alloc] init];
+            [self.navigationController pushViewController:userController animated:YES];
+        }];
         return [RACSignal empty];
     }];
     
