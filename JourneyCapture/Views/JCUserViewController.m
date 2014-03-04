@@ -132,7 +132,7 @@
     }];
 
     // Nav
-    [[self navigationItem] setTitle:self.viewModel.firstName];
+    [self.navigationItem setTitle:@"Profile"];
 }
 
 - (void)viewDidLoad
