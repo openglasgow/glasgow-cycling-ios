@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8303E2D118C61C5700215760 /* JCQuestionViewModel.m */; };
+		8303E2D518C61E2100215760 /* JCQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8303E2D418C61E2100215760 /* JCQuestionViewController.m */; };
+		8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8303E2D718C62C2300215760 /* JCQuestionListViewModel.m */; };
 		830C31CE18BCDF4800B7CC47 /* JCSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 830C31CD18BCDF4800B7CC47 /* JCSignupViewController.m */; };
 		831EDB4A18BCBB33001468E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831EDB4918BCBB33001468E4 /* Foundation.framework */; };
 		831EDB4C18BCBB33001468E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831EDB4B18BCBB33001468E4 /* CoreGraphics.framework */; };
@@ -56,6 +59,12 @@
 
 /* Begin PBXFileReference section */
 		12E8303FB46D4087967CEECE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8303E2D018C61C5700215760 /* JCQuestionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionViewModel.h; sourceTree = "<group>"; };
+		8303E2D118C61C5700215760 /* JCQuestionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionViewModel.m; sourceTree = "<group>"; };
+		8303E2D318C61E2100215760 /* JCQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionViewController.h; sourceTree = "<group>"; };
+		8303E2D418C61E2100215760 /* JCQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionViewController.m; sourceTree = "<group>"; };
+		8303E2D618C62C2300215760 /* JCQuestionListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionListViewModel.h; sourceTree = "<group>"; };
+		8303E2D718C62C2300215760 /* JCQuestionListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionListViewModel.m; sourceTree = "<group>"; };
 		830C31CC18BCDF4800B7CC47 /* JCSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewController.h; sourceTree = "<group>"; };
 		830C31CD18BCDF4800B7CC47 /* JCSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupViewController.m; sourceTree = "<group>"; };
 		831EDB4618BCBB33001468E4 /* JourneyCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JourneyCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +152,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8303E2CE18C619E900215760 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				8303E2D318C61E2100215760 /* JCQuestionViewController.h */,
+				8303E2D418C61E2100215760 /* JCQuestionViewController.m */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		8303E2CF18C61C4100215760 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				8303E2D618C62C2300215760 /* JCQuestionListViewModel.h */,
+				8303E2D718C62C2300215760 /* JCQuestionListViewModel.m */,
+				8303E2D018C61C5700215760 /* JCQuestionViewModel.h */,
+				8303E2D118C61C5700215760 /* JCQuestionViewModel.m */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
 		831EDB3D18BCBB33001468E4 = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +323,7 @@
 			children = (
 				83BA021B18BE3E5600EE7787 /* Signin */,
 				834663A518BE33360056F692 /* Signup */,
+				8303E2CF18C61C4100215760 /* Onboarding */,
 				8341420E18BF55A30020CF97 /* User */,
 				83B5DEC518BFA2000032F7E1 /* Routes List */,
 			);
@@ -306,6 +336,7 @@
 				83BA021D18BE3E6F00EE7787 /* Welcome */,
 				83BA021E18BE3E7300EE7787 /* Signin */,
 				834663A418BE332C0056F692 /* Signup */,
+				8303E2CE18C619E900215760 /* Onboarding */,
 				8341420F18BF55A90020CF97 /* User */,
 				83B5DEC418BFA1F10032F7E1 /* Routes List */,
 				83B3485618C0BCD100D59FB9 /* Route */,
@@ -512,6 +543,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83F811E418C4C1470010B1CD /* JCAPIManager.m in Sources */,
+				8303E2D518C61E2100215760 /* JCQuestionViewController.m in Sources */,
 				83BA022118BE3E8E00EE7787 /* JCWelcomeView.m in Sources */,
 				830C31CE18BCDF4800B7CC47 /* JCSignupViewController.m in Sources */,
 				83BA022418BE3E9F00EE7787 /* JCWelcomeViewController.m in Sources */,
@@ -525,6 +557,7 @@
 				83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */,
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				83B3485518C0A7F100D59FB9 /* JCRouteViewModel.m in Sources */,
+				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
 				83B3484F18C09EFF00D59FB9 /* JCRouteCell.m in Sources */,
@@ -533,6 +566,7 @@
 				83F811E118C49E860010B1CD /* JCJourneyModel.xcdatamodeld in Sources */,
 				83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */,
 				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,
+				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
