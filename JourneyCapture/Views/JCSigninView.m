@@ -28,6 +28,8 @@
     [self.emailField setUserInteractionEnabled:YES];
     [self.emailField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.emailField setPlaceholder:@"Your Email"];
+    [self.emailField setKeyboardType:UIKeyboardTypeEmailAddress];
+    [self.emailField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     RAC(self.viewModel, email) = self.emailField.rac_textSignal;
     [self addSubview:self.emailField];
     
