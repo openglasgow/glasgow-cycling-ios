@@ -54,7 +54,6 @@
         AFHTTPRequestOperation *op = [manager POST:@"/responses.json"
                                         parameters:@{@"responses": responseParams}
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-                                              // Registered, store user token
                                               NSLog(@"User response submit success");
                                               NSLog(@"%@", responseObject);
                                               [subscriber sendCompleted];
