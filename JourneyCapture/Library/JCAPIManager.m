@@ -59,7 +59,7 @@
         NSMutableDictionary *authParams = [parameters mutableCopy];
         authParams[@"user_token"] = userToken;
         authParams[@"user_email"] = userEmail;
-        return [super GET:URLString parameters:authParams success:success failure:failure];
+        return [super POST:URLString parameters:authParams success:success failure:failure];
     } else {
         return [super POST:URLString parameters:parameters success:success failure:failure];
     }

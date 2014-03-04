@@ -29,23 +29,6 @@
     if (loggedIn) {
         JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
 
-        JCQuestionViewModel *vm = [[JCQuestionViewModel alloc] init];
-        [vm setQuestion:@"How often will you use this app?"];
-        [vm setAnswers:@[@"Once a week", @"Twice a week", @"3-5 times a week", @"Daily"]];
-        [vm setTitle:@"Weekly Usage"];
-
-        JCQuestionViewModel *vm2 = [[JCQuestionViewModel alloc] init];
-        [vm2 setQuestion:@"What kind of cycling will you be doing?"];
-        [vm2 setAnswers:@[@"Commuting", @"Leisure", @"Family excursion", @"Offroad", @"Other"]];
-        [vm2 setTitle:@"Usage Type"];
-
-        JCQuestionViewModel *vm3 = [[JCQuestionViewModel alloc] init];
-        [vm3 setQuestion:@"Why will you be using this app?"];
-        [vm3 setAnswers:@[@"Community improvement", @"Health", @"Social", @"Exploration"]];
-        [vm3 setTitle:@"Usage Reason"];
-
-        [questionList setQuestions:@[vm, vm2, vm3]];
-
         rootController = [[JCQuestionViewController alloc] initWithViewModel:questionList questionIndex:0];
     } else {
         rootController = [[JCWelcomeViewController alloc] init];

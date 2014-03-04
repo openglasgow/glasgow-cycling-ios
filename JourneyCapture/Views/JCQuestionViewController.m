@@ -113,8 +113,15 @@
                                                     questionIndex:(questionIndex + 1)];
         [self.navigationController pushViewController:nextQuestionVC animated:YES];
     } else {
-        JCUserViewController *userController = [[JCUserViewController alloc] init];
-        [self.navigationController pushViewController:userController animated:YES];
+        [[self.viewModel submitResponses] subscribeNext:^(id x) {
+            NSLog(@"Responses::next");
+        } error:^(NSError *error) {
+            NSLog(@"Responses::error");
+        } completed:^{
+            NSLog(@"Responses::completed");
+            JCUserViewController *userController = [[JCUserViewController alloc] init];
+            [self.navigationController pushViewController:userController animated:YES];
+        }];
     }
 }
 

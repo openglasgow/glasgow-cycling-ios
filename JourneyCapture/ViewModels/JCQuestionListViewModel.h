@@ -10,4 +10,5 @@
 
 @interface JCQuestionListViewModel : RVMViewModel
 @property(strong, nonatomic) NSArray *questions;
+-(RACSignal *)submitResponses;
 @end
