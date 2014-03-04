@@ -11,7 +11,7 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCSignupViewModel
-@synthesize email, password, firstName, lastName;
+@synthesize email, password, firstName, lastName, DOB, gender, picture;
 @synthesize isValidDetails;
 
 - (id)init
@@ -25,10 +25,13 @@
     RACSignal *passwordSignal = RACObserve(self, password);
     RACSignal *firstNameSignal = RACObserve(self, firstName);
     RACSignal *lastNameSignal = RACObserve(self, lastName);
+    RACSignal *DOBSignal = RACObserve(self, DOB);
+    RACSignal *genderSignal = RACObserve(self, gender);
 
-    self.isValidDetails = [RACSignal combineLatest:@[ emailSignal, passwordSignal, firstNameSignal, lastNameSignal ]
+
+    self.isValidDetails = [RACSignal combineLatest:@[ emailSignal, passwordSignal, firstNameSignal, lastNameSignal, DOBSignal, genderSignal ]
                                             reduce:^id(NSString *emailValue, NSString *passwordValue,
-                                                       NSString *first, NSString *last){
+                                                       NSString *first, NSString *last, NSString *dob, NSString *gender){
                                                 return @(emailValue.length > 0 && passwordValue.length > 0 &&
                                                 first.length > 0 && last.length > 0);
                                             }];
@@ -41,14 +44,14 @@
     JCAPIManager *manager = [JCAPIManager manager];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *dob = [formatter stringFromDate:[NSDate date]];
+   // NSString *dob = [formatter stringFromDate:[NSDate date]];
 
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
                               self.password, @"password",
                               self.firstName, @"first_name",
                               self.lastName, @"last_name",
-                              dob, @"dob",
-                              @(1), @"gender",
+                              self.DOB, @"dob",
+                              self.gender, @"gender",
                               nil];
 
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {

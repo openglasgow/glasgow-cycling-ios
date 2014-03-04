@@ -14,6 +14,9 @@
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *DOB;
+@property (nonatomic, strong) NSString *gender;
+@property (nonatomic, strong) NSString *picture;
 
 @property (nonatomic, strong) RACSignal *isValidDetails;
 
