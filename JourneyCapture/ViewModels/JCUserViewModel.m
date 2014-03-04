@@ -34,10 +34,18 @@
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         AFHTTPRequestOperation *op = [manager GET:@"/details.json"
                                        parameters:nil
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
                                               // Registered, store user token
                                               NSLog(@"User load success");
                                               NSLog(@"%@", responseObject);
+                                              [self setFirstName:responseObject[@"first_name"]];
+                                              [self setLastName:responseObject[@"last_name"]];
+
+                                              NSDictionary *stats = responseObject[@"month"];
+                                              [self setFavouriteRouteName:stats[@"route"]];
+                                              [self setSecondsThisMonth:stats[@"seconds"]];
+                                              [self setMetersThisMonth:stats[@"meters"]];
+                                              [self setRoutesThisMonth:stats[@"total"]];
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                               if ([operation.response statusCode] == 401) {
