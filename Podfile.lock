@@ -17,6 +17,7 @@ PODS:
   - AFNetworking/Serialization (2.1.0)
   - AFNetworking/UIKit (2.1.0):
     - AFNetworking/NSURLConnection
+  - FDTake (0.1.1)
   - GSKeychain (1.0.0)
   - libextobjc (0.4):
     - libextobjc/EXTADT
@@ -68,6 +69,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - FDTake
   - GSKeychain
   - libextobjc
   - MagicalRecord
@@ -77,6 +79,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
+  FDTake: f9fe37ec6143fc645447e961cee96b59c0ab7ca4
   GSKeychain: 59439fa4bb05d21f2cbd4b67e7133c2572cc8dc4
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
