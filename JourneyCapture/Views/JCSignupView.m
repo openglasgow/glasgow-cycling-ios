@@ -80,8 +80,11 @@
     [self addSubview:self.DOBField];
     RACChannelTerminal *dobChannel = [self.DOBPicker rac_newDateChannelWithNilValue:nil];
     [dobChannel subscribeNext:^(id dob) {
-        NSLog(@"Date: %@", dob);
         [self.viewModel setDOB:dob]; //TODO viewmodel => nsdate
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd/MM/yyyy"];
+        NSString *formattedDob = [formatter stringFromDate:dob];
+        [self.DOBField setText:formattedDob];
     }];
     
     self.genderField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
@@ -99,23 +102,23 @@
     // Form positioning
     int padding = 15;
 
-//    [self.firstNameField mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self).with.offset(padding);
-//        make.right.equalTo(self).with.offset(-padding);
-//        make.top.equalTo(self.mas_top).with.offset(padding);
-//    }];
-//
-//    [self.lastNameField mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self).with.offset(padding);
-//        make.right.equalTo(self).with.offset(-padding);
-//        make.top.equalTo(self.firstNameField.mas_bottom).with.offset(padding);
-//    }];
-//
-//    [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self).with.offset(padding);
-//        make.right.equalTo(self).with.offset(-padding);
-//        make.top.equalTo(self.lastNameField.mas_bottom).with.offset(padding);
-//    }];
+    [self.firstNameField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).with.offset(padding);
+        make.right.equalTo(self).with.offset(-padding);
+        make.top.equalTo(self.mas_top).with.offset(padding);
+    }];
+
+    [self.lastNameField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).with.offset(padding);
+        make.right.equalTo(self).with.offset(-padding);
+        make.top.equalTo(self.firstNameField.mas_bottom).with.offset(padding);
+    }];
+
+    [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).with.offset(padding);
+        make.right.equalTo(self).with.offset(-padding);
+        make.top.equalTo(self.lastNameField.mas_bottom).with.offset(padding);
+    }];
 
     [self.passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);

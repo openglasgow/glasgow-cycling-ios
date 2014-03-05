@@ -28,12 +28,10 @@
     RACSignal *DOBSignal = RACObserve(self, DOB);
     RACSignal *genderSignal = RACObserve(self, gender);
 
-
     self.isValidDetails = [RACSignal combineLatest:@[ emailSignal, passwordSignal, firstNameSignal, lastNameSignal, DOBSignal, genderSignal ]
                                             reduce:^id(NSString *emailValue, NSString *passwordValue,
-                                                       NSString *first, NSString *last, NSString *dob, NSString *gender){
-                                                return @(emailValue.length > 0 && passwordValue.length > 0 &&
-                                                first.length > 0 && last.length > 0);
+                                                       NSString *first, NSString *last, NSDate *dob, NSString *gender){
+                                                return @(emailValue.length > 0 && passwordValue.length > 0 && first.length > 0 && last.length > 0 && dob);
                                             }];
 
     return self;
@@ -44,14 +42,14 @@
     JCAPIManager *manager = [JCAPIManager manager];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-   // NSString *dob = [formatter stringFromDate:[NSDate date]];
+    NSString *formattedDob = [formatter stringFromDate:[NSDate date]];
 
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
                               self.password, @"password",
                               self.firstName, @"first_name",
                               self.lastName, @"last_name",
-                              self.DOB, @"dob",
-                              self.gender, @"gender",
+                              formattedDob, @"dob",
+                              @"male", @"gender",
                               nil];
 
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
