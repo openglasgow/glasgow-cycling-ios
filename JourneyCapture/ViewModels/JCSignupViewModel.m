@@ -11,7 +11,7 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCSignupViewModel
-@synthesize email, password, firstName, lastName, DOB, gender, picture;
+@synthesize email, password, firstName, lastName, dob, gender, picture;
 @synthesize isValidDetails;
 
 - (id)init
@@ -25,13 +25,13 @@
     RACSignal *passwordSignal = RACObserve(self, password);
     RACSignal *firstNameSignal = RACObserve(self, firstName);
     RACSignal *lastNameSignal = RACObserve(self, lastName);
-    RACSignal *DOBSignal = RACObserve(self, DOB);
+    RACSignal *dobSignal = RACObserve(self, dob);
     RACSignal *genderSignal = RACObserve(self, gender);
 
-    self.isValidDetails = [RACSignal combineLatest:@[ emailSignal, passwordSignal, firstNameSignal, lastNameSignal, DOBSignal, genderSignal ]
+    self.isValidDetails = [RACSignal combineLatest:@[ emailSignal, passwordSignal, firstNameSignal, lastNameSignal, dobSignal, genderSignal ]
                                             reduce:^id(NSString *emailValue, NSString *passwordValue,
-                                                       NSString *first, NSString *last, NSDate *dob, NSString *gender){
-                                                return @(emailValue.length > 0 && passwordValue.length > 0 && first.length > 0 && last.length > 0 && dob);
+                                                       NSString *first, NSString *last, NSDate *dateBirth, NSString *gender){
+                                                return @(emailValue.length > 0 && passwordValue.length > 0 && first.length > 0 && last.length > 0 && dateBirth);
                                             }];
 
     return self;
@@ -42,7 +42,7 @@
     JCAPIManager *manager = [JCAPIManager manager];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *formattedDob = [formatter stringFromDate:[NSDate date]];
+    NSString *formattedDob = [formatter stringFromDate:self.dob];
 
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
                               self.password, @"password",

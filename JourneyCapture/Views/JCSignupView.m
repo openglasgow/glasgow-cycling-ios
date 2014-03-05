@@ -12,7 +12,7 @@
 
 @implementation JCSignupView
 @synthesize viewModel;
-@synthesize emailField, passwordField, firstNameField, lastNameField, DOBField, genderField, pictureField, DOBPicker, DOBToolbar, DOBToolbarButton;
+@synthesize emailField, passwordField, firstNameField, lastNameField, dobField, genderField, pictureField, dobPicker, dobToolbar, dobToolbarButton;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCSignupViewModel *)signupViewModel
 {
@@ -24,16 +24,16 @@
     
     
     //Setting up DOB DatePicker for DOBField use
-    self.DOBPicker = [[UIDatePicker alloc] initWithFrame:[self bounds]];
-    self.DOBPicker.datePickerMode = UIDatePickerModeDate;
-    self.DOBToolbarButton = [[UIButton alloc] init];
-    [self.DOBToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
-    [self.DOBToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    self.DOBToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.DOBToolbar addSubview:self.DOBToolbarButton];
-    [self.DOBToolbarButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.DOBToolbar).with.offset(-12);
-        make.top.equalTo(self.DOBToolbar);
+    self.dobPicker = [[UIDatePicker alloc] initWithFrame:[self bounds]];
+    self.dobPicker.datePickerMode = UIDatePickerModeDate;
+    self.dobToolbarButton = [[UIButton alloc] init];
+    [self.dobToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
+    [self.dobToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    self.dobToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [self.dobToolbar addSubview:self.dobToolbarButton];
+    [self.dobToolbarButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.dobToolbar).with.offset(-12);
+        make.top.equalTo(self.dobToolbar);
     }];
     
     self.DOBToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -71,20 +71,20 @@
     RAC(self.viewModel, password) = self.passwordField.rac_textSignal;
     [self addSubview:self.passwordField];
     
-    self.DOBField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.DOBField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.DOBField setPlaceholder:@"Date of Birth"];
+    self.dobField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [self.dobField setBorderStyle:UITextBorderStyleRoundedRect];
+    [self.dobField setPlaceholder:@"Date of Birth"];
     RAC(self.viewModel, DOB) = self.DOBField.rac_textSignal;
-    self.DOBField.inputView = self.DOBPicker;
-    self.DOBField.inputAccessoryView = self.DOBToolbar;
-    [self addSubview:self.DOBField];
-    RACChannelTerminal *dobChannel = [self.DOBPicker rac_newDateChannelWithNilValue:nil];
+    self.dobField.inputView = self.dobPicker;
+    self.dobField.inputAccessoryView = self.dobToolbar;
+    [self addSubview:self.dobField];
+    RACChannelTerminal *dobChannel = [self.dobPicker rac_newDateChannelWithNilValue:nil];
     [dobChannel subscribeNext:^(id dob) {
-        [self.viewModel setDOB:dob]; //TODO viewmodel => nsdate
+        [self.viewModel setDob:dob]; //TODO viewmodel => nsdate
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"dd/MM/yyyy"];
         NSString *formattedDob = [formatter stringFromDate:dob];
-        [self.DOBField setText:formattedDob];
+        [self.dobField setText:formattedDob];
     }];
     
     self.genderField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
@@ -126,7 +126,7 @@
         make.top.equalTo(self.emailField.mas_bottom).with.offset(padding);
     }];
     
-    [self.DOBField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.dobField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);
         make.right.equalTo(self).with.offset(-padding);
         make.top.equalTo(self.passwordField.mas_bottom).with.offset(padding);
@@ -135,7 +135,7 @@
     [self.genderField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);
         make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.DOBField.mas_bottom).with.offset(padding);
+        make.top.equalTo(self.dobField.mas_bottom).with.offset(padding);
     }];
     
     [self.pictureField mas_makeConstraints:^(MASConstraintMaker *make) {

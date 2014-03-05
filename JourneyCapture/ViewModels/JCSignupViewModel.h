@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
-@property (nonatomic, strong) NSDate *DOB;
+@property (nonatomic, strong) NSDate *dob;
 @property (nonatomic, strong) NSString *gender;
 @property (nonatomic, strong) NSString *picture;
 
