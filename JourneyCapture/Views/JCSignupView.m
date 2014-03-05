@@ -12,7 +12,7 @@
 
 @implementation JCSignupView
 @synthesize viewModel;
-@synthesize emailField, passwordField, firstNameField, lastNameField, dobField, genderField, pictureField, dobPicker, dobToolbar, dobToolbarButton;
+@synthesize emailField, passwordField, firstNameField, lastNameField, dobField, genderField, pictureField, dobPicker, dobToolbar, dobToolbarButton, genderPicker, genderToolbar, genderToolbarButton;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCSignupViewModel *)signupViewModel
 {
@@ -22,8 +22,7 @@
     }
     self.viewModel = signupViewModel;
     
-    
-    //Setting up DOB DatePicker for DOBField use
+    //Setting up dob DatePicker for dobField use
     self.dobPicker = [[UIDatePicker alloc] initWithFrame:[self bounds]];
     self.dobPicker.datePickerMode = UIDatePickerModeDate;
     self.dobToolbarButton = [[UIButton alloc] init];
@@ -36,9 +35,29 @@
         make.top.equalTo(self.dobToolbar);
     }];
     
-    self.DOBToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    self.dobToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"button press");
-        [self.DOBField resignFirstResponder];
+        [self.dobField resignFirstResponder];
+        return [RACSignal empty];
+    }];
+    
+    //Setting up gender UIPickerView for genderField
+    self.genderPicker = [[UIPickerView alloc] initWithFrame:[self bounds]];
+    [self.genderPicker setDataSource:self];
+    [self.genderPicker setDelegate:self];
+    self.genderToolbarButton = [[UIButton alloc] init];
+    [self.genderToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
+    [self.genderToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    self.genderToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [self.genderToolbar addSubview:self.genderToolbarButton];
+    [self.genderToolbarButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.genderToolbar).with.offset(-12);
+        make.top.equalTo(self.genderToolbar);
+    }];
+    
+    self.genderToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        NSLog(@"button press");
+        [self.genderField resignFirstResponder];
         return [RACSignal empty];
     }];
     
@@ -74,7 +93,7 @@
     self.dobField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.dobField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.dobField setPlaceholder:@"Date of Birth"];
-    RAC(self.viewModel, DOB) = self.DOBField.rac_textSignal;
+    RAC(self.viewModel, dob) = self.dobField.rac_textSignal;
     self.dobField.inputView = self.dobPicker;
     self.dobField.inputAccessoryView = self.dobToolbar;
     [self addSubview:self.dobField];
@@ -90,7 +109,10 @@
     self.genderField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.genderField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.genderField setPlaceholder:@"Gender"];
-    RAC(self.viewModel, gender) = self.genderField.rac_textSignal;
+    RACChannelTo(self.viewModel, gender) = RACChannelTo(self.genderField, text);
+    self.genderField.inputView = self.genderPicker;
+    self.genderField.inputAccessoryView = self.genderToolbar;
+    [self.genderField setDelegate:self];
     [self addSubview:self.genderField];
     
     self.pictureField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
@@ -145,6 +167,34 @@
     }];
 
     return self;
+}
+
+// TODO reactive cocoa instead of delegate/data source?
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return self.viewModel.genders[row];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [self.viewModel.genders count];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    [self.genderField setText:self.viewModel.genders[row]];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.text.length == 0) {
+        [self pickerView:self.genderPicker didSelectRow:0 inComponent:0];
+    }
 }
 
 /*

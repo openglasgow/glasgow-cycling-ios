@@ -11,7 +11,7 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCSignupViewModel
-@synthesize email, password, firstName, lastName, dob, gender, picture;
+@synthesize email, password, firstName, lastName, dob, gender, genders, picture;
 @synthesize isValidDetails;
 
 - (id)init
@@ -21,6 +21,8 @@
         return nil;
     }
 
+    self.genders = @[@"Undisclosed", @"Male", @"Female"];
+    
     RACSignal *emailSignal = RACObserve(self, email);
     RACSignal *passwordSignal = RACObserve(self, password);
     RACSignal *firstNameSignal = RACObserve(self, firstName);
@@ -49,7 +51,7 @@
                               self.firstName, @"first_name",
                               self.lastName, @"last_name",
                               formattedDob, @"dob",
-                              @"male", @"gender",
+                              self.gender, @"gender",
                               nil];
 
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {

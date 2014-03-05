@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString *gender;
 @property (nonatomic, strong) NSString *picture;
 
+@property (nonatomic, strong) NSArray *genders;
 @property (nonatomic, strong) RACSignal *isValidDetails;
 
 - (RACSignal *)signup;

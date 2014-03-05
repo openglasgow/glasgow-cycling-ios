@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class JCSignupViewModel;
 
-@interface JCSignupView : UIView
+@interface JCSignupView : UIView <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
 @property (strong, nonatomic) UITextField *emailField;
 @property (strong, nonatomic) UITextField *passwordField;
@@ -19,11 +19,15 @@
 @property (strong, nonatomic) UITextField *genderField;
 @property (strong, nonatomic) UITextField *pictureField;
 
-//Date picker
+// Date picker
 @property (strong, nonatomic) UIButton *dobToolbarButton;
 @property (nonatomic, retain) UIToolbar *dobToolbar;
 @property (nonatomic, retain) UIDatePicker *dobPicker;
 
+// Gender Picker
+@property (strong, nonatomic) UIButton *genderToolbarButton;
+@property (nonatomic, retain) UIToolbar *genderToolbar;
+@property (nonatomic, retain) UIPickerView *genderPicker;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCSignupViewModel *)signupViewModel;
 @end
