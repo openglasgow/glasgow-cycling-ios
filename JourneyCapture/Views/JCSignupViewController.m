@@ -9,7 +9,10 @@
 #import "JCSignupViewController.h"
 #import "JCSignupViewModel.h"
 #import "JCSignupView.h"
-#import "JCUserViewController.h"
+
+#import "JCQuestionViewController.h"
+#import "JCQuestionViewModel.h"
+#import "JCQuestionListViewModel.h"
 
 @interface JCSignupViewController ()
 
@@ -51,8 +54,10 @@
             NSLog(@"Signup::error");
         } completed:^{
             NSLog(@"Signup::completed");
-            JCUserViewController *userController = [[JCUserViewController alloc] init];
-            [self.navigationController pushViewController:userController animated:YES];
+            JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
+            JCQuestionViewController *questionVC = [[JCQuestionViewController alloc] initWithViewModel:questionList
+                                                                                         questionIndex:0];
+            [self.navigationController pushViewController:questionVC animated:YES];
         }];
         return [RACSignal empty];
     }];
