@@ -12,7 +12,7 @@
 
 @implementation JCSignupView
 @synthesize viewModel;
-@synthesize emailField, passwordField, firstNameField, lastNameField, dobField, genderField, profilePictureButton, dobPicker, dobToolbar, dobToolbarButton, genderPicker, genderToolbar, genderToolbarButton;
+@synthesize emailField, passwordField, firstNameField, lastNameField, dobField, genderField, profilePictureButton, dobPicker, dobToolbar, dobToolbarButton, genderPicker, genderToolbar, genderToolbarButton, takeController;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCSignupViewModel *)signupViewModel
 {
@@ -68,10 +68,21 @@
     self.profilePictureButton = [[UIButton alloc] init];
     [self.profilePictureButton setTintColor:self.tintColor];
     UIImage *defaultImage = [UIImage imageNamed:@"default_profile_pic"];
-    [self.profilePictureButton setBackgroundImage:defaultImage forState:UIControlStateNormal];
+    self.viewModel.profilePicture = defaultImage;
+    [RACChannelTo(self.viewModel, profilePicture) subscribeNext:^(id image) {
+        [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
+    }];
     self.profilePictureButton.layer.cornerRadius = 30.0f;
     self.profilePictureButton.layer.masksToBounds = YES;
     [self addSubview:self.profilePictureButton];
+
+    self.profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        self.takeController = [[FDTakeController alloc] init];
+        [self.takeController setDelegate:self];
+        self.takeController.allowsEditingPhoto = YES;
+        [self.takeController takePhotoOrChooseFromLibrary];
+        return [RACSignal empty];
+    }];
 
     int picSize = 60;
     int verticalPicPadding = ((2*textFieldHeight) + padding - picSize) / 2;
@@ -206,6 +217,11 @@
     if (textField.text.length == 0) {
         [self pickerView:self.genderPicker didSelectRow:0 inComponent:0];
     }
+}
+
+- (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info
+{
+    self.viewModel.profilePicture = photo;
 }
 
 /*

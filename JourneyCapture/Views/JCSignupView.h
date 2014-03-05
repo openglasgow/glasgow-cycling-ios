@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FDTake/FDTakeController.h>
 @class JCSignupViewModel;
 
-@interface JCSignupView : UIView <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
+@interface JCSignupView : UIView <UIPickerViewDataSource, UIPickerViewDelegate,
+                                            UITextFieldDelegate, FDTakeDelegate>
+
+@property (strong, nonatomic) FDTakeController *takeController;
+
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
 @property (strong, nonatomic) UITextField *emailField;
 @property (strong, nonatomic) UITextField *passwordField;

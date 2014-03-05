@@ -116,6 +116,7 @@
 		83BA022C18BE477700EE7787 /* JCSigninViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninViewModel.m; sourceTree = "<group>"; };
 		83BA022E18BE482B00EE7787 /* JCSigninView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSigninView.h; sourceTree = "<group>"; };
 		83BA022F18BE482B00EE7787 /* JCSigninView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninView.m; sourceTree = "<group>"; };
+		83C1DB1918C7856C0005F79C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		83F811E018C49E860010B1CD /* JCJourneyModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JCJourneyModel.xcdatamodel; sourceTree = "<group>"; };
 		83F811E218C4C1470010B1CD /* JCAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAPIManager.h; sourceTree = "<group>"; };
 		83F811E318C4C1470010B1CD /* JCAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAPIManager.m; sourceTree = "<group>"; };
@@ -196,6 +197,7 @@
 		831EDB4818BCBB33001468E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83C1DB1918C7856C0005F79C /* MobileCoreServices.framework */,
 				837B15A718BE023B000EEFAB /* QuartzCore.framework */,
 				831EDB4918BCBB33001468E4 /* Foundation.framework */,
 				831EDB4B18BCBB33001468E4 /* CoreGraphics.framework */,
