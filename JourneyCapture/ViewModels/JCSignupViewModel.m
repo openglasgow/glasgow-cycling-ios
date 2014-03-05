@@ -11,7 +11,7 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCSignupViewModel
-@synthesize email, password, firstName, lastName, dob, gender, genders, picture;
+@synthesize email, password, firstName, lastName, dob, gender, genders, profilePicture;
 @synthesize isValidDetails;
 
 - (id)init
@@ -42,18 +42,27 @@
 - (RACSignal *)signup
 {
     JCAPIManager *manager = [JCAPIManager manager];
+
+    // DOB
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *formattedDob = [formatter stringFromDate:self.dob];
 
+    // Profile pic
+    NSString *imageData = [UIImagePNGRepresentation([UIImage imageNamed:@"default_profile_pic"])
+                           base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+
+    // User data
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
                               self.password, @"password",
                               self.firstName, @"first_name",
                               self.lastName, @"last_name",
                               formattedDob, @"dob",
                               self.gender, @"gender",
+                              imageData, @"profile_picture",
                               nil];
 
+    // Submit signup
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         NSDictionary *signupParams = [NSDictionary dictionaryWithObject:userData forKey:@"user"];
         AFHTTPRequestOperation *op = [manager POST:@"/signup.json"

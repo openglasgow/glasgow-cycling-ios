@@ -12,7 +12,7 @@
 
 @implementation JCSignupView
 @synthesize viewModel;
-@synthesize emailField, passwordField, firstNameField, lastNameField, dobField, genderField, pictureField, dobPicker, dobToolbar, dobToolbarButton, genderPicker, genderToolbar, genderToolbarButton;
+@synthesize emailField, passwordField, firstNameField, lastNameField, dobField, genderField, profilePictureButton, dobPicker, dobToolbar, dobToolbarButton, genderPicker, genderToolbar, genderToolbarButton;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCSignupViewModel *)signupViewModel
 {
@@ -60,20 +60,29 @@
         [self.genderField resignFirstResponder];
         return [RACSignal empty];
     }];
-    
-    // Form elements
-    self.firstNameField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.firstNameField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.firstNameField setPlaceholder:@"First Name"];
-    RAC(self.viewModel, firstName) = self.firstNameField.rac_textSignal;
-    [self addSubview:self.firstNameField];
 
-    self.lastNameField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.lastNameField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.lastNameField setPlaceholder:@"Last Name"];
-    RAC(self.viewModel, lastName) = self.lastNameField.rac_textSignal;
-    [self addSubview:self.lastNameField];
+    int padding = 10;
+    int textFieldHeight = 31;
 
+    // Profile picture
+    self.profilePictureButton = [[UIButton alloc] init];
+    [self.profilePictureButton setTintColor:self.tintColor];
+    UIImage *defaultImage = [UIImage imageNamed:@"default_profile_pic"];
+    [self.profilePictureButton setBackgroundImage:defaultImage forState:UIControlStateNormal];
+    self.profilePictureButton.layer.cornerRadius = 30.0f;
+    self.profilePictureButton.layer.masksToBounds = YES;
+    [self addSubview:self.profilePictureButton];
+
+    int picSize = 60;
+    int verticalPicPadding = ((2*textFieldHeight) + padding - picSize) / 2;
+    [self.profilePictureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).with.offset(-padding);
+        make.top.equalTo(self.mas_top).with.offset(padding + verticalPicPadding);
+        make.width.equalTo(@(picSize));
+        make.height.equalTo(@(picSize));
+    }];
+
+    // Email
     self.emailField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.emailField setUserInteractionEnabled:YES];
     [self.emailField setBorderStyle:UITextBorderStyleRoundedRect];
@@ -83,13 +92,53 @@
     RAC(self.viewModel, email) = self.emailField.rac_textSignal;
     [self addSubview:self.emailField];
 
+    [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).with.offset(padding);
+        make.right.equalTo(self.profilePictureButton.mas_left).with.offset(-padding);
+        make.top.equalTo(self.mas_top).with.offset(padding);
+    }];
+
+    // Password
     self.passwordField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.passwordField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.passwordField setSecureTextEntry:YES];
     [self.passwordField setPlaceholder:@"New Password"];
     RAC(self.viewModel, password) = self.passwordField.rac_textSignal;
     [self addSubview:self.passwordField];
-    
+
+    [self.passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).with.offset(padding);
+        make.right.equalTo(self.profilePictureButton.mas_left).with.offset(-padding);
+        make.top.equalTo(self.emailField.mas_bottom).with.offset(padding);
+    }];
+
+    // First name
+    self.firstNameField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [self.firstNameField setBorderStyle:UITextBorderStyleRoundedRect];
+    [self.firstNameField setPlaceholder:@"First Name"];
+    RAC(self.viewModel, firstName) = self.firstNameField.rac_textSignal;
+    [self addSubview:self.firstNameField];
+
+    [self.firstNameField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).with.offset(padding);
+        make.right.equalTo(self.mas_centerX).with.offset(-padding/2);
+        make.top.equalTo(self.passwordField.mas_bottom).with.offset(padding);
+    }];
+
+    // Last name
+    self.lastNameField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [self.lastNameField setBorderStyle:UITextBorderStyleRoundedRect];
+    [self.lastNameField setPlaceholder:@"Last Name"];
+    RAC(self.viewModel, lastName) = self.lastNameField.rac_textSignal;
+    [self addSubview:self.lastNameField];
+
+    [self.lastNameField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_centerX).with.offset(padding/2);
+        make.right.equalTo(self).with.offset(-padding);
+        make.top.equalTo(self.passwordField.mas_bottom).with.offset(padding);
+    }];
+
+    // DOB
     self.dobField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.dobField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.dobField setPlaceholder:@"Date of Birth"];
@@ -105,7 +154,14 @@
         NSString *formattedDob = [formatter stringFromDate:dob];
         [self.dobField setText:formattedDob];
     }];
-    
+
+    [self.dobField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).with.offset(padding);
+        make.right.equalTo(self.mas_centerX).with.offset(-padding/2);
+        make.top.equalTo(self.lastNameField.mas_bottom).with.offset(padding);
+    }];
+
+    // Gender
     self.genderField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.genderField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.genderField setPlaceholder:@"Gender"];
@@ -114,56 +170,11 @@
     self.genderField.inputAccessoryView = self.genderToolbar;
     [self.genderField setDelegate:self];
     [self addSubview:self.genderField];
-    
-    self.pictureField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.pictureField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.pictureField setPlaceholder:@"Picture"];
-    RAC(self.viewModel, picture) = self.pictureField.rac_textSignal;
-    [self addSubview:self.pictureField];
 
-    // Form positioning
-    int padding = 15;
-
-    [self.firstNameField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.mas_top).with.offset(padding);
-    }];
-
-    [self.lastNameField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.firstNameField.mas_bottom).with.offset(padding);
-    }];
-
-    [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
+    [self.genderField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_centerX).with.offset(padding/2);
         make.right.equalTo(self).with.offset(-padding);
         make.top.equalTo(self.lastNameField.mas_bottom).with.offset(padding);
-    }];
-
-    [self.passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.emailField.mas_bottom).with.offset(padding);
-    }];
-    
-    [self.dobField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.passwordField.mas_bottom).with.offset(padding);
-    }];
-    
-    [self.genderField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.dobField.mas_bottom).with.offset(padding);
-    }];
-    
-    [self.pictureField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.genderField.mas_bottom).with.offset(padding);
     }];
 
     return self;
