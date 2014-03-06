@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation JCRouteCell
-@synthesize nameLabel, safetyRatingLabel, safetyRatingView, lastUsedLabel, lastUsedView,
+@synthesize nameLabel, averageRatingLabel, averageRatingView,
             estimatedTimeLabel, estimatedTimeView, distanceLabel, distanceView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -45,7 +45,7 @@
                                        size:20.0];
     self.nameLabel = [[UILabel alloc] init];
     [self.nameLabel setFont:nameFont];
-    [self.nameLabel setText:self.viewModel.name];
+    RACChannelTo(self.nameLabel, text) = RACChannelTo(self.viewModel, name);
     [self.contentView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).with.offset(15);
@@ -54,30 +54,20 @@
     
     // Details images
     UIImage *safetyImage = [UIImage imageNamed:@"lock-50"];
-    self.safetyRatingView = [[UIImageView alloc] initWithImage:safetyImage];
-    [self.contentView addSubview:self.safetyRatingView];
-    [self.safetyRatingView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.averageRatingView = [[UIImageView alloc] initWithImage:safetyImage];
+    [self.contentView addSubview:self.averageRatingView];
+    [self.averageRatingView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLabel.mas_bottom).with.offset(10);
         make.left.equalTo(self.nameLabel.mas_left);
         make.width.equalTo(@(12));
         make.height.equalTo(@(12));
     }];
-    
-    UIImage *lastUsedImage = [UIImage imageNamed:@"calendar-50"];
-    self.lastUsedView = [[UIImageView alloc] initWithImage:lastUsedImage];
-    [self.contentView addSubview:self.lastUsedView];
-    [self.lastUsedView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.safetyRatingView.mas_bottom).with.offset(10);
-        make.left.equalTo(self.nameLabel.mas_left);
-        make.width.equalTo(@(12));
-        make.height.equalTo(@(12));
-    }];
-    
+
     UIImage *estimatedTimeImage = [UIImage imageNamed:@"clock-50"];
     self.estimatedTimeView = [[UIImageView alloc] initWithImage:estimatedTimeImage];
     [self.contentView addSubview:self.estimatedTimeView];
     [self.estimatedTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lastUsedView.mas_bottom).with.offset(10);
+        make.top.equalTo(self.averageRatingView.mas_bottom).with.offset(10);
         make.left.equalTo(self.nameLabel.mas_left);
         make.width.equalTo(@(12));
         make.height.equalTo(@(12));
@@ -96,42 +86,48 @@
     // Details labels
     UIFont *detailsFont = [UIFont fontWithName:@"Helvetica Neue"
                                         size:12.0];
-    self.safetyRatingLabel = [[UILabel alloc] init];
-    [self.safetyRatingLabel setFont:detailsFont];
-    [self.safetyRatingLabel setText:self.viewModel.safetyRating];
-    [self.contentView addSubview:self.safetyRatingLabel];
-    [self.safetyRatingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.safetyRatingView.mas_top);
-        make.left.equalTo(self.safetyRatingView.mas_right).with.offset(10);
-    }];
+    self.averageRatingLabel = [[UILabel alloc] init];
+    [self.averageRatingLabel setFont:detailsFont];
+    RACChannelTerminal *averageRatingLabelChannel = RACChannelTo(self, averageRatingLabel.text);
+    RACChannelTerminal *averageRatingModelChannel = RACChannelTo(self, viewModel.averageRating);
+    [[averageRatingModelChannel map:^(id avgRating){
+        return [NSString stringWithFormat:@"%@ stars", avgRating];
+    }] subscribe:averageRatingLabelChannel];
 
-    self.lastUsedLabel = [[UILabel alloc] init];
-    [self.lastUsedLabel setFont:detailsFont];
-    [self.lastUsedLabel setText:self.viewModel.lastUsed];
-    [self.contentView addSubview:self.lastUsedLabel];
-    [self.lastUsedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lastUsedView.mas_top);
-        make.left.equalTo(self.lastUsedView.mas_right).with.offset(10);
+    [self.contentView addSubview:self.averageRatingLabel];
+    [self.averageRatingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.averageRatingView.mas_top);
+        make.left.equalTo(self.averageRatingView.mas_right).with.offset(10);
     }];
 
     self.estimatedTimeLabel = [[UILabel alloc] init];
     [self.estimatedTimeLabel setFont:detailsFont];
-    [self.estimatedTimeLabel setText:self.viewModel.estimatedTime];
+    RACChannelTerminal *estimatedTimeLabelChannel = RACChannelTo(self, estimatedTimeLabel.text);
+    RACChannelTerminal *estimatedTimeModelChannel = RACChannelTo(self, viewModel.estimatedTime);
+    [[estimatedTimeModelChannel map:^(id estSeconds){
+        return [self.viewModel readableTime];
+    }] subscribe:estimatedTimeLabelChannel];
     [self.contentView addSubview:self.estimatedTimeLabel];
     [self.estimatedTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.estimatedTimeView.mas_top);
         make.left.equalTo(self.estimatedTimeView.mas_right).with.offset(10);
     }];
-    
+
     self.distanceLabel = [[UILabel alloc] init];
     [self.distanceLabel setFont:detailsFont];
-    [self.distanceLabel setText:self.viewModel.distanceKm];
+    RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceLabel.text);
+    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceMetres);
+    [[distanceModelChannel map:^(id meters){
+        float km = [meters intValue]/1000.0;
+        return [NSString stringWithFormat:@"%.02f km", km];
+    }] subscribe:distanceLabelChannel];
+
     [self.contentView addSubview:self.distanceLabel];
     [self.distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.distanceView.mas_top);
         make.left.equalTo(self.distanceView.mas_right).with.offset(10);
     }];
-    
+
     // Background image
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:self.viewModel.routeImage];
     self.backgroundView = backgroundImageView;

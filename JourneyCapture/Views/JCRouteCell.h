@@ -15,11 +15,8 @@
 
 @property (strong, nonatomic) UILabel *nameLabel;
 
-@property (strong, nonatomic) UIImageView *safetyRatingView;
-@property (strong, nonatomic) UILabel *safetyRatingLabel;
-
-@property (strong, nonatomic) UIImageView *lastUsedView;
-@property (strong, nonatomic) UILabel *lastUsedLabel;
+@property (strong, nonatomic) UIImageView *averageRatingView;
+@property (strong, nonatomic) UILabel *averageRatingLabel;
 
 @property (strong, nonatomic) UIImageView *estimatedTimeView;
 @property (strong, nonatomic) UILabel *estimatedTimeLabel;

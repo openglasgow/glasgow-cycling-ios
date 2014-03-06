@@ -9,11 +9,14 @@
 #import "RVMViewModel.h"
 
 @interface JCRouteViewModel : RVMViewModel
-// TODO make real data with nsdate etc.
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *safetyRating;
-@property (strong, nonatomic) NSString *lastUsed;
-@property (strong, nonatomic) NSString *estimatedTime;
-@property (strong, nonatomic) NSString *distanceKm;
+@property (strong, nonatomic) NSNumber *estimatedTime;
+@property (strong, nonatomic) NSNumber *distanceMetres;
+@property (strong, nonatomic) NSNumber *safetyRating;
+@property (strong, nonatomic) NSNumber *environmentRating;
+@property (strong, nonatomic) NSNumber *difficultyRating;
 @property (strong, nonatomic) UIImage *routeImage;
+
+- (NSNumber *)averageRating;
+- (NSString *)readableTime;
 @end

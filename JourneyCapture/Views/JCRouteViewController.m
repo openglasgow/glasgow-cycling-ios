@@ -41,7 +41,7 @@
         make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // 20 for status bar
         make.left.equalTo(self.view.mas_left).with.offset(15);
         make.right.equalTo(self.view.mas_right).with.offset(-15);
-        make.bottom.equalTo(routeSummary.distanceLabel.mas_bottom).with.offset(15);
+        make.bottom.equalTo(routeSummary.environmentView.mas_bottom).with.offset(15);
     }];
     
     // Background route image view
