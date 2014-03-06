@@ -49,7 +49,7 @@
     NSString *formattedDob = [formatter stringFromDate:self.dob];
 
     // Profile pic
-    NSString *imageData = [UIImagePNGRepresentation([UIImage imageNamed:@"default_profile_pic"])
+    NSString *imageData = [UIImagePNGRepresentation(self.profilePicture)
                            base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
     // User data

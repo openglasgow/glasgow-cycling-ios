@@ -15,7 +15,7 @@
 @synthesize firstNameLabel, lastNameLabel,
         favouriteRouteView, favouriteRouteLabel, routesThisMonthView, routesThisMonthLabel,
         timeThisMonthView, timeThisMonthLabel, distanceThisMonthView, distanceThisMonthLabel,
-        routesLabelTop, routesViewTop, favouriteLabelTop, favouriteViewTop;
+        routesLabelTop, routesViewTop, favouriteLabelTop, favouriteViewTop, profileImageView, settingsButton;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCUserViewModel *)userViewModel
 {
@@ -55,8 +55,10 @@
     }];
 
     // Profile
-    UIImage *profileImage = [UIImage imageNamed:@"profile-pic"];
-    self.profileImageView = [[UIImageView alloc] initWithImage:profileImage];
+    self.profileImageView = [[UIImageView alloc] init];
+    self.profileImageView.layer.cornerRadius = 25.0f;
+    self.profileImageView.layer.masksToBounds = YES;
+    RACChannelTo(self.profileImageView, image) = RACChannelTo(self.viewModel, profilePic);
     [self addSubview:self.profileImageView];
 
     [self.profileImageView mas_makeConstraints:^(MASConstraintMaker *make) {

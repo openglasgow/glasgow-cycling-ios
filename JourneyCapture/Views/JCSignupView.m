@@ -68,9 +68,11 @@
     self.profilePictureButton = [[UIButton alloc] init];
     [self.profilePictureButton setTintColor:self.tintColor];
     UIImage *defaultImage = [UIImage imageNamed:@"default_profile_pic"];
-    self.viewModel.profilePicture = defaultImage;
+    [self.profilePictureButton setBackgroundImage:defaultImage forState:UIControlStateNormal];
     [RACChannelTo(self.viewModel, profilePicture) subscribeNext:^(id image) {
-        [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
+        if (image) {
+            [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
+        }
     }];
     self.profilePictureButton.layer.cornerRadius = 30.0f;
     self.profilePictureButton.layer.masksToBounds = YES;

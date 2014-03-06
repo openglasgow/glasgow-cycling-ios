@@ -40,6 +40,16 @@
                                               [self setSecondsThisMonth:stats[@"seconds"]];
                                               [self setMetersThisMonth:stats[@"meters"]];
                                               [self setRoutesThisMonth:stats[@"total"]];
+
+                                              NSString *base64Pic = stats[@"profile_pic"];
+                                              if (base64Pic) {
+                                                  UIImage *decodedProfilePic = (UIImage *)[[NSData alloc]
+                                                                             initWithBase64EncodedString:base64Pic
+                                                                                           options:0];
+                                                  [self setProfilePic:decodedProfilePic];
+                                              } else {
+                                                  [self setProfilePic:[UIImage imageNamed:@"default_profile_pic"]];
+                                              }
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                               if ([operation.response statusCode] == 401) {

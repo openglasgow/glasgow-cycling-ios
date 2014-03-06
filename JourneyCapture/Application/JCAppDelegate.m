@@ -19,7 +19,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
+
     BOOL loggedIn = [[GSKeychain systemKeychain] secretForKey:@"user_token"] != nil;
     UIViewController *rootController;
     if (loggedIn) {

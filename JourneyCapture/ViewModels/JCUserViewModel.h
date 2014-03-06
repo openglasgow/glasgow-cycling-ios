@@ -13,5 +13,7 @@
 @property (strong, nonatomic) NSNumber *routesThisMonth;
 @property (strong, nonatomic) NSNumber *secondsThisMonth;
 @property (strong, nonatomic) NSNumber *metersThisMonth;
+@property (strong, nonatomic) UIImage *profilePic;
+
 -(RACSignal *)loadDetails;
 @end
