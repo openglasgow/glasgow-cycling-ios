@@ -8,6 +8,7 @@
 
 #import "JCRoutesListViewModel.h"
 #import "JCRouteViewModel.h"
+#import "JCAPIManager.h"
 
 @implementation JCRoutesListViewModel
 @synthesize routes, title;
@@ -21,57 +22,48 @@
 
     self.routes = [[NSMutableArray alloc] init];
 
-    JCRouteViewModel *mock = [[JCRouteViewModel alloc] init];
-    [mock setName:@"Hope St to Science Centre"];
-    [mock setSafetyRating:@3];
-    [mock setDifficultyRating:@4];
-    [mock setEnvironmentRating:@3];
-    [mock setEstimatedTime:@(90*60)];
-    [mock setDistanceMetres:@6235];
-    [mock setRouteImage:[UIImage imageNamed:@"science-centre"]];
-    [[self routes] addObject:mock];
-
-    JCRouteViewModel *mock2 = [[JCRouteViewModel alloc] init];
-    [mock2 setName:@"Hope St to Science Centre"];
-    [mock2 setSafetyRating:@5];
-    [mock2 setDifficultyRating:@4];
-    [mock2 setEnvironmentRating:@3];
-    [mock2 setEstimatedTime:@(30*60)];
-    [mock2 setDistanceMetres:@6000];
-    [mock2 setRouteImage:[UIImage imageNamed:@"science-centre"]];
-    [[self routes] addObject:mock2];
-
-    JCRouteViewModel *mock3 = [[JCRouteViewModel alloc] init];
-    [mock3 setName:@"Blah St to Science Centre"];
-    [mock3 setSafetyRating:@5];
-    [mock3 setDifficultyRating:@4];
-    [mock3 setEnvironmentRating:@3];
-    [mock3 setEstimatedTime:@(180*60)];
-    [mock3 setDistanceMetres:@6000];
-    [mock3 setRouteImage:[UIImage imageNamed:@"science-centre"]];
-    [[self routes] addObject:mock3];
-
-    JCRouteViewModel *mock4 = [[JCRouteViewModel alloc] init];
-    [mock4 setName:@"Hope St to Science Centre"];
-    [mock4 setSafetyRating:@5];
-    [mock4 setDifficultyRating:@4];
-    [mock4 setEnvironmentRating:@3];
-    [mock4 setEstimatedTime:@(150*60)];
-    [mock4 setDistanceMetres:@6000];
-    [mock4 setRouteImage:[UIImage imageNamed:@"science-centre"]];
-    [[self routes] addObject:mock4];
-
-    JCRouteViewModel *mock5 = [[JCRouteViewModel alloc] init];
-    [mock5 setName:@"Hope St to Science Centre"];
-    [mock5 setSafetyRating:@5];
-    [mock5 setDifficultyRating:@4];
-    [mock5 setEnvironmentRating:@3];
-    [mock5 setEstimatedTime:@(30*60)];
-    [mock5 setDistanceMetres:@6000];
-    [mock5 setRouteImage:[UIImage imageNamed:@"science-centre"]];
-    [[self routes] addObject:mock5];
-
     return self;
 }
+
+-(RACSignal *)loadUserRoutes
+{
+    NSLog(@"Loading user routes");
+    JCAPIManager *manager = [JCAPIManager manager];
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        AFHTTPRequestOperation *op = [manager GET:@"/routes/user_summaries/10/1.json"
+                                       parameters:nil
+                                          success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
+                                              // Registered, store user token
+                                              NSLog(@"User routes load success");
+                                              NSLog(@"%@", routesDict);
+                                              NSArray *routesResponse = routesDict[@"routes"];
+
+                                              for (int i = 0; i < routesResponse.count; i++) {
+                                                  NSDictionary *routeData = routesResponse[i][@"details"];
+                                                  JCRouteViewModel *route = [[JCRouteViewModel alloc] init];
+                                                  [route setName:routeData[@"name"]];
+                                                  [route setSafetyRating:routeData[@"safety_rating"]];
+                                                  [route setDifficultyRating:routeData[@"difficulty_rating"]];
+                                                  [route setEnvironmentRating:routeData[@"environment_rating"]];
+                                                  [route setEstimatedTime:routeData[@"estimated_time"]];
+                                                  [route setDistanceMetres:routeData[@"total_distance"]];
+                                                  [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
+                                                  [[self routes] addObject:route];
+                                              }
+
+                                              [subscriber sendCompleted];
+                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              NSLog(@"User routes load failure");
+                                              NSLog(@"%@", error);
+                                              [subscriber sendError:error];
+                                          }
+                                      ];
+
+        return [RACDisposable disposableWithBlock:^{
+            [op cancel];
+        }];
+    }];
+}
+
 
 @end

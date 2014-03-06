@@ -90,9 +90,14 @@
     
     self.myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
-        [routesViewModel setTitle:@"My Routes"];
-        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
-        [self.navigationController pushViewController:routesController animated:YES];
+        [[routesViewModel loadUserRoutes] subscribeError:^(NSError *error) {
+            NSLog(@"Error loading my routes");
+        } completed:^{
+            NSLog(@"Got my routes");
+            [routesViewModel setTitle:@"My Routes"];
+            JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
+            [self.navigationController pushViewController:routesController animated:YES];
+        }];
         return [RACSignal empty];
     }];
     
