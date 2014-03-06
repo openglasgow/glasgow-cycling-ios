@@ -9,10 +9,11 @@
 #import "JCRouteSummaryView.h"
 #import "JCRouteViewModel.h"
 #import <QuartzCore/QuartzCore.h>
+#import <EDStarRating/EDStarRating.h>
 
 @implementation JCRouteSummaryView
-@synthesize viewModel, safetyLabel, safetyView, environmentLabel, environmentView,
-        difficultyLabel, difficultyView, estimatedTimeLabel, estimatedTimeView,
+@synthesize viewModel, safetyView, safetyStarRating, environmentStarRating, environmentView,
+        difficultyStarRating, difficultyView, estimatedTimeLabel, estimatedTimeView,
         distanceLabel, distanceView;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)userViewModel
@@ -98,22 +99,25 @@
         make.height.equalTo(imageSize);
     }];
 
-    self.safetyLabel = [[UILabel alloc] init];
-    [self.safetyLabel setFont:statsFont];
-    RACChannelTerminal *safetyRatingLabelChannel = RACChannelTo(self, safetyLabel.text);
-    RACChannelTerminal *safetyRatingModelChannel = RACChannelTo(self, viewModel.safetyRating);
-    [[safetyRatingModelChannel map:^(id avgRating){
-        return [NSString stringWithFormat:@"%@ stars", avgRating];
-    }] subscribe:safetyRatingLabelChannel];
-    [self addSubview:self.safetyLabel];
+    self.safetyStarRating = [[EDStarRating alloc] init];
+    [self.safetyStarRating setEditable:NO];
+    [self.safetyStarRating setDisplayMode:EDStarRatingDisplayFull];
+    self.safetyStarRating.rating = [self.viewModel.safetyRating floatValue];
+    self.safetyStarRating.starImage = [UIImage imageNamed:@"star-template"];
+    self.safetyStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
+    [self.safetyStarRating setBackgroundColor:[UIColor clearColor]];
+    self.safetyStarRating.horizontalMargin = 5;
+    [self addSubview:self.safetyStarRating];
 
-    [self.safetyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.safetyStarRating mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.safetyView.mas_top);
         make.left.equalTo(self.estimatedTimeLabel.mas_left);
+        make.width.equalTo(@120);
+        make.height.equalTo(@16);
     }];
 
     // Difficulty
-    UIImage *difficultyImage = [UIImage imageNamed:@"lock-50"];
+    UIImage *difficultyImage = [UIImage imageNamed:@"polyline-50"];
     self.difficultyView = [[UIImageView alloc] initWithImage:difficultyImage];
     [self addSubview:self.difficultyView];
 
@@ -124,22 +128,25 @@
         make.height.equalTo(imageSize);
     }];
 
-    self.difficultyLabel = [[UILabel alloc] init];
-    [self.difficultyLabel setFont:statsFont];
-    RACChannelTerminal *difficultyRatingLabelChannel = RACChannelTo(self, difficultyLabel.text);
-    RACChannelTerminal *difficultyRatingModelChannel = RACChannelTo(self, viewModel.difficultyRating);
-    [[difficultyRatingModelChannel map:^(id avgRating){
-        return [NSString stringWithFormat:@"%@ stars", avgRating];
-    }] subscribe:difficultyRatingLabelChannel];
-    [self addSubview:self.difficultyLabel];
+    self.difficultyStarRating = [[EDStarRating alloc] init];
+    [self.difficultyStarRating setEditable:NO];
+    [self.difficultyStarRating setDisplayMode:EDStarRatingDisplayFull];
+    self.difficultyStarRating.rating = [self.viewModel.difficultyRating floatValue];
+    self.difficultyStarRating.starImage = [UIImage imageNamed:@"star-template"];
+    self.difficultyStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
+    [self.difficultyStarRating setBackgroundColor:[UIColor clearColor]];
+    self.difficultyStarRating.horizontalMargin = 5;
+    [self addSubview:self.difficultyStarRating];
 
-    [self.difficultyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.difficultyStarRating mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.difficultyView.mas_top);
         make.left.equalTo(self.estimatedTimeLabel.mas_left);
+        make.width.equalTo(@120);
+        make.height.equalTo(@16);
     }];
 
     // Environment
-    UIImage *environmentImage = [UIImage imageNamed:@"lock-50"];
+    UIImage *environmentImage = [UIImage imageNamed:@"tree-50"];
     self.environmentView = [[UIImageView alloc] initWithImage:environmentImage];
     [self addSubview:self.environmentView];
 
@@ -150,18 +157,21 @@
         make.height.equalTo(imageSize);
     }];
 
-    self.environmentLabel = [[UILabel alloc] init];
-    [self.environmentLabel setFont:statsFont];
-    RACChannelTerminal *environmentRatingLabelChannel = RACChannelTo(self, environmentLabel.text);
-    RACChannelTerminal *environmentRatingModelChannel = RACChannelTo(self, viewModel.environmentRating);
-    [[environmentRatingModelChannel map:^(id avgRating){
-        return [NSString stringWithFormat:@"%@ stars", avgRating];
-    }] subscribe:environmentRatingLabelChannel];
-    [self addSubview:self.environmentLabel];
+    self.environmentStarRating = [[EDStarRating alloc] init];
+    [self.environmentStarRating setEditable:NO];
+    [self.environmentStarRating setDisplayMode:EDStarRatingDisplayFull];
+    self.environmentStarRating.rating = [self.viewModel.environmentRating floatValue];
+    self.environmentStarRating.starImage = [UIImage imageNamed:@"star-template"];
+    self.environmentStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
+    [self.environmentStarRating setBackgroundColor:[UIColor clearColor]];
+    self.environmentStarRating.horizontalMargin = 5;
+    [self addSubview:self.environmentStarRating];
 
-    [self.environmentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.environmentStarRating mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.environmentView.mas_top);
         make.left.equalTo(self.estimatedTimeLabel.mas_left);
+        make.width.equalTo(@120);
+        make.height.equalTo(@16);
     }];
 
     return self;

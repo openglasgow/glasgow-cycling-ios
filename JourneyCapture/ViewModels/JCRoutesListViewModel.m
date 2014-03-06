@@ -23,7 +23,7 @@
 
     JCRouteViewModel *mock = [[JCRouteViewModel alloc] init];
     [mock setName:@"Hope St to Science Centre"];
-    [mock setSafetyRating:@5];
+    [mock setSafetyRating:@3];
     [mock setDifficultyRating:@4];
     [mock setEnvironmentRating:@3];
     [mock setEstimatedTime:@(90*60)];

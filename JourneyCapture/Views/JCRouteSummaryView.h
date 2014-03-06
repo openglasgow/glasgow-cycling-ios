@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JCRouteViewModel;
+@class JCRouteViewModel, EDStarRating;
 
 @interface JCRouteSummaryView : UIView
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 
 @property (strong, nonatomic) UIImageView *safetyView;
-@property (strong, nonatomic) UILabel *safetyLabel;
+@property (strong, nonatomic) EDStarRating *safetyStarRating;
 @property (strong, nonatomic) UIImageView *environmentView;
-@property (strong, nonatomic) UILabel *environmentLabel;
+@property (strong, nonatomic) EDStarRating *environmentStarRating;
 @property (strong, nonatomic) UIImageView *difficultyView;
-@property (strong, nonatomic) UILabel *difficultyLabel;
+@property (strong, nonatomic) EDStarRating *difficultyStarRating;
 @property (strong, nonatomic) UIImageView *estimatedTimeView;
 @property (strong, nonatomic) UILabel *estimatedTimeLabel;
 @property (strong, nonatomic) UIImageView *distanceView;
