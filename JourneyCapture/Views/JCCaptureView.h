@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "IFTTTJazzHands.h"
 
 @interface JCCaptureView : UIView
 @property (strong, nonatomic) MKMapView *mapview;
 @property (strong, nonatomic) UIButton *captureButton;
-
-@property (nonatomic, strong) IFTTTAnimator *animator;
+@property (strong, nonatomic) UITableView *statsTable;
 
 - (void)transitionToActive;
 @end

@@ -41,6 +41,9 @@
 		83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022618BE474D00EE7787 /* JCSigninViewController.m */; };
 		83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022C18BE477700EE7787 /* JCSigninViewModel.m */; };
 		83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022F18BE482B00EE7787 /* JCSigninView.m */; };
+		83BD285A18CA01010042F1E3 /* JCStatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD285918CA01010042F1E3 /* JCStatCell.m */; };
+		83BD285E18CA04C50042F1E3 /* JCRouteCaptureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD285D18CA04C50042F1E3 /* JCRouteCaptureViewModel.m */; };
+		83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD286018CA06640042F1E3 /* JCRoutePointViewModel.m */; };
 		83D98DD018C9D3AD00E72279 /* JCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DCF18C9D3AD00E72279 /* JCLocationManager.m */; };
 		83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DD318C9DB2F00E72279 /* JCRouteCaptureViewController.m */; };
 		83D98DD718C9DB4100E72279 /* JCCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DD618C9DB4100E72279 /* JCCaptureView.m */; };
@@ -119,6 +122,12 @@
 		83BA022C18BE477700EE7787 /* JCSigninViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninViewModel.m; sourceTree = "<group>"; };
 		83BA022E18BE482B00EE7787 /* JCSigninView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSigninView.h; sourceTree = "<group>"; };
 		83BA022F18BE482B00EE7787 /* JCSigninView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninView.m; sourceTree = "<group>"; };
+		83BD285818CA01010042F1E3 /* JCStatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCStatCell.h; sourceTree = "<group>"; };
+		83BD285918CA01010042F1E3 /* JCStatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCStatCell.m; sourceTree = "<group>"; };
+		83BD285C18CA04C50042F1E3 /* JCRouteCaptureViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteCaptureViewModel.h; sourceTree = "<group>"; };
+		83BD285D18CA04C50042F1E3 /* JCRouteCaptureViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteCaptureViewModel.m; sourceTree = "<group>"; };
+		83BD285F18CA06640042F1E3 /* JCRoutePointViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRoutePointViewModel.h; sourceTree = "<group>"; };
+		83BD286018CA06640042F1E3 /* JCRoutePointViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRoutePointViewModel.m; sourceTree = "<group>"; };
 		83C1DB1918C7856C0005F79C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		83D98DCE18C9D3AD00E72279 /* JCLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCLocationManager.h; sourceTree = "<group>"; };
 		83D98DCF18C9D3AD00E72279 /* JCLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCLocationManager.m; sourceTree = "<group>"; };
@@ -339,6 +348,7 @@
 				8303E2CF18C61C4100215760 /* Onboarding */,
 				8341420E18BF55A30020CF97 /* User */,
 				83B5DEC518BFA2000032F7E1 /* Routes List */,
+				83BD285B18CA049F0042F1E3 /* Route Capture */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -422,11 +432,24 @@
 			name = Signin;
 			sourceTree = "<group>";
 		};
+		83BD285B18CA049F0042F1E3 /* Route Capture */ = {
+			isa = PBXGroup;
+			children = (
+				83BD285C18CA04C50042F1E3 /* JCRouteCaptureViewModel.h */,
+				83BD285D18CA04C50042F1E3 /* JCRouteCaptureViewModel.m */,
+				83BD285F18CA06640042F1E3 /* JCRoutePointViewModel.h */,
+				83BD286018CA06640042F1E3 /* JCRoutePointViewModel.m */,
+			);
+			name = "Route Capture";
+			sourceTree = "<group>";
+		};
 		83D98DD118C9DAC900E72279 /* Route Capture */ = {
 			isa = PBXGroup;
 			children = (
 				83D98DD518C9DB4100E72279 /* JCCaptureView.h */,
 				83D98DD618C9DB4100E72279 /* JCCaptureView.m */,
+				83BD285818CA01010042F1E3 /* JCStatCell.h */,
+				83BD285918CA01010042F1E3 /* JCStatCell.m */,
 				83D98DD218C9DB2F00E72279 /* JCRouteCaptureViewController.h */,
 				83D98DD318C9DB2F00E72279 /* JCRouteCaptureViewController.m */,
 			);
@@ -581,6 +604,7 @@
 				8341421518BF55C20020CF97 /* JCUserView.m in Sources */,
 				83B5DECB18BFA3130032F7E1 /* JCRoutesViewController.m in Sources */,
 				83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */,
+				83BD285E18CA04C50042F1E3 /* JCRouteCaptureViewModel.m in Sources */,
 				83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */,
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				83B3485518C0A7F100D59FB9 /* JCRouteViewModel.m in Sources */,
@@ -594,7 +618,9 @@
 				83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */,
 				83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */,
 				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,
+				83BD285A18CA01010042F1E3 /* JCStatCell.m in Sources */,
 				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
+				83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

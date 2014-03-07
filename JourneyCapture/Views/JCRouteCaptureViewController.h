@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "JCLocationManager.h"
+#import "JCRouteCaptureViewModel.h"
+@class JCCaptureView;
 
-@interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate>
-
+@interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate,
+                                                            UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) JCRouteCaptureViewModel *viewModel;
+@property (strong, nonatomic) JCCaptureView *captureView;
 @end
