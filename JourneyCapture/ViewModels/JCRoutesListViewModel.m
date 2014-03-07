@@ -20,8 +20,6 @@
         return nil;
     }
 
-    self.routes = [[NSMutableArray alloc] init];
-
     return self;
 }
 
@@ -30,10 +28,12 @@
     NSLog(@"Loading user routes");
     JCAPIManager *manager = [JCAPIManager manager];
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager GET:@"/routes/user_summaries/10/1.json"
+        AFHTTPRequestOperation *op = [manager GET:@"/routes/user_summaries/1000/1.json"
                                        parameters:nil
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
                                               // Registered, store user token
+                                              self.routes = [[NSMutableArray alloc] init];
+
                                               NSLog(@"User routes load success");
                                               NSLog(@"%@", routesDict);
                                               NSArray *routesResponse = routesDict[@"routes"];

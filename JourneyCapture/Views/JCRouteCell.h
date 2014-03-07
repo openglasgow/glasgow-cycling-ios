@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JCRouteViewModel;
+@class JCRouteViewModel, EDStarRating;
 
 @interface JCRouteCell : UITableViewCell
 
@@ -15,8 +15,7 @@
 
 @property (strong, nonatomic) UILabel *nameLabel;
 
-@property (strong, nonatomic) UIImageView *averageRatingView;
-@property (strong, nonatomic) UILabel *averageRatingLabel;
+@property (strong, nonatomic) EDStarRating *averageRating;
 
 @property (strong, nonatomic) UIImageView *estimatedTimeView;
 @property (strong, nonatomic) UILabel *estimatedTimeLabel;
