@@ -11,6 +11,7 @@
 
 #import "JCRoutesViewController.h"
 #import "JCRoutesListViewModel.h"
+#import "JCRouteCaptureViewController.h"
 
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -137,6 +138,12 @@
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(80));
+    }];
+
+    self.createRouteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
+        [self.navigationController pushViewController:captureController animated:YES];
+        return [RACSignal empty];
     }];
 
     // Nav
