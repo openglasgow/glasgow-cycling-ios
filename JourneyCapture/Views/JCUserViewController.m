@@ -30,6 +30,8 @@
     if (!self) {
         return nil;
     }
+    [[[JCLocationManager manager] locationManager] startUpdatingLocation];
+    [[JCLocationManager manager] setDelegate:self];
     self.viewModel = [[JCUserViewModel alloc] init];
     [[self.viewModel loadDetails] subscribeError:^(NSError *error) {
         NSLog(@"Failed to load user - returning to welcome");
@@ -37,6 +39,7 @@
         NSArray *viewControllerStack = @[welcomeController];
         [self.navigationController setViewControllers:viewControllerStack];
         [self.navigationController popToRootViewControllerAnimated:YES];
+        [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
     } completed:^{
         NSLog(@"User details loaded");
     }];
@@ -150,6 +153,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"Got locations in user overview");
+    [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
 }
 
 @end

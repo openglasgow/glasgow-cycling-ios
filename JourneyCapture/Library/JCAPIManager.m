@@ -76,4 +76,5 @@
         _sharedManager = [[self alloc] initWithBaseURL:[NSURL URLWithString:API_URI]];
     });
     return _sharedManager;
-}@end
+}
+@end

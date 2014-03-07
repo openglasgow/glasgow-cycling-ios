@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JCLocationManager.h"
 @class JCUserViewModel;
 
-@interface JCUserViewController : UIViewController
+@interface JCUserViewController : UIViewController <JCLocationManagerDelegate>
 @property (strong, nonatomic) JCUserViewModel *viewModel;
 @property (strong, nonatomic) UIImageView *mapImageView;
 @property (strong, nonatomic) UIButton *myRoutesButton;
