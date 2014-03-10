@@ -60,10 +60,14 @@
     NSLog(@"Got new location, adding to the route");
     CLLocation *latestLocation = locations[0];
     JCRoutePointViewModel *point = [[JCRoutePointViewModel alloc] init];
-    [point setSpeed:latestLocation.speed];
+    double speed = 0.0;
+    if (latestLocation.speed > speed) {
+        speed = latestLocation.speed;
+    }
+    [point setSpeed:speed];
     [point setLocation:latestLocation];
     [self.viewModel addPoint:point];
-    [self.viewModel setCurrentSpeed:latestLocation.speed];
+    [self.viewModel setCurrentSpeed:speed];
     [self.captureView.statsTable reloadData];
 }
 
