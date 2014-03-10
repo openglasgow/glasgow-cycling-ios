@@ -100,10 +100,14 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     if (indexPath.row == 0) {
         [[cell statName] setText:@"Current Speed"];
-        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f mph", self.viewModel.currentSpeed]];
+        double currentSpeedMph = self.viewModel.currentSpeed;
+        double currentSpeedKph = (currentSpeedMph * 60 * 60) / 1000;
+        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", currentSpeedKph]];
     } else if (indexPath.row == 1) {
         [[cell statName] setText:@"Average Speed"];
-        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f mph", self.viewModel.averageSpeed]];
+        double averageSpeedMph = self.viewModel.averageSpeed;
+        double averageSpeedKph = (averageSpeedMph * 60 * 60) / 1000;
+        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", averageSpeedKph]];
     } else if (indexPath.row == 2) {
         [[cell statName] setText:@"Distance"];
         [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", self.viewModel.totalMetres / 1000.0]];
