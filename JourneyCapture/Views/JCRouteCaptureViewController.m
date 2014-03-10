@@ -44,6 +44,7 @@
             [[JCLocationManager manager] setDelegate:self];
         } else {
             // Stop
+            [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
             [self.navigationController popViewControllerAnimated:YES];
         }
         return [RACSignal empty];
