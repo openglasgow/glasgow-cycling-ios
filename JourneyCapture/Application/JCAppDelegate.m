@@ -20,6 +20,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
+    [[GSKeychain systemKeychain] removeAllSecrets];
     BOOL loggedIn = [[GSKeychain systemKeychain] secretForKey:@"user_token"] != nil;
     UIViewController *rootController;
     if (loggedIn) {

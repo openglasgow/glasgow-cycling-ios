@@ -9,6 +9,7 @@
 #import "JCSignupViewModel.h"
 #import "JCAPIManager.h"
 #import <GSKeychain/GSKeychain.h>
+#import "UIImage+Compression.h"
 
 @implementation JCSignupViewModel
 @synthesize email, password, firstName, lastName, dob, gender, genders, profilePicture;
@@ -49,8 +50,8 @@
     NSString *formattedDob = [formatter stringFromDate:self.dob];
 
     // Profile pic
-    NSString *imageData = [UIImagePNGRepresentation(self.profilePicture)
-                           base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSData *imageData = [self.profilePicture compressToSize:250];
+    NSString *imageEncoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
     // User data
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
@@ -59,7 +60,7 @@
                               self.lastName, @"last_name",
                               formattedDob, @"dob",
                               self.gender, @"gender",
-                              imageData, @"profile_picture",
+                              imageEncoded, @"profile_picture",
                               nil];
 
     // Submit signup
