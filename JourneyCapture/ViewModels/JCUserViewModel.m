@@ -41,11 +41,10 @@
                                               [self setMetersThisMonth:stats[@"meters"]];
                                               [self setRoutesThisMonth:stats[@"total"]];
 
-                                              NSString *base64Pic = stats[@"profile_pic"];
+                                              NSString *base64Pic = responseObject[@"profile_pic"];
                                               if (base64Pic) {
-                                                  UIImage *decodedProfilePic = (UIImage *)[[NSData alloc]
-                                                                             initWithBase64EncodedString:base64Pic
-                                                                                           options:0];
+                                                  NSData *picData = [[NSData alloc] initWithBase64EncodedString:base64Pic options:0];
+                                                  UIImage *decodedProfilePic = [UIImage imageWithData:picData];
                                                   [self setProfilePic:decodedProfilePic];
                                               } else {
                                                   [self setProfilePic:[UIImage imageNamed:@"default_profile_pic"]];
