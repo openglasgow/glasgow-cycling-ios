@@ -48,12 +48,17 @@
             [self.captureView transitionToComplete];
         } else {
             // Submit
-            [[self.viewModel upload] subscribeError:^(NSError *error) {
+            [[self.viewModel uploadRoute] subscribeError:^(NSError *error) {
                 // TODO save locally and keep trying ?
                 NSLog(@"Couldn't upload");
             } completed:^{
                 NSLog(@"Route uploaded");
-                [self.navigationController popViewControllerAnimated:YES];
+                [[self.viewModel uploadReview] subscribeError:^(NSError *error) {
+                    NSLog(@"Couldn't upload review");
+                } completed:^{
+                    NSLog(@"Review uploaded");
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
             }];
         }
         return [RACSignal empty];

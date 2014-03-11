@@ -17,7 +17,13 @@
 @property (readwrite, nonatomic) double totalMetres;
 @property (strong, nonatomic) NSMutableArray *points;
 
+@property (readwrite, nonatomic) NSInteger routeId;
+@property (readwrite, nonatomic) double safetyRating;
+@property (readwrite, nonatomic) double environmentRating;
+@property (readwrite, nonatomic) double difficultyRating;
+
 -(void)addPoint:(JCRoutePointViewModel *)point;
--(RACSignal *)upload;
+-(RACSignal *)uploadRoute;
+-(RACSignal *)uploadReview;
 
 @end

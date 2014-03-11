@@ -121,6 +121,7 @@
     [self.safetyRating setBackgroundColor:[UIColor clearColor]];
     self.safetyRating.horizontalMargin = 5;
     [self.safetyRating setDelegate:self];
+    RACChannelTo(self.safetyRating, rating) = RACChannelTo(self.viewModel, safetyRating);
     [self.reviewScrollView addSubview:self.safetyRating];
 
     // Environment rating
@@ -137,6 +138,7 @@
     [self.environmentRating setBackgroundColor:[UIColor clearColor]];
     self.environmentRating.horizontalMargin = 5;
     [self.environmentRating setDelegate:self];
+    RACChannelTo(self.environmentRating, rating) = RACChannelTo(self.viewModel, environmentRating);
     [self.reviewScrollView addSubview:self.environmentRating];
 
     // Difficulty rating
@@ -153,6 +155,7 @@
     [self.difficultyRating setBackgroundColor:[UIColor clearColor]];
     self.difficultyRating.horizontalMargin = 5;
     [self.difficultyRating setDelegate:self];
+    RACChannelTo(self.difficultyRating, rating) = RACChannelTo(self.viewModel, difficultyRating);
     [self.reviewScrollView addSubview:self.difficultyRating];
 
     // Review complete
