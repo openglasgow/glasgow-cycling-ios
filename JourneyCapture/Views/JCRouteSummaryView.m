@@ -76,9 +76,8 @@
     [self.distanceLabel setFont:statsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceLabel.text);
     RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceKm);
-    [[distanceModelChannel map:^(id meters){
-        float km = [meters intValue]/1000.0;
-        return [NSString stringWithFormat:@"%.02f km", km];
+    [[distanceModelChannel map:^(id km){
+        return [NSString stringWithFormat:@"%.02f km", [km doubleValue]];
     }] subscribe:distanceLabelChannel];
     [self addSubview:self.distanceLabel];
 
@@ -107,6 +106,7 @@
     self.safetyStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
     [self.safetyStarRating setBackgroundColor:[UIColor clearColor]];
     self.safetyStarRating.horizontalMargin = 5;
+    RACChannelTo(self.safetyStarRating, rating) = RACChannelTo(self.viewModel, safetyRating);
     [self addSubview:self.safetyStarRating];
 
     [self.safetyStarRating mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -136,6 +136,7 @@
     self.difficultyStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
     [self.difficultyStarRating setBackgroundColor:[UIColor clearColor]];
     self.difficultyStarRating.horizontalMargin = 5;
+    RACChannelTo(self.difficultyStarRating, rating) = RACChannelTo(self.viewModel, difficultyRating);
     [self addSubview:self.difficultyStarRating];
 
     [self.difficultyStarRating mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -165,6 +166,7 @@
     self.environmentStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
     [self.environmentStarRating setBackgroundColor:[UIColor clearColor]];
     self.environmentStarRating.horizontalMargin = 5;
+    RACChannelTo(self.environmentStarRating, rating) = RACChannelTo(self.viewModel, environmentRating);
     [self addSubview:self.environmentStarRating];
 
     [self.environmentStarRating mas_makeConstraints:^(MASConstraintMaker *make) {
