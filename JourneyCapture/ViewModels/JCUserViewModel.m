@@ -11,7 +11,7 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCUserViewModel
-@synthesize firstName, lastName, favouriteRouteName, routesThisMonth, secondsThisMonth, metersThisMonth;
+@synthesize firstName, lastName, favouriteRouteName, routesThisMonth, secondsThisMonth, kmThisMonth;
 - (id)init
 {
     self = [super init];
@@ -38,7 +38,7 @@
                                               NSDictionary *stats = responseObject[@"month"];
                                               [self setFavouriteRouteName:stats[@"route"]];
                                               [self setSecondsThisMonth:stats[@"seconds"]];
-                                              [self setMetersThisMonth:stats[@"meters"]];
+                                              [self setKmThisMonth:stats[@"km"]];
                                               [self setRoutesThisMonth:stats[@"total"]];
 
                                               NSString *base64Pic = responseObject[@"profile_pic"];

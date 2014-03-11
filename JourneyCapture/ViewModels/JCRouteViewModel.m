@@ -33,7 +33,7 @@
     NSString *minuteDesc = minutes == 1 ? @"minute" : @"minutes";
     NSString *hourDesc = hours == 1 ? @"hour" : @"hours";
     if (hours == 0) {
-        return [NSString stringWithFormat:@"Around %2d %@", minutes, minuteDesc];
+        return [NSString stringWithFormat:@"Around %d %@", minutes, minuteDesc];
     } else if (minutes == 0) {
         return [NSString stringWithFormat:@"Around %d %@", hours, hourDesc];
     } else {
