@@ -33,7 +33,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     CGRect captureFrame = [[UIScreen mainScreen] applicationFrame];
-    self.captureView = [[JCCaptureView alloc] initWithFrame:captureFrame];
+    self.captureView = [[JCCaptureView alloc] initWithFrame:captureFrame viewModel:self.viewModel];
     captureView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Tapped capture button");
         if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Start"]) {
@@ -42,10 +42,12 @@
             self.navigationItem.hidesBackButton = YES;
             [[[JCLocationManager manager] locationManager] startUpdatingLocation];
             [[JCLocationManager manager] setDelegate:self];
-        } else {
+        } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
             // Stop
             [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.captureView transitionToComplete];
+        } else {
+            // Submit
         }
         return [RACSignal empty];
     }];
@@ -60,6 +62,8 @@
 {
     NSLog(@"Got new location, adding to the route");
     CLLocation *latestLocation = locations[0];
+
+    // Create point
     JCRoutePointViewModel *point = [[JCRoutePointViewModel alloc] init];
     double speed = 0.0;
     if (latestLocation.speed > speed) {
@@ -69,6 +73,11 @@
     [point setLocation:latestLocation];
     [self.viewModel addPoint:point];
     [self.viewModel setCurrentSpeed:speed];
+
+    // Update route line
+    [self.captureView updateRouteLine];
+
+    // Reload stats
     [self.captureView.statsTable reloadData];
 }
 
