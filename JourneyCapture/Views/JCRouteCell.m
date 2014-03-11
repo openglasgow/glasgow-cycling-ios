@@ -30,6 +30,12 @@
 - (void)setViewModel:(JCRouteViewModel *)routeViewModel
 {
     self->_viewModel = routeViewModel;
+    for(UIView *view in self.contentView.subviews){
+        if ([view respondsToSelector:@selector(removeFromSuperview)]) {
+            [view removeFromSuperview];
+        }
+    }
+
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).with.offset(10);
         make.left.equalTo(self.mas_left).with.offset(15);
