@@ -9,7 +9,7 @@
 #import "JCRouteViewModel.h"
 
 @implementation JCRouteViewModel
-@synthesize name, safetyRating, environmentRating, difficultyRating, distanceMetres, estimatedTime, routeImage;
+@synthesize name, safetyRating, environmentRating, difficultyRating, distanceKm, estimatedTime, routeImage;
 
 - (id)init
 {
