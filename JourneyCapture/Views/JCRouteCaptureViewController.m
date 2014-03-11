@@ -48,6 +48,13 @@
             [self.captureView transitionToComplete];
         } else {
             // Submit
+            [[self.viewModel upload] subscribeError:^(NSError *error) {
+                // TODO save locally and keep trying ?
+                NSLog(@"Couldn't upload");
+            } completed:^{
+                NSLog(@"Route uploaded");
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
         }
         return [RACSignal empty];
     }];

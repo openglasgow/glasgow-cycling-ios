@@ -12,11 +12,12 @@
 
 @interface JCRouteCaptureViewModel : RVMViewModel
 
-@property (readwrite, nonatomic, setter = setCurrentSpeed:) double currentSpeed;
+@property (readwrite, nonatomic) double currentSpeed;
 @property (readwrite, nonatomic) double averageSpeed;
 @property (readwrite, nonatomic) double totalMetres;
 @property (strong, nonatomic) NSMutableArray *points;
 
 -(void)addPoint:(JCRoutePointViewModel *)point;
+-(RACSignal *)upload;
 
 @end

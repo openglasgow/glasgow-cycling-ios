@@ -11,4 +11,5 @@
 
 @interface JCRoutePointViewModel : RVMViewModel
 @property (strong, atomic) CLLocation *location;
+-(NSDictionary *)data;
 @end
