@@ -1,22 +1,23 @@
 PODS:
-  - AFNetworking (2.1.0):
+  - AFNetworking (2.2.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.1.0):
+  - AFNetworking/NSURLConnection (2.2.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.1.0):
+  - AFNetworking/NSURLSession (2.2.0):
     - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.1.0)
-  - AFNetworking/Security (2.1.0)
-  - AFNetworking/Serialization (2.1.0)
-  - AFNetworking/UIKit (2.1.0):
+  - AFNetworking/Reachability (2.2.0)
+  - AFNetworking/Security (2.2.0)
+  - AFNetworking/Serialization (2.2.0)
+  - AFNetworking/UIKit (2.2.0):
     - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - EDStarRating (1.1)
   - FDTake (0.1.1)
   - FlurrySDK (4.3.2):
@@ -86,7 +87,7 @@ DEPENDENCIES:
   - ReactiveViewModel (~> 0.2)
 
 SPEC CHECKSUMS:
-  AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
+  AFNetworking: e8cfd8f3fe3bfe19124a0cc63f4d45752d892a56
   EDStarRating: 6761f41fd040f1cde155e2885dddc96461620f67
   FDTake: f9fe37ec6143fc645447e961cee96b59c0ab7ca4
   FlurrySDK: 0ba42379fd272d69246ae06386a2c5688516ffd8

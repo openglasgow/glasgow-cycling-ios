@@ -10,6 +10,7 @@
 #import "JCWelcomeViewController.h"
 #import "JCUserViewController.h"
 #import <GSKeychain/GSKeychain.h>
+#import "Flurry.h"
 
 @implementation JCAppDelegate
 
@@ -33,6 +34,10 @@
     // Core Data
     [MagicalRecord setupAutoMigratingCoreDataStack];
     return YES;
+    
+    //Flurry Analytics Setup
+    [Flurry setCrashReportingEnabled:YES];
+    [Flurry startSession:@"DS59KXYYXSP92WR2C527"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
