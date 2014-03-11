@@ -32,6 +32,7 @@
 -(void)addPoint:(JCRoutePointViewModel *)point;
 -(RACSignal *)uploadRoute;
 -(RACSignal *)uploadReview;
+-(RACSignal *)loadPoints;
 - (NSNumber *)averageRating;
 - (NSString *)readableTime;
 

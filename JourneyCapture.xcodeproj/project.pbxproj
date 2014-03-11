@@ -99,6 +99,7 @@
 		83519E7218CDC42800DA1E70 /* UIImage+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compression.m"; sourceTree = "<group>"; };
 		83560C4D18BCE146004CE63C /* JCSignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewModel.h; sourceTree = "<group>"; };
 		83560C4E18BCE146004CE63C /* JCSignupViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupViewModel.m; sourceTree = "<group>"; };
+		83735C0318CF730C0050AB09 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		837B15A418BDF31F000EEFAB /* JCSignupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupView.h; sourceTree = "<group>"; };
 		837B15A518BDF31F000EEFAB /* JCSignupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupView.m; sourceTree = "<group>"; };
 		837B15A718BE023B000EEFAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -215,6 +216,7 @@
 		831EDB4818BCBB33001468E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83735C0318CF730C0050AB09 /* CoreLocation.framework */,
 				83C1DB1918C7856C0005F79C /* MobileCoreServices.framework */,
 				837B15A718BE023B000EEFAB /* QuartzCore.framework */,
 				831EDB4918BCBB33001468E4 /* Foundation.framework */,

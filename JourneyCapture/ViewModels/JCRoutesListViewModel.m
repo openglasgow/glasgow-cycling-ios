@@ -56,6 +56,9 @@
                                                   double distance = [routeData[@"total_distance"] doubleValue];
                                                   [route setTotalKm:distance];
 
+                                                  int routeId = [routeData[@"id"] intValue];
+                                                  [route setRouteId:routeId];
+
                                                   [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
                                                   [[self routes] addObject:route];
                                               }
