@@ -156,7 +156,7 @@
     // Review complete
     self.reviewCompleteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*3, (self.reviewScrollView.frame.size.height/2) - labelHeight,
                                                                          self.frame.size.width, labelHeight)];
-    [self.reviewCompleteLabel setText:@"Review completed! Thank you."];
+    [self.reviewCompleteLabel setText:@"Review completed! Please submit"];
     [self.reviewCompleteLabel setTextAlignment:NSTextAlignmentCenter];
     [self.reviewScrollView addSubview:self.reviewCompleteLabel];
 
