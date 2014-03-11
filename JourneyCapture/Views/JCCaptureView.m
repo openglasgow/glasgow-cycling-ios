@@ -186,6 +186,20 @@
     // Hide user location
     [self.mapView setShowsUserLocation:NO];
 
+    // Calculate map area in which route is held
+    MKMapRect zoomRect = MKMapRectNull;
+    for (JCRoutePointViewModel *point in self.viewModel.points)
+    {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(point.location.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 150.0, 150.0);
+        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    }
+
+    // Add area to top of rect to prevent navbar covering route
+    MKMapRect topRect = MKMapRectMake(zoomRect.origin.x, zoomRect.origin.y + (zoomRect.size.width/2) - 500,
+                                      zoomRect.size.width, 500);
+    zoomRect = MKMapRectUnion(zoomRect, topRect);
+
     // Slide stats and review view up
     [UIView animateWithDuration:0.5
                           delay:0.0
@@ -210,13 +224,6 @@
                      }
                      completion:^(BOOL finished){
                          // Show entire route
-                         MKMapRect zoomRect = MKMapRectNull;
-                         for (JCRoutePointViewModel *point in self.viewModel.points)
-                         {
-                             MKMapPoint annotationPoint = MKMapPointForCoordinate(point.location.coordinate);
-                             MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 2.0, 2.0);
-                             zoomRect = MKMapRectUnion(zoomRect, pointRect);
-                         }
                          [self.mapView setVisibleMapRect:zoomRect animated:YES];
                      }];
 }
@@ -251,6 +258,19 @@
     renderer.strokeColor = self.tintColor;
     renderer.lineWidth = 2.5;
     return  renderer;
+}
+
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    // Ensure mapview is zoomed in to a reasonable amount when user location is found
+    // (seems to be an issue with mapView userTrackingEnabled where this sometimes doesn't happen)
+    MKCoordinateSpan zoomSpan = self.mapView.region.span;
+    if (zoomSpan.latitudeDelta > 1 || zoomSpan.longitudeDelta > 1) {
+        // 1 might be a bit large, but delta is typically initially ~50-55
+        CLLocationCoordinate2D loc = [userLocation coordinate];
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 500, 500);
+        [self.mapView setRegion:region animated:YES];
+    }
 }
 
 - (void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
