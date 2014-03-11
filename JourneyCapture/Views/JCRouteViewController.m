@@ -15,7 +15,7 @@
 @end
 
 @implementation JCRouteViewController
-@synthesize viewModel, routeImageView, mapImageView;
+@synthesize viewModel, routeImageView, mapView;
 
 - (id)initWithViewModel:(JCRouteViewModel *)routeViewModel
 {
@@ -56,10 +56,10 @@
     }];
     
     // Background map image view
-    UIImage *mapImage = [UIImage imageNamed:@"map-hope-science"];
-    self.mapImageView = [[UIImageView alloc] initWithImage:mapImage];
-    [self.view addSubview:self.mapImageView];
-    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.mapView = [[MKMapView alloc] init];
+    self.mapView.showsUserLocation = NO;
+    [self.view addSubview:self.mapView];
+    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.routeImageView.mas_bottom);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);

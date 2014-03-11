@@ -22,7 +22,7 @@
 {
     self = [super init];
     if (self) {
-        self.viewModel = [[JCRouteCaptureViewModel alloc] init];
+        self.viewModel = [[JCRouteViewModel alloc] init];
     }
     return self;
 }
@@ -126,7 +126,7 @@
         [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", averageSpeedKph]];
     } else if (indexPath.row == 2) {
         [[cell statName] setText:@"Distance"];
-        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", self.viewModel.totalMetres / 1000.0]];
+        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", self.viewModel.totalKm]];
     }
     [cell setAccessoryType:UITableViewCellAccessoryNone];
     return cell;

@@ -75,7 +75,7 @@
     self.distanceLabel = [[UILabel alloc] init];
     [self.distanceLabel setFont:statsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceLabel.text);
-    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceKm);
+    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.totalKm);
     [[distanceModelChannel map:^(id km){
         return [NSString stringWithFormat:@"%.02f km", [km doubleValue]];
     }] subscribe:distanceLabelChannel];
@@ -101,7 +101,7 @@
     self.safetyStarRating = [[EDStarRating alloc] init];
     [self.safetyStarRating setEditable:NO];
     [self.safetyStarRating setDisplayMode:EDStarRatingDisplayFull];
-    self.safetyStarRating.rating = [self.viewModel.safetyRating floatValue];
+    self.safetyStarRating.rating = self.viewModel.safetyRating;
     self.safetyStarRating.starImage = [UIImage imageNamed:@"star-template"];
     self.safetyStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
     [self.safetyStarRating setBackgroundColor:[UIColor clearColor]];
@@ -131,7 +131,7 @@
     self.difficultyStarRating = [[EDStarRating alloc] init];
     [self.difficultyStarRating setEditable:NO];
     [self.difficultyStarRating setDisplayMode:EDStarRatingDisplayFull];
-    self.difficultyStarRating.rating = [self.viewModel.difficultyRating floatValue];
+    self.difficultyStarRating.rating = self.viewModel.difficultyRating;
     self.difficultyStarRating.starImage = [UIImage imageNamed:@"star-template"];
     self.difficultyStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
     [self.difficultyStarRating setBackgroundColor:[UIColor clearColor]];
@@ -161,7 +161,7 @@
     self.environmentStarRating = [[EDStarRating alloc] init];
     [self.environmentStarRating setEditable:NO];
     [self.environmentStarRating setDisplayMode:EDStarRatingDisplayFull];
-    self.environmentStarRating.rating = [self.viewModel.environmentRating floatValue];
+    self.environmentStarRating.rating = self.viewModel.environmentRating;
     self.environmentStarRating.starImage = [UIImage imageNamed:@"star-template"];
     self.environmentStarRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
     [self.environmentStarRating setBackgroundColor:[UIColor clearColor]];

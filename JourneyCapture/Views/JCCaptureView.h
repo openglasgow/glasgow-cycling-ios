@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "IFTTTJazzHands.h"
 #import <EDStarRating/EDStarRating.h>
-@class JCRouteCaptureViewModel;
+@class JCRouteViewModel;
 
 @interface JCCaptureView : UIView <MKMapViewDelegate, EDStarRatingProtocol>
 @property (strong, nonatomic) MKMapView *mapView;
@@ -18,7 +18,7 @@
 @property (nonatomic, strong) MKPolylineView *routeLineView;
 @property (strong, nonatomic) UIButton *captureButton;
 @property (strong, nonatomic) UITableView *statsTable;
-@property (strong, nonatomic) JCRouteCaptureViewModel *viewModel;
+@property (strong, nonatomic) JCRouteViewModel *viewModel;
 
 // Review
 @property (strong, nonatomic) UIScrollView *reviewScrollView;
@@ -33,7 +33,7 @@
 
 @property (strong, nonatomic) IFTTTAnimator *animator;
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCRouteCaptureViewModel *)captureViewModel;
+- (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel;
 - (void)transitionToActive;
 - (void)transitionToComplete;
 - (void)updateRouteLine;

@@ -112,9 +112,9 @@
     self.distanceLabel = [[UILabel alloc] init];
     [self.distanceLabel setFont:detailsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceLabel.text);
-    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceKm);
+    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.totalKm);
     [[distanceModelChannel map:^(id km){
-        return [NSString stringWithFormat:@"%.02f km", [km doubleValue]];
+        return [NSString stringWithFormat:@"%.02f km", self.viewModel.totalKm];
     }] subscribe:distanceLabelChannel];
 
     [self.contentView addSubview:self.distanceLabel];
