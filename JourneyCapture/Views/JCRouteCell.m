@@ -81,8 +81,8 @@
     [self.estimatedTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.averageRating.mas_bottom).with.offset(10);
         make.left.equalTo(self.nameLabel.mas_left);
-        make.width.equalTo(@(12));
-        make.height.equalTo(@(12));
+        make.width.equalTo(@12);
+        make.height.equalTo(@12);
     }];
 
     self.estimatedTimeLabel = [[UILabel alloc] init];
@@ -105,17 +105,16 @@
     [self.distanceView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.estimatedTimeView.mas_bottom).with.offset(10);
         make.left.equalTo(self.nameLabel.mas_left);
-        make.width.equalTo(@(12));
-        make.height.equalTo(@(12));
+        make.width.equalTo(@12);
+        make.height.equalTo(@12);
     }];
     
     self.distanceLabel = [[UILabel alloc] init];
     [self.distanceLabel setFont:detailsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceLabel.text);
-    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceMetres);
-    [[distanceModelChannel map:^(id meters){
-        float km = [meters intValue]/1000.0;
-        return [NSString stringWithFormat:@"%.02f km", km];
+    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceKm);
+    [[distanceModelChannel map:^(id km){
+        return [NSString stringWithFormat:@"%.02f km", [km doubleValue]];
     }] subscribe:distanceLabelChannel];
 
     [self.contentView addSubview:self.distanceLabel];
@@ -127,14 +126,6 @@
     // Background image
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:self.viewModel.routeImage];
     self.backgroundView = backgroundImageView;
-//    cell.backgroundView = [ [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"cell_normal.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ]autorelease];
-//    cell.selectedBackgroundView = [ [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"cell_pressed.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ]autorelease];
-//    
-//    UIColor *background = [UIColor colorWithPatternImage:self.viewModel.routeImage];
-//    [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.contentView);
-//    }];
-//    [self.backgroundView setBackgroundColor:[UIColor redColor]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -10,6 +10,6 @@
 #import <MapKit/MapKit.h>
 
 @interface JCRoutePointViewModel : RVMViewModel
-@property (readwrite, atomic) double speed;
 @property (strong, atomic) CLLocation *location;
+-(NSDictionary *)data;
 @end

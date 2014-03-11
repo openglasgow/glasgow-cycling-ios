@@ -12,7 +12,7 @@
 @property (strong, nonatomic) NSString *favouriteRouteName;
 @property (strong, nonatomic) NSNumber *routesThisMonth;
 @property (strong, nonatomic) NSNumber *secondsThisMonth;
-@property (strong, nonatomic) NSNumber *metersThisMonth;
+@property (strong, nonatomic) NSNumber *kmThisMonth;
 @property (strong, nonatomic) UIImage *profilePic;
 
 -(RACSignal *)loadDetails;

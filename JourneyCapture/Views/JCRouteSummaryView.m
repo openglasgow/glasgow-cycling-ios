@@ -75,7 +75,7 @@
     self.distanceLabel = [[UILabel alloc] init];
     [self.distanceLabel setFont:statsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceLabel.text);
-    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceMetres);
+    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceKm);
     [[distanceModelChannel map:^(id meters){
         float km = [meters intValue]/1000.0;
         return [NSString stringWithFormat:@"%.02f km", km];

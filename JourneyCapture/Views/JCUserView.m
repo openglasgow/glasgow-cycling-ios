@@ -178,10 +178,9 @@
     self.distanceThisMonthLabel = [[UILabel alloc] init];
     [self.distanceThisMonthLabel setFont:statsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceThisMonthLabel.text);
-    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.metersThisMonth);
-    [[distanceModelChannel map:^(NSNumber *metersThisMonth){
-        return [NSString stringWithFormat:@"%@ km travelled this month",
-                @([metersThisMonth intValue] / 1000)];
+    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.kmThisMonth);
+    [[distanceModelChannel map:^(NSNumber *kmThisMonth){
+        return [NSString stringWithFormat:@"%.02f km this month", [kmThisMonth doubleValue]];
     }] subscribe:distanceLabelChannel];
     [self addSubview:self.distanceThisMonthLabel];
 

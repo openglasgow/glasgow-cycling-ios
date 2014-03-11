@@ -11,7 +11,7 @@
 @interface JCRouteViewModel : RVMViewModel
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSNumber *estimatedTime;
-@property (strong, nonatomic) NSNumber *distanceMetres;
+@property (strong, nonatomic) NSNumber *distanceKm;
 @property (strong, nonatomic) NSNumber *safetyRating;
 @property (strong, nonatomic) NSNumber *environmentRating;
 @property (strong, nonatomic) NSNumber *difficultyRating;

@@ -9,5 +9,16 @@
 #import "JCRoutePointViewModel.h"
 
 @implementation JCRoutePointViewModel
-@synthesize speed, location;
+@synthesize location;
+
+-(NSDictionary *)data
+{
+    return @{
+             @"lat": @(self.location.coordinate.latitude),
+             @"long": @(self.location.coordinate.longitude),
+             @"speed": @(self.location.speed),
+             @"altitude": @(self.location.altitude),
+             @"time": @([self.location.timestamp timeIntervalSince1970])
+            };
+}
 @end

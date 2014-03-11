@@ -12,7 +12,7 @@
 #import "JCRoutePointViewModel.h"
 
 @implementation JCCaptureView
-@synthesize mapview, routeLine, routeLineView, captureButton, statsTable, viewModel,
+@synthesize mapView, routeLine, routeLineView, captureButton, statsTable, viewModel,
             reviewScrollView, safetyRating, safetyReviewLabel, environmentRating, environmentReviewLabel,
             difficultyRating, difficultyReviewLabel, animator;
 
@@ -38,21 +38,22 @@
     [self addSubview:self.captureButton];
 
     // Map view
-    self.mapview = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 100)];
-    self.mapview.layer.masksToBounds = NO;
-    self.mapview.layer.shadowOffset = CGSizeMake(0, 1);
-    self.mapview.layer.shadowRadius = 2;
-    self.mapview.layer.shadowOpacity = 0.5;
-    [self addSubview:self.mapview];
-
-    self.mapview.showsUserLocation = YES;
-    [self.mapview setDelegate:self];
-    [self.mapview setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
-    [self.mapview setUserInteractionEnabled:NO];
+    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 100)];
+    self.mapView.layer.masksToBounds = NO;
+    self.mapView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.mapView.layer.shadowRadius = 2;
+    self.mapView.layer.shadowOpacity = 0.5;
+    self.mapView.delegate = self;
+    self.mapView.showsUserLocation = YES;
+    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+    self.mapView.zoomEnabled = NO;
+    self.mapView.scrollEnabled = NO;
+    self.mapView.userInteractionEnabled = NO;
+    [self addSubview:self.mapView];
 
     // Stats
     self.statsTable = [[UITableView alloc] init];
-    [self insertSubview:self.statsTable belowSubview:self.mapview];
+    [self insertSubview:self.statsTable belowSubview:self.mapView];
     [self.statsTable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
         make.left.equalTo(self);
@@ -171,7 +172,7 @@
                           delay:0.0
                         options: UIViewAnimationOptionCurveLinear
                      animations:^{
-                         self.mapview.frame = CGRectMake(0, 0, self.frame.size.width, 300);
+                         self.mapView.frame = CGRectMake(0, 0, self.frame.size.width, 300);
                          [self.captureButton setTitle:@"Stop" forState:UIControlStateNormal];
                          [self.captureButton setBackgroundColor:stopColor];
                      }
@@ -183,7 +184,7 @@
 - (void)transitionToComplete
 {
     // Hide user location
-    [self.mapview setShowsUserLocation:NO];
+    [self.mapView setShowsUserLocation:NO];
 
     // Slide stats and review view up
     [UIView animateWithDuration:0.5
@@ -191,7 +192,7 @@
                         options: UIViewAnimationOptionCurveLinear
                      animations:^{
                          // Shrink map, hide current speed
-                         self.mapview.frame = CGRectMake(0, 0, self.frame.size.width, 200);
+                         self.mapView.frame = CGRectMake(0, 0, self.frame.size.width, 200);
 
                          double statsHeight = self.statsTable.frame.size.height;
                          double tableOffset = statsHeight - (2 * [self.statsTable rowHeight]);
@@ -216,7 +217,7 @@
                              MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 2.0, 2.0);
                              zoomRect = MKMapRectUnion(zoomRect, pointRect);
                          }
-                         [self.mapview setVisibleMapRect:zoomRect animated:YES];
+                         [self.mapView setVisibleMapRect:zoomRect animated:YES];
                      }];
 }
 
@@ -241,7 +242,7 @@
     routeLine = [MKPolyline polylineWithPoints:pointsArray count:2];
     free(pointsArray);
 
-    [[self mapview] addOverlay:routeLine];
+    [[self mapView] addOverlay:routeLine];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay

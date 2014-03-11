@@ -46,7 +46,8 @@
                                                   [route setDifficultyRating:routeData[@"difficulty_rating"]];
                                                   [route setEnvironmentRating:routeData[@"environment_rating"]];
                                                   [route setEstimatedTime:routeData[@"estimated_time"]];
-                                                  [route setDistanceMetres:routeData[@"total_distance"]];
+                                                  NSNumber *distance = routeData[@"total_distance"];
+                                                  [route setDistanceKm:distance];
                                                   [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
                                                   [[self routes] addObject:route];
                                               }

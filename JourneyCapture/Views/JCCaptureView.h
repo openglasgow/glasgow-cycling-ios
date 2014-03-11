@@ -13,7 +13,7 @@
 @class JCRouteCaptureViewModel;
 
 @interface JCCaptureView : UIView <MKMapViewDelegate, EDStarRatingProtocol>
-@property (strong, nonatomic) MKMapView *mapview;
+@property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) MKPolyline *routeLine;
 @property (nonatomic, strong) MKPolylineView *routeLineView;
 @property (strong, nonatomic) UIButton *captureButton;
