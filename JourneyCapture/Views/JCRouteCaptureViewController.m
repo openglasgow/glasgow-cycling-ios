@@ -60,21 +60,16 @@
 
 - (void)didUpdateLocations:(NSArray *)locations
 {
+    // TODO deal with deferred locations
     NSLog(@"Got new location, adding to the route");
     CLLocation *latestLocation = locations[0];
 
     // Create point
     JCRoutePointViewModel *point = [[JCRoutePointViewModel alloc] init];
-    double speed = 0.0;
-    if (latestLocation.speed > speed) {
-        speed = latestLocation.speed;
-    }
-    [point setSpeed:speed];
-    [point setLocation:latestLocation];
+    point.location = latestLocation;
     [self.viewModel addPoint:point];
-    [self.viewModel setCurrentSpeed:speed];
 
-    // Update route line
+    // Update route line on mapview
     [self.captureView updateRouteLine];
 
     // Reload stats

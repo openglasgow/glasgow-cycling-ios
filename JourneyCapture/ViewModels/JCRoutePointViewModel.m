@@ -9,5 +9,5 @@
 #import "JCRoutePointViewModel.h"
 
 @implementation JCRoutePointViewModel
-@synthesize speed, location;
+@synthesize location;
 @end
