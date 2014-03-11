@@ -20,6 +20,7 @@ PODS:
   - EDStarRating (1.1)
   - FDTake (0.1.1)
   - GSKeychain (1.0.0)
+  - JazzHands (0.0.3)
   - libextobjc (0.4):
     - libextobjc/EXTADT
     - libextobjc/EXTConcreteProtocol
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - EDStarRating (~> 1.1)
   - FDTake (~> 0.1.1)
   - GSKeychain (~> 1.0)
+  - JazzHands (~> 0.0.3)
   - libextobjc (~> 0.4)
   - MagicalRecord (~> 2.2)
   - Masonry (~> 0.4.0)
@@ -84,6 +86,7 @@ SPEC CHECKSUMS:
   EDStarRating: 6761f41fd040f1cde155e2885dddc96461620f67
   FDTake: f9fe37ec6143fc645447e961cee96b59c0ab7ca4
   GSKeychain: 59439fa4bb05d21f2cbd4b67e7133c2572cc8dc4
+  JazzHands: 01a8a6e933746bc7a6c749bfd6ed95f2a91c91aa
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39

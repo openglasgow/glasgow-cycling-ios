@@ -42,10 +42,12 @@
             self.navigationItem.hidesBackButton = YES;
             [[[JCLocationManager manager] locationManager] startUpdatingLocation];
             [[JCLocationManager manager] setDelegate:self];
-        } else {
+        } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
             // Stop
             [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.captureView transitionToComplete];
+        } else {
+            // Submit
         }
         return [RACSignal empty];
     }];
@@ -73,7 +75,7 @@
     [self.viewModel setCurrentSpeed:speed];
 
     // Update route line
-    [self.captureView updateRoute];
+    [self.captureView updateRouteLine];
 
     // Reload stats
     [self.captureView.statsTable reloadData];
