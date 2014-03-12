@@ -45,7 +45,7 @@
                                           kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
                                           kCRToastTimeIntervalKey : @3,
                                           kCRToastImageKey : [UIImage imageNamed:@"lock-50"]
-                                          };
+                                        };
 
                 [CRToastManager showNotificationWithOptions:options
                                             completionBlock:^{
