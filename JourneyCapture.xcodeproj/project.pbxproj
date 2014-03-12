@@ -33,7 +33,6 @@
 		837B15A818BE023B000EEFAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B15A718BE023B000EEFAB /* QuartzCore.framework */; };
 		83B3484F18C09EFF00D59FB9 /* JCRouteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3484E18C09EFF00D59FB9 /* JCRouteCell.m */; };
 		83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */; };
-		83B3485518C0A7F100D59FB9 /* JCRouteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485418C0A7F100D59FB9 /* JCRouteViewModel.m */; };
 		83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */; };
 		83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */; };
 		83B5DECB18BFA3130032F7E1 /* JCRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DECA18BFA3130032F7E1 /* JCRoutesViewController.m */; };
@@ -43,7 +42,7 @@
 		83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022C18BE477700EE7787 /* JCSigninViewModel.m */; };
 		83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022F18BE482B00EE7787 /* JCSigninView.m */; };
 		83BD285A18CA01010042F1E3 /* JCStatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD285918CA01010042F1E3 /* JCStatCell.m */; };
-		83BD285E18CA04C50042F1E3 /* JCRouteCaptureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD285D18CA04C50042F1E3 /* JCRouteCaptureViewModel.m */; };
+		83BD285E18CA04C50042F1E3 /* JCRouteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD285D18CA04C50042F1E3 /* JCRouteViewModel.m */; };
 		83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD286018CA06640042F1E3 /* JCRoutePointViewModel.m */; };
 		83D98DD018C9D3AD00E72279 /* JCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DCF18C9D3AD00E72279 /* JCLocationManager.m */; };
 		83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DD318C9DB2F00E72279 /* JCRouteCaptureViewController.m */; };
@@ -100,6 +99,7 @@
 		83519E7218CDC42800DA1E70 /* UIImage+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compression.m"; sourceTree = "<group>"; };
 		83560C4D18BCE146004CE63C /* JCSignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewModel.h; sourceTree = "<group>"; };
 		83560C4E18BCE146004CE63C /* JCSignupViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupViewModel.m; sourceTree = "<group>"; };
+		83735C0318CF730C0050AB09 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		837B15A418BDF31F000EEFAB /* JCSignupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupView.h; sourceTree = "<group>"; };
 		837B15A518BDF31F000EEFAB /* JCSignupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupView.m; sourceTree = "<group>"; };
 		837B15A718BE023B000EEFAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -107,8 +107,6 @@
 		83B3484E18C09EFF00D59FB9 /* JCRouteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteCell.m; sourceTree = "<group>"; };
 		83B3485018C0A79800D59FB9 /* JCRoutesListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRoutesListViewModel.h; sourceTree = "<group>"; };
 		83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRoutesListViewModel.m; sourceTree = "<group>"; };
-		83B3485318C0A7F100D59FB9 /* JCRouteViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteViewModel.h; sourceTree = "<group>"; };
-		83B3485418C0A7F100D59FB9 /* JCRouteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteViewModel.m; sourceTree = "<group>"; };
 		83B3485718C0BCFC00D59FB9 /* JCRouteSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteSummaryView.h; sourceTree = "<group>"; };
 		83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteSummaryView.m; sourceTree = "<group>"; };
 		83B3485A18C0BD1F00D59FB9 /* JCRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteViewController.h; sourceTree = "<group>"; };
@@ -127,8 +125,8 @@
 		83BA022F18BE482B00EE7787 /* JCSigninView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninView.m; sourceTree = "<group>"; };
 		83BD285818CA01010042F1E3 /* JCStatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCStatCell.h; sourceTree = "<group>"; };
 		83BD285918CA01010042F1E3 /* JCStatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCStatCell.m; sourceTree = "<group>"; };
-		83BD285C18CA04C50042F1E3 /* JCRouteCaptureViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteCaptureViewModel.h; sourceTree = "<group>"; };
-		83BD285D18CA04C50042F1E3 /* JCRouteCaptureViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteCaptureViewModel.m; sourceTree = "<group>"; };
+		83BD285C18CA04C50042F1E3 /* JCRouteViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteViewModel.h; sourceTree = "<group>"; };
+		83BD285D18CA04C50042F1E3 /* JCRouteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteViewModel.m; sourceTree = "<group>"; };
 		83BD285F18CA06640042F1E3 /* JCRoutePointViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRoutePointViewModel.h; sourceTree = "<group>"; };
 		83BD286018CA06640042F1E3 /* JCRoutePointViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRoutePointViewModel.m; sourceTree = "<group>"; };
 		83C1DB1918C7856C0005F79C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -218,6 +216,7 @@
 		831EDB4818BCBB33001468E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83735C0318CF730C0050AB09 /* CoreLocation.framework */,
 				83C1DB1918C7856C0005F79C /* MobileCoreServices.framework */,
 				837B15A718BE023B000EEFAB /* QuartzCore.framework */,
 				831EDB4918BCBB33001468E4 /* Foundation.framework */,
@@ -400,8 +399,10 @@
 			children = (
 				83B3485018C0A79800D59FB9 /* JCRoutesListViewModel.h */,
 				83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */,
-				83B3485318C0A7F100D59FB9 /* JCRouteViewModel.h */,
-				83B3485418C0A7F100D59FB9 /* JCRouteViewModel.m */,
+				83BD285C18CA04C50042F1E3 /* JCRouteViewModel.h */,
+				83BD285D18CA04C50042F1E3 /* JCRouteViewModel.m */,
+				83BD285F18CA06640042F1E3 /* JCRoutePointViewModel.h */,
+				83BD286018CA06640042F1E3 /* JCRoutePointViewModel.m */,
 			);
 			name = "Routes List";
 			sourceTree = "<group>";
@@ -440,10 +441,6 @@
 		83BD285B18CA049F0042F1E3 /* Route Capture */ = {
 			isa = PBXGroup;
 			children = (
-				83BD285C18CA04C50042F1E3 /* JCRouteCaptureViewModel.h */,
-				83BD285D18CA04C50042F1E3 /* JCRouteCaptureViewModel.m */,
-				83BD285F18CA06640042F1E3 /* JCRoutePointViewModel.h */,
-				83BD286018CA06640042F1E3 /* JCRoutePointViewModel.m */,
 			);
 			name = "Route Capture";
 			sourceTree = "<group>";
@@ -508,7 +505,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = JC;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = FCD;
 				TargetAttributes = {
 					831EDB4518BCBB33001468E4 = {
@@ -610,10 +607,9 @@
 				83B5DECB18BFA3130032F7E1 /* JCRoutesViewController.m in Sources */,
 				83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */,
 				83519E7318CDC42800DA1E70 /* UIImage+Compression.m in Sources */,
-				83BD285E18CA04C50042F1E3 /* JCRouteCaptureViewModel.m in Sources */,
+				83BD285E18CA04C50042F1E3 /* JCRouteViewModel.m in Sources */,
 				83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */,
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
-				83B3485518C0A7F100D59FB9 /* JCRouteViewModel.m in Sources */,
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
@@ -674,7 +670,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -713,7 +708,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -779,7 +773,6 @@
 		831EDB7618BCBB34001468E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JourneyCapture.app/JourneyCapture";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -802,7 +795,6 @@
 		831EDB7718BCBB34001468E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JourneyCapture.app/JourneyCapture";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

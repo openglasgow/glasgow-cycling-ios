@@ -22,7 +22,7 @@
 {
     self = [super init];
     if (self) {
-        self.viewModel = [[JCRouteCaptureViewModel alloc] init];
+        self.viewModel = [[JCRouteViewModel alloc] init];
     }
     return self;
 }
@@ -111,7 +111,7 @@
     JCStatCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[JCStatCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:CellIdentifier];
+                                 reuseIdentifier:CellIdentifier];
     }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     if (indexPath.row == 0) {
@@ -121,12 +121,12 @@
         [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", currentSpeedKph]];
     } else if (indexPath.row == 1) {
         [[cell statName] setText:@"Average Speed"];
-        double averageSpeedMph = self.viewModel.averageSpeed;
-        double averageSpeedKph = (averageSpeedMph * 60 * 60) / 1000;
+        double averageSpeedMps = self.viewModel.averageSpeed;
+        double averageSpeedKph = (averageSpeedMps * 60 * 60) / 1000;
         [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", averageSpeedKph]];
     } else if (indexPath.row == 2) {
         [[cell statName] setText:@"Distance"];
-        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", self.viewModel.totalMetres / 1000.0]];
+        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", self.viewModel.totalKm]];
     }
     [cell setAccessoryType:UITableViewCellAccessoryNone];
     return cell;

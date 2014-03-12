@@ -30,6 +30,12 @@
 - (void)setViewModel:(JCRouteViewModel *)routeViewModel
 {
     self->_viewModel = routeViewModel;
+    for(UIView *view in self.contentView.subviews){
+        if ([view respondsToSelector:@selector(removeFromSuperview)]) {
+            [view removeFromSuperview];
+        }
+    }
+
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).with.offset(10);
         make.left.equalTo(self.mas_left).with.offset(15);
@@ -112,9 +118,9 @@
     self.distanceLabel = [[UILabel alloc] init];
     [self.distanceLabel setFont:detailsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceLabel.text);
-    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.distanceKm);
+    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.totalKm);
     [[distanceModelChannel map:^(id km){
-        return [NSString stringWithFormat:@"%.02f km", [km doubleValue]];
+        return [NSString stringWithFormat:@"%.02f km", self.viewModel.totalKm];
     }] subscribe:distanceLabelChannel];
 
     [self.contentView addSubview:self.distanceLabel];

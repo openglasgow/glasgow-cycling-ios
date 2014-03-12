@@ -42,12 +42,23 @@
                                                   NSDictionary *routeData = routesResponse[i][@"details"];
                                                   JCRouteViewModel *route = [[JCRouteViewModel alloc] init];
                                                   [route setName:routeData[@"name"]];
-                                                  [route setSafetyRating:routeData[@"safety_rating"]];
-                                                  [route setDifficultyRating:routeData[@"difficulty_rating"]];
-                                                  [route setEnvironmentRating:routeData[@"environment_rating"]];
+
+                                                  double safetyRating = [routeData[@"safety_rating"] doubleValue];
+                                                  [route setSafetyRating:safetyRating];
+
+                                                  double difficultyRating = [routeData[@"difficulty_rating"] doubleValue];
+                                                  [route setDifficultyRating:difficultyRating];
+
+                                                  double environmentRating = [routeData[@"environment_rating"] doubleValue];
+                                                  [route setEnvironmentRating:environmentRating];
                                                   [route setEstimatedTime:routeData[@"estimated_time"]];
-                                                  NSNumber *distance = routeData[@"total_distance"];
-                                                  [route setDistanceKm:distance];
+
+                                                  double distance = [routeData[@"total_distance"] doubleValue];
+                                                  [route setTotalKm:distance];
+
+                                                  int routeId = [routeData[@"id"] intValue];
+                                                  [route setRouteId:routeId];
+
                                                   [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
                                                   [[self routes] addObject:route];
                                               }

@@ -8,7 +8,7 @@
 
 #import "JCCaptureView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "JCRouteCaptureViewModel.h"
+#import "JCRouteViewModel.h"
 #import "JCRoutePointViewModel.h"
 
 @implementation JCCaptureView
@@ -16,7 +16,7 @@
             reviewScrollView, safetyRating, safetyReviewLabel, environmentRating, environmentReviewLabel,
             difficultyRating, difficultyReviewLabel, animator;
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCRouteCaptureViewModel *)captureViewModel
+- (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel
 {
     self = [super initWithFrame:frame];
     if (!self) {

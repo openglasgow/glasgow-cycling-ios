@@ -2,21 +2,38 @@
 //  JCRouteViewModel.h
 //  JourneyCapture
 //
-//  Created by Chris Sloey on 28/02/2014.
+//  Created by Chris Sloey on 07/03/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
 #import "RVMViewModel.h"
 
+@class JCRoutePointViewModel;
+
 @interface JCRouteViewModel : RVMViewModel
-@property (strong, nonatomic) NSString *name;
+
+// Location data
+@property (readwrite, nonatomic) double currentSpeed;
+@property (readwrite, nonatomic) double averageSpeed;
+@property (readwrite, nonatomic) double totalKm;
+@property (strong, nonatomic) NSMutableArray *points;
+
+// Review data
+@property (readwrite, nonatomic) NSInteger routeId;
+@property (readwrite, nonatomic) double safetyRating;
+@property (readwrite, nonatomic) double environmentRating;
+@property (readwrite, nonatomic) double difficultyRating;
+
+// Loaded route data
 @property (strong, nonatomic) NSNumber *estimatedTime;
-@property (strong, nonatomic) NSNumber *distanceKm;
-@property (strong, nonatomic) NSNumber *safetyRating;
-@property (strong, nonatomic) NSNumber *environmentRating;
-@property (strong, nonatomic) NSNumber *difficultyRating;
+@property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) UIImage *routeImage;
 
+-(void)addPoint:(JCRoutePointViewModel *)point;
+-(RACSignal *)uploadRoute;
+-(RACSignal *)uploadReview;
+-(RACSignal *)loadPoints;
 - (NSNumber *)averageRating;
 - (NSString *)readableTime;
+
 @end
