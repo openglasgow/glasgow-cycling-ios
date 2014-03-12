@@ -18,6 +18,7 @@ PODS:
   - AFNetworking/UIKit (2.2.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CRToast (0.0.5)
   - EDStarRating (1.1)
   - FDTake (0.1.1)
   - FlurrySDK (4.3.2):
@@ -77,6 +78,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.1)
+  - CRToast (~> 0.0.3)
   - EDStarRating (~> 1.1)
   - FDTake (~> 0.1.1)
   - FlurrySDK (~> 4.3)
@@ -92,6 +94,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: e8cfd8f3fe3bfe19124a0cc63f4d45752d892a56
+  CRToast: 5be332fb9f4bcfd3023b6f10324ed9738c35cb96
   EDStarRating: 6761f41fd040f1cde155e2885dddc96461620f67
   FDTake: f9fe37ec6143fc645447e961cee96b59c0ab7ca4
   FlurrySDK: 0ba42379fd272d69246ae06386a2c5688516ffd8

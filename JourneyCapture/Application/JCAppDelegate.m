@@ -8,6 +8,7 @@
 
 #import "JCAppDelegate.h"
 #import "JCWelcomeViewController.h"
+#import "JCNavViewController.h"
 #import "JCUserViewController.h"
 #import <GSKeychain/GSKeychain.h>
 #import "Flurry.h"
@@ -28,7 +29,7 @@
     } else {
         rootController = [[JCWelcomeViewController alloc] init];
     }
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootController];
+    UINavigationController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
     [self.window setRootViewController:navController];
     
     // Core Data

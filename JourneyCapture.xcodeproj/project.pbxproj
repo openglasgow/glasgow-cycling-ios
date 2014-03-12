@@ -48,6 +48,7 @@
 		83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DD318C9DB2F00E72279 /* JCRouteCaptureViewController.m */; };
 		83D98DD718C9DB4100E72279 /* JCCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DD618C9DB4100E72279 /* JCCaptureView.m */; };
 		83DC969918D0762800E66C26 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83DC969818D0762800E66C26 /* Settings.bundle */; };
+		83DC969D18D07FA400E66C26 /* JCNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DC969C18D07FA400E66C26 /* JCNavViewController.m */; };
 		83F811E118C49E860010B1CD /* JCJourneyModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83F811DF18C49E860010B1CD /* JCJourneyModel.xcdatamodeld */; };
 		83F811E418C4C1470010B1CD /* JCAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F811E318C4C1470010B1CD /* JCAPIManager.m */; };
 		83F811E718C4D5CD0010B1CD /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F811E618C4D5CD0010B1CD /* User.m */; };
@@ -138,6 +139,8 @@
 		83D98DD518C9DB4100E72279 /* JCCaptureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureView.h; sourceTree = "<group>"; };
 		83D98DD618C9DB4100E72279 /* JCCaptureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCaptureView.m; sourceTree = "<group>"; };
 		83DC969818D0762800E66C26 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		83DC969B18D07FA400E66C26 /* JCNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCNavViewController.h; sourceTree = "<group>"; };
+		83DC969C18D07FA400E66C26 /* JCNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCNavViewController.m; sourceTree = "<group>"; };
 		83F811E018C49E860010B1CD /* JCJourneyModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JCJourneyModel.xcdatamodel; sourceTree = "<group>"; };
 		83F811E218C4C1470010B1CD /* JCAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAPIManager.h; sourceTree = "<group>"; };
 		83F811E318C4C1470010B1CD /* JCAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAPIManager.m; sourceTree = "<group>"; };
@@ -363,6 +366,7 @@
 		838C16D918BCBBEB0053BFB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				83DC969A18D07F3E00E66C26 /* Nav */,
 				83BA021D18BE3E6F00EE7787 /* Welcome */,
 				83BA021E18BE3E7300EE7787 /* Signin */,
 				834663A418BE332C0056F692 /* Signup */,
@@ -461,6 +465,15 @@
 			name = "Route Capture";
 			sourceTree = "<group>";
 		};
+		83DC969A18D07F3E00E66C26 /* Nav */ = {
+			isa = PBXGroup;
+			children = (
+				83DC969B18D07FA400E66C26 /* JCNavViewController.h */,
+				83DC969C18D07FA400E66C26 /* JCNavViewController.m */,
+			);
+			name = Nav;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -512,7 +525,7 @@
 				ORGANIZATIONNAME = FCD;
 				TargetAttributes = {
 					831EDB4518BCBB33001468E4 = {
-						DevelopmentTeam = L342PDL5NN;
+						DevelopmentTeam = N22NQHGM2W;
 					};
 					831EDB6018BCBB34001468E4 = {
 						TestTargetID = 831EDB4518BCBB33001468E4;
@@ -597,6 +610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83F811E418C4C1470010B1CD /* JCAPIManager.m in Sources */,
+				83DC969D18D07FA400E66C26 /* JCNavViewController.m in Sources */,
 				8303E2D518C61E2100215760 /* JCQuestionViewController.m in Sources */,
 				83BA022118BE3E8E00EE7787 /* JCWelcomeView.m in Sources */,
 				83D98DD018C9D3AD00E72279 /* JCLocationManager.m in Sources */,
