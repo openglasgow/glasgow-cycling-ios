@@ -12,7 +12,7 @@
 
 @implementation JCSigninViewModel
 @synthesize email, password;
-@synthesize isValidDetails;
+@synthesize isValidDetails, emailValid, passwordValid;
 
 - (id)init
 {
@@ -20,12 +20,22 @@
     if (!self) {
         return nil;
     }
-    
-    RACSignal *emailSignal = RACObserve(self, email);
-    RACSignal *passwordSignal = RACObserve(self, password);
-    self.isValidDetails = [RACSignal combineLatest:@[ emailSignal, passwordSignal ]
-                                            reduce:^id(NSString *emailValue, NSString *passwordValue){
-                                                return @(emailValue.length > 0 && passwordValue.length > 0);
+
+    self.emailValid = [RACObserve(self, email) map:^(NSString *emailValue) {
+        NSCharacterSet *emailSet = [NSCharacterSet characterSetWithCharactersInString:@"@"];
+        return @(emailValue.length >= 5 &&
+                    [emailValue rangeOfCharacterFromSet:emailSet].location != NSNotFound);
+
+    }];
+
+    self.passwordValid = [RACObserve(self, password) map:^(NSString *emailValue) {
+        return @(emailValue.length >= 8);
+
+    }];
+
+    self.isValidDetails = [RACSignal combineLatest:@[ emailValid, passwordValid ]
+                                            reduce:^id(id eValid, id pValid){
+                                                return @([eValid boolValue] && [pValid boolValue]);
                                             }];
     
     return self;

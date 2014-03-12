@@ -12,6 +12,8 @@
 @property (strong, nonatomic) NSString *password;
 
 @property (nonatomic, strong) RACSignal *isValidDetails;
+@property (nonatomic, strong) RACSignal *emailValid;
+@property (nonatomic, strong) RACSignal *passwordValid;
 
 - (RACSignal *)signin;
 
