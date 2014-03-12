@@ -10,7 +10,7 @@
 
 @class JCSignupViewModel, JCSignupView;
 
-@interface JCSignupViewController : UIViewController
+@interface JCSignupViewController : UIViewController <UINavigationControllerDelegate>
 
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
 @property (strong, nonatomic) JCSignupView *signupView;

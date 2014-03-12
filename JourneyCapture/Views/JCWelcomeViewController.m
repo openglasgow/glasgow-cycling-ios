@@ -30,15 +30,13 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-
-    [[self navigationItem] setTitle:@"Welcome"];
+    [self.view setBackgroundColor:[UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0]];
+    [[self navigationController] setNavigationBarHidden:YES];
 
     // Signin & Signup
     JCWelcomeView *welcomeView = [[JCWelcomeView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     UIView *superview = self.view;
     [self.view addSubview:welcomeView];
- 
 
     [welcomeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(superview.mas_top).offset(74);
@@ -46,8 +44,7 @@
         make.left.equalTo(superview).with.offset(10);
         make.right.equalTo(superview).with.offset(-10);
     }];
-    
-    
+
     // Actions
     welcomeView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signin tapped");
@@ -69,7 +66,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)didReceiveMemoryWarning

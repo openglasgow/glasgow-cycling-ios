@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "JCSigninViewModel.h"
 
-@interface JCSigninViewController : UIViewController
+@interface JCSigninViewController : UIViewController <UINavigationControllerDelegate>
 @property (strong, nonatomic) JCSigninViewModel *viewModel;
 @end

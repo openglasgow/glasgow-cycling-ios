@@ -33,9 +33,11 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+
     // Nav bar
     [[self navigationItem] setTitle:@"Sign In"];
+    [self.navigationController setDelegate:self];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign In"
                                                                               style:UIBarButtonItemStylePlain
@@ -74,13 +76,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (viewController == navigationController.viewControllers[0]) {
+        // Back to welcome view
+        [navigationController setNavigationBarHidden:YES animated:NO];
+    }
 }
 
 @end
