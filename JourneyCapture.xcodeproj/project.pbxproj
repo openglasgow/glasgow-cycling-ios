@@ -47,6 +47,7 @@
 		83D98DD018C9D3AD00E72279 /* JCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DCF18C9D3AD00E72279 /* JCLocationManager.m */; };
 		83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DD318C9DB2F00E72279 /* JCRouteCaptureViewController.m */; };
 		83D98DD718C9DB4100E72279 /* JCCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DD618C9DB4100E72279 /* JCCaptureView.m */; };
+		83DC969918D0762800E66C26 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83DC969818D0762800E66C26 /* Settings.bundle */; };
 		83F811E118C49E860010B1CD /* JCJourneyModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83F811DF18C49E860010B1CD /* JCJourneyModel.xcdatamodeld */; };
 		83F811E418C4C1470010B1CD /* JCAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F811E318C4C1470010B1CD /* JCAPIManager.m */; };
 		83F811E718C4D5CD0010B1CD /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F811E618C4D5CD0010B1CD /* User.m */; };
@@ -136,6 +137,7 @@
 		83D98DD318C9DB2F00E72279 /* JCRouteCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteCaptureViewController.m; sourceTree = "<group>"; };
 		83D98DD518C9DB4100E72279 /* JCCaptureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureView.h; sourceTree = "<group>"; };
 		83D98DD618C9DB4100E72279 /* JCCaptureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCaptureView.m; sourceTree = "<group>"; };
+		83DC969818D0762800E66C26 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		83F811E018C49E860010B1CD /* JCJourneyModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JCJourneyModel.xcdatamodel; sourceTree = "<group>"; };
 		83F811E218C4C1470010B1CD /* JCAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAPIManager.h; sourceTree = "<group>"; };
 		83F811E318C4C1470010B1CD /* JCAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAPIManager.m; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				831EDB5218BCBB33001468E4 /* InfoPlist.strings */,
 				831EDB5518BCBB33001468E4 /* main.m */,
 				831EDB5718BCBB33001468E4 /* JourneyCapture-Prefix.pch */,
+				83DC969818D0762800E66C26 /* Settings.bundle */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				831EDB5418BCBB33001468E4 /* InfoPlist.strings in Resources */,
+				83DC969918D0762800E66C26 /* Settings.bundle in Resources */,
 				831EDB5C18BCBB34001468E4 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,6 +19,8 @@
 #import "Flurry.h"
 
 
+#import <GBDeviceInfo/GBDeviceInfo.h>
+
 @interface JCUserViewController ()
 
 @end
@@ -64,6 +66,21 @@
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // Extra 20 for status bar
         make.bottom.equalTo(detailsView.settingsButton.mas_bottom).with.offset(15);
+    }];
+
+    detailsView.settingsButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        IASKAppSettingsViewController *settingsVC = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView"
+                                                                                                     bundle:nil];
+        settingsVC.delegate = self;
+        settingsVC.showDoneButton = YES;
+        settingsVC.showCreditsFooter = NO;
+        UINavigationController *settingsNav = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+        [self.navigationController presentViewController:settingsNav
+                                                animated:YES
+                                              completion:^{
+                                                  NSLog(@"Settings shown");
+                                              }];
+        return [RACSignal empty];
     }];
 
     // Background map image view
@@ -171,6 +188,25 @@
 {
     NSLog(@"Got locations in user overview");
     [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+}
+
+- (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeBodyForSpecifier:(IASKSpecifier *)specifier
+{
+    GBDeviceDetails *deviceDetails = [GBDeviceInfo
+                                      deviceDetails];
+
+    NSString *iosVersion = [NSString stringWithFormat:@"%lu.%lu",
+                            (unsigned long)deviceDetails.majoriOSVersion,
+                            (unsigned long)deviceDetails.minoriOSVersion];
+    return [NSString stringWithFormat:@"**********\niOS Version: %@\nDevice: %@\n**********", iosVersion, deviceDetails.modelString];
+}
+
+-(void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES
+                                                  completion:^{
+                                                      NSLog(@"Dismissed settings");
+                                                  }];
 }
 
 @end
