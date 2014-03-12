@@ -17,6 +17,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "JCWelcomeViewController.h"
 
+#import <CGLMail/CGLMailHelper.h>
+
 @interface JCUserViewController ()
 
 @end
@@ -62,6 +64,19 @@
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // Extra 20 for status bar
         make.bottom.equalTo(detailsView.settingsButton.mas_bottom).with.offset(15);
+    }];
+
+    detailsView.settingsButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        UIViewController *mailVC = [CGLMailHelper supportMailViewControllerWithRecipient:@"team@codecreatedme.com"
+                                                                                 subject:@"Feedback"
+                                                                              completion:nil];
+
+        [self.navigationController presentViewController:mailVC
+                                                animated:YES
+                                              completion:^{
+                                                  NSLog(@"Presented mail controller");
+                                              }];
+        return [RACSignal empty];
     }];
 
     // Background map image view
