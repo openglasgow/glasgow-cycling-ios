@@ -13,6 +13,7 @@
 #import "JCQuestionViewController.h"
 #import "JCQuestionViewModel.h"
 #import "JCQuestionListViewModel.h"
+#import "Flurry.h"
 
 @interface JCSignupViewController ()
 
@@ -55,6 +56,7 @@
             NSLog(@"Signup::error");
         } completed:^{
             NSLog(@"Signup::completed");
+            [Flurry logEvent:@"User signup success"];
             JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
             JCQuestionViewController *questionVC = [[JCQuestionViewController alloc] initWithViewModel:questionList
                                                                                          questionIndex:0];

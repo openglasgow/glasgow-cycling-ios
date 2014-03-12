@@ -73,6 +73,7 @@
     [RACChannelTo(self.viewModel, profilePicture) subscribeNext:^(id image) {
         if (image) {
             [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
+            [Flurry logEvent:@"User profile picture selected"];
         }
     }];
 

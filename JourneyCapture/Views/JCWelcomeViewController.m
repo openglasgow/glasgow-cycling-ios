@@ -51,7 +51,7 @@
     // Actions
     welcomeView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signin tapped");
-        [Flurry logEvent:@"Signin tapped"];
+        [Flurry logEvent:@"Signin button tapped"];
         JCSigninViewController *signinController = [[JCSigninViewController alloc] init];
         [self.navigationController pushViewController:signinController animated:YES];
         return [RACSignal empty];
@@ -59,7 +59,7 @@
     
     welcomeView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signup tapped");
-        [Flurry logEvent:@"Signup tapped"];
+        [Flurry logEvent:@"Signup button tapped"];
         JCSignupViewController *signupController = [[JCSignupViewController alloc] init];
         [self.navigationController pushViewController:signupController animated:YES];
         return [RACSignal empty];
