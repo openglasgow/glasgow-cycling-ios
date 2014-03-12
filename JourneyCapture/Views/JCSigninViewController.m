@@ -10,7 +10,7 @@
 #import "JCSigninView.h"
 #import "JCSigninViewModel.h"
 #import "JCUserViewController.h"
-#import "flurry.h"
+#import "Flurry.h"
 
 @interface JCSigninViewController ()
 

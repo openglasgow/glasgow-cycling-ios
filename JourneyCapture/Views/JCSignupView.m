@@ -9,6 +9,7 @@
 #import "JCSignupView.h"
 #import "JCSignupViewModel.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Flurry.h"
 
 @implementation JCSignupView
 @synthesize viewModel;

@@ -16,6 +16,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    //Flurry Analytics Setup
+    [Flurry setCrashReportingEnabled:YES];
+    [Flurry startSession:@"DS59KXYYXSP92WR2C527"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -34,10 +39,6 @@
     // Core Data
     [MagicalRecord setupAutoMigratingCoreDataStack];
     return YES;
-    
-    //Flurry Analytics Setup
-    [Flurry setCrashReportingEnabled:YES];
-    [Flurry startSession:@"DS59KXYYXSP92WR2C527"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
