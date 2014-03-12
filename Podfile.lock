@@ -18,13 +18,14 @@ PODS:
   - AFNetworking/UIKit (2.2.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - CGLMail (0.1.0)
   - EDStarRating (1.1)
   - FDTake (0.1.1)
   - FlurrySDK (4.3.2):
     - FlurrySDK/FlurrySDK
   - FlurrySDK/FlurrySDK (4.3.2)
+  - GBDeviceInfo (2.2.6)
   - GSKeychain (1.0.0)
+  - InAppSettingsKit (2.0.1)
   - JazzHands (0.0.3)
   - libextobjc (0.4):
     - libextobjc/EXTADT
@@ -76,11 +77,12 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.1)
-  - CGLMail (~> 0.1)
   - EDStarRating (~> 1.1)
   - FDTake (~> 0.1.1)
   - FlurrySDK (~> 4.3)
+  - GBDeviceInfo (~> 2.2)
   - GSKeychain (~> 1.0)
+  - InAppSettingsKit (~> 2.0)
   - JazzHands (~> 0.0.3)
   - libextobjc (~> 0.4)
   - MagicalRecord (~> 2.2)
@@ -90,11 +92,12 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: e8cfd8f3fe3bfe19124a0cc63f4d45752d892a56
-  CGLMail: 7aadf94de9e0c64671d72c5bb790735df7117fbc
   EDStarRating: 6761f41fd040f1cde155e2885dddc96461620f67
   FDTake: f9fe37ec6143fc645447e961cee96b59c0ab7ca4
   FlurrySDK: 0ba42379fd272d69246ae06386a2c5688516ffd8
+  GBDeviceInfo: f593a4cf40d67017a63c92f64f29073e4ca24596
   GSKeychain: 59439fa4bb05d21f2cbd4b67e7133c2572cc8dc4
+  InAppSettingsKit: 5e42f626b9be9c33e3b04c0cc9523ca5eabe7ad3
   JazzHands: 01a8a6e933746bc7a6c749bfd6ed95f2a91c91aa
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf

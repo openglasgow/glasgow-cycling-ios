@@ -17,7 +17,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "JCWelcomeViewController.h"
 
-#import <CGLMail/CGLMailHelper.h>
+#import <GBDeviceInfo/GBDeviceInfo.h>
 
 @interface JCUserViewController ()
 
@@ -67,14 +67,16 @@
     }];
 
     detailsView.settingsButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        UIViewController *mailVC = [CGLMailHelper supportMailViewControllerWithRecipient:@"team@codecreatedme.com"
-                                                                                 subject:@"Feedback"
-                                                                              completion:nil];
-
-        [self.navigationController presentViewController:mailVC
+        IASKAppSettingsViewController *settingsVC = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView"
+                                                                                                     bundle:nil];
+        settingsVC.delegate = self;
+        settingsVC.showDoneButton = YES;
+        settingsVC.showCreditsFooter = NO;
+        UINavigationController *settingsNav = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+        [self.navigationController presentViewController:settingsNav
                                                 animated:YES
                                               completion:^{
-                                                  NSLog(@"Presented mail controller");
+                                                  NSLog(@"Settings shown");
                                               }];
         return [RACSignal empty];
     }];
@@ -181,6 +183,25 @@
 {
     NSLog(@"Got locations in user overview");
     [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+}
+
+- (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeBodyForSpecifier:(IASKSpecifier *)specifier
+{
+    GBDeviceDetails *deviceDetails = [GBDeviceInfo
+                                      deviceDetails];
+
+    NSString *iosVersion = [NSString stringWithFormat:@"%lu.%lu",
+                            (unsigned long)deviceDetails.majoriOSVersion,
+                            (unsigned long)deviceDetails.minoriOSVersion];
+    return [NSString stringWithFormat:@"**********\niOS Version: %@\nDevice: %@\n**********", iosVersion, deviceDetails.modelString];
+}
+
+-(void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES
+                                                  completion:^{
+                                                      NSLog(@"Dismissed settings");
+                                                  }];
 }
 
 @end
