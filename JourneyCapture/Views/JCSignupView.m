@@ -10,6 +10,7 @@
 #import "JCSignupViewModel.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Flurry.h"
+#import "JCTextField.h"
 
 @implementation JCSignupView
 @synthesize viewModel;
@@ -22,7 +23,7 @@
         return nil;
     }
     self.viewModel = signupViewModel;
-    
+
     //Setting up dob DatePicker for dobField use
     self.dobPicker = [[UIDatePicker alloc] initWithFrame:[self bounds]];
     self.dobPicker.datePickerMode = UIDatePickerModeDate;
@@ -35,13 +36,13 @@
         make.right.equalTo(self.dobToolbar).with.offset(-12);
         make.top.equalTo(self.dobToolbar);
     }];
-    
+
     self.dobToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"button press");
         [self.dobField resignFirstResponder];
         return [RACSignal empty];
     }];
-    
+
     //Setting up gender UIPickerView for genderField
     self.genderPicker = [[UIPickerView alloc] initWithFrame:[self bounds]];
     [self.genderPicker setDataSource:self];
@@ -55,7 +56,7 @@
         make.right.equalTo(self.genderToolbar).with.offset(-12);
         make.top.equalTo(self.genderToolbar);
     }];
-    
+
     self.genderToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"button press");
         [self.genderField resignFirstResponder];
@@ -104,7 +105,7 @@
     }];
 
     // Email
-    self.emailField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    self.emailField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.emailField setUserInteractionEnabled:YES];
     [self.emailField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.emailField setPlaceholder:@"Your Email"];
@@ -112,6 +113,9 @@
     [self.emailField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     RAC(self.viewModel, email) = self.emailField.rac_textSignal;
     [self addSubview:self.emailField];
+    [self.viewModel.emailValid subscribeNext:^(id emailValid) {
+        self.emailField.valid = [emailValid boolValue];
+    }];
 
     [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);
@@ -120,12 +124,15 @@
     }];
 
     // Password
-    self.passwordField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    self.passwordField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.passwordField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.passwordField setSecureTextEntry:YES];
     [self.passwordField setPlaceholder:@"New Password"];
     RAC(self.viewModel, password) = self.passwordField.rac_textSignal;
     [self addSubview:self.passwordField];
+    [self.viewModel.passwordValid subscribeNext:^(id passwordValid) {
+        self.passwordField.valid = [passwordValid boolValue];
+    }];
 
     [self.passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);
@@ -134,11 +141,14 @@
     }];
 
     // First name
-    self.firstNameField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    self.firstNameField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.firstNameField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.firstNameField setPlaceholder:@"First Name"];
     RAC(self.viewModel, firstName) = self.firstNameField.rac_textSignal;
     [self addSubview:self.firstNameField];
+    [self.viewModel.firstNameValid subscribeNext:^(id firstNameValid) {
+        self.firstNameField.valid = [firstNameValid boolValue];
+    }];
 
     [self.firstNameField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);
@@ -147,11 +157,14 @@
     }];
 
     // Last name
-    self.lastNameField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    self.lastNameField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.lastNameField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.lastNameField setPlaceholder:@"Last Name"];
     RAC(self.viewModel, lastName) = self.lastNameField.rac_textSignal;
     [self addSubview:self.lastNameField];
+    [self.viewModel.lastNameValid subscribeNext:^(id lastNameValid) {
+        self.lastNameField.valid = [lastNameValid boolValue];
+    }];
 
     [self.lastNameField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_centerX).with.offset(padding/2);
@@ -160,13 +173,18 @@
     }];
 
     // DOB
-    self.dobField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    self.dobField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.dobField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.dobField setPlaceholder:@"Date of Birth"];
     RAC(self.viewModel, dob) = self.dobField.rac_textSignal;
     self.dobField.inputView = self.dobPicker;
     self.dobField.inputAccessoryView = self.dobToolbar;
     [self addSubview:self.dobField];
+
+    [self.viewModel.dobValid subscribeNext:^(id dobValid) {
+        self.dobField.valid = [dobValid boolValue];
+    }];
+
     RACChannelTerminal *dobChannel = [self.dobPicker rac_newDateChannelWithNilValue:nil];
     [dobChannel subscribeNext:^(id dob) {
         [self.viewModel setDob:dob]; //TODO viewmodel => nsdate
@@ -183,7 +201,7 @@
     }];
 
     // Gender
-    self.genderField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    self.genderField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.genderField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.genderField setPlaceholder:@"Gender"];
     RACChannelTo(self.viewModel, gender) = RACChannelTo(self.genderField, text);
@@ -191,6 +209,10 @@
     self.genderField.inputAccessoryView = self.genderToolbar;
     [self.genderField setDelegate:self];
     [self addSubview:self.genderField];
+
+    [self.viewModel.genderValid subscribeNext:^(id genderValid) {
+        self.genderField.valid = [genderValid boolValue];
+    }];
 
     [self.genderField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_centerX).with.offset(padding/2);

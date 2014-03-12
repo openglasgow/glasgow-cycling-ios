@@ -8,6 +8,7 @@
 
 #import "JCSigninView.h"
 #import "JCSigninViewModel.h"
+#import "JCTextField.h"
 
 @implementation JCSigninView
 @synthesize viewModel;
@@ -24,7 +25,7 @@
     
     // Form
     // TODO DRY out the code between signup/signin ?
-    self.emailField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    self.emailField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.emailField setUserInteractionEnabled:YES];
     [self.emailField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.emailField setPlaceholder:@"Your Email"];
@@ -33,13 +34,13 @@
     RAC(self.viewModel, email) = self.emailField.rac_textSignal;
     [self addSubview:self.emailField];
     
-    self.passwordField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    self.passwordField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.passwordField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.passwordField setSecureTextEntry:YES];
     [self.passwordField setPlaceholder:@"New Password"];
     RAC(self.viewModel, password) = self.passwordField.rac_textSignal;
     [self addSubview:self.passwordField];
-    
+
     // Positioning
     int padding = 15;
     [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -20,6 +20,12 @@
 
 @property (nonatomic, strong) NSArray *genders;
 @property (nonatomic, strong) RACSignal *isValidDetails;
+@property (nonatomic, strong) RACSignal *emailValid;
+@property (nonatomic, strong) RACSignal *passwordValid;
+@property (nonatomic, strong) RACSignal *firstNameValid;
+@property (nonatomic, strong) RACSignal *lastNameValid;
+@property (nonatomic, strong) RACSignal *dobValid;
+@property (nonatomic, strong) RACSignal *genderValid;
 
 - (RACSignal *)signup;
 

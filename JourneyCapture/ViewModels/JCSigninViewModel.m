@@ -30,7 +30,6 @@
 
     self.passwordValid = [RACObserve(self, password) map:^(NSString *emailValue) {
         return @(emailValue.length >= 8);
-
     }];
 
     self.isValidDetails = [RACSignal combineLatest:@[ emailValid, passwordValid ]

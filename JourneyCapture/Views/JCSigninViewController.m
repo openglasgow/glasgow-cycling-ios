@@ -11,6 +11,7 @@
 #import "JCSigninViewModel.h"
 #import "JCUserViewController.h"
 #import "Flurry.h"
+#import "JCTextField.h"
 
 @interface JCSigninViewController ()
 

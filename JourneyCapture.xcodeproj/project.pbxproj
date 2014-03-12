@@ -28,6 +28,7 @@
 		8341421518BF55C20020CF97 /* JCUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8341421418BF55C20020CF97 /* JCUserView.m */; };
 		8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8341421718BF55E80020CF97 /* JCUserViewModel.m */; };
 		83501FDF18D0AC2D00CE7CFE /* UIImage+color.m in Sources */ = {isa = PBXBuildFile; fileRef = 83501FDE18D0AC2D00CE7CFE /* UIImage+color.m */; };
+		83501FE218D0BA5800CE7CFE /* JCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 83501FE118D0BA5800CE7CFE /* JCTextField.m */; };
 		83519E7318CDC42800DA1E70 /* UIImage+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 83519E7218CDC42800DA1E70 /* UIImage+Compression.m */; };
 		83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83560C4E18BCE146004CE63C /* JCSignupViewModel.m */; };
 		837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B15A518BDF31F000EEFAB /* JCSignupView.m */; };
@@ -100,6 +101,8 @@
 		8341421718BF55E80020CF97 /* JCUserViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCUserViewModel.m; sourceTree = "<group>"; };
 		83501FDD18D0AC2D00CE7CFE /* UIImage+color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+color.h"; sourceTree = "<group>"; };
 		83501FDE18D0AC2D00CE7CFE /* UIImage+color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+color.m"; sourceTree = "<group>"; };
+		83501FE018D0BA5800CE7CFE /* JCTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTextField.h; sourceTree = "<group>"; };
+		83501FE118D0BA5800CE7CFE /* JCTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCTextField.m; sourceTree = "<group>"; };
 		83519E7118CDC42800DA1E70 /* UIImage+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Compression.h"; sourceTree = "<group>"; };
 		83519E7218CDC42800DA1E70 /* UIImage+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compression.m"; sourceTree = "<group>"; };
 		83560C4D18BCE146004CE63C /* JCSignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewModel.h; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 				83519E7218CDC42800DA1E70 /* UIImage+Compression.m */,
 				83501FDD18D0AC2D00CE7CFE /* UIImage+color.h */,
 				83501FDE18D0AC2D00CE7CFE /* UIImage+color.m */,
+				83501FE018D0BA5800CE7CFE /* JCTextField.h */,
+				83501FE118D0BA5800CE7CFE /* JCTextField.m */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				83DC969D18D07FA400E66C26 /* JCNavViewController.m in Sources */,
 				8303E2D518C61E2100215760 /* JCQuestionViewController.m in Sources */,
 				83BA022118BE3E8E00EE7787 /* JCWelcomeView.m in Sources */,
+				83501FE218D0BA5800CE7CFE /* JCTextField.m in Sources */,
 				83D98DD018C9D3AD00E72279 /* JCLocationManager.m in Sources */,
 				83501FDF18D0AC2D00CE7CFE /* UIImage+color.m in Sources */,
 				830C31CE18BCDF4800B7CC47 /* JCSignupViewController.m in Sources */,

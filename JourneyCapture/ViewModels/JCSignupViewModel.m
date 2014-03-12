@@ -12,8 +12,9 @@
 #import "UIImage+Compression.h"
 
 @implementation JCSignupViewModel
-@synthesize email, password, firstName, lastName, dob, gender, genders, profilePicture;
-@synthesize isValidDetails;
+@synthesize email, password, firstName, lastName, dob, gender, genders, profilePicture,
+            emailValid, passwordValid, firstNameValid, lastNameValid, genderValid, dobValid,
+            isValidDetails;
 
 - (id)init
 {
@@ -23,18 +24,39 @@
     }
 
     self.genders = @[@"Undisclosed", @"Male", @"Female"];
-    
-    RACSignal *emailSignal = RACObserve(self, email);
-    RACSignal *passwordSignal = RACObserve(self, password);
-    RACSignal *firstNameSignal = RACObserve(self, firstName);
-    RACSignal *lastNameSignal = RACObserve(self, lastName);
-    RACSignal *dobSignal = RACObserve(self, dob);
-    RACSignal *genderSignal = RACObserve(self, gender);
 
-    self.isValidDetails = [RACSignal combineLatest:@[ emailSignal, passwordSignal, firstNameSignal, lastNameSignal, dobSignal, genderSignal ]
-                                            reduce:^id(NSString *emailValue, NSString *passwordValue,
-                                                       NSString *first, NSString *last, NSDate *dateBirth, NSString *gender){
-                                                return @(emailValue.length > 0 && passwordValue.length > 0 && first.length > 0 && last.length > 0 && dateBirth);
+    self.emailValid = [RACObserve(self, email) map:^(NSString *emailValue) {
+        NSCharacterSet *emailSet = [NSCharacterSet characterSetWithCharactersInString:@"@"];
+        return @(emailValue.length >= 5 &&
+        [emailValue rangeOfCharacterFromSet:emailSet].location != NSNotFound);
+
+    }];
+
+    self.passwordValid = [RACObserve(self, password) map:^(NSString *emailValue) {
+        return @(emailValue.length >= 8);
+    }];
+
+    self.firstNameValid = [RACObserve(self, gender) map:^(NSString *firstNameValue) {
+        return @(firstNameValue.length > 0);
+    }];
+
+    self.lastNameValid = [RACObserve(self, gender) map:^(NSString *lastNameValue) {
+        return @(lastNameValue.length > 0);
+    }];
+
+    self.genderValid = [RACObserve(self, gender) map:^(NSString *genderValue) {
+        return @(genderValue.length > 0);
+    }];
+
+    self.dobValid = [RACObserve(self, dob) map:^(NSString *dobValue) {
+        return @(dobValue != nil);
+    }];
+
+    self.isValidDetails = [RACSignal combineLatest:@[ self.emailValid, self.passwordValid, self.firstNameValid, self.lastNameValid,
+                                                      self.dobValid, self.genderValid ]
+                                            reduce:^id(id eValid, id pValid, id fValid, id lValid, id dValid, id gValid){
+                                                return @([eValid boolValue] && [pValid boolValue] && [fValid boolValue]
+                                                    && [lValid boolValue] && [dValid boolValue] && [gValid boolValue]);
                                             }];
 
     return self;
