@@ -29,14 +29,19 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    self.view setBackgroundColor:[UIColor whiteColor]];
+    IImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"splash-flat"]];
+    [[self view] addSubview:backgroundView];
+    backgroundView.frame = self.view.bounds;
 
     [[self navigationItem] setTitle:@"Welcome"];
-    
+
     // Signin & Signup
     JCWelcomeView *welcomeView = [[JCWelcomeView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     UIView *superview = self.view;
     [self.view addSubview:welcomeView];
+ 
+
     [welcomeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(superview.mas_top).offset(74);
         make.bottom.equalTo(superview.mas_bottom);
@@ -48,6 +53,7 @@
     // Actions
     welcomeView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signin tapped");
+        //[Flurry logEvent:@"Signin tapped"];
         JCSigninViewController *signinController = [[JCSigninViewController alloc] init];
         [self.navigationController pushViewController:signinController animated:YES];
         return [RACSignal empty];
@@ -55,6 +61,7 @@
     
     welcomeView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signup tapped");
+       // [Flurry logEvent:@"Signup tapped"];
         JCSignupViewController *signupController = [[JCSignupViewController alloc] init];
         [self.navigationController pushViewController:signupController animated:YES];
         return [RACSignal empty];
