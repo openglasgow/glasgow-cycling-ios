@@ -10,6 +10,7 @@
 #import "JCSigninView.h"
 #import "JCSigninViewModel.h"
 #import "JCUserViewController.h"
+#import "Flurry.h"
 
 @interface JCSigninViewController ()
 
@@ -48,6 +49,7 @@
             NSLog(@"Login::error");
         } completed:^{
             NSLog(@"Login::completed");
+            [Flurry logEvent:@"User login success"];
             JCUserViewController *userController = [[JCUserViewController alloc] init];
             [self.navigationController pushViewController:userController animated:YES];
         }];

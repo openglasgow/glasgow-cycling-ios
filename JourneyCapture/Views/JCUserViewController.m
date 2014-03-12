@@ -16,6 +16,8 @@
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "JCWelcomeViewController.h"
+#import "Flurry.h"
+
 
 #import <GBDeviceInfo/GBDeviceInfo.h>
 
@@ -108,6 +110,7 @@
     }];
     
     self.myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [Flurry logEvent:@"Enter My Routes"];
         JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
         [[routesViewModel loadUserRoutes] subscribeError:^(NSError *error) {
             NSLog(@"Error loading my routes");
@@ -135,6 +138,7 @@
     }];
     
     self.nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [Flurry logEvent:@"Enter Nearby Routes"];
         JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
         [routesViewModel setTitle:@"Nearby Routes"];
         JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
@@ -156,6 +160,7 @@
     }];
 
     self.createRouteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [Flurry logEvent:@"Enter Route Capture"];
         JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
         [self.navigationController pushViewController:captureController animated:YES];
         return [RACSignal empty];

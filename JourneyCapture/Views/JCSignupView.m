@@ -9,6 +9,7 @@
 #import "JCSignupView.h"
 #import "JCSignupViewModel.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Flurry.h"
 
 @implementation JCSignupView
 @synthesize viewModel;
@@ -73,6 +74,7 @@
     [RACChannelTo(self.viewModel, profilePicture) subscribeNext:^(id image) {
         if (image) {
             [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
+            [Flurry logEvent:@"User profile picture selected"];
         }
     }];
 
