@@ -16,6 +16,14 @@
 			<key>IASKMailComposeSubject</key>
 			<string>JourneyCapture Feedback</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Title</key>
+			<string>Logout</string>
+			<key>Key</key>
+			<string>logout</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

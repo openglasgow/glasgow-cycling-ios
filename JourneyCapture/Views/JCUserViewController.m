@@ -19,6 +19,8 @@
 
 #import <GBDeviceInfo/GBDeviceInfo.h>
 
+#import <GSKeychain/GSKeychain.h>
+
 @interface JCUserViewController ()
 
 @end
@@ -38,11 +40,7 @@
     self.viewModel = [[JCUserViewModel alloc] init];
     [[self.viewModel loadDetails] subscribeError:^(NSError *error) {
         NSLog(@"Failed to load user - returning to welcome");
-        JCWelcomeViewController *welcomeController = [[JCWelcomeViewController alloc] init];
-        NSArray *viewControllerStack = @[welcomeController];
-        [self.navigationController setViewControllers:viewControllerStack];
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+        [self logout];
     } completed:^{
         NSLog(@"User details loaded");
     }];
@@ -179,6 +177,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)logout
+{
+    JCWelcomeViewController *welcomeController = [[JCWelcomeViewController alloc] init];
+    NSArray *viewControllerStack = @[welcomeController];
+    [self.navigationController setViewControllers:viewControllerStack];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+}
+
 - (void)didUpdateLocations:(NSArray *)locations
 {
     NSLog(@"Got locations in user overview");
@@ -202,6 +209,19 @@
                                                   completion:^{
                                                       NSLog(@"Dismissed settings");
                                                   }];
+}
+
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier *)specifier
+{
+    if ([[specifier key] isEqualToString:@"logout"])
+    {
+        [[GSKeychain systemKeychain] removeAllSecrets];
+        [self.navigationController dismissViewControllerAnimated:NO
+                                                      completion:^{
+                                                          NSLog(@"Dismissed settings");
+                                                      }];
+        [self logout];
+    }
 }
 
 @end

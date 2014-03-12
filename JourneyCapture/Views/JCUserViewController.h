@@ -17,4 +17,6 @@
 @property (strong, nonatomic) UIButton *myRoutesButton;
 @property (strong, nonatomic) UIButton *nearbyRoutesButton;
 @property (strong, nonatomic) UIButton *createRouteButton;
+
+- (void)logout;
 @end
