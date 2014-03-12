@@ -509,7 +509,7 @@
 				ORGANIZATIONNAME = FCD;
 				TargetAttributes = {
 					831EDB4518BCBB33001468E4 = {
-						DevelopmentTeam = N22NQHGM2W;
+						DevelopmentTeam = L342PDL5NN;
 					};
 					831EDB6018BCBB34001468E4 = {
 						TestTargetID = 831EDB4518BCBB33001468E4;
@@ -748,7 +748,7 @@
 				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/JourneyCapture/Support/JourneyCapture-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AA073C44-0EDA-4EF2-AD5A-3DE07AA62D5B";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -765,7 +765,7 @@
 				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/JourneyCapture/Support/JourneyCapture-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AA073C44-0EDA-4EF2-AD5A-3DE07AA62D5B";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
