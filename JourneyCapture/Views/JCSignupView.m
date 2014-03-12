@@ -66,6 +66,7 @@
 
     // Profile picture
     self.profilePictureButton = [[UIButton alloc] init];
+    int picSize = 60;
     [self.profilePictureButton setTintColor:self.tintColor];
     UIImage *defaultImage = [UIImage imageNamed:@"default_profile_pic"];
     [self.profilePictureButton setBackgroundImage:defaultImage forState:UIControlStateNormal];
@@ -74,8 +75,14 @@
             [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
         }
     }];
-    self.profilePictureButton.layer.cornerRadius = 30.0f;
+
+    // Mask profile pic to hexagon
+    CALayer *mask = [CALayer layer];
+    mask.contents = (id)[[UIImage imageNamed:@"fcd-profile-mask"] CGImage];
+    mask.frame = CGRectMake(0, 0, 60, 60);
+    self.profilePictureButton.layer.mask = mask;
     self.profilePictureButton.layer.masksToBounds = YES;
+
     [self addSubview:self.profilePictureButton];
 
     self.profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -86,7 +93,6 @@
         return [RACSignal empty];
     }];
 
-    int picSize = 60;
     int verticalPicPadding = ((2*textFieldHeight) + padding - picSize) / 2;
     [self.profilePictureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).with.offset(-padding);

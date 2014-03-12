@@ -56,16 +56,22 @@
 
     // Profile
     self.profileImageView = [[UIImageView alloc] init];
-    self.profileImageView.layer.cornerRadius = 25.0f;
-    self.profileImageView.layer.masksToBounds = YES;
+    int profilePicSize = 50;
     RACChannelTo(self.profileImageView, image) = RACChannelTo(self.viewModel, profilePic);
+
+    // Mask profile pic to hexagon
+    CALayer *mask = [CALayer layer];
+    mask.contents = (id)[[UIImage imageNamed:@"fcd-profile-mask"] CGImage];
+    mask.frame = CGRectMake(0, 0, profilePicSize, profilePicSize);
+    self.profileImageView.layer.mask = mask;
+    self.profileImageView.layer.masksToBounds = YES;
     [self addSubview:self.profileImageView];
 
     [self.profileImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
         make.left.equalTo(self.mas_left).with.offset(padding);
-        make.height.equalTo(@(50));
-        make.width.equalTo(@(50));
+        make.height.equalTo(@(profilePicSize));
+        make.width.equalTo(@(profilePicSize));
     }];
 
     // Settings
@@ -190,7 +196,7 @@
     }];
 
 
-    // Favourite route text at end - changes positioning of other stats labels
+    // Favourite route text - changes positioning of other stats labels
     RACChannelTerminal *favouriteModelChannel = RACChannelTo(self, viewModel.favouriteRouteName);
     [favouriteModelChannel subscribeNext:^(id favouriteRoute) {
         if (favouriteRoute) {
