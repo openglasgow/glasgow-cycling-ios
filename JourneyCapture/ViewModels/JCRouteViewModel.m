@@ -44,7 +44,11 @@
     // Calculate current speed
     if (self.points.count > 0) {
         JCRoutePointViewModel *lastPoint = self.points.lastObject;
-        self.currentSpeed = lastPoint.location.speed;
+        if (lastPoint.location.speed > 0) {
+            self.currentSpeed = lastPoint.location.speed;
+        } else {
+            self.currentSpeed = 0;
+        }
     } else {
         self.currentSpeed = 0;
     }
