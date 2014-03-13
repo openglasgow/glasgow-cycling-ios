@@ -29,7 +29,7 @@
         AFHTTPRequestOperation *op = [manager GET:@"/details.json"
                                        parameters:nil
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-                                              // Registered, store user token
+                                              // Loaded user details
                                               NSLog(@"User load success");
                                               NSLog(@"%@", responseObject);
                                               [self setFirstName:responseObject[@"first_name"]];

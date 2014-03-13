@@ -27,7 +27,8 @@
 @end
 
 @implementation JCUserViewController
-@synthesize viewModel, mapView, myRoutesButton, nearbyRoutesButton, createRouteButton;
+@synthesize viewModel, mapView, myRoutesButton, nearbyRoutesButton, createRouteButton,
+            updateOnAppear;
 
 - (id)init
 {
@@ -37,11 +38,7 @@
     }
     [[JCLocationManager manager] setDelegate:self];
     self.viewModel = [[JCUserViewModel alloc] init];
-    [[self.viewModel loadDetails] subscribeError:^(NSError *error) {
-        NSLog(@"Failed to load user");
-    } completed:^{
-        NSLog(@"User details loaded");
-    }];
+    [self update];
     return self;
 }
 
@@ -185,6 +182,7 @@
 
     self.createRouteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Enter Route Capture"];
+        self.updateOnAppear = YES;
         JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
         [self.navigationController pushViewController:captureController animated:YES];
         return [RACSignal empty];
@@ -203,6 +201,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [[JCLocationManager manager] startUpdatingCoarse];
+    if (self.updateOnAppear) {
+        [self update];
+        self.updateOnAppear = NO;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -214,6 +216,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)update
+{
+    [[self.viewModel loadDetails] subscribeError:^(NSError *error) {
+        NSLog(@"Failed to load user");
+    } completed:^{
+        NSLog(@"User details loaded");
+    }];
 }
 
 - (void)logout

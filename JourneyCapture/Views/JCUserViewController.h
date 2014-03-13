@@ -18,6 +18,8 @@
 @property (strong, nonatomic) UIButton *myRoutesButton;
 @property (strong, nonatomic) UIButton *nearbyRoutesButton;
 @property (strong, nonatomic) UIButton *createRouteButton;
+@property (readwrite, nonatomic) BOOL updateOnAppear;
 
+- (void)update;
 - (void)logout;
 @end

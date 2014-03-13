@@ -65,6 +65,7 @@
         } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
             // Stop
             [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+            [[JCLocationManager manager] setDelegate:nil];
             [self.captureView transitionToComplete];
         } else {
             // Submit
