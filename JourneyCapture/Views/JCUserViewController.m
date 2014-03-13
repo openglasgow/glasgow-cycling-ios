@@ -12,13 +12,12 @@
 #import "JCRoutesViewController.h"
 #import "JCRoutesListViewModel.h"
 #import "JCRouteCaptureViewController.h"
+#import "JCNotificationManager.h"
 
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "JCWelcomeViewController.h"
 #import "Flurry.h"
-
-#import <CRToast/CRToast.h>
 
 #import <GBDeviceInfo/GBDeviceInfo.h>
 
@@ -122,31 +121,9 @@
                 [self.navigationController pushViewController:routesController animated:YES];
             } else {
                 // No routes
-                NSDictionary *options = @{
-                                          kCRToastTextKey : @"No Routes",
-                                          kCRToastFontKey : [UIFont fontWithName:@"Helvetica Neue"
-                                                                            size:18.0],
-                                          kCRToastTextColorKey : [UIColor whiteColor],
-                                          kCRToastTextAlignmentKey : @(NSTextAlignmentLeft),
-                                          kCRToastSubtitleTextKey : @"You haven't recorded any routes.",
-                                          kCRToastSubtitleFontKey : [UIFont fontWithName:@"Helvetica Neue"
-                                                                                    size:12.0],
-                                          kCRToastSubtitleTextColorKey : [UIColor whiteColor],
-                                          kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
-                                          kCRToastBackgroundColorKey : self.view.tintColor,
-                                          kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
-                                          kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
-                                          kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
-                                          kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
-                                          kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
-                                          kCRToastTimeIntervalKey : @2.5,
-                                          kCRToastImageKey : [UIImage imageNamed:@"lock-50"]
-                                          };
-
-                [CRToastManager showNotificationWithOptions:options
-                                            completionBlock:^{
-                                                NSLog(@"No routes error notification shown");
-                                            }];
+                [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
+                                                             subtitle:@"You haven't recorded any routes"
+                                                                 icon:[UIImage imageNamed:@"lock-50"]];
             }
         }];
         return [RACSignal empty];
@@ -169,9 +146,23 @@
     self.nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Enter Nearby Routes"];
         JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
-        [routesViewModel setTitle:@"Nearby Routes"];
-        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
-        [self.navigationController pushViewController:routesController animated:YES];
+        [[routesViewModel loadNearbyRoutes] subscribeError:^(NSError *error) {
+            [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
+                                                         subtitle:@"There are no nearby routes"
+                                                             icon:[UIImage imageNamed:@"lock-50"]];
+        } completed:^{
+            NSLog(@"Got nearby routes");
+            if (routesViewModel.routes.count > 0) {
+                [routesViewModel setTitle:@"Nearby Routes"];
+                JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
+                [self.navigationController pushViewController:routesController animated:YES];
+            } else {
+                // No routes
+                [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
+                                                             subtitle:@"There are no nearby routes"
+                                                                 icon:[UIImage imageNamed:@"lock-50"]];
+            }
+        }];
         return [RACSignal empty];
     }];
     

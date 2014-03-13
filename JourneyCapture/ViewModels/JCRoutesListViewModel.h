@@ -12,4 +12,5 @@
 @property (strong, nonatomic) NSMutableArray *routes;
 @property (strong, nonatomic) NSString *title;
 -(RACSignal *)loadUserRoutes;
+-(RACSignal *)loadNearbyRoutes;
 @end

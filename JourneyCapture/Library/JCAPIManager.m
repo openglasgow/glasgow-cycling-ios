@@ -11,7 +11,7 @@
 #import <GSKeychain/GSKeychain.h>
 #import "JCWelcomeViewController.h"
 #import "JCNavViewController.h"
-#import <CRToast/CRToast.h>
+#import "JCNotificationManager.h"
 
 @implementation JCAPIManager
 
@@ -84,36 +84,18 @@
         if (self.navController) {
             JCWelcomeViewController *welcomeVC = [[JCWelcomeViewController alloc] init];
             [self.navController setViewControllers:@[welcomeVC] animated:NO];
-            NSDictionary *options = @{
-                                      kCRToastTextKey : @"Logged out",
-                                      kCRToastFontKey : [UIFont fontWithName:@"Helvetica Neue"
-                                                                        size:18.0],
-                                      kCRToastTextAlignmentKey : @(NSTextAlignmentLeft),
-                                      kCRToastSubtitleTextKey : @"Your user details are invalid",
-                                      kCRToastSubtitleFontKey : [UIFont fontWithName:@"Helvetica Neue"
-                                                                                size:12.0],
-                                      kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
-                                      kCRToastBackgroundColorKey : [UIColor colorWithRed:(231/255.0)
-                                                                                   green:(32./255.0)
-                                                                                    blue:(73.0/255.0)
-                                                                                   alpha:1.0],
-                                      kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
-                                      kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
-                                      kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
-                                      kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
-                                      kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
-                                      kCRToastTimeIntervalKey : @4,
-                                      kCRToastImageKey : [UIImage imageNamed:@"lock-50"]
-                                      };
-
-            [CRToastManager showNotificationWithOptions:options
-                                        completionBlock:^{
-                                            NSLog(@"Logout error notification shown");
-                                        }];
+            [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
+                                                          subtitle:@"Your user details are invalid"
+                                                              icon:[UIImage imageNamed:@"lock-50"]];
 
         }
+    } else if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1004) {
+        // Couldn't connect to server
+        [[JCNotificationManager manager] displayErrorWithTitle:@"Connection Error"
+                                                      subtitle:@"There was a problem connecting to the server"
+                                                          icon:[UIImage imageNamed:@"lock-50"]];
     }
-    
+
     failure(operation, error);
 }
 

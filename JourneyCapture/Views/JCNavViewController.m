@@ -8,7 +8,7 @@
 
 #import "JCNavViewController.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
-#import <CRToast/CRToast.h>
+#import "JCNotificationManager.h"
 
 @interface JCNavViewController ()
 @property (readwrite, nonatomic) BOOL networkErrorShown;
@@ -25,33 +25,9 @@
             if (status == AFNetworkReachabilityStatusNotReachable && !self.networkErrorShown) {
                 // Show not reachable notification
                 self.networkErrorShown = YES;
-                NSDictionary *options = @{
-                                          kCRToastTextKey : @"Network Error",
-                                          kCRToastFontKey : [UIFont fontWithName:@"Helvetica Neue"
-                                                                            size:18.0],
-                                          kCRToastTextAlignmentKey : @(NSTextAlignmentLeft),
-                                          kCRToastSubtitleTextKey : @"There is an issue with either your connection or the server",
-                                          kCRToastSubtitleFontKey : [UIFont fontWithName:@"Helvetica Neue"
-                                                                                    size:12.0],
-                                          kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
-                                          kCRToastBackgroundColorKey : [UIColor colorWithRed:(231/255.0)
-                                                                                       green:(32./255.0)
-                                                                                        blue:(73.0/255.0)
-                                                                                       alpha:1.0],
-                                          kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
-                                          kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
-                                          kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
-                                          kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
-                                          kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
-                                          kCRToastTimeIntervalKey : @3,
-                                          kCRToastImageKey : [UIImage imageNamed:@"lock-50"]
-                                        };
-
-                [CRToastManager showNotificationWithOptions:options
-                                            completionBlock:^{
-                                                NSLog(@"Network error notification shown");
-                                                self.networkErrorShown = NO;
-                                            }];
+                [[JCNotificationManager manager] displayErrorWithTitle:@"Network Error"
+                                                              subtitle:@"There is an issue with either your connection or the server"
+                                                                  icon:[UIImage imageNamed:@"lock-50"]];
             }
         }];
         [[AFNetworkReachabilityManager sharedManager] startMonitoring];
