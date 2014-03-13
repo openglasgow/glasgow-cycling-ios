@@ -12,7 +12,7 @@
 
 @class JCCaptureView;
 
-@interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate,
+@interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate, UIAlertViewDelegate,
                                                             UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 @property (strong, nonatomic) JCCaptureView *captureView;

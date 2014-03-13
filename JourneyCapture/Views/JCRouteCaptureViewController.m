@@ -40,6 +40,21 @@
             // Start
             [self.captureView transitionToActive];
             self.navigationItem.hidesBackButton = YES;
+            UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
+            self.navigationItem.leftBarButtonItem = cancelButton;
+            cancelButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Stop Capturing"
+                                                                      message:@"Are you sure you want to stop capturing the route?"
+                                                                     delegate:nil
+                                                            cancelButtonTitle:@"Keep Going"
+                                                            otherButtonTitles:@"Stop Capturing", nil];
+                [cancelAlert show];
+                cancelAlert.delegate = self;
+                return [RACSignal empty];
+            }];
             [[JCLocationManager manager] startUpdatingNav];
             [[JCLocationManager manager] setDelegate:self];
         } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
@@ -140,6 +155,15 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 1) {
+        // Stop
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }
 
 @end
