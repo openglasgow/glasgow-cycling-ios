@@ -86,14 +86,14 @@
             [self.navController setViewControllers:@[welcomeVC] animated:NO];
             [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
                                                           subtitle:@"Your user details are invalid"
-                                                              icon:[UIImage imageNamed:@"lock-50"]];
+                                                              icon:[UIImage imageNamed:@"confused-icon"]];
 
         }
     } else if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1004) {
         // Couldn't connect to server
         [[JCNotificationManager manager] displayErrorWithTitle:@"Connection Error"
                                                       subtitle:@"There was a problem connecting to the server"
-                                                          icon:[UIImage imageNamed:@"lock-50"]];
+                                                          icon:[UIImage imageNamed:@"connection-icon"]];
     }
 
     failure(operation, error);

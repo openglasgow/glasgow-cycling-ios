@@ -27,7 +27,7 @@
                 self.networkErrorShown = YES;
                 [[JCNotificationManager manager] displayErrorWithTitle:@"Network Error"
                                                               subtitle:@"There is an issue with either your connection or the server"
-                                                                  icon:[UIImage imageNamed:@"lock-50"]];
+                                                                  icon:[UIImage imageNamed:@"connection-icon"]];
             }
         }];
         [[AFNetworkReachabilityManager sharedManager] startMonitoring];

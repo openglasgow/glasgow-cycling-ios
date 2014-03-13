@@ -127,7 +127,7 @@
                 // No routes
                 [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
                                                              subtitle:@"You haven't recorded any routes"
-                                                                 icon:[UIImage imageNamed:@"lock-50"]];
+                                                                 icon:[UIImage imageNamed:@"route-icon"]];
             }
         }];
         return [RACSignal empty];
@@ -153,7 +153,7 @@
         [[routesViewModel loadNearbyRoutes] subscribeError:^(NSError *error) {
             [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
                                                          subtitle:@"There are no nearby routes"
-                                                             icon:[UIImage imageNamed:@"lock-50"]];
+                                                             icon:[UIImage imageNamed:@"route-icon"]];
         } completed:^{
             NSLog(@"Got nearby routes");
             if (routesViewModel.routes.count > 0) {
@@ -164,7 +164,7 @@
                 // No routes
                 [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
                                                              subtitle:@"There are no nearby routes"
-                                                                 icon:[UIImage imageNamed:@"lock-50"]];
+                                                                 icon:[UIImage imageNamed:@"route-icon"]];
             }
         }];
         return [RACSignal empty];
