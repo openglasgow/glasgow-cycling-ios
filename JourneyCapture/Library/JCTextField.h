@@ -10,5 +10,12 @@
 
 @interface JCTextField : UITextField
 @property (readwrite, nonatomic) BOOL valid;
-@property (strong, nonatomic) UIView *errorView;
+@property (strong, nonatomic) NSString *error;
+@property (strong, nonatomic) UIView *invalidView;
+
+-(void)showError;
+-(void)hideError;
+
+-(void)showInvalid;
+-(void)hideInvalid;
 @end
