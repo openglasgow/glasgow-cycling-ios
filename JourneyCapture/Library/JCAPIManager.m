@@ -9,6 +9,9 @@
 #import "JCAPIManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import <GSKeychain/GSKeychain.h>
+#import "JCWelcomeViewController.h"
+#import "JCNavViewController.h"
+#import "JCNotificationManager.h"
 
 @implementation JCAPIManager
 
@@ -44,10 +47,14 @@
         }
         authParams[@"user_token"] = userToken;
         authParams[@"user_email"] = userEmail;
-        return [super GET:URLString parameters:authParams success:success failure:failure];
+        return [super GET:URLString parameters:authParams success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
     } else {
         [[GSKeychain systemKeychain] removeAllSecrets];
-        return [super GET:URLString parameters:parameters success:success failure:failure];
+        return [super GET:URLString parameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
     }
 }
 
@@ -59,10 +66,37 @@
         NSMutableDictionary *authParams = [parameters mutableCopy];
         authParams[@"user_token"] = userToken;
         authParams[@"user_email"] = userEmail;
-        return [super POST:URLString parameters:authParams success:success failure:failure];
+        return [super POST:URLString parameters:authParams success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
     } else {
-        return [super POST:URLString parameters:parameters success:success failure:failure];
+        return [super POST:URLString parameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
     }
+}
+
+-(void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error callback:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
+    if (operation.response.statusCode == 401) {
+        // Unauthorized, logout
+        [[GSKeychain systemKeychain] removeAllSecrets];
+        if (self.navController) {
+            JCWelcomeViewController *welcomeVC = [[JCWelcomeViewController alloc] init];
+            [self.navController setViewControllers:@[welcomeVC] animated:NO];
+            [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
+                                                          subtitle:@"Your user details are invalid"
+                                                              icon:[UIImage imageNamed:@"lock-50"]];
+
+        }
+    } else if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1004) {
+        // Couldn't connect to server
+        [[JCNotificationManager manager] displayErrorWithTitle:@"Connection Error"
+                                                      subtitle:@"There was a problem connecting to the server"
+                                                          icon:[UIImage imageNamed:@"lock-50"]];
+    }
+
+    failure(operation, error);
 }
 
 #pragma mark - Singleton Methods

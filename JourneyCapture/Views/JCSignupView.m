@@ -113,9 +113,12 @@
     [self.emailField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     RAC(self.viewModel, email) = self.emailField.rac_textSignal;
     [self addSubview:self.emailField];
+
+    // Validation and errors
     [self.viewModel.emailValid subscribeNext:^(id emailValid) {
         self.emailField.valid = [emailValid boolValue];
     }];
+    RACChannelTo(self.viewModel, emailError) = RACChannelTo(self.emailField, error);
 
     [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);
@@ -130,9 +133,12 @@
     [self.passwordField setPlaceholder:@"New Password"];
     RAC(self.viewModel, password) = self.passwordField.rac_textSignal;
     [self addSubview:self.passwordField];
+
+    // Validation and errors
     [self.viewModel.passwordValid subscribeNext:^(id passwordValid) {
         self.passwordField.valid = [passwordValid boolValue];
     }];
+    RACChannelTo(self.viewModel, passwordError) = RACChannelTo(self.passwordField, error);
 
     [self.passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);

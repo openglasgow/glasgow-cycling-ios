@@ -14,6 +14,7 @@
 @implementation JCSignupViewModel
 @synthesize email, password, firstName, lastName, dob, gender, genders, profilePicture,
             emailValid, passwordValid, firstNameValid, lastNameValid, genderValid, dobValid,
+            emailError, passwordError,
             isValidDetails;
 
 - (id)init
@@ -105,6 +106,22 @@
               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                   NSLog(@"Signin failure");
                   NSLog(@"%@", error);
+                  NSLog(@"Response: %@", [operation responseObject]);
+                  NSDictionary *errorData = [operation responseObject];
+                  if (errorData && errorData[@"errors"]) {
+                      NSDictionary *fieldErrors = errorData[@"errors"];
+                      if (fieldErrors[@"email"]) {
+                          self.emailError = [NSString stringWithFormat:@"Email %@", fieldErrors[@"email"][0]];
+                      } else {
+                          self.emailError = nil;
+                      }
+
+                      if (fieldErrors[@"password"]) {
+                          self.passwordError = [NSString stringWithFormat:@"Password %@", fieldErrors[@"password"][0]];
+                      } else {
+                          self.passwordError = nil;
+                      }
+                  }
                   [subscriber sendError:error];
               }
          ];

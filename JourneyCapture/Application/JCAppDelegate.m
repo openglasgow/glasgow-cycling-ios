@@ -10,6 +10,7 @@
 #import "JCWelcomeViewController.h"
 #import "JCNavViewController.h"
 #import "JCUserViewController.h"
+#import "JCAPIManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "Flurry.h"
 
@@ -34,9 +35,11 @@
     } else {
         rootController = [[JCWelcomeViewController alloc] init];
     }
-    UINavigationController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
+    JCNavViewController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
     [self.window setRootViewController:navController];
-    
+
+    [[JCAPIManager manager] setNavController:navController];
+
     // Core Data
     [MagicalRecord setupAutoMigratingCoreDataStack];
     return YES;

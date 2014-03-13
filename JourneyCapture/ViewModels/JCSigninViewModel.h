@@ -9,7 +9,10 @@
 @interface JCSigninViewModel : RVMViewModel
 
 @property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *emailError;
+
 @property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSString *passwordError;
 
 @property (nonatomic, strong) RACSignal *isValidDetails;
 @property (nonatomic, strong) RACSignal *emailValid;

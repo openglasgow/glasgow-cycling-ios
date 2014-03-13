@@ -153,7 +153,7 @@
             [subscriber sendError:nil];
         }
 
-        NSString *routeURI = [NSString stringWithFormat:@"/routes/%ld.json", (long)self.routeId];
+        NSString *routeURI = [NSString stringWithFormat:@"/routes/find/%ld.json", (long)self.routeId];
         AFHTTPRequestOperation *op = [manager GET:routeURI
                                         parameters:nil
                                            success:^(AFHTTPRequestOperation *operation, NSDictionary *routeData) {

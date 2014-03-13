@@ -11,8 +11,8 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCSigninViewModel
-@synthesize email, password;
-@synthesize isValidDetails, emailValid, passwordValid;
+@synthesize email, password, emailError, passwordError,
+            isValidDetails, emailValid, passwordValid;
 
 - (id)init
 {
@@ -67,6 +67,10 @@
              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  NSLog(@"Signin failure");
                  NSLog(@"%@", error);
+                 if ([[operation response] statusCode] == 401) {
+                     self.emailError = @"Incorrect login details";
+                     self.passwordError = @"Incorrect login details";
+                 }
                 [subscriber sendError:error];
              }
          ];

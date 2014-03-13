@@ -31,6 +31,7 @@
 		83501FE218D0BA5800CE7CFE /* JCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 83501FE118D0BA5800CE7CFE /* JCTextField.m */; };
 		83519E7318CDC42800DA1E70 /* UIImage+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 83519E7218CDC42800DA1E70 /* UIImage+Compression.m */; };
 		83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83560C4E18BCE146004CE63C /* JCSignupViewModel.m */; };
+		83641C1918D2052700671A2A /* JCNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83641C1818D2052700671A2A /* JCNotificationManager.m */; };
 		837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B15A518BDF31F000EEFAB /* JCSignupView.m */; };
 		837B15A818BE023B000EEFAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B15A718BE023B000EEFAB /* QuartzCore.framework */; };
 		83B3484F18C09EFF00D59FB9 /* JCRouteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3484E18C09EFF00D59FB9 /* JCRouteCell.m */; };
@@ -107,6 +108,8 @@
 		83519E7218CDC42800DA1E70 /* UIImage+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compression.m"; sourceTree = "<group>"; };
 		83560C4D18BCE146004CE63C /* JCSignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewModel.h; sourceTree = "<group>"; };
 		83560C4E18BCE146004CE63C /* JCSignupViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupViewModel.m; sourceTree = "<group>"; };
+		83641C1718D2052700671A2A /* JCNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCNotificationManager.h; sourceTree = "<group>"; };
+		83641C1818D2052700671A2A /* JCNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCNotificationManager.m; sourceTree = "<group>"; };
 		83735C0318CF730C0050AB09 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		837B15A418BDF31F000EEFAB /* JCSignupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupView.h; sourceTree = "<group>"; };
 		837B15A518BDF31F000EEFAB /* JCSignupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupView.m; sourceTree = "<group>"; };
@@ -334,6 +337,8 @@
 				83501FDE18D0AC2D00CE7CFE /* UIImage+color.m */,
 				83501FE018D0BA5800CE7CFE /* JCTextField.h */,
 				83501FE118D0BA5800CE7CFE /* JCTextField.m */,
+				83641C1718D2052700671A2A /* JCNotificationManager.h */,
+				83641C1818D2052700671A2A /* JCNotificationManager.m */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -651,6 +656,7 @@
 				83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */,
 				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,
 				83BD285A18CA01010042F1E3 /* JCStatCell.m in Sources */,
+				83641C1918D2052700671A2A /* JCNotificationManager.m in Sources */,
 				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
 				83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */,
 			);

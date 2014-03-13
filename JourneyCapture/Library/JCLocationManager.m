@@ -34,6 +34,11 @@
     NSLog(@"Location error");
 }
 
+-(CLLocation *)currentLocation
+{
+    return self.locationManager.location;
+}
+
 #pragma mark - Singleton Methods
 
 + (JCLocationManager *)manager

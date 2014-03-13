@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JCSigninViewModel;
+@class JCSigninViewModel, JCTextField;
 
 @interface JCSigninView : UIView
 @property (strong, nonatomic) JCSigninViewModel *viewModel;
-@property (strong, nonatomic) UITextField *emailField;
-@property (strong, nonatomic) UITextField *passwordField;
+@property (strong, nonatomic) JCTextField *emailField;
+@property (strong, nonatomic) JCTextField *passwordField;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCSigninViewModel *)signinViewModel;
 @end

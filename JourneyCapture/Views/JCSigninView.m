@@ -22,9 +22,9 @@
     }
     
     self.viewModel = signinViewModel;
-    
-    // Form
-    // TODO DRY out the code between signup/signin ?
+    int padding = 15;
+
+    // Email
     self.emailField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.emailField setUserInteractionEnabled:YES];
     [self.emailField setBorderStyle:UITextBorderStyleRoundedRect];
@@ -33,7 +33,16 @@
     [self.emailField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     RAC(self.viewModel, email) = self.emailField.rac_textSignal;
     [self addSubview:self.emailField];
-    
+
+    RACChannelTo(self.viewModel, emailError) = RACChannelTo(self.emailField, error);
+
+    [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).with.offset(padding);
+        make.right.equalTo(self).with.offset(-padding);
+        make.top.equalTo(self.mas_top).with.offset(padding);
+    }];
+
+    // Password
     self.passwordField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [self.passwordField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.passwordField setSecureTextEntry:YES];
@@ -41,14 +50,8 @@
     RAC(self.viewModel, password) = self.passwordField.rac_textSignal;
     [self addSubview:self.passwordField];
 
-    // Positioning
-    int padding = 15;
-    [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.mas_top).with.offset(padding);
-    }];
-    
+    RACChannelTo(self.viewModel, passwordError) = RACChannelTo(self.passwordField, error);
+
     [self.passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(padding);
         make.right.equalTo(self).with.offset(-padding);

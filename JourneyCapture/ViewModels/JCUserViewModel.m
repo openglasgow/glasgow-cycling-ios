@@ -51,10 +51,6 @@
                                               }
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              if ([operation.response statusCode] == 401) {
-                                                  // Unauthorized
-                                                  [[GSKeychain systemKeychain] removeAllSecrets];
-                                              }
                                               NSLog(@"User load failure");
                                               NSLog(@"%@", error);
                                               [subscriber sendError:error];
