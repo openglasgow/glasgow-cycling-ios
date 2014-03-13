@@ -11,20 +11,17 @@
 #import "JCNotificationManager.h"
 
 @interface JCNavViewController ()
-@property (readwrite, nonatomic) BOOL networkErrorShown;
 @end
 
 @implementation JCNavViewController
-@synthesize networkErrorShown;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            if (status == AFNetworkReachabilityStatusNotReachable && !self.networkErrorShown) {
+            if (status == AFNetworkReachabilityStatusNotReachable) {
                 // Show not reachable notification
-                self.networkErrorShown = YES;
                 [[JCNotificationManager manager] displayErrorWithTitle:@"Network Error"
                                                               subtitle:@"There is an issue with either your connection or the server"
                                                                   icon:[UIImage imageNamed:@"connection-icon"]];

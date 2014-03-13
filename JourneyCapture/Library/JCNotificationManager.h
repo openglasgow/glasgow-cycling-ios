@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface JCNotificationManager : NSObject
+@property (readwrite, nonatomic) BOOL notificationShown;
 - (void)displayInfoWithTitle:(NSString *)title subtitle:(NSString *)subtitle icon:(UIImage *)icon;
 - (void)displayErrorWithTitle:(NSString *)title subtitle:(NSString *)subtitle icon:(UIImage *)icon;
 + (JCNotificationManager *)manager;

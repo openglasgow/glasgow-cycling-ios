@@ -10,9 +10,14 @@
 #import <CRToast/CRToast.h>
 
 @implementation JCNotificationManager
+@synthesize notificationShown;
 
 -(void)displayErrorWithTitle:(NSString *)title subtitle:(NSString *)subtitle icon:(UIImage *)icon
 {
+    if (self.notificationShown) {
+        return;
+    }
+    self.notificationShown = YES;
     NSDictionary *options = @{
                               kCRToastTextKey : title,
                               kCRToastFontKey : [UIFont fontWithName:@"Helvetica Neue"
@@ -38,11 +43,16 @@
     [CRToastManager showNotificationWithOptions:options
                                 completionBlock:^{
                                     NSLog(@"Logout error notification shown");
+                                    self.notificationShown = NO;
                                 }];
 }
 
 -(void)displayInfoWithTitle:(NSString *)title subtitle:(NSString *)subtitle icon:(UIImage *)icon
 {
+    if (self.notificationShown) {
+        return;
+    }
+    self.notificationShown = YES;
     NSDictionary *options = @{
                               kCRToastTextKey : title,
                               kCRToastFontKey : [UIFont fontWithName:@"Helvetica Neue"
@@ -67,6 +77,7 @@
     [CRToastManager showNotificationWithOptions:options
                                 completionBlock:^{
                                     NSLog(@"No routes error notification shown");
+                                    self.notificationShown = NO;
                                 }];
 }
 
