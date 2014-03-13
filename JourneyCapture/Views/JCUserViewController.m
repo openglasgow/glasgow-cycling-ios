@@ -18,6 +18,7 @@
 #import "JCWelcomeViewController.h"
 #import "Flurry.h"
 
+#import <CRToast/CRToast.h>
 
 #import <GBDeviceInfo/GBDeviceInfo.h>
 
@@ -115,9 +116,38 @@
             NSLog(@"Error loading my routes");
         } completed:^{
             NSLog(@"Got my routes");
-            [routesViewModel setTitle:@"My Routes"];
-            JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
-            [self.navigationController pushViewController:routesController animated:YES];
+            if (routesViewModel.routes.count > 0) {
+                [routesViewModel setTitle:@"My Routes"];
+                JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
+                [self.navigationController pushViewController:routesController animated:YES];
+            } else {
+                // No routes
+                NSDictionary *options = @{
+                                          kCRToastTextKey : @"No Routes",
+                                          kCRToastFontKey : [UIFont fontWithName:@"Helvetica Neue"
+                                                                            size:18.0],
+                                          kCRToastTextColorKey : [UIColor whiteColor],
+                                          kCRToastTextAlignmentKey : @(NSTextAlignmentLeft),
+                                          kCRToastSubtitleTextKey : @"You haven't recorded any routes.",
+                                          kCRToastSubtitleFontKey : [UIFont fontWithName:@"Helvetica Neue"
+                                                                                    size:12.0],
+                                          kCRToastSubtitleTextColorKey : [UIColor whiteColor],
+                                          kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
+                                          kCRToastBackgroundColorKey : self.view.tintColor,
+                                          kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
+                                          kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
+                                          kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                          kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
+                                          kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
+                                          kCRToastTimeIntervalKey : @2.5,
+                                          kCRToastImageKey : [UIImage imageNamed:@"lock-50"]
+                                          };
+
+                [CRToastManager showNotificationWithOptions:options
+                                            completionBlock:^{
+                                                NSLog(@"No routes error notification shown");
+                                            }];
+            }
         }];
         return [RACSignal empty];
     }];
