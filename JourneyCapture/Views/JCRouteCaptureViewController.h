@@ -14,6 +14,7 @@
 
 @interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate, UIAlertViewDelegate,
                                                             UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) NSDate *captureStart;
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 @property (strong, nonatomic) JCCaptureView *captureView;
 @end

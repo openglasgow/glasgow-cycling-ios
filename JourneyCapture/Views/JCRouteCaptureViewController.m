@@ -16,7 +16,7 @@
 @end
 
 @implementation JCRouteCaptureViewController
-@synthesize viewModel, captureView;
+@synthesize viewModel, captureView, captureStart;
 
 - (id)init
 {
@@ -38,7 +38,10 @@
         NSLog(@"Tapped capture button");
         if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Start"]) {
             // Start
+            self.captureStart = [NSDate date];
             [self.captureView transitionToActive];
+
+            // Show cancel button in place of back button
             self.navigationItem.hidesBackButton = YES;
             UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
                                                                              style:UIBarButtonItemStylePlain
@@ -55,6 +58,8 @@
                 cancelAlert.delegate = self;
                 return [RACSignal empty];
             }];
+
+            // Start updating location
             [[JCLocationManager manager] startUpdatingNav];
             [[JCLocationManager manager] setDelegate:self];
         } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
@@ -87,20 +92,33 @@
 
 - (void)didUpdateLocations:(NSArray *)locations
 {
-    // TODO deal with deferred locations
-    NSLog(@"Got new location, adding to the route");
-    CLLocation *latestLocation = locations[0];
+    int numLocations = (int)locations.count;
+    for(int i = numLocations-1; i >= 0; i--) {
+        NSLog(@"Got new location, adding to the route");
+        CLLocation *latestLocation = locations[i];
 
-    // Create point
-    JCRoutePointViewModel *point = [[JCRoutePointViewModel alloc] init];
-    point.location = latestLocation;
-    [self.viewModel addPoint:point];
+        if ([self.captureStart compare:latestLocation.timestamp] == NSOrderedDescending) {
+            // Location is older than start
+            NSLog(@"Filtered old location");
+            return;
+        }
 
-    // Update route line on mapview
-    [self.captureView updateRouteLine];
+        if (latestLocation.horizontalAccuracy > 40) {
+            NSLog(@"Horizontal accuracy too low (%f), filtered", latestLocation.horizontalAccuracy);
+            return;
+        }
 
-    // Reload stats
-    [self.captureView.statsTable reloadData];
+        // Create point
+        JCRoutePointViewModel *point = [[JCRoutePointViewModel alloc] init];
+        point.location = latestLocation;
+        [self.viewModel addPoint:point];
+
+        // Update route line on mapview
+        [self.captureView updateRouteLine];
+
+        // Reload stats
+        [self.captureView.statsTable reloadData];
+    }
 }
 
 - (void)viewDidLoad
