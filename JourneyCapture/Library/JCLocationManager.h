@@ -16,6 +16,8 @@
 @interface JCLocationManager : NSObject <CLLocationManagerDelegate>
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) id<JCLocationManagerDelegate> delegate;
+-(void)startUpdatingCoarse;
+-(void)startUpdatingNav;
 
 - (CLLocation *)currentLocation;
 + (JCLocationManager *)manager;

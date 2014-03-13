@@ -39,6 +39,18 @@
     return self.locationManager.location;
 }
 
+-(void)startUpdatingCoarse
+{
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyKilometer];
+    [self.locationManager startUpdatingLocation];
+}
+
+-(void)startUpdatingNav
+{
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBestForNavigation];
+    [self.locationManager startUpdatingLocation];
+}
+
 #pragma mark - Singleton Methods
 
 + (JCLocationManager *)manager

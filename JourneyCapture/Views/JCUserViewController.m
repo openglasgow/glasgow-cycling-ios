@@ -17,10 +17,9 @@
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "JCWelcomeViewController.h"
+
 #import "Flurry.h"
-
 #import <GBDeviceInfo/GBDeviceInfo.h>
-
 #import <GSKeychain/GSKeychain.h>
 
 @interface JCUserViewController ()
@@ -28,8 +27,7 @@
 @end
 
 @implementation JCUserViewController
-@synthesize viewModel;
-@synthesize myRoutesButton, nearbyRoutesButton, createRouteButton;
+@synthesize viewModel, mapView, myRoutesButton, nearbyRoutesButton, createRouteButton;
 
 - (id)init
 {
@@ -37,7 +35,6 @@
     if (!self) {
         return nil;
     }
-    [[[JCLocationManager manager] locationManager] startUpdatingLocation];
     [[JCLocationManager manager] setDelegate:self];
     self.viewModel = [[JCUserViewModel alloc] init];
     [[self.viewModel loadDetails] subscribeError:^(NSError *error) {
@@ -81,10 +78,17 @@
     }];
 
     // Background map image view
-    UIImage *mapImage = [UIImage imageNamed:@"map"];
-    self.mapImageView = [[UIImageView alloc] initWithImage:mapImage];
-    [self.view insertSubview:self.mapImageView belowSubview:detailsView];
-    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.mapView = [[MKMapView alloc] init];
+    self.mapView.layer.masksToBounds = NO;
+    self.mapView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.mapView.layer.shadowRadius = 2;
+    self.mapView.layer.shadowOpacity = 0.5;
+    self.mapView.zoomEnabled = NO;
+    self.mapView.scrollEnabled = NO;
+    self.mapView.userInteractionEnabled = NO;
+    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view insertSubview:self.mapView belowSubview:detailsView];
+    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
@@ -102,7 +106,7 @@
     [self.view addSubview:self.myRoutesButton];
     
     [self.myRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mapImageView.mas_bottom).with.offset(15);
+        make.top.equalTo(self.mapView.mas_bottom).with.offset(15);
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(45));
@@ -196,6 +200,16 @@
     [self.navigationItem setHidesBackButton:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[JCLocationManager manager] startUpdatingCoarse];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -208,13 +222,15 @@
     NSArray *viewControllerStack = @[welcomeController];
     [self.navigationController setViewControllers:viewControllerStack];
     [self.navigationController popToRootViewControllerAnimated:YES];
-    [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
 }
 
 - (void)didUpdateLocations:(NSArray *)locations
 {
     NSLog(@"Got locations in user overview");
-    [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+    CLLocation *location = locations[0];
+    CLLocationCoordinate2D loc = location.coordinate;
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 2500, 2500);
+    [self.mapView setRegion:region animated:YES];
 }
 
 - (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeBodyForSpecifier:(IASKSpecifier *)specifier

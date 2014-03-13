@@ -40,7 +40,7 @@
             // Start
             [self.captureView transitionToActive];
             self.navigationItem.hidesBackButton = YES;
-            [[[JCLocationManager manager] locationManager] startUpdatingLocation];
+            [[JCLocationManager manager] startUpdatingNav];
             [[JCLocationManager manager] setDelegate:self];
         } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
             // Stop
