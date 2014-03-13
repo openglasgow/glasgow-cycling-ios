@@ -11,7 +11,11 @@
 @interface JCSignupViewModel : RVMViewModel
 
 @property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *emailError;
+
 @property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *passwordError;
+
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSDate *dob;
