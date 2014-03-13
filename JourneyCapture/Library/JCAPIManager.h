@@ -7,7 +7,10 @@
 //
 
 #import "AFHTTPRequestOperationManager.h"
+@class JCNavViewController;
 
 @interface JCAPIManager : AFHTTPRequestOperationManager
+@property (strong, nonatomic) JCNavViewController *navController;
 + (JCAPIManager *)manager;
+- (void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error callback:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 @end

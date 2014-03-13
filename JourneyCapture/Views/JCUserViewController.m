@@ -41,8 +41,7 @@
     [[JCLocationManager manager] setDelegate:self];
     self.viewModel = [[JCUserViewModel alloc] init];
     [[self.viewModel loadDetails] subscribeError:^(NSError *error) {
-        NSLog(@"Failed to load user - returning to welcome");
-        [self logout];
+        NSLog(@"Failed to load user");
     } completed:^{
         NSLog(@"User details loaded");
     }];

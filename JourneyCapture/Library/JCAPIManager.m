@@ -9,6 +9,9 @@
 #import "JCAPIManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import <GSKeychain/GSKeychain.h>
+#import "JCWelcomeViewController.h"
+#import "JCNavViewController.h"
+#import <CRToast/CRToast.h>
 
 @implementation JCAPIManager
 
@@ -44,10 +47,14 @@
         }
         authParams[@"user_token"] = userToken;
         authParams[@"user_email"] = userEmail;
-        return [super GET:URLString parameters:authParams success:success failure:failure];
+        return [super GET:URLString parameters:authParams success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
     } else {
         [[GSKeychain systemKeychain] removeAllSecrets];
-        return [super GET:URLString parameters:parameters success:success failure:failure];
+        return [super GET:URLString parameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
     }
 }
 
@@ -59,10 +66,54 @@
         NSMutableDictionary *authParams = [parameters mutableCopy];
         authParams[@"user_token"] = userToken;
         authParams[@"user_email"] = userEmail;
-        return [super POST:URLString parameters:authParams success:success failure:failure];
+        return [super POST:URLString parameters:authParams success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
     } else {
-        return [super POST:URLString parameters:parameters success:success failure:failure];
+        return [super POST:URLString parameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
     }
+}
+
+-(void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error callback:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
+    if (operation.response.statusCode == 401) {
+        // Unauthorized, logout
+        [[GSKeychain systemKeychain] removeAllSecrets];
+        if (self.navController) {
+            JCWelcomeViewController *welcomeVC = [[JCWelcomeViewController alloc] init];
+            [self.navController setViewControllers:@[welcomeVC] animated:NO];
+            NSDictionary *options = @{
+                                      kCRToastTextKey : @"Logged out",
+                                      kCRToastFontKey : [UIFont fontWithName:@"Helvetica Neue"
+                                                                        size:18.0],
+                                      kCRToastTextAlignmentKey : @(NSTextAlignmentLeft),
+                                      kCRToastSubtitleTextKey : @"Your user details are invalid",
+                                      kCRToastSubtitleFontKey : [UIFont fontWithName:@"Helvetica Neue"
+                                                                                size:12.0],
+                                      kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
+                                      kCRToastBackgroundColorKey : [UIColor colorWithRed:(231/255.0)
+                                                                                   green:(32./255.0)
+                                                                                    blue:(73.0/255.0)
+                                                                                   alpha:1.0],
+                                      kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
+                                      kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
+                                      kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                      kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
+                                      kCRToastNotificationTypeKey : @(CRToastTypeNavigationBar),
+                                      kCRToastTimeIntervalKey : @4,
+                                      kCRToastImageKey : [UIImage imageNamed:@"lock-50"]
+                                      };
+
+            [CRToastManager showNotificationWithOptions:options
+                                        completionBlock:^{
+                                            NSLog(@"Logout error notification shown");
+                                        }];
+
+        }
+    }
+    failure(operation, error);
 }
 
 #pragma mark - Singleton Methods
