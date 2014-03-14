@@ -13,7 +13,6 @@
 #import "JCAPIManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "Flurry.h"
-#import <HockeySDK/HockeySDK.h>
 
 @implementation JCAppDelegate
 
@@ -24,7 +23,8 @@
     [Flurry startSession:@"DS59KXYYXSP92WR2C527"];
 
     //Hockey App Setup
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"];
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"
+                                                           delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
@@ -51,6 +51,18 @@
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if( [[BITHockeyManager sharedHockeyManager].authenticator handleOpenURL:url
+                                                          sourceApplication:sourceApplication
+                                                                 annotation:annotation]) {
+        return YES;
+    }
+    
+    /* Your own custom URL handlers */
+    
+    return NO;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
