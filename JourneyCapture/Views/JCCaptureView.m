@@ -14,7 +14,8 @@
 @implementation JCCaptureView
 @synthesize mapView, routeLine, routeLineView, captureButton, statsTable, viewModel,
             reviewScrollView, safetyRating, safetyReviewLabel, environmentRating, environmentReviewLabel,
-            difficultyRating, difficultyReviewLabel, animator, mapBottomConstraint, statsTopConstraint;
+            difficultyRating, difficultyReviewLabel, animator,
+            mapBottomConstraint, statsTopConstraint, statsBottomConstraint;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel
 {
@@ -69,7 +70,7 @@
     self.statsTable = [[UITableView alloc] init];
     [self insertSubview:self.statsTable belowSubview:self.mapView];
     [self.statsTable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
+        self.statsBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
         make.left.equalTo(self);
         make.right.equalTo(self);
         self.statsTopConstraint = make.top.equalTo(self.captureButton.mas_top).with.offset(-85);
@@ -201,7 +202,6 @@
                      animations:^{
                          [self.mapView layoutIfNeeded];
                          [self.statsTable layoutIfNeeded];
-//                         self.mapView.frame = CGRectMake(0, 0, self.frame.size.width, 300);
                          [self.captureButton setTitle:@"Stop" forState:UIControlStateNormal];
                          [self.captureButton setBackgroundColor:stopColor];
                          [self.statsTable reloadData];
@@ -231,18 +231,29 @@
                                       zoomRect.size.width, 500);
     zoomRect = MKMapRectUnion(zoomRect, topRect);
 
+    // Update positions
+    [self.mapBottomConstraint uninstall];
+    [self.mapView mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.mapBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-self.frame.size.height/2.5);
+    }];
+
+    double statsHeight = self.statsTable.frame.size.height;
+    double tableOffset = statsHeight - (2 * [self.statsTable rowHeight]);
+    [self.statsTopConstraint uninstall];
+    [self.statsBottomConstraint uninstall];
+    [self.statsTable mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.statsTopConstraint = make.top.equalTo(self.mapView.mas_bottom).with.offset(-(statsHeight/3));
+        self.statsBottomConstraint = make.bottom.equalTo(self.mapView.mas_bottom).with.offset(2*(statsHeight/3));
+    }];
+
     // Slide stats and review view up
     [UIView animateWithDuration:0.5
                           delay:0.0
                         options: UIViewAnimationOptionCurveLinear
                      animations:^{
                          // Shrink map, hide current speed
-                         self.mapView.frame = CGRectMake(0, 0, self.frame.size.width, 200);
-
-                         double statsHeight = self.statsTable.frame.size.height;
-                         double tableOffset = statsHeight - (2 * [self.statsTable rowHeight]);
-                         self.statsTable.frame = CGRectMake(0, 200 - tableOffset,
-                                                            self.frame.size.width, self.statsTable.frame.size.height);
+                         [self.mapView layoutIfNeeded];
+                         [self.statsTable layoutIfNeeded];
 
                          // Show review scrollview
                          double statsBottom = 200 - tableOffset + self.statsTable.frame.size.height;
