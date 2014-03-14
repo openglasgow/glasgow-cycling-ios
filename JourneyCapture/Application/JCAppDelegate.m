@@ -13,15 +13,22 @@
 #import "JCAPIManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "Flurry.h"
+#import <HockeySDK/HockeySDK.h>
 
 @implementation JCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //Flurry Analytics Setup
-    [Flurry setCrashReportingEnabled:YES];
+    //Flurry Analytics Setup - Crash reporting handled by Hockey App
+    [Flurry setCrashReportingEnabled:NO];
     [Flurry startSession:@"DS59KXYYXSP92WR2C527"];
 
+    //Hockey App Setup
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
+    
     // Present correct VC
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
