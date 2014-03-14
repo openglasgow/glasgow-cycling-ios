@@ -48,7 +48,7 @@
     self.contentView.layer.cornerRadius = 8.0f;
     
     UIFont *nameFont = [UIFont fontWithName:@"Helvetica Neue"
-                                       size:20.0];
+                                       size:17.0];
     UIFont *detailsFont = [UIFont fontWithName:@"Helvetica Neue"
                                           size:12.0];
 

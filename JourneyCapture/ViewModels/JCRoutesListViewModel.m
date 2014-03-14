@@ -40,6 +40,7 @@
                                               NSArray *routesResponse = routesDict[@"routes"];
 
                                               for (int i = 0; i < routesResponse.count; i++) {
+                                                  // TODO DRY
                                                   NSDictionary *routeData = routesResponse[i][@"details"];
                                                   JCRouteViewModel *route = [[JCRouteViewModel alloc] init];
                                                   [route setName:routeData[@"name"]];
@@ -60,7 +61,18 @@
                                                   int routeId = [routeData[@"id"] intValue];
                                                   [route setRouteId:routeId];
 
-                                                  [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
+                                                  NSDictionary *endPicture = routeData[@"end_picture"];
+                                                  if (endPicture) {
+                                                      NSString *routeImageBase64 = endPicture[@"image"];
+                                                      if (routeImageBase64) {
+                                                          NSData *picData = [[NSData alloc] initWithBase64EncodedString:routeImageBase64 options:0];
+                                                          UIImage *decodedRoutePic = [UIImage imageWithData:picData];
+                                                          [route setRouteImage:decodedRoutePic];
+                                                      } else {
+                                                          [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
+                                                      }
+                                                  }
+
                                                   [[self routes] addObject:route];
                                               }
 
@@ -119,7 +131,18 @@
                                                   int routeId = [routeData[@"id"] intValue];
                                                   [route setRouteId:routeId];
 
-                                                  [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
+                                                  NSDictionary *endPicture = routeData[@"end_picture"];
+                                                  if (endPicture) {
+                                                      NSString *routeImageBase64 = routeData[@"image"];
+                                                      if (routeImageBase64) {
+                                                          NSData *picData = [[NSData alloc] initWithBase64EncodedString:routeImageBase64 options:0];
+                                                          UIImage *decodedRoutePic = [UIImage imageWithData:picData];
+                                                          [route setRouteImage:decodedRoutePic];
+                                                      } else {
+                                                          [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
+                                                      }
+                                                  }
+
                                                   [[self routes] addObject:route];
                                               }
 
