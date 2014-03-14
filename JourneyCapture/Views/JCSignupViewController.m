@@ -48,7 +48,7 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:nil
                                                                              action:nil];
-    [self.view setBackgroundColor:[UIColor colorWithRed:(38.0 / 255.0) green:(224.0 / 255.0) blue:(184.0 / 255.0) alpha: 1]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     RAC(self, navigationItem.rightBarButtonItem.enabled) = self.viewModel.isValidDetails;
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         RACSignal *signupSignal = [self.viewModel signup];

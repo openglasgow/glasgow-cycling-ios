@@ -30,7 +30,7 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    [self.view setBackgroundColor:[UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     [[self navigationController] setNavigationBarHidden:YES];
 
     // Signin & Signup
