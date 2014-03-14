@@ -14,7 +14,7 @@
 @implementation JCCaptureView
 @synthesize mapView, routeLine, routeLineView, captureButton, statsTable, viewModel,
             reviewScrollView, safetyRating, safetyReviewLabel, environmentRating, environmentReviewLabel,
-            difficultyRating, difficultyReviewLabel, animator,
+            difficultyRating, difficultyReviewLabel, animator, reviewBottomConstraint, reviewTopConstraint,
             mapBottomConstraint, statsTopConstraint, statsBottomConstraint;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel
@@ -77,14 +77,20 @@
     }];
 
     // Review elements
-    self.reviewScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.frame.size.height,
-                                                                              self.frame.size.width, 100)];
+    int scrollHeight = 100;
+    self.reviewScrollView = [[UIScrollView alloc] init];//]WithFrame:CGRectMake(0, self.frame.size.height,
+//                                                                              self.frame.size.width, 100)];
     self.reviewScrollView.contentSize = CGSizeMake(self.frame.size.width * 4, self.reviewScrollView.frame.size.height);
     self.reviewScrollView.pagingEnabled = YES;
     self.reviewScrollView.showsHorizontalScrollIndicator = NO;
-    self.reviewScrollView.contentSize = CGSizeMake(self.reviewScrollView.contentSize.width, self.reviewScrollView.frame.size.height);
-
+    self.reviewScrollView.contentSize = CGSizeMake(self.reviewScrollView.contentSize.width, scrollHeight);
     [self addSubview:self.reviewScrollView];
+    [self.reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.reviewTopConstraint = make.top.equalTo(self.mas_bottom);
+        self.reviewBottomConstraint = make.bottom.equalTo(self.mas_bottom).with.offset(scrollHeight);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+    }];
 
     double labelY = 20;
     double labelHeight = 21;
@@ -246,6 +252,17 @@
         self.statsBottomConstraint = make.bottom.equalTo(self.mapView.mas_bottom).with.offset(2*(statsHeight/3));
     }];
 
+    double statsBottom = 200 - tableOffset + self.statsTable.frame.size.height;
+    self.reviewScrollView.frame = CGRectMake(0, statsBottom + 25,
+                                             self.frame.size.width, self.reviewScrollView.frame.size.height);
+
+    [self.reviewTopConstraint uninstall];
+    [self.reviewBottomConstraint uninstall];
+    [self.reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.reviewTopConstraint = make.top.equalTo(self.statsTable.mas_bottom).with.offset(10);
+        self.reviewBottomConstraint = make.bottom.equalTo(self.statsTable.mas_bottom).with.offset(110);
+    }];
+
     // Slide stats and review view up
     [UIView animateWithDuration:0.5
                           delay:0.0
@@ -256,9 +273,8 @@
                          [self.statsTable layoutIfNeeded];
 
                          // Show review scrollview
-                         double statsBottom = 200 - tableOffset + self.statsTable.frame.size.height;
-                         self.reviewScrollView.frame = CGRectMake(0, statsBottom + 25,
-                                                                  self.frame.size.width, self.reviewScrollView.frame.size.height);
+                         [self.reviewScrollView layoutIfNeeded];
+                         self.reviewScrollView.contentSize = CGSizeMake(self.frame.size.width * 4, self.reviewScrollView.frame.size.height);
 
                          // Submit button
                          [self.captureButton setTitle:@"Submit" forState:UIControlStateNormal];

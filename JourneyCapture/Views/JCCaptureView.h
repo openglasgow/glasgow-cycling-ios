@@ -35,6 +35,8 @@
 @property (strong, nonatomic) MASConstraint *mapBottomConstraint;
 @property (strong, nonatomic) MASConstraint *statsTopConstraint;
 @property (strong, nonatomic) MASConstraint *statsBottomConstraint;
+@property (strong, nonatomic) MASConstraint *reviewTopConstraint;
+@property (strong, nonatomic) MASConstraint *reviewBottomConstraint;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel;
 - (void)transitionToActive;
