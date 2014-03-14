@@ -7,6 +7,7 @@
 //
 
 #import "JCRoutePointViewModel.h"
+#import "Flurry.h"
 
 @implementation JCRoutePointViewModel
 @synthesize location, streetName;
@@ -36,6 +37,12 @@
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder reverseGeocodeLocation:self.location
                    completionHandler:^(NSArray *placemarks, NSError *error) {
+                       if (error) {
+                           [Flurry logEvent:@"Geocode Failure" withParameters:@{@"error": error.localizedDescription}];
+                           return;
+                       }
+                       [Flurry logEvent:@"Geocode Success"];
+
                        CLPlacemark *placemark = [placemarks objectAtIndex:0];
                        NSLog(@"%@", [placemark.addressDictionary allKeys]);
                        self.streetName = placemark.name;
