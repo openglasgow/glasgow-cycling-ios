@@ -151,7 +151,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (self.view.frame.size.height - 400) / 3;
+    return tableView.frame.size.height / 3;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

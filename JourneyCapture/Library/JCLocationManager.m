@@ -23,14 +23,13 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"Got %lu updated locations", (unsigned long)[locations count]);
     [self.delegate didUpdateLocations:locations];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     // TODO handle user saying no
-    NSLog(@"Location error");
+    NSLog(@"Location error %@", [error localizedDescription]);
 }
 
 -(CLLocation *)currentLocation

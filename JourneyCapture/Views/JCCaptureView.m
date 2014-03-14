@@ -14,7 +14,8 @@
 @implementation JCCaptureView
 @synthesize mapView, routeLine, routeLineView, captureButton, statsTable, viewModel,
             reviewScrollView, safetyRating, safetyReviewLabel, environmentRating, environmentReviewLabel,
-            difficultyRating, difficultyReviewLabel, animator;
+            difficultyRating, difficultyReviewLabel, animator, reviewBottomConstraint, reviewTopConstraint,
+            mapBottomConstraint, statsTopConstraint, statsBottomConstraint;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel
 {
@@ -28,8 +29,7 @@
 
     // Capture button
     UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
-    CGRect buttonFrame = CGRectMake(22, self.frame.size.height - 75, self.frame.size.width - 44, 50);
-    self.captureButton = [[UIButton alloc] initWithFrame:buttonFrame];
+    self.captureButton = [[UIButton alloc] init];
     [self.captureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.captureButton setTitle:@"Start" forState:UIControlStateNormal];
     [self.captureButton setBackgroundColor:buttonColor];
@@ -37,8 +37,15 @@
     self.captureButton.layer.cornerRadius = 8.0f;
     [self addSubview:self.captureButton];
 
+    [self.captureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).with.offset(-25);
+        make.top.equalTo(self.mas_bottom).with.offset(-75);
+        make.left.equalTo(self).with.offset(22);
+        make.right.equalTo(self).with.offset(-22);
+    }];
+
     // Map view
-    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 100)];
+    self.mapView = [[MKMapView alloc] init];
     self.mapView.layer.masksToBounds = NO;
     self.mapView.layer.shadowOffset = CGSizeMake(0, 1);
     self.mapView.layer.shadowRadius = 2;
@@ -52,25 +59,37 @@
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:self.mapView];
 
+    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        self.mapBottomConstraint = make.bottom.equalTo(self.mas_bottom).with.offset(-100);
+    }];
+
     // Stats
     self.statsTable = [[UITableView alloc] init];
     [self insertSubview:self.statsTable belowSubview:self.mapView];
     [self.statsTable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
+        self.statsBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.height.equalTo(@(self.frame.size.height - 400));
+        self.statsTopConstraint = make.top.equalTo(self.captureButton.mas_top).with.offset(-85);
     }];
 
     // Review elements
-    self.reviewScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.frame.size.height,
-                                                                              self.frame.size.width, 100)];
+    int scrollHeight = 100;
+    self.reviewScrollView = [[UIScrollView alloc] init];
     self.reviewScrollView.contentSize = CGSizeMake(self.frame.size.width * 4, self.reviewScrollView.frame.size.height);
     self.reviewScrollView.pagingEnabled = YES;
     self.reviewScrollView.showsHorizontalScrollIndicator = NO;
-    self.reviewScrollView.contentSize = CGSizeMake(self.reviewScrollView.contentSize.width, self.reviewScrollView.frame.size.height);
-
+    self.reviewScrollView.contentSize = CGSizeMake(self.reviewScrollView.contentSize.width, scrollHeight);
     [self addSubview:self.reviewScrollView];
+    [self.reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.reviewTopConstraint = make.top.equalTo(@(self.frame.size.height));
+        self.reviewBottomConstraint = make.bottom.equalTo(@(self.frame.size.height)).with.offset(scrollHeight);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+    }];
 
     double labelY = 20;
     double labelHeight = 21;
@@ -159,7 +178,7 @@
     [self.reviewScrollView addSubview:self.difficultyRating];
 
     // Review complete
-    self.reviewCompleteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*3, (self.reviewScrollView.frame.size.height/2) - labelHeight,
+    self.reviewCompleteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*3, 40,
                                                                          self.frame.size.width, labelHeight)];
     [self.reviewCompleteLabel setText:@"Review completed! Please submit"];
     [self.reviewCompleteLabel setTextAlignment:NSTextAlignmentCenter];
@@ -171,14 +190,26 @@
 - (void)transitionToActive
 {
     // Move map and button
+    [self.mapBottomConstraint uninstall];
+    [self.mapView mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.mapBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-self.frame.size.height/3.7);
+    }];
+
+    [self.statsTopConstraint uninstall];
+    [self.statsTable mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.statsTopConstraint = make.top.equalTo(self.mapView.mas_bottom);
+    }];
+
     UIColor *stopColor = [UIColor colorWithRed:243.0/255.0 green:60.0/255.0 blue:60.0/255.0 alpha:1.0];
     [UIView animateWithDuration:0.5
                           delay:0.0
                         options: UIViewAnimationOptionCurveLinear
                      animations:^{
-                         self.mapView.frame = CGRectMake(0, 0, self.frame.size.width, 300);
+                         [self.mapView layoutIfNeeded];
+                         [self.statsTable layoutIfNeeded];
                          [self.captureButton setTitle:@"Stop" forState:UIControlStateNormal];
                          [self.captureButton setBackgroundColor:stopColor];
+                         [self.statsTable reloadData];
                      }
                      completion:^(BOOL finished){
                          // Adjusting map can stop tracking
@@ -205,23 +236,43 @@
                                       zoomRect.size.width, 500);
     zoomRect = MKMapRectUnion(zoomRect, topRect);
 
+    // Update positions
+    [self.mapBottomConstraint uninstall];
+    [self.mapView mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.mapBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-self.frame.size.height/2.5);
+    }];
+
+    double statsHeight = self.statsTable.frame.size.height;
+    double tableOffset = statsHeight - (2 * [self.statsTable rowHeight]);
+    [self.statsTopConstraint uninstall];
+    [self.statsBottomConstraint uninstall];
+    [self.statsTable mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.statsTopConstraint = make.top.equalTo(self.mapView.mas_bottom).with.offset(-(statsHeight/3));
+        self.statsBottomConstraint = make.bottom.equalTo(self.mapView.mas_bottom).with.offset(2*(statsHeight/3));
+    }];
+
+    double statsBottom = 200 - tableOffset + self.statsTable.frame.size.height;
+    self.reviewScrollView.frame = CGRectMake(0, statsBottom + 25,
+                                             self.frame.size.width, self.reviewScrollView.frame.size.height);
+
+    [self.reviewTopConstraint uninstall];
+    [self.reviewBottomConstraint uninstall];
+    [self.reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.reviewTopConstraint = make.top.equalTo(self.statsTable.mas_bottom).with.offset(10);
+        self.reviewBottomConstraint = make.bottom.equalTo(self.statsTable.mas_bottom).with.offset(110);
+    }];
+
     // Slide stats and review view up
     [UIView animateWithDuration:0.5
                           delay:0.0
                         options: UIViewAnimationOptionCurveLinear
                      animations:^{
                          // Shrink map, hide current speed
-                         self.mapView.frame = CGRectMake(0, 0, self.frame.size.width, 200);
-
-                         double statsHeight = self.statsTable.frame.size.height;
-                         double tableOffset = statsHeight - (2 * [self.statsTable rowHeight]);
-                         self.statsTable.frame = CGRectMake(0, 200 - tableOffset,
-                                                            self.frame.size.width, self.statsTable.frame.size.height);
+                         [self.mapView layoutIfNeeded];
+                         [self.statsTable layoutIfNeeded];
 
                          // Show review scrollview
-                         double statsBottom = 200 - tableOffset + self.statsTable.frame.size.height;
-                         self.reviewScrollView.frame = CGRectMake(0, statsBottom + 25,
-                                                                  self.frame.size.width, self.reviewScrollView.frame.size.height);
+                         [self.reviewScrollView layoutIfNeeded];
 
                          // Submit button
                          [self.captureButton setTitle:@"Submit" forState:UIControlStateNormal];
