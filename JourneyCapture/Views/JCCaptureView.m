@@ -78,16 +78,15 @@
 
     // Review elements
     int scrollHeight = 100;
-    self.reviewScrollView = [[UIScrollView alloc] init];//]WithFrame:CGRectMake(0, self.frame.size.height,
-//                                                                              self.frame.size.width, 100)];
+    self.reviewScrollView = [[UIScrollView alloc] init];
     self.reviewScrollView.contentSize = CGSizeMake(self.frame.size.width * 4, self.reviewScrollView.frame.size.height);
     self.reviewScrollView.pagingEnabled = YES;
     self.reviewScrollView.showsHorizontalScrollIndicator = NO;
     self.reviewScrollView.contentSize = CGSizeMake(self.reviewScrollView.contentSize.width, scrollHeight);
     [self addSubview:self.reviewScrollView];
     [self.reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.reviewTopConstraint = make.top.equalTo(self.mas_bottom);
-        self.reviewBottomConstraint = make.bottom.equalTo(self.mas_bottom).with.offset(scrollHeight);
+        self.reviewTopConstraint = make.top.equalTo(@(self.frame.size.height));
+        self.reviewBottomConstraint = make.bottom.equalTo(@(self.frame.size.height)).with.offset(scrollHeight);
         make.left.equalTo(self);
         make.right.equalTo(self);
     }];
@@ -179,7 +178,7 @@
     [self.reviewScrollView addSubview:self.difficultyRating];
 
     // Review complete
-    self.reviewCompleteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*3, (self.reviewScrollView.frame.size.height/2) - labelHeight,
+    self.reviewCompleteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*3, 40,
                                                                          self.frame.size.width, labelHeight)];
     [self.reviewCompleteLabel setText:@"Review completed! Please submit"];
     [self.reviewCompleteLabel setTextAlignment:NSTextAlignmentCenter];
@@ -274,7 +273,6 @@
 
                          // Show review scrollview
                          [self.reviewScrollView layoutIfNeeded];
-                         self.reviewScrollView.contentSize = CGSizeMake(self.frame.size.width * 4, self.reviewScrollView.frame.size.height);
 
                          // Submit button
                          [self.captureButton setTitle:@"Submit" forState:UIControlStateNormal];
