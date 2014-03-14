@@ -177,7 +177,8 @@
         make.top.equalTo(self.nearbyRoutesButton.mas_bottom).with.offset(15);
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
-        make.height.equalTo(@(80));
+        make.height.equalTo(@80).priorityLow();
+        make.bottom.lessThanOrEqualTo(self.view).with.offset(-15);
     }];
 
     self.createRouteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
