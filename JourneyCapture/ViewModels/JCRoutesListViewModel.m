@@ -133,7 +133,7 @@
 
                                                   NSDictionary *endPicture = routeData[@"end_picture"];
                                                   if (endPicture) {
-                                                      NSString *routeImageBase64 = routeData[@"image"];
+                                                      NSString *routeImageBase64 = endPicture[@"image"];
                                                       if (routeImageBase64) {
                                                           NSData *picData = [[NSData alloc] initWithBase64EncodedString:routeImageBase64 options:0];
                                                           UIImage *decodedRoutePic = [UIImage imageWithData:picData];
