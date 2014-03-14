@@ -131,7 +131,7 @@
     RACChannelTerminal *routesNumLabelChannel = RACChannelTo(self, routesThisMonthLabel.text);
     RACChannelTerminal *routesNumModelChannel = RACChannelTo(self, viewModel.routesThisMonth);
     [[routesNumModelChannel map:^(id numRoutes){
-        return [NSString stringWithFormat:@"%@ routes this month", numRoutes];
+        return [NSString stringWithFormat:@"%@ routes this month", numRoutes ? numRoutes : @"?"];
     }] subscribe:routesNumLabelChannel];
     [self addSubview:self.routesThisMonthLabel];
 
