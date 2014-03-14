@@ -18,7 +18,10 @@
              @"long": @(self.location.coordinate.longitude),
              @"speed": @(self.location.speed),
              @"altitude": @(self.location.altitude),
-             @"time": @([self.location.timestamp timeIntervalSince1970])
+             @"time": @([self.location.timestamp timeIntervalSince1970]),
+             @"vertical_accuracy": @(self.location.verticalAccuracy),
+             @"horizontal_accuracy": @(self.location.horizontalAccuracy),
+             @"course": @(self.location.course)
             };
 }
 @end

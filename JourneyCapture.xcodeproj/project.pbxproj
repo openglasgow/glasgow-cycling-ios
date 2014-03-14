@@ -373,7 +373,6 @@
 				8303E2CF18C61C4100215760 /* Onboarding */,
 				8341420E18BF55A30020CF97 /* User */,
 				83B5DEC518BFA2000032F7E1 /* Routes List */,
-				83BD285B18CA049F0042F1E3 /* Route Capture */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -458,13 +457,6 @@
 				83BA022618BE474D00EE7787 /* JCSigninViewController.m */,
 			);
 			name = Signin;
-			sourceTree = "<group>";
-		};
-		83BD285B18CA049F0042F1E3 /* Route Capture */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Route Capture";
 			sourceTree = "<group>";
 		};
 		83D98DD118C9DAC900E72279 /* Route Capture */ = {
