@@ -10,6 +10,8 @@
 #import <MapKit/MapKit.h>
 
 @interface JCRoutePointViewModel : RVMViewModel
-@property (strong, atomic) CLLocation *location;
+@property (strong, nonatomic) CLLocation *location;
+@property (strong, nonatomic) NSString *streetName;
 -(NSDictionary *)data;
+-(void)reverseGeocode;
 @end

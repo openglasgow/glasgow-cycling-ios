@@ -16,6 +16,7 @@
 @property (readwrite, nonatomic) double currentSpeed;
 @property (readwrite, nonatomic) double averageSpeed;
 @property (readwrite, nonatomic) double totalKm;
+@property (readwrite, nonatomic) double lastGeocodedKm;
 @property (strong, nonatomic) NSMutableArray *points;
 
 // Review data
@@ -35,5 +36,4 @@
 -(RACSignal *)loadPoints;
 - (NSNumber *)averageRating;
 - (NSString *)readableTime;
-
 @end

@@ -14,13 +14,14 @@
 @implementation JCRouteViewModel
 @synthesize currentSpeed, averageSpeed, totalKm, points, routeId,
         safetyRating, difficultyRating, environmentRating,
-        estimatedTime, routeImage, name;
+        estimatedTime, routeImage, name, lastGeocodedKm;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         self.points = [[NSMutableArray alloc] init];
+        self.lastGeocodedKm = 0;
     }
     return self;
 }
@@ -40,6 +41,13 @@
             self.totalKm += ([nextLoc distanceFromLocation:firstLoc] / 1000.0);
         }
     }
+
+    if (self.totalKm > (self.lastGeocodedKm + 0.1)) {
+        [point reverseGeocode];
+        self.lastGeocodedKm = self.totalKm;
+    }
+
+    // Geocode every 100m
 
     // Calculate current speed
     if (self.points.count > 0) {
