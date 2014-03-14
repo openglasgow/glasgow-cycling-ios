@@ -64,9 +64,19 @@
             [[JCLocationManager manager] setDelegate:self];
         } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
             // Stop
-            [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
-            [[JCLocationManager manager] setDelegate:nil];
-            [self.captureView transitionToComplete];
+            if (self.viewModel.points.count == 0) {
+                UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Stop Capturing"
+                                                                      message:@"No data has been collected, stop capturing?"
+                                                                     delegate:nil
+                                                            cancelButtonTitle:@"Keep Going"
+                                                            otherButtonTitles:@"Stop Capturing", nil];
+                [cancelAlert show];
+                cancelAlert.delegate = self;
+            } else {
+                [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+                [[JCLocationManager manager] setDelegate:nil];
+                [self.captureView transitionToComplete];
+            }
         } else {
             // Submit
             [[self.viewModel uploadRoute] subscribeError:^(NSError *error) {
@@ -180,6 +190,8 @@
 {
     if(buttonIndex == 1) {
         // Stop
+        [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+        [[JCLocationManager manager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
