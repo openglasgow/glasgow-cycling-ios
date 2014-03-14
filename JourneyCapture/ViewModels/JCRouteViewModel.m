@@ -68,7 +68,12 @@
             JCRoutePointViewModel *point = self.points[i];
             totalSpeed += point.location.speed;
         }
-        self.averageSpeed = totalSpeed / self.points.count;
+        double avgSpeed = totalSpeed / self.points.count;
+        if (avgSpeed > 0) {
+            self.averageSpeed = avgSpeed;
+        } else {
+            self.averageSpeed = 0;
+        }
     }
 }
 
