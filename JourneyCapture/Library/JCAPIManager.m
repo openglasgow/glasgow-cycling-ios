@@ -79,7 +79,8 @@
 
 -(void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error callback:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
-    if (operation.response.statusCode == 401) {
+    BOOL isSignin = [operation.request.URL.lastPathComponent rangeOfString:@"signin.json"].location != NSNotFound;
+    if (operation.response.statusCode == 401 && !isSignin) {
         // Unauthorized, logout
         [Flurry logEvent:@"Unauthorized Request"];
         [[GSKeychain systemKeychain] removeAllSecrets];
