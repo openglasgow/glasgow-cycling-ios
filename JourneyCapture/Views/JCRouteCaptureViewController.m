@@ -124,7 +124,8 @@
             return;
         }
 
-        if (latestLocation.horizontalAccuracy > 40) {
+        if (latestLocation.horizontalAccuracy > 65) {
+            // 65 is WiFi accuracy
             NSLog(@"Horizontal accuracy too low (%f), filtered", latestLocation.horizontalAccuracy);
             return;
         }
