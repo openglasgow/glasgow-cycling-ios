@@ -55,11 +55,15 @@
     // Name
     self.nameLabel = [[UILabel alloc] init];
     [self.nameLabel setFont:nameFont];
+    self.nameLabel.adjustsFontSizeToFitWidth = YES;
+    self.nameLabel.minimumScaleFactor = 0.75;
+    self.nameLabel.numberOfLines = 1;
     RACChannelTo(self.nameLabel, text) = RACChannelTo(self.viewModel, name);
     [self.contentView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).with.offset(15);
         make.top.equalTo(self.contentView.mas_top).with.offset(12);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-15);
     }];
     
     // Average Rating
