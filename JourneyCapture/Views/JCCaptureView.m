@@ -14,7 +14,7 @@
 @implementation JCCaptureView
 @synthesize mapView, routeLine, routeLineView, captureButton, statsTable, viewModel,
             reviewScrollView, safetyRating, safetyReviewLabel, environmentRating, environmentReviewLabel,
-            difficultyRating, difficultyReviewLabel, animator;
+            difficultyRating, difficultyReviewLabel, animator, mapBottomConstraint, statsTopConstraint;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel
 {
@@ -28,8 +28,7 @@
 
     // Capture button
     UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
-    CGRect buttonFrame = CGRectMake(22, self.frame.size.height - 75, self.frame.size.width - 44, 50);
-    self.captureButton = [[UIButton alloc] initWithFrame:buttonFrame];
+    self.captureButton = [[UIButton alloc] init];
     [self.captureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.captureButton setTitle:@"Start" forState:UIControlStateNormal];
     [self.captureButton setBackgroundColor:buttonColor];
@@ -37,8 +36,15 @@
     self.captureButton.layer.cornerRadius = 8.0f;
     [self addSubview:self.captureButton];
 
+    [self.captureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).with.offset(-25);
+        make.top.equalTo(self.mas_bottom).with.offset(-75);
+        make.left.equalTo(self).with.offset(22);
+        make.right.equalTo(self).with.offset(-22);
+    }];
+
     // Map view
-    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 100)];
+    self.mapView = [[MKMapView alloc] init];
     self.mapView.layer.masksToBounds = NO;
     self.mapView.layer.shadowOffset = CGSizeMake(0, 1);
     self.mapView.layer.shadowRadius = 2;
@@ -52,6 +58,13 @@
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:self.mapView];
 
+    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        self.mapBottomConstraint = make.bottom.equalTo(self.mas_bottom).with.offset(-100);
+    }];
+
     // Stats
     self.statsTable = [[UITableView alloc] init];
     [self insertSubview:self.statsTable belowSubview:self.mapView];
@@ -59,7 +72,7 @@
         make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.height.equalTo(@(self.frame.size.height - 400));
+        self.statsTopConstraint = make.top.equalTo(self.captureButton.mas_top).with.offset(-85);
     }];
 
     // Review elements
@@ -171,14 +184,27 @@
 - (void)transitionToActive
 {
     // Move map and button
+    [self.mapBottomConstraint uninstall];
+    [self.mapView mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.mapBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-self.frame.size.height/3.7);
+    }];
+
+    [self.statsTopConstraint uninstall];
+    [self.statsTable mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.statsTopConstraint = make.top.equalTo(self.mapView.mas_bottom);
+    }];
+
     UIColor *stopColor = [UIColor colorWithRed:243.0/255.0 green:60.0/255.0 blue:60.0/255.0 alpha:1.0];
     [UIView animateWithDuration:0.5
                           delay:0.0
                         options: UIViewAnimationOptionCurveLinear
                      animations:^{
-                         self.mapView.frame = CGRectMake(0, 0, self.frame.size.width, 300);
+                         [self.mapView layoutIfNeeded];
+                         [self.statsTable layoutIfNeeded];
+//                         self.mapView.frame = CGRectMake(0, 0, self.frame.size.width, 300);
                          [self.captureButton setTitle:@"Stop" forState:UIControlStateNormal];
                          [self.captureButton setBackgroundColor:stopColor];
+                         [self.statsTable reloadData];
                      }
                      completion:^(BOOL finished){
                          // Adjusting map can stop tracking

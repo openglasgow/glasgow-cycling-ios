@@ -32,6 +32,8 @@
 @property (strong, nonatomic) UILabel *reviewGuidanceLabel;
 
 @property (strong, nonatomic) IFTTTAnimator *animator;
+@property (strong, nonatomic) MASConstraint *mapBottomConstraint;
+@property (strong, nonatomic) MASConstraint *statsTopConstraint;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel;
 - (void)transitionToActive;
