@@ -8,6 +8,7 @@
 
 #import "JCTextField.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Flurry.h"
 
 @implementation JCTextField
 @synthesize valid, invalidView, correctBorderColor, correctBorderWidth,
@@ -47,6 +48,12 @@
 
 -(void)showError
 {
+    NSMutableDictionary *errorAnalytics = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.error, @"error", nil];
+    if (!self.secureTextEntry) {
+        errorAnalytics[@"text"] = self.text;
+    }
+    [Flurry logEvent:@"Text Field Error" withParameters:errorAnalytics];
+
     [self hideInvalid];
     [self hideError]; // Remove previous errors
     self.layer.borderWidth = 1.5f;

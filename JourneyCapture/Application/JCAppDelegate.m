@@ -18,13 +18,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     //Flurry Analytics Setup
     [Flurry setCrashReportingEnabled:YES];
     [Flurry startSession:@"DS59KXYYXSP92WR2C527"];
-    
+
+    // Present correct VC
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
@@ -38,10 +37,12 @@
     JCNavViewController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
     [self.window setRootViewController:navController];
 
+    // Allow API manager to logout user
     [[JCAPIManager manager] setNavController:navController];
 
     // Core Data
     [MagicalRecord setupAutoMigratingCoreDataStack];
+
     return YES;
 }
 

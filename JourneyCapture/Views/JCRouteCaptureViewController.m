@@ -10,6 +10,7 @@
 #import "JCCaptureView.h"
 #import "JCStatCell.h"
 #import "JCRoutePointViewModel.h"
+#import "Flurry.h"
 
 @interface JCRouteCaptureViewController ()
 
@@ -37,6 +38,8 @@
     captureView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Tapped capture button");
         if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Start"]) {
+            [Flurry logEvent:@"Route Capture" timed:YES];
+
             // Start
             self.captureStart = [NSDate date];
             [self.captureView transitionToActive];
@@ -73,14 +76,21 @@
                 [cancelAlert show];
                 cancelAlert.delegate = self;
             } else {
+                [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
+                [Flurry logEvent:@"Route Submit" timed:YES];
                 [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
                 [[JCLocationManager manager] setDelegate:nil];
                 [self.captureView transitionToComplete];
             }
         } else {
             // Submit
+            [Flurry endTimedEvent:@"Route Submit" withParameters:@{
+                                                                   @"Safety Rating": @(self.viewModel.safetyRating),
+                                                                   @"Environment Rating": @(self.viewModel.environmentRating),
+                                                                   @"Difficulty Rating": @(self.viewModel.difficultyRating)
+                                                                   }];
             [[self.viewModel uploadRoute] subscribeError:^(NSError *error) {
-                // TODO save locally and keep trying ?
+                // TODO save locally and keep trying
                 NSLog(@"Couldn't upload");
             } completed:^{
                 NSLog(@"Route uploaded");
@@ -193,6 +203,7 @@
         [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
         [[JCLocationManager manager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
+        [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @NO}];;
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }

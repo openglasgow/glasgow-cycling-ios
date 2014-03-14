@@ -116,13 +116,14 @@
                                                     questionIndex:(questionIndex + 1)];
         [self.navigationController pushViewController:nextQuestionVC animated:YES];
     } else {
+        [Flurry endTimedEvent:@"User responses started" withParameters:nil];
+        
         [[self.viewModel submitResponses] subscribeNext:^(id x) {
             NSLog(@"Responses::next");
         } error:^(NSError *error) {
             NSLog(@"Responses::error");
         } completed:^{
             NSLog(@"Responses::completed");
-            [Flurry endTimedEvent:@"User responses started" withParameters:nil];
             JCUserViewController *userController = [[JCUserViewController alloc] init];
             [self.navigationController pushViewController:userController animated:YES];
         }];

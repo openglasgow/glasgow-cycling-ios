@@ -10,6 +10,8 @@
 #import "JCRouteCell.h"
 #import "JCRoutesListViewModel.h"
 #import "JCRouteViewController.h"
+#import "JCRouteViewModel.h"
+#import "Flurry.h"
 
 @interface JCRoutesViewController ()
 
@@ -83,6 +85,11 @@
     JCRouteViewModel *routeModel = self.viewModel.routes[indexPath.row];
     JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeModel];
     [self.navigationController pushViewController:routeController animated:YES];
+    [Flurry logEvent:@"Route selected" withParameters:@{
+                                                        @"index": @(indexPath.row),
+                                                        @"total_routes": @(self.viewModel.routes.count),
+                                                        @"average_rating": @(routeModel.averageRating.floatValue)
+                                                        }];
 }
 
 - (void)didReceiveMemoryWarning

@@ -9,8 +9,8 @@
 #import "JCSignupView.h"
 #import "JCSignupViewModel.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Flurry.h"
 #import "JCTextField.h"
+#import "Flurry.h"
 
 @implementation JCSignupView
 @synthesize viewModel;
@@ -22,6 +22,7 @@
     if (!self) {
         return nil;
     }
+
     self.viewModel = signupViewModel;
 
     //Setting up dob DatePicker for dobField use
@@ -75,7 +76,6 @@
     [RACChannelTo(self.viewModel, profilePicture) subscribeNext:^(id image) {
         if (image) {
             [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
-            [Flurry logEvent:@"User profile picture selected"];
         }
     }];
 
@@ -89,6 +89,7 @@
     [self addSubview:self.profilePictureButton];
 
     self.profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [Flurry logEvent:@"Signup profile picture selected"];
         self.takeController = [[FDTakeController alloc] init];
         [self.takeController setDelegate:self];
         self.takeController.allowsEditingPhoto = YES;

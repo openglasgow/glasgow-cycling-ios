@@ -12,6 +12,7 @@
 #import "JCWelcomeViewController.h"
 #import "JCNavViewController.h"
 #import "JCNotificationManager.h"
+#import "Flurry.h"
 
 @implementation JCAPIManager
 
@@ -80,6 +81,7 @@
 {
     if (operation.response.statusCode == 401) {
         // Unauthorized, logout
+        [Flurry logEvent:@"Unauthorized Request"];
         [[GSKeychain systemKeychain] removeAllSecrets];
         if (self.navController) {
             JCWelcomeViewController *welcomeVC = [[JCWelcomeViewController alloc] init];
@@ -91,6 +93,7 @@
         }
     } else if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1004) {
         // Couldn't connect to server
+        [Flurry logEvent:@"Connection Error"];
         [[JCNotificationManager manager] displayErrorWithTitle:@"Connection Error"
                                                       subtitle:@"There was a problem connecting to the server"
                                                           icon:[UIImage imageNamed:@"connection-icon"]];

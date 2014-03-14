@@ -52,7 +52,7 @@
             NSLog(@"Login::error");
         } completed:^{
             NSLog(@"Login::completed");
-            [Flurry logEvent:@"User login success"];
+            [Flurry logEvent:@"User signin success"];
             JCUserViewController *userController = [[JCUserViewController alloc] init];
             [self.navigationController pushViewController:userController animated:YES];
         }];
