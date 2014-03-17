@@ -17,7 +17,7 @@
     NSMutableDictionary *pointData = [NSMutableDictionary dictionaryWithDictionary:@{
              @"lat": @(self.location.coordinate.latitude),
              @"long": @(self.location.coordinate.longitude),
-             @"speed": @(self.location.speed),
+             @"kph": @(self.location.speed),
              @"altitude": @(self.location.altitude),
              @"time": @([self.location.timestamp timeIntervalSince1970]),
              @"vertical_accuracy": @(self.location.verticalAccuracy),

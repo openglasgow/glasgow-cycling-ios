@@ -20,7 +20,7 @@
 {
     //Flurry Analytics Setup - Crash reporting handled by Hockey App
     [Flurry setCrashReportingEnabled:NO];
-    [Flurry startSession:@"DS59KXYYXSP92WR2C527"];
+    [Flurry startSession:@"DDFSMM7RXYZNTB298YW3"];
 
     //Hockey App Setup
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"
