@@ -39,42 +39,7 @@
                                               NSLog(@"%@", routesDict);
                                               NSArray *routesResponse = routesDict[@"routes"];
 
-                                              for (int i = 0; i < routesResponse.count; i++) {
-                                                  // TODO DRY
-                                                  NSDictionary *routeData = routesResponse[i][@"details"];
-                                                  JCRouteViewModel *route = [[JCRouteViewModel alloc] init];
-                                                  [route setName:routeData[@"name"]];
-
-                                                  double safetyRating = [routeData[@"safety_rating"] doubleValue];
-                                                  [route setSafetyRating:safetyRating];
-
-                                                  double difficultyRating = [routeData[@"difficulty_rating"] doubleValue];
-                                                  [route setDifficultyRating:difficultyRating];
-
-                                                  double environmentRating = [routeData[@"environment_rating"] doubleValue];
-                                                  [route setEnvironmentRating:environmentRating];
-                                                  [route setEstimatedTime:routeData[@"estimated_time"]];
-
-                                                  double distance = [routeData[@"total_distance"] doubleValue];
-                                                  [route setTotalKm:distance];
-
-                                                  int routeId = [routeData[@"id"] intValue];
-                                                  [route setRouteId:routeId];
-
-                                                  NSDictionary *endPicture = routeData[@"end_picture"];
-                                                  if (endPicture) {
-                                                      NSString *routeImageBase64 = endPicture[@"image"];
-                                                      if (routeImageBase64) {
-                                                          NSData *picData = [[NSData alloc] initWithBase64EncodedString:routeImageBase64 options:0];
-                                                          UIImage *decodedRoutePic = [UIImage imageWithData:picData];
-                                                          [route setRouteImage:decodedRoutePic];
-                                                      } else {
-                                                          [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
-                                                      }
-                                                  }
-
-                                                  [[self routes] addObject:route];
-                                              }
+                                              [self storeRoutes:routesResponse];
 
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -110,42 +75,8 @@
                                               NSLog(@"%@", routesDict);
                                               NSArray *routesResponse = routesDict[@"routes"];
 
-                                              for (int i = 0; i < routesResponse.count; i++) {
-                                                  NSDictionary *routeData = routesResponse[i][@"details"];
-                                                  JCRouteViewModel *route = [[JCRouteViewModel alloc] init];
-                                                  [route setName:routeData[@"name"]];
-
-                                                  double safetyRating = [routeData[@"safety_rating"] doubleValue];
-                                                  [route setSafetyRating:safetyRating];
-
-                                                  double difficultyRating = [routeData[@"difficulty_rating"] doubleValue];
-                                                  [route setDifficultyRating:difficultyRating];
-
-                                                  double environmentRating = [routeData[@"environment_rating"] doubleValue];
-                                                  [route setEnvironmentRating:environmentRating];
-                                                  [route setEstimatedTime:routeData[@"estimated_time"]];
-
-                                                  double distance = [routeData[@"total_distance"] doubleValue];
-                                                  [route setTotalKm:distance];
-
-                                                  int routeId = [routeData[@"id"] intValue];
-                                                  [route setRouteId:routeId];
-
-                                                  NSDictionary *endPicture = routeData[@"end_picture"];
-                                                  if (endPicture) {
-                                                      NSString *routeImageBase64 = endPicture[@"image"];
-                                                      if (routeImageBase64) {
-                                                          NSData *picData = [[NSData alloc] initWithBase64EncodedString:routeImageBase64 options:0];
-                                                          UIImage *decodedRoutePic = [UIImage imageWithData:picData];
-                                                          [route setRouteImage:decodedRoutePic];
-                                                      } else {
-                                                          [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
-                                                      }
-                                                  }
-
-                                                  [[self routes] addObject:route];
-                                              }
-
+                                              [self storeRoutes:routesResponse];
+                                              
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                               NSLog(@"Nearby routes load failure");
@@ -159,6 +90,45 @@
             [op cancel];
         }];
     }];
+}
+
+-(void)storeRoutes:(NSArray *)routesData
+{
+    for (int i = 0; i < routesData.count; i++) {
+        NSDictionary *routeData = routesData[i][@"details"];
+        JCRouteViewModel *route = [[JCRouteViewModel alloc] init];
+        [route setName:routeData[@"name"]];
+
+        double safetyRating = [routeData[@"safety_rating"] doubleValue];
+        [route setSafetyRating:safetyRating];
+
+        double difficultyRating = [routeData[@"difficulty_rating"] doubleValue];
+        [route setDifficultyRating:difficultyRating];
+
+        double environmentRating = [routeData[@"environment_rating"] doubleValue];
+        [route setEnvironmentRating:environmentRating];
+        [route setEstimatedTime:routeData[@"estimated_time"]];
+
+        double distance = [routeData[@"total_distance"] doubleValue];
+        [route setTotalKm:distance];
+
+        int routeId = [routeData[@"id"] intValue];
+        [route setRouteId:routeId];
+
+        NSDictionary *endPicture = routeData[@"end_picture"];
+        if (endPicture) {
+            NSString *routeImageBase64 = endPicture[@"image"];
+            if (routeImageBase64) {
+                NSData *picData = [[NSData alloc] initWithBase64EncodedString:routeImageBase64 options:0];
+                UIImage *decodedRoutePic = [UIImage imageWithData:picData];
+                [route setRouteImage:decodedRoutePic];
+            } else {
+                [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
+            }
+        }
+
+        [[self routes] addObject:route];
+    }
 }
 
 @end

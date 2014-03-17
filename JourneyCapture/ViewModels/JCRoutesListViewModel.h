@@ -13,4 +13,5 @@
 @property (strong, nonatomic) NSString *title;
 -(RACSignal *)loadUserRoutes;
 -(RACSignal *)loadNearbyRoutes;
+-(void)storeRoutes:(NSArray *)routesData;
 @end

@@ -33,8 +33,6 @@
 }
 
 #pragma mark - Authenticated Requests
-// TODO DRY up these with an authentication manager or similar ?
-
 - (AFHTTPRequestOperation *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
     NSString *userToken = [[GSKeychain systemKeychain] secretForKey:@"user_token"];
