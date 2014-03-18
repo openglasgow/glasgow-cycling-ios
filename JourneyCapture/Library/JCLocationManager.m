@@ -17,6 +17,7 @@
     if (self) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
+        self.locationManager.activityType = CLActivityTypeAutomotiveNavigation;
     }
     return self;
 }
