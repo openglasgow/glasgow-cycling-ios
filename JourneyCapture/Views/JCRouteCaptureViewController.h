@@ -17,4 +17,7 @@
 @property (strong, nonatomic) NSDate *captureStart;
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 @property (strong, nonatomic) JCCaptureView *captureView;
+@property (readwrite, nonatomic) BOOL routeUploaded;
+@property (readwrite, nonatomic) BOOL reviewUploaded;
+- (void)upload;
 @end
