@@ -321,7 +321,7 @@
     [self.uploadView addSubview:self.uploadIndicatorView];
 
     [self.uploadView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mapView.mas_bottom);
+        make.top.equalTo(self.statsTable.mas_bottom);
         make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
         make.right.equalTo(self);
         make.left.equalTo(self);
