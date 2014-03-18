@@ -24,6 +24,8 @@
     self = [super init];
     if (self) {
         self.viewModel = [[JCRouteViewModel alloc] init];
+        self.routeUploaded = NO;
+        self.reviewUploaded = NO;
     }
     return self;
 }
@@ -89,18 +91,7 @@
                                                                    @"Environment Rating": @(self.viewModel.environmentRating),
                                                                    @"Difficulty Rating": @(self.viewModel.difficultyRating)
                                                                    }];
-            [[self.viewModel uploadRoute] subscribeError:^(NSError *error) {
-                // TODO save locally and keep trying
-                NSLog(@"Couldn't upload");
-            } completed:^{
-                NSLog(@"Route uploaded");
-                [[self.viewModel uploadReview] subscribeError:^(NSError *error) {
-                    NSLog(@"Couldn't upload review");
-                } completed:^{
-                    NSLog(@"Review uploaded");
-                    [self.navigationController popViewControllerAnimated:YES];
-                }];
-            }];
+            [self upload];
         }
         return [RACSignal empty];
     }];
@@ -109,6 +100,41 @@
     [self.captureView.statsTable setDataSource:self];
 
     [self.view addSubview:self.captureView];
+}
+
+-(void)upload
+{
+    @weakify(self);
+    if (!self.routeUploaded) {
+        NSLog(@"Uploading Route");
+        [[[self.viewModel uploadRoute] then:^RACSignal *{
+            @strongify(self);
+            [self.captureView.captureButton setEnabled:NO];
+            return [RACSignal empty];
+        }] subscribeError:^(NSError *error) {
+            // TODO save locally and keep trying
+            @strongify(self);
+            [self.captureView.captureButton setEnabled:YES];
+            NSLog(@"Couldn't upload");
+        } completed:^{
+            @strongify(self);
+            self.routeUploaded = YES;
+            [self upload];
+            NSLog(@"Route uploaded");
+        }];
+    } else {
+        NSLog(@"Uploading Review");
+        // Upload Review
+        [[self.viewModel uploadReview] subscribeError:^(NSError *error) {
+            NSLog(@"Couldn't upload review");
+            [self.captureView.captureButton setEnabled:YES];
+        } completed:^{
+            [self.captureView.captureButton setEnabled:YES];
+            NSLog(@"Review uploaded");
+            @strongify(self);
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    }
 }
 
 - (void)didUpdateLocations:(NSArray *)locations
