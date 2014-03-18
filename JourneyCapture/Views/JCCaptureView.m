@@ -15,7 +15,8 @@
 @synthesize mapView, routeLine, routeLineView, captureButton, statsTable, viewModel,
             reviewScrollView, safetyRating, safetyReviewLabel, environmentRating, environmentReviewLabel,
             difficultyRating, difficultyReviewLabel, animator, reviewBottomConstraint, reviewTopConstraint,
-            mapBottomConstraint, statsTopConstraint, statsBottomConstraint;
+            mapBottomConstraint, statsTopConstraint, statsBottomConstraint,
+            uploadView, uploadIndicatorView;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel
 {
@@ -23,6 +24,13 @@
     if (!self) {
         return nil;
     }
+
+    self.uploading = NO;
+    [RACObserve(self, uploading) subscribeNext:^(id isUploading) {
+        NSLog(@"Uploading changed to %@", isUploading);
+        [self showUploadIndicator:[isUploading boolValue]];
+        [self.captureButton setEnabled:![isUploading boolValue]];
+    }];
 
     self.viewModel = captureViewModel;
     self.animator = [IFTTTAnimator new];
@@ -83,7 +91,7 @@
     self.reviewScrollView.pagingEnabled = YES;
     self.reviewScrollView.showsHorizontalScrollIndicator = NO;
     self.reviewScrollView.contentSize = CGSizeMake(self.reviewScrollView.contentSize.width, scrollHeight);
-    [self addSubview:self.reviewScrollView];
+    [self insertSubview:self.reviewScrollView belowSubview:self.mapView];
     [self.reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         self.reviewTopConstraint = make.top.equalTo(@(self.frame.size.height));
         self.reviewBottomConstraint = make.bottom.equalTo(@(self.frame.size.height)).with.offset(scrollHeight);
@@ -283,6 +291,47 @@
                          [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:NO];
                          [self.mapView setVisibleMapRect:zoomRect animated:YES];
                      }];
+}
+
+-(void)showUploadIndicator:(BOOL)show
+{
+    if (!show) {
+        if (self.uploadView) {
+            [self.uploadView removeFromSuperview];
+            self.uploadView = nil;
+
+            [self.uploadIndicatorView removeFromSuperview];
+            self.uploadIndicatorView = nil;
+        }
+        return;
+    }
+
+    if (self.uploadView && self.uploadIndicatorView) {
+        return;
+    }
+
+    self.uploadView = [UIView new];
+    [self.uploadView setBackgroundColor:[UIColor whiteColor]];
+
+    self.uploadIndicatorView = [UIActivityIndicatorView new];
+    self.uploadIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.uploadIndicatorView startAnimating];
+
+    [self insertSubview:self.uploadView aboveSubview:self.reviewScrollView];
+    [self.uploadView addSubview:self.uploadIndicatorView];
+
+    [self.uploadView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mapView.mas_bottom);
+        make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
+        make.right.equalTo(self);
+        make.left.equalTo(self);
+    }];
+
+    [self.uploadIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.uploadView);
+        make.bottom.equalTo(self.captureButton.mas_top).with.offset(-50);
+    }];
+        
 }
 
 - (void)updateRouteLine

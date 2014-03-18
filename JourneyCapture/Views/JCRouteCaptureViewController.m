@@ -109,12 +109,12 @@
         NSLog(@"Uploading Route");
         [[[self.viewModel uploadRoute] then:^RACSignal *{
             @strongify(self);
-            [self.captureView.captureButton setEnabled:NO];
+            self.captureView.uploading = YES;
             return [RACSignal empty];
         }] subscribeError:^(NSError *error) {
             // TODO save locally and keep trying
             @strongify(self);
-            [self.captureView.captureButton setEnabled:YES];
+            self.captureView.uploading = NO;
             NSLog(@"Couldn't upload");
         } completed:^{
             @strongify(self);
@@ -125,11 +125,15 @@
     } else {
         NSLog(@"Uploading Review");
         // Upload Review
-        [[self.viewModel uploadReview] subscribeError:^(NSError *error) {
+        [[[self.viewModel uploadReview] then:^RACSignal *{
+            @strongify(self);
+            self.captureView.uploading = YES;
+            return [RACSignal empty];
+        }] subscribeError:^(NSError *error) {
             NSLog(@"Couldn't upload review");
-            [self.captureView.captureButton setEnabled:YES];
+            self.captureView.uploading = NO;
         } completed:^{
-            [self.captureView.captureButton setEnabled:YES];
+            self.captureView.uploading = NO;
             NSLog(@"Review uploaded");
             @strongify(self);
             [self.navigationController popViewControllerAnimated:YES];

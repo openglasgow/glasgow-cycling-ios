@@ -38,8 +38,14 @@
 @property (strong, nonatomic) MASConstraint *reviewTopConstraint;
 @property (strong, nonatomic) MASConstraint *reviewBottomConstraint;
 
+// Upload
+@property (readwrite, nonatomic) BOOL uploading;
+@property (strong, nonatomic) UIView *uploadView;
+@property (strong, nonatomic) UIActivityIndicatorView *uploadIndicatorView;
+
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel;
 - (void)transitionToActive;
 - (void)transitionToComplete;
 - (void)updateRouteLine;
+- (void)showUploadIndicator:(BOOL)show;
 @end
