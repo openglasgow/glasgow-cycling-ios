@@ -68,6 +68,7 @@ PODS:
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
   - Masonry (0.4.0)
+  - MBProgressHUD (0.8)
   - ReactiveCocoa (2.2.4):
     - ReactiveCocoa/Core
     - ReactiveCocoa/no-arc
@@ -91,6 +92,7 @@ DEPENDENCIES:
   - libextobjc (~> 0.4)
   - MagicalRecord (~> 2.2)
   - Masonry (~> 0.4.0)
+  - MBProgressHUD (~> 0.8)
   - ReactiveCocoa (~> 2.2)
   - ReactiveViewModel (~> 0.2)
 
@@ -108,6 +110,7 @@ SPEC CHECKSUMS:
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   ReactiveCocoa: 953a45dda30674fe704d1d9c77cc874141742f47
   ReactiveViewModel: f636ab3e06b5e69664b69c883fcdb457ab5cb0cb
 

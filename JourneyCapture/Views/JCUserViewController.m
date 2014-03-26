@@ -13,6 +13,7 @@
 #import "JCRoutesListViewModel.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCNotificationManager.h"
+#import "MBProgressHUD.h"
 
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -112,21 +113,28 @@
     self.myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"My routes tapped"];
         JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
-        [[routesViewModel loadUserRoutes] subscribeError:^(NSError *error) {
-            NSLog(@"Error loading my routes");
-        } completed:^{
-            NSLog(@"Got my routes");
-            if (routesViewModel.routes.count > 0) {
-                [routesViewModel setTitle:@"My Routes"];
-                JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
-                [self.navigationController pushViewController:routesController animated:YES];
-            } else {
-                // No routes
-                [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
-                                                             subtitle:@"You haven't recorded any routes"
-                                                                 icon:[UIImage imageNamed:@"route-icon"]];
-            }
-        }];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[routesViewModel loadUserRoutes] subscribeError:^(NSError *error) {
+                    NSLog(@"Error loading my routes");
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                } completed:^{
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    NSLog(@"Got my routes");
+                    if (routesViewModel.routes.count > 0) {
+                        [routesViewModel setTitle:@"My Routes"];
+                        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
+                        [self.navigationController pushViewController:routesController animated:YES];
+                    } else {
+                        // No routes
+                        [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
+                                                                     subtitle:@"You haven't recorded any routes"
+                                                                         icon:[UIImage imageNamed:@"route-icon"]];
+                    }
+                }];
+            });
+        });
         return [RACSignal empty];
     }];
     
@@ -147,23 +155,31 @@
     self.nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Nearby routes tapped"];
         JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
-        [[routesViewModel loadNearbyRoutes] subscribeError:^(NSError *error) {
-            [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
-                                                         subtitle:@"There are no nearby routes"
-                                                             icon:[UIImage imageNamed:@"route-icon"]];
-        } completed:^{
-            NSLog(@"Got nearby routes");
-            if (routesViewModel.routes.count > 0) {
-                [routesViewModel setTitle:@"Nearby Routes"];
-                JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
-                [self.navigationController pushViewController:routesController animated:YES];
-            } else {
-                // No routes
-                [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
-                                                             subtitle:@"There are no nearby routes"
-                                                                 icon:[UIImage imageNamed:@"route-icon"]];
-            }
-        }];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            // Do something...
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[routesViewModel loadNearbyRoutes] subscribeError:^(NSError *error) {
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
+                                                                 subtitle:@"There are no nearby routes"
+                                                                     icon:[UIImage imageNamed:@"route-icon"]];
+                } completed:^{
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    NSLog(@"Got nearby routes");
+                    if (routesViewModel.routes.count > 0) {
+                        [routesViewModel setTitle:@"Nearby Routes"];
+                        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
+                        [self.navigationController pushViewController:routesController animated:YES];
+                    } else {
+                        // No routes
+                        [[JCNotificationManager manager] displayInfoWithTitle:@"No Routes"
+                                                                     subtitle:@"There are no nearby routes"
+                                                                         icon:[UIImage imageNamed:@"route-icon"]];
+                    }
+                }];
+            });
+        });
         return [RACSignal empty];
     }];
     
