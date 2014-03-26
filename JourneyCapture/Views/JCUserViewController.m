@@ -235,6 +235,8 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+#pragma mark - JCLocationManagerDelegate methods
+
 - (void)didUpdateLocations:(NSArray *)locations
 {
     NSLog(@"Got locations in user overview");
@@ -243,6 +245,8 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 2500, 2500);
     [self.mapView setRegion:region animated:YES];
 }
+
+#pragma mark - IASKSettingsDelegate methods
 
 - (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeBodyForSpecifier:(IASKSpecifier *)specifier
 {

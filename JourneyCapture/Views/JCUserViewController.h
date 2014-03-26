@@ -11,8 +11,7 @@
 #import "IASKAppSettingsViewController.h"
 @class JCUserViewModel;
 
-@interface JCUserViewController : UIViewController <JCLocationManagerDelegate, IASKSettingsDelegate,
-                                                JCLocationManagerDelegate>
+@interface JCUserViewController : UIViewController <JCLocationManagerDelegate, IASKSettingsDelegate>
 @property (strong, nonatomic) JCUserViewModel *viewModel;
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UIButton *myRoutesButton;
