@@ -185,12 +185,17 @@
 	[self.navigationItem setTitle:@"Capture"];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
-        [self scheduleWarningNotification];
-    }
+    [super viewDidAppear:animated];
+    RACSignal *foregroundSignal = [[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil];
+    @weakify(self);
+    [foregroundSignal subscribeNext:^(id x) {
+        @strongify(self);
+        if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
+            [self scheduleWarningNotification];
+        }
+    }];
 }
 
 - (void)scheduleWarningNotification
@@ -199,7 +204,7 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 
     // Capturing - Schedule a notification in case the user forgets to stop capturing
-    int oneHour = 10;//60 * 60; // seconds
+    int oneHour = 60 * 60; // seconds
     NSDate *notificatinTime = [NSDate dateWithTimeIntervalSinceNow:oneHour];
 
     for (int i = 0; i < 2; i++) {
@@ -211,6 +216,11 @@
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         notificatinTime = [notificatinTime dateByAddingTimeInterval:oneHour];
     }
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - UITableViewDataSource methods
