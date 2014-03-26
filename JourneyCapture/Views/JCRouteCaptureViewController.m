@@ -67,7 +67,13 @@
             // Start updating location
             [[JCLocationManager manager] startUpdatingNav];
             [[JCLocationManager manager] setDelegate:self];
+
+            // Set warning notifications in case user forgets to stop capture
+            [self scheduleWarningNotification];
         } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
+            // Cancel tracking notifications
+            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
             // Stop
             if (self.viewModel.points.count == 0) {
                 UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Stop Capturing"
@@ -179,14 +185,52 @@
 	[self.navigationItem setTitle:@"Capture"];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)viewWillAppear:(BOOL)animated
 {
-    return tableView.frame.size.height / 3;
+    [super viewWillAppear:animated];
+    if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
+        [self scheduleWarningNotification];
+    }
 }
+
+- (void)scheduleWarningNotification
+{
+    // Ensure we don't schedule too many
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
+    // Capturing - Schedule a notification in case the user forgets to stop capturing
+    int oneHour = 10;//60 * 60; // seconds
+    NSDate *notificatinTime = [NSDate dateWithTimeIntervalSinceNow:oneHour];
+
+    for (int i = 0; i < 2; i++) {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.fireDate = notificatinTime;
+        notification.alertBody = @"You are still recording a route.";
+        notification.soundName = UILocalNotificationDefaultSoundName;
+        notification.applicationIconBadgeNumber = 0;
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        notificatinTime = [notificatinTime dateByAddingTimeInterval:oneHour];
+    }
+}
+
+#pragma mark - UITableViewDataSource methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+#pragma mark - UITableViewDelegate methods
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return tableView.frame.size.height / 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -217,11 +261,6 @@
     return cell;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 3;
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -234,7 +273,8 @@
         [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
         [[JCLocationManager manager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
-        [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @NO}];;
+        [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @NO}];
+        [[UIApplication sharedApplication] cancelAllLocalNotifications]; // Cancel GPS warnings
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }

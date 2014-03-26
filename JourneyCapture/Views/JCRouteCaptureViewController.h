@@ -20,4 +20,5 @@
 @property (readwrite, nonatomic) BOOL routeUploaded;
 @property (readwrite, nonatomic) BOOL reviewUploaded;
 - (void)upload;
+- (void)scheduleWarningNotification;
 @end

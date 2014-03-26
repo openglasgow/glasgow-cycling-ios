@@ -34,6 +34,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
+    // Show the appropriate screen
     BOOL loggedIn = [[GSKeychain systemKeychain] secretForKey:@"user_token"] != nil;
     UIViewController *rootController;
     if (loggedIn) {
@@ -84,7 +85,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // Cancel any pending notifications
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
