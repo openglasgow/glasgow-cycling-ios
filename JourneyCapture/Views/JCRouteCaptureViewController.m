@@ -210,7 +210,7 @@
     for (int i = 0; i < 2; i++) {
         UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.fireDate = notificatinTime;
-        notification.alertBody = @"You are still recording a route.";
+        notification.alertBody = @"You are still capturing a route.";
         notification.soundName = UILocalNotificationDefaultSoundName;
         notification.applicationIconBadgeNumber = 0;
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
