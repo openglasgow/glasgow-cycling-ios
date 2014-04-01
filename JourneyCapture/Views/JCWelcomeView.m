@@ -10,9 +10,9 @@
 
 @implementation JCWelcomeView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)init
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (!self) {
         return nil;
     }

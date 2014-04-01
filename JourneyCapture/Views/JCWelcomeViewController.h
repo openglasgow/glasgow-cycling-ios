@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JCWelcomeView;
 
 @interface JCWelcomeViewController : UIViewController
-
+@property (strong, nonatomic) JCWelcomeView *welcomeView;
 @end

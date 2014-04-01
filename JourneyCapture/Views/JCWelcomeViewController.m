@@ -36,19 +36,12 @@
     [[self navigationController] setNavigationBarHidden:YES];
 
     // Signin & Signup
-    JCWelcomeView *welcomeView = [[JCWelcomeView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    UIView *superview = self.view;
-    [self.view addSubview:welcomeView];
-
-    [welcomeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(superview.mas_top).offset(74);
-        make.bottom.equalTo(superview.mas_bottom);
-        make.left.equalTo(superview).with.offset(10);
-        make.right.equalTo(superview).with.offset(-10);
-    }];
+    _welcomeView = [JCWelcomeView new];
+    _welcomeView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_welcomeView];
 
     // Actions
-    welcomeView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    _welcomeView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signin tapped");
         [Flurry logEvent:@"Signin button tapped"];
         JCSigninViewController *signinController = [[JCSigninViewController alloc] init];
@@ -56,13 +49,23 @@
         return [RACSignal empty];
     }];
     
-    welcomeView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    _welcomeView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signup tapped");
         [Flurry logEvent:@"Signup button tapped"];
         JCSignupViewController *signupController = [[JCSignupViewController alloc] init];
         [self.navigationController pushViewController:signupController animated:YES];
         return [RACSignal empty];
     }];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+
+    [_welcomeView autoRemoveConstraintsAffectingView];
+    [_welcomeView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+
+    [self.view layoutSubviews];
 }
 
 - (void)viewDidLoad
