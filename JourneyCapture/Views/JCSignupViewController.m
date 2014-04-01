@@ -20,14 +20,12 @@
 @end
 
 @implementation JCSignupViewController
-@synthesize viewModel;
-@synthesize signupView;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.viewModel = [[JCSignupViewModel alloc] init];
+        _viewModel = [[JCSignupViewModel alloc] init];
         NSLog(@"Init signup controller");
     }
     return self;
@@ -43,15 +41,15 @@
 
     // Nav bar
     [[self navigationItem] setTitle:@"Sign Up"];
-    
+
+    // Sign up button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Up"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:nil
                                                                              action:nil];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    RAC(self, navigationItem.rightBarButtonItem.enabled) = self.viewModel.isValidDetails;
+    RAC(self, navigationItem.rightBarButtonItem.enabled) = _viewModel.isValidDetails;
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        RACSignal *signupSignal = [self.viewModel signup];
+        RACSignal *signupSignal = [_viewModel signup];
         [signupSignal subscribeNext:^(id x) {
             NSLog(@"Signup::next");
         } error:^(NSError *error) {
@@ -68,17 +66,20 @@
     }];
     
     // Form
-    CGRect signupFrame = self.view.frame;
-    signupFrame.origin.y = 74;
-    self.signupView = [[JCSignupView alloc] initWithViewModel:self.viewModel];
-    [self.view addSubview:self.signupView];
-    UIView *superview = self.view;
-    [self.signupView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(superview.mas_top).offset(74);
-        make.bottom.equalTo(superview.mas_bottom);
-        make.left.equalTo(superview).with.offset(10);
-        make.right.equalTo(superview).with.offset(-10);
-    }];
+    _signupView = [[JCSignupView alloc] initWithViewModel:_viewModel];
+    _signupView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_signupView];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+
+    [_signupView autoRemoveConstraintsAffectingView];
+    [_signupView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    [_signupView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+
+    [self.view layoutSubviews];
 }
 
 - (void)viewDidLoad

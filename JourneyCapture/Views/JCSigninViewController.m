@@ -71,11 +71,9 @@
 {
     [super viewWillLayoutSubviews];
 
-    double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    double navBarHeight = self.navigationController.navigationBar.frame.size.height;
-
     [_signinView autoRemoveConstraintsAffectingView];
-    [_signinView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(statusBarHeight + navBarHeight + 10, 10, 10, 10)];
+    [_signinView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    [_signinView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
 
     [self.view layoutSubviews];
 }
