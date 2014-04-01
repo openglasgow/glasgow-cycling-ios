@@ -14,9 +14,9 @@
 @synthesize valid, invalidView, correctBorderColor, correctBorderWidth,
                 correctCornerRadius, errorBorderColor, error;
 
-- (id)initWithFrame:(CGRect)frame
+- (id)init
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
         self.correctBorderColor = [UIColor colorWithCGColor:self.layer.borderColor];
         self.correctCornerRadius = self.layer.cornerRadius;
@@ -46,7 +46,7 @@
     return self;
 }
 
--(void)showError
+- (void)showError
 {
     NSMutableDictionary *errorAnalytics = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.error, @"error", nil];
     if (!self.secureTextEntry) {
@@ -66,16 +66,11 @@
     self.errorLabel.textAlignment = NSTextAlignmentRight;
     self.errorLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:10.0f];
     [self.superview addSubview:self.errorLabel];
-    [self.errorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_top);
-        make.height.equalTo(@10);
-        make.top.equalTo(self.mas_top).with.offset(-10);
-        make.left.equalTo(self).with.offset(self.layer.cornerRadius);
-        make.right.equalTo(self).with.offset(-self.layer.cornerRadius);
-    }];
+
+    self.errorLabel.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
--(void)hideError
+- (void)hideError
 {
     self.layer.borderColor = self.correctBorderColor.CGColor;
     self.layer.borderWidth = self.correctBorderWidth;
@@ -87,7 +82,7 @@
     }
 }
 
--(void)showInvalid
+- (void)showInvalid
 {
     if (self.invalidView) {
         return;
@@ -110,12 +105,22 @@
     [self addSubview:self.invalidView];
 }
 
--(void)hideInvalid
+- (void)hideInvalid
 {
     if (self.invalidView) {
         [invalidView removeFromSuperview];
         self.invalidView = nil;
     }
+}
+
+- (void)layoutError
+{
+    [self.errorLabel autoRemoveConstraintsAffectingView];
+    [self.errorLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self];
+    [self.errorLabel autoSetDimension:ALDimensionHeight toSize:10];
+    [self.errorLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:-10];
+    [self.errorLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:self.layer.cornerRadius];
+    [self.errorLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-self.layer.cornerRadius];
 }
 
 @end

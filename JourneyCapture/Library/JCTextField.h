@@ -25,4 +25,6 @@
 
 -(void)showInvalid;
 -(void)hideInvalid;
+
+- (void)layoutError;
 @end
