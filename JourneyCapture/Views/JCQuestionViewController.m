@@ -17,15 +17,14 @@
 @end
 
 @implementation JCQuestionViewController
-@synthesize questionLabel, answersTable, viewModel, tableViewHeight, questionIndex, questionModel;
 
 - (id)initWithViewModel:(JCQuestionListViewModel *)onboardingViewModel questionIndex:(NSInteger)index
 {
     self = [super init];
     if (self) {
-        self.viewModel = onboardingViewModel;
-        self.questionModel = self.viewModel.questions[index];
-        self.questionIndex = index;
+        _viewModel = onboardingViewModel;
+        _questionModel = _viewModel.questions[index];
+        _questionIndex = index;
     }
     return self;
 }
@@ -37,38 +36,42 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     // Question
-    self.questionLabel = [[UILabel alloc] init];
-    [self.questionLabel setText:self.questionModel.question];
-    [self.view addSubview:self.questionLabel];
-    int navBarHeight = self.navigationController.navigationBar.frame.size.height;
-    [self.questionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).with.offset(navBarHeight + 20 + 15); // 20 for statusbar
-        make.left.equalTo(self.view).with.offset(15);
-        make.right.equalTo(self.view).with.offset(15);
-    }];
+    _questionLabel = [[UILabel alloc] init];
+    _questionLabel.text = _questionModel.question;
+    _questionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_questionLabel];
 
     // Answers
-    self.answersTable = [[UITableView alloc] init];
-    [self.answersTable setDelegate:self];
-    [self.answersTable setDataSource:self];
-    [self.view addSubview:self.answersTable];
-    [self.answersTable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.questionLabel.mas_bottom).with.offset(15);
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
-        self.tableViewHeight = make.height.equalTo(@(250));
-    }];
+    _answersTable = [[UITableView alloc] init];
+    _answersTable.delegate = self;
+    _answersTable.dataSource = self;
+    _answersTable.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_answersTable];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+
+    [_questionLabel autoRemoveConstraintsAffectingView];
+    [_questionLabel autoPinToTopLayoutGuideOfViewController:self withInset:15];
+    [_questionLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:15];
+    [_questionLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-15];
+
+    [_answersTable autoRemoveConstraintsAffectingView];
+    [_answersTable autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_questionLabel withOffset:15];
+    [_answersTable autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view];
+    [_answersTable autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view];
+    [_answersTable autoSetDimension:ALDimensionHeight toSize:_questionModel.answers.count * 34.0];
+
+    [self.view layoutSubviews];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationItem setTitle:self.questionModel.title];
+    [self.navigationItem setTitle:_questionModel.title];
     [self.navigationItem setHidesBackButton:YES];
-    [self.tableViewHeight uninstall];
-    [self.answersTable mas_updateConstraints:^(MASConstraintMaker *make) {
-        self.tableViewHeight = make.height.equalTo(@(self.questionModel.answers.count * 34.0));
-    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,7 +91,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.questionModel answers] count];
+    return [[_questionModel answers] count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,7 +104,7 @@
                                       reuseIdentifier:CellIdentifier];
     }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [[cell textLabel] setText:self.questionModel.answers[indexPath.row]];
+    [[cell textLabel] setText:_questionModel.answers[indexPath.row]];
     [cell setAccessoryType:UITableViewCellAccessoryNone];
     return cell;
 }
@@ -109,16 +112,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    [self.questionModel setSelectedAnswerIndex:@(indexPath.row)];
-    if (self.questionIndex < self.viewModel.questions.count-1) {
+    [_questionModel setSelectedAnswerIndex:@(indexPath.row)];
+    if (_questionIndex < _viewModel.questions.count-1) {
         JCQuestionViewController *nextQuestionVC = [[JCQuestionViewController alloc]
-                                                    initWithViewModel:self.viewModel
-                                                    questionIndex:(questionIndex + 1)];
+                                                    initWithViewModel:_viewModel
+                                                    questionIndex:(_questionIndex + 1)];
         [self.navigationController pushViewController:nextQuestionVC animated:YES];
     } else {
         [Flurry endTimedEvent:@"User responses started" withParameters:nil];
         
-        [[self.viewModel submitResponses] subscribeNext:^(id x) {
+        [[_viewModel submitResponses] subscribeNext:^(id x) {
             NSLog(@"Responses::next");
         } error:^(NSError *error) {
             NSLog(@"Responses::error");

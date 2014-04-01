@@ -12,7 +12,6 @@
 @interface JCQuestionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) UILabel *questionLabel;
 @property (strong, nonatomic) UITableView *answersTable;
-@property (strong, nonatomic) MASConstraint *tableViewHeight;
 @property (strong, nonatomic) JCQuestionListViewModel *viewModel;
 @property (strong, nonatomic) JCQuestionViewModel *questionModel;
 @property (readwrite, nonatomic) NSInteger questionIndex;
