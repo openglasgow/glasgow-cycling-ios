@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JCSigninViewModel.h"
+@class JCSigninViewModel, JCSigninView;
 
 @interface JCSigninViewController : UIViewController <UINavigationControllerDelegate>
 @property (strong, nonatomic) JCSigninViewModel *viewModel;
+@property (strong, nonatomic) JCSigninView *signinView;
 @end

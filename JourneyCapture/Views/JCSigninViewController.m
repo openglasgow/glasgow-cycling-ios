@@ -18,16 +18,17 @@
 @end
 
 @implementation JCSigninViewController
-@synthesize viewModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.viewModel = [[JCSigninViewModel alloc] init];
+        _viewModel = [[JCSigninViewModel alloc] init];
     }
     return self;
 }
+
+#pragma mark - UIViewController
 
 -(void)loadView
 {
@@ -38,14 +39,15 @@
     // Nav bar
     [[self navigationItem] setTitle:@"Sign In"];
     [self.navigationController setDelegate:self];
-    
+
+    // Signin button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign In"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:nil
                                                                              action:nil];
-    RAC(self, navigationItem.rightBarButtonItem.enabled) = self.viewModel.isValidDetails;
+    RAC(self, navigationItem.rightBarButtonItem.enabled) = _viewModel.isValidDetails;
     self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        RACSignal *signinSignal = [self.viewModel signin];
+        RACSignal *signinSignal = [_viewModel signin];
         [signinSignal subscribeNext:^(id x) {
             NSLog(@"Login::next");
         } error:^(NSError *error) {
@@ -59,18 +61,23 @@
         return [RACSignal empty];
     }];
     
-    // Form
-    CGRect signinFrame = self.view.frame;
-    signinFrame.origin.y = 74;
-    UIView *signinView = [[JCSigninView alloc] initWithFrame:signinFrame viewModel:self.viewModel];
-    [self.view addSubview:signinView];
-    UIView *superview = self.view;
-    [signinView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(superview.mas_top).offset(74);
-        make.bottom.equalTo(superview.mas_bottom);
-        make.left.equalTo(superview).with.offset(10);
-        make.right.equalTo(superview).with.offset(-10);
-    }];
+    // Signin form
+    _signinView = [[JCSigninView alloc] initWithViewModel:_viewModel];
+    _signinView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_signinView];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+
+    double statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    double navBarHeight = self.navigationController.navigationBar.frame.size.height;
+
+    [_signinView autoRemoveConstraintsAffectingView];
+    [_signinView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(statusBarHeight + navBarHeight + 10, 10, 10, 10)];
+
+    [self.view layoutSubviews];
 }
 
 - (void)viewDidLoad
@@ -90,10 +97,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (viewController == navigationController.viewControllers[0]) {
-        // Back to welcome view
+        // Back to welcome view - smooth changing from nav bar to no nav bar
         [navigationController setNavigationBarHidden:YES animated:NO];
     }
 }

@@ -14,5 +14,5 @@
 @property (strong, nonatomic) JCTextField *emailField;
 @property (strong, nonatomic) JCTextField *passwordField;
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCSigninViewModel *)signinViewModel;
+- (id)initWithViewModel:(JCSigninViewModel *)signinViewModel;
 @end
