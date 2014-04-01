@@ -34,5 +34,6 @@
 @property (nonatomic, retain) UIToolbar *genderToolbar;
 @property (nonatomic, retain) UIPickerView *genderPicker;
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCSignupViewModel *)signupViewModel;
+- (id)initWithViewModel:(JCSignupViewModel *)signupViewModel;
+
 @end

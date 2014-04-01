@@ -70,7 +70,7 @@
     // Form
     CGRect signupFrame = self.view.frame;
     signupFrame.origin.y = 74;
-    self.signupView = [[JCSignupView alloc] initWithFrame:signupFrame viewModel:self.viewModel];
+    self.signupView = [[JCSignupView alloc] initWithViewModel:self.viewModel];
     [self.view addSubview:self.signupView];
     UIView *superview = self.view;
     [self.signupView mas_makeConstraints:^(MASConstraintMaker *make) {

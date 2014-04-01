@@ -22,7 +22,7 @@
     _viewModel = signinViewModel;
 
     // Email
-    _emailField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    _emailField = [JCTextField new];
     _emailField.userInteractionEnabled = YES;
     _emailField.borderStyle = UITextBorderStyleRoundedRect;
     _emailField.placeholder = @"Your Email";
@@ -34,7 +34,7 @@
     RACChannelTo(_viewModel, emailError) = RACChannelTo(_emailField, error);
 
     // Password
-    _passwordField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    _passwordField = [JCTextField new];
     _passwordField.borderStyle = UITextBorderStyleRoundedRect;
     _passwordField.secureTextEntry = YES;
     _passwordField.placeholder = @"Your Password";
@@ -55,11 +55,13 @@
     [_emailField autoRemoveConstraintsAffectingView];
     [_emailField autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(padding, padding, padding, padding)
                                           excludingEdge:ALEdgeBottom];
+    [_emailField layoutError];
 
     [_passwordField autoRemoveConstraintsAffectingView];
     [_passwordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_passwordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
     [_passwordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailField withOffset:padding];
+    [_passwordField layoutError];
 
     [super layoutSubviews];
 }

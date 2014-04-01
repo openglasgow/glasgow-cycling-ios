@@ -13,227 +13,239 @@
 #import "Flurry.h"
 
 @implementation JCSignupView
-@synthesize viewModel;
-@synthesize emailField, passwordField, firstNameField, lastNameField, dobField, genderField, profilePictureButton, dobPicker, dobToolbar, dobToolbarButton, genderPicker, genderToolbar, genderToolbarButton, takeController;
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCSignupViewModel *)signupViewModel
+- (id)initWithViewModel:(JCSignupViewModel *)signupViewModel
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (!self) {
         return nil;
     }
 
-    self.viewModel = signupViewModel;
+    _viewModel = signupViewModel;
 
     //Setting up dob DatePicker for dobField use
-    self.dobPicker = [[UIDatePicker alloc] initWithFrame:[self bounds]];
-    self.dobPicker.datePickerMode = UIDatePickerModeDate;
-    self.dobToolbarButton = [[UIButton alloc] init];
-    [self.dobToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
-    [self.dobToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    self.dobToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.dobToolbar addSubview:self.dobToolbarButton];
-    [self.dobToolbarButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.dobToolbar).with.offset(-12);
-        make.top.equalTo(self.dobToolbar);
-    }];
+    _dobPicker = [UIDatePicker new];
+    _dobPicker.datePickerMode = UIDatePickerModeDate;
 
-    self.dobToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        NSLog(@"button press");
-        [self.dobField resignFirstResponder];
+    _dobToolbarButton = [UIButton new];
+    [_dobToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
+    [_dobToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    _dobToolbarButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _dobToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [_dobToolbar addSubview:_dobToolbarButton];
+
+    _dobToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [_dobField resignFirstResponder];
         return [RACSignal empty];
     }];
 
     //Setting up gender UIPickerView for genderField
-    self.genderPicker = [[UIPickerView alloc] initWithFrame:[self bounds]];
-    [self.genderPicker setDataSource:self];
-    [self.genderPicker setDelegate:self];
-    self.genderToolbarButton = [[UIButton alloc] init];
-    [self.genderToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
-    [self.genderToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    self.genderToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.genderToolbar addSubview:self.genderToolbarButton];
-    [self.genderToolbarButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.genderToolbar).with.offset(-12);
-        make.top.equalTo(self.genderToolbar);
-    }];
+    _genderPicker = [UIPickerView new];
+    [_genderPicker setDataSource:self];
+    [_genderPicker setDelegate:self];
 
-    self.genderToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        NSLog(@"button press");
-        [self.genderField resignFirstResponder];
+    _genderToolbarButton = [UIButton new];
+    [_genderToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
+    [_genderToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    _genderToolbarButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _genderToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [_genderToolbar addSubview:_genderToolbarButton];
+
+    _genderToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [_genderField resignFirstResponder];
         return [RACSignal empty];
     }];
 
-    int padding = 10;
-    int textFieldHeight = 31;
-
     // Profile picture
-    self.profilePictureButton = [[UIButton alloc] init];
-    int picSize = 60;
-    [self.profilePictureButton setTintColor:self.tintColor];
+    _profilePictureButton = [UIButton new];
+    _profilePictureButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _profilePictureButton.tintColor = self.tintColor;
+    _profilePictureButton.translatesAutoresizingMaskIntoConstraints = NO;
     UIImage *defaultImage = [UIImage imageNamed:@"default_profile_pic"];
-    [self.profilePictureButton setBackgroundImage:defaultImage forState:UIControlStateNormal];
-    [RACChannelTo(self.viewModel, profilePicture) subscribeNext:^(id image) {
+    [_profilePictureButton setBackgroundImage:defaultImage forState:UIControlStateNormal];
+    [RACChannelTo(_viewModel, profilePicture) subscribeNext:^(id image) {
         if (image) {
-            [self.profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
+            [_profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
         }
     }];
 
-    // Mask profile pic to hexagon
+    // Mask profile pic with hexagon
     CALayer *mask = [CALayer layer];
     mask.contents = (id)[[UIImage imageNamed:@"fcd-profile-mask"] CGImage];
     mask.frame = CGRectMake(0, 0, 60, 60);
-    self.profilePictureButton.layer.mask = mask;
-    self.profilePictureButton.layer.masksToBounds = YES;
+    _profilePictureButton.layer.mask = mask;
+    _profilePictureButton.layer.masksToBounds = YES;
+    [self addSubview:_profilePictureButton];
 
-    [self addSubview:self.profilePictureButton];
-
-    self.profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    _profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Signup profile picture selected"];
-        self.takeController = [[FDTakeController alloc] init];
-        [self.takeController setDelegate:self];
-        self.takeController.allowsEditingPhoto = YES;
-        [self.takeController takePhotoOrChooseFromLibrary];
+        _takeController = [[FDTakeController alloc] init];
+        [_takeController setDelegate:self];
+        _takeController.allowsEditingPhoto = YES;
+        [_takeController takePhotoOrChooseFromLibrary];
         return [RACSignal empty];
     }];
 
-    int verticalPicPadding = ((2*textFieldHeight) + padding - picSize) / 2;
-    [self.profilePictureButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.mas_top).with.offset(padding + verticalPicPadding);
-        make.width.equalTo(@(picSize));
-        make.height.equalTo(@(picSize));
-    }];
-
     // Email
-    self.emailField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.emailField setUserInteractionEnabled:YES];
-    [self.emailField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.emailField setPlaceholder:@"Your Email"];
-    [self.emailField setKeyboardType:UIKeyboardTypeEmailAddress];
-    [self.emailField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
-    RAC(self.viewModel, email) = self.emailField.rac_textSignal;
-    [self addSubview:self.emailField];
+    _emailField = [JCTextField new];
+    _emailField.userInteractionEnabled = YES;
+    _emailField.borderStyle = UITextBorderStyleRoundedRect;
+    _emailField.placeholder = @"Your email";
+    _emailField.keyboardType = UIKeyboardTypeEmailAddress;
+    _emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _emailField.translatesAutoresizingMaskIntoConstraints = NO;
+    RAC(_viewModel, email) = _emailField.rac_textSignal;
+    [self addSubview:_emailField];
 
     // Validation and errors
-    [self.viewModel.emailValid subscribeNext:^(id emailValid) {
-        self.emailField.valid = [emailValid boolValue];
+    [_viewModel.emailValid subscribeNext:^(id emailValid) {
+        _emailField.valid = [emailValid boolValue];
     }];
-    RACChannelTo(self.viewModel, emailError) = RACChannelTo(self.emailField, error);
-
-    [self.emailField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self.profilePictureButton.mas_left).with.offset(-padding);
-        make.top.equalTo(self.mas_top).with.offset(padding);
-    }];
+    RACChannelTo(_viewModel, emailError) = RACChannelTo(_emailField, error);
 
     // Password
-    self.passwordField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.passwordField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.passwordField setSecureTextEntry:YES];
-    [self.passwordField setPlaceholder:@"New Password"];
-    RAC(self.viewModel, password) = self.passwordField.rac_textSignal;
-    [self addSubview:self.passwordField];
+    _passwordField = [JCTextField new];
+    _passwordField.borderStyle = UITextBorderStyleRoundedRect;
+    _passwordField.secureTextEntry = YES;
+    _passwordField.placeholder = @"New Password";
+    _passwordField.translatesAutoresizingMaskIntoConstraints = NO;
+    RAC(_viewModel, password) = _passwordField.rac_textSignal;
+    [self addSubview:_passwordField];
 
     // Validation and errors
-    [self.viewModel.passwordValid subscribeNext:^(id passwordValid) {
-        self.passwordField.valid = [passwordValid boolValue];
+    [_viewModel.passwordValid subscribeNext:^(id passwordValid) {
+        _passwordField.valid = [passwordValid boolValue];
     }];
-    RACChannelTo(self.viewModel, passwordError) = RACChannelTo(self.passwordField, error);
-
-    [self.passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self.profilePictureButton.mas_left).with.offset(-padding);
-        make.top.equalTo(self.emailField.mas_bottom).with.offset(padding);
-    }];
+    RACChannelTo(_viewModel, passwordError) = RACChannelTo(_passwordField, error);
 
     // First name
-    self.firstNameField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.firstNameField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.firstNameField setPlaceholder:@"First Name"];
-    RAC(self.viewModel, firstName) = self.firstNameField.rac_textSignal;
-    [self addSubview:self.firstNameField];
-    [self.viewModel.firstNameValid subscribeNext:^(id firstNameValid) {
-        self.firstNameField.valid = [firstNameValid boolValue];
-    }];
-
-    [self.firstNameField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self.mas_centerX).with.offset(-padding/2);
-        make.top.equalTo(self.passwordField.mas_bottom).with.offset(padding);
+    _firstNameField = [JCTextField new];
+    _firstNameField.borderStyle = UITextBorderStyleRoundedRect;
+    _firstNameField.placeholder = @"First Name";
+    _firstNameField.translatesAutoresizingMaskIntoConstraints = NO;
+    RAC(_viewModel, firstName) = _firstNameField.rac_textSignal;
+    [self addSubview:_firstNameField];
+    [_viewModel.firstNameValid subscribeNext:^(id firstNameValid) {
+        _firstNameField.valid = [firstNameValid boolValue];
     }];
 
     // Last name
-    self.lastNameField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.lastNameField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.lastNameField setPlaceholder:@"Last Name"];
-    RAC(self.viewModel, lastName) = self.lastNameField.rac_textSignal;
-    [self addSubview:self.lastNameField];
-    [self.viewModel.lastNameValid subscribeNext:^(id lastNameValid) {
-        self.lastNameField.valid = [lastNameValid boolValue];
-    }];
-
-    [self.lastNameField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_centerX).with.offset(padding/2);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.passwordField.mas_bottom).with.offset(padding);
+    _lastNameField = [JCTextField new];
+    _lastNameField.borderStyle = UITextBorderStyleRoundedRect;
+    _lastNameField.placeholder = @"Last Name";
+    _lastNameField.translatesAutoresizingMaskIntoConstraints = NO;
+    RAC(_viewModel, lastName) = _lastNameField.rac_textSignal;
+    [self addSubview:_lastNameField];
+    [_viewModel.lastNameValid subscribeNext:^(id lastNameValid) {
+        _lastNameField.valid = [lastNameValid boolValue];
     }];
 
     // DOB
-    self.dobField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.dobField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.dobField setPlaceholder:@"Date of Birth"];
-    RAC(self.viewModel, dob) = self.dobField.rac_textSignal;
-    self.dobField.inputView = self.dobPicker;
-    self.dobField.inputAccessoryView = self.dobToolbar;
-    [self addSubview:self.dobField];
+    _dobField = [JCTextField new];
+    _dobField.borderStyle = UITextBorderStyleRoundedRect;
+    _dobField.placeholder = @"Date of Birth";
+    _dobField.translatesAutoresizingMaskIntoConstraints = NO;
+    RAC(_viewModel, dob) = _dobField.rac_textSignal;
+    _dobField.inputView = _dobPicker;
+    _dobField.inputAccessoryView = _dobToolbar;
+    [self addSubview:_dobField];
 
-    [self.viewModel.dobValid subscribeNext:^(id dobValid) {
-        self.dobField.valid = [dobValid boolValue];
+    [_viewModel.dobValid subscribeNext:^(id dobValid) {
+        _dobField.valid = [dobValid boolValue];
     }];
 
-    RACChannelTerminal *dobChannel = [self.dobPicker rac_newDateChannelWithNilValue:nil];
+    RACChannelTerminal *dobChannel = [_dobPicker rac_newDateChannelWithNilValue:nil];
     [dobChannel subscribeNext:^(id dob) {
-        [self.viewModel setDob:dob]; //TODO viewmodel => nsdate
+        [_viewModel setDob:dob]; //TODO viewmodel => nsdate
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"dd/MM/yyyy"];
         NSString *formattedDob = [formatter stringFromDate:dob];
-        [self.dobField setText:formattedDob];
-    }];
-
-    [self.dobField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).with.offset(padding);
-        make.right.equalTo(self.mas_centerX).with.offset(-padding/2);
-        make.top.equalTo(self.lastNameField.mas_bottom).with.offset(padding);
+        [_dobField setText:formattedDob];
     }];
 
     // Gender
-    self.genderField = [[JCTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [self.genderField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.genderField setPlaceholder:@"Gender"];
-    RACChannelTo(self.viewModel, gender) = RACChannelTo(self.genderField, text);
-    self.genderField.inputView = self.genderPicker;
-    self.genderField.inputAccessoryView = self.genderToolbar;
-    [self.genderField setDelegate:self];
-    [self addSubview:self.genderField];
+    _genderField = [JCTextField new];
+    _genderField.borderStyle = UITextBorderStyleRoundedRect;
+    _genderField.placeholder = @"Gender";
+    _genderField.translatesAutoresizingMaskIntoConstraints = NO;
+    RACChannelTo(_viewModel, gender) = RACChannelTo(_genderField, text);
+    _genderField.inputView = _genderPicker;
+    _genderField.inputAccessoryView = _genderToolbar;
+    [_genderField setDelegate:self];
+    [self addSubview:_genderField];
 
-    [self.viewModel.genderValid subscribeNext:^(id genderValid) {
-        self.genderField.valid = [genderValid boolValue];
-    }];
-
-    [self.genderField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_centerX).with.offset(padding/2);
-        make.right.equalTo(self).with.offset(-padding);
-        make.top.equalTo(self.lastNameField.mas_bottom).with.offset(padding);
+    [_viewModel.genderValid subscribeNext:^(id genderValid) {
+        _genderField.valid = [genderValid boolValue];
     }];
 
     return self;
 }
 
-// TODO reactive cocoa instead of delegate/data source?
+- (void)layoutSubviews
+{
+    [_dobToolbarButton autoRemoveConstraintsAffectingView];
+    [_dobToolbarButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_dobToolbar withOffset:-12];
+    [_dobToolbarButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_dobToolbar];
+
+    [_genderToolbarButton autoRemoveConstraintsAffectingView];
+    [_genderToolbarButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_genderToolbar withOffset:-12];
+    [_genderToolbarButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_genderToolbar];
+
+    int padding = 10;
+    int textFieldHeight = 31;
+    int picSize = 60;
+    int verticalPicPadding = ((2*textFieldHeight) + padding - picSize) / 2;
+    [_profilePictureButton autoRemoveConstraintsAffectingView];
+    [_profilePictureButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding + verticalPicPadding];
+    [_profilePictureButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
+    [_profilePictureButton autoSetDimensionsToSize:CGSizeMake(picSize, picSize)];
+
+    [_emailField autoRemoveConstraintsAffectingView];
+    [_emailField autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding];
+    [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
+    [_emailField layoutError];
+
+    [_passwordField autoRemoveConstraintsAffectingView];
+    [_passwordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_passwordField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
+    [_passwordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailField withOffset:padding];
+    [_passwordField layoutError];
+
+    [_firstNameField autoRemoveConstraintsAffectingView];
+    [_firstNameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_firstNameField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:-padding/2];
+    [_firstNameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
+    [_firstNameField layoutError];
+
+    [_lastNameField autoRemoveConstraintsAffectingView];
+    [_lastNameField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
+    [_lastNameField autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:padding/2];
+    [_lastNameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
+    [_lastNameField layoutError];
+
+    [_dobField autoRemoveConstraintsAffectingView];
+    [_dobField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_dobField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:-padding/2];
+    [_dobField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_lastNameField withOffset:padding];
+    [_dobField layoutError];
+
+    [_genderField autoRemoveConstraintsAffectingView];
+    [_genderField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
+    [_genderField autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:padding/2];
+    [_genderField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_lastNameField withOffset:padding];
+    [_genderField layoutError];
+
+    [super layoutSubviews];
+}
+
+#pragma mark - UIPickerViewDelegate
+
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return self.viewModel.genders[row];
+    return _viewModel.genders[row];
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -243,33 +255,29 @@
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return [self.viewModel.genders count];
+    return [_viewModel.genders count];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [self.genderField setText:self.viewModel.genders[row]];
+    [_genderField setText:_viewModel.genders[row]];
 }
+
+#pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField.text.length == 0) {
-        [self pickerView:self.genderPicker didSelectRow:0 inComponent:0];
+        [self pickerView:_genderPicker didSelectRow:0 inComponent:0];
     }
 }
 
+#pragma mark - FDTakeControllerDelegate
+
 - (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info
 {
-    self.viewModel.profilePicture = photo;
+    _viewModel.profilePicture = photo;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
