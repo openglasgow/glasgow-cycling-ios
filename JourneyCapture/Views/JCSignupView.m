@@ -183,6 +183,8 @@
     return self;
 }
 
+#pragma mark - UIView
+
 - (void)layoutSubviews
 {
     [_dobToolbarButton autoRemoveConstraintsAffectingView];

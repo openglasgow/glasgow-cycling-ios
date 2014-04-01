@@ -29,6 +29,8 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)loadView
 {
     [Flurry logEvent:@"User responses started" withParameters:nil timed:YES];
@@ -81,10 +83,43 @@
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - UITableViewDelegate
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 34.0;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    [_questionModel setSelectedAnswerIndex:@(indexPath.row)];
+    if (_questionIndex < _viewModel.questions.count-1) {
+        JCQuestionViewController *nextQuestionVC = [[JCQuestionViewController alloc]
+                                                    initWithViewModel:_viewModel
+                                                    questionIndex:(_questionIndex + 1)];
+        [self.navigationController pushViewController:nextQuestionVC animated:YES];
+    } else {
+        [Flurry endTimedEvent:@"User responses started" withParameters:nil];
+
+        [[_viewModel submitResponses] subscribeNext:^(id x) {
+            NSLog(@"Responses::next");
+        } error:^(NSError *error) {
+            NSLog(@"Responses::error");
+        } completed:^{
+            NSLog(@"Responses::completed");
+            JCUserViewController *userController = [[JCUserViewController alloc] init];
+            [self.navigationController pushViewController:userController animated:YES];
+        }];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+}
+
+#pragma mark - UITableViewDataSource
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -109,35 +144,6 @@
     [[cell textLabel] setText:_questionModel.answers[indexPath.row]];
     [cell setAccessoryType:UITableViewCellAccessoryNone];
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    [_questionModel setSelectedAnswerIndex:@(indexPath.row)];
-    if (_questionIndex < _viewModel.questions.count-1) {
-        JCQuestionViewController *nextQuestionVC = [[JCQuestionViewController alloc]
-                                                    initWithViewModel:_viewModel
-                                                    questionIndex:(_questionIndex + 1)];
-        [self.navigationController pushViewController:nextQuestionVC animated:YES];
-    } else {
-        [Flurry endTimedEvent:@"User responses started" withParameters:nil];
-        
-        [[_viewModel submitResponses] subscribeNext:^(id x) {
-            NSLog(@"Responses::next");
-        } error:^(NSError *error) {
-            NSLog(@"Responses::error");
-        } completed:^{
-            NSLog(@"Responses::completed");
-            JCUserViewController *userController = [[JCUserViewController alloc] init];
-            [self.navigationController pushViewController:userController animated:YES];
-        }];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
 }
 
 @end

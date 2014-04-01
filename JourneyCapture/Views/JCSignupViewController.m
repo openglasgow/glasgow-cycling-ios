@@ -31,6 +31,8 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)loadView
 {
     NSLog(@"Loading view");
@@ -99,7 +101,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (viewController == navigationController.viewControllers[0]) {
         // Back to welcome view
