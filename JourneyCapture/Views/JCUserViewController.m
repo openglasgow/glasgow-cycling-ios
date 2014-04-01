@@ -41,23 +41,19 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 -(void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     // User details
-    JCUserView *detailsView = [[JCUserView alloc] initWithViewModel:_viewModel];
-    [self.view addSubview:detailsView];
-    int navBarHeight = self.navigationController.navigationBar.frame.size.height;
-    [detailsView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).with.offset(22);
-        make.right.equalTo(self.view.mas_right).with.offset(-22);
-        make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // Extra 20 for status bar
-        make.bottom.equalTo(detailsView.settingsButton.mas_bottom).with.offset(15);
-    }];
+    _userView = [[JCUserView alloc] initWithViewModel:_viewModel];
+    _userView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_userView];
 
-    detailsView.settingsButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    _userView.settingsButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         IASKAppSettingsViewController *settingsVC = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView"
                                                                                                      bundle:nil];
         settingsVC.delegate = self;
@@ -82,32 +78,21 @@
     _mapView.scrollEnabled = NO;
     _mapView.userInteractionEnabled = NO;
     _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view insertSubview:_mapView belowSubview:detailsView];
-    [_mapView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(detailsView.mas_bottom).with.offset(15);
-    }];
+    _mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view insertSubview:_mapView belowSubview:_userView];
 
     // Buttons
     UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
     
     // My routes button
-    self.myRoutesButton = [[UIButton alloc] init];
-    [self.myRoutesButton setTitle:@"My Routes" forState:UIControlStateNormal];
-    [self.myRoutesButton setBackgroundColor:buttonColor];
-    self.myRoutesButton.layer.cornerRadius = 8.0f;
-    [self.view addSubview:self.myRoutesButton];
+    _myRoutesButton = [[UIButton alloc] init];
+    _myRoutesButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_myRoutesButton setTitle:@"My Routes" forState:UIControlStateNormal];
+    [_myRoutesButton setBackgroundColor:buttonColor];
+    _myRoutesButton.layer.cornerRadius = 8.0f;
+    [self.view addSubview:_myRoutesButton];
     
-    [self.myRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_mapView.mas_bottom).with.offset(15);
-        make.left.equalTo(self.view.mas_left).with.offset(22);
-        make.right.equalTo(self.view.mas_right).with.offset(-22);
-        make.height.equalTo(@(45));
-    }];
-    
-    self.myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    _myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"My routes tapped"];
         JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -137,17 +122,11 @@
     
     // Nearby routes button
     _nearbyRoutesButton = [[UIButton alloc] init];
+    _nearbyRoutesButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_nearbyRoutesButton setTitle:@"Nearby Routes" forState:UIControlStateNormal];
     [_nearbyRoutesButton setBackgroundColor:buttonColor];
     _nearbyRoutesButton.layer.cornerRadius = 8.0f;
     [self.view addSubview:_nearbyRoutesButton];
-    
-    [_nearbyRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.myRoutesButton.mas_bottom).with.offset(15);
-        make.left.equalTo(self.view.mas_left).with.offset(22);
-        make.right.equalTo(self.view.mas_right).with.offset(-22);
-        make.height.equalTo(@(45));
-    }];
     
     _nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Nearby routes tapped"];
@@ -181,17 +160,11 @@
     }];
     
     _createRouteButton = [[UIButton alloc] init];
+    _createRouteButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_createRouteButton setTitle:@"Create Route" forState:UIControlStateNormal];
     [_createRouteButton setBackgroundColor:buttonColor];
     _createRouteButton.layer.cornerRadius = 8.0f;
     [self.view addSubview:_createRouteButton];
-    
-    [_createRouteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_nearbyRoutesButton.mas_bottom).with.offset(15);
-        make.left.equalTo(self.view.mas_left).with.offset(22);
-        make.right.equalTo(self.view.mas_right).with.offset(-22);
-        make.height.equalTo(@60);
-    }];
 
     _createRouteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Route capture tapped"];
@@ -203,6 +176,43 @@
 
     // Nav
     [self.navigationItem setTitle:@"Profile"];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+
+    [_userView autoRemoveConstraintsAffectingView];
+    [_userView autoPinToTopLayoutGuideOfViewController:self withInset:15];
+    [_userView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:22];
+    [_userView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-22];
+    [_userView autoSetDimension:ALDimensionHeight toSize:180];
+
+    [_mapView autoRemoveConstraintsAffectingView];
+    [_mapView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    [_mapView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view];
+    [_mapView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view];
+    [_mapView autoSetDimension:ALDimensionHeight toSize:210];
+
+    [_myRoutesButton autoRemoveConstraintsAffectingView];
+    [_myRoutesButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView withOffset:15];
+    [_myRoutesButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:22];
+    [_myRoutesButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-22];
+    [_myRoutesButton autoSetDimension:ALDimensionHeight toSize:45];
+
+    [_nearbyRoutesButton autoRemoveConstraintsAffectingView];
+    [_nearbyRoutesButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_myRoutesButton withOffset:15];
+    [_nearbyRoutesButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:22];
+    [_nearbyRoutesButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-22];
+    [_nearbyRoutesButton autoSetDimension:ALDimensionHeight toSize:45];
+
+    [_createRouteButton autoRemoveConstraintsAffectingView];
+    [_createRouteButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_nearbyRoutesButton withOffset:15];
+    [_createRouteButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:22];
+    [_createRouteButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-22];
+    [_createRouteButton autoSetDimension:ALDimensionHeight toSize:60];
+
+    [self.view layoutSubviews];
 }
 
 - (void)viewDidLoad
@@ -248,7 +258,7 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-#pragma mark - JCLocationManagerDelegate methods
+#pragma mark - JCLocationManagerDelegate
 
 - (void)didUpdateLocations:(NSArray *)locations
 {
@@ -259,7 +269,7 @@
     [_mapView setRegion:region animated:YES];
 }
 
-#pragma mark - IASKSettingsDelegate methods
+#pragma mark - IASKSettingsDelegate
 
 - (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeBodyForSpecifier:(IASKSpecifier *)specifier
 {
