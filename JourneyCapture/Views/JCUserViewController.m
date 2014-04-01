@@ -28,8 +28,6 @@
 @end
 
 @implementation JCUserViewController
-@synthesize viewModel, mapView, myRoutesButton, nearbyRoutesButton, createRouteButton,
-            updateOnAppear;
 
 - (id)init
 {
@@ -38,7 +36,7 @@
         return nil;
     }
     [[JCLocationManager manager] setDelegate:self];
-    self.viewModel = [[JCUserViewModel alloc] init];
+    _viewModel = [[JCUserViewModel alloc] init];
     [self update];
     return self;
 }
@@ -49,8 +47,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     // User details
-    JCUserView *detailsView = [[JCUserView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]
-                                                      viewModel:self.viewModel];
+    JCUserView *detailsView = [[JCUserView alloc] initWithViewModel:_viewModel];
     [self.view addSubview:detailsView];
     int navBarHeight = self.navigationController.navigationBar.frame.size.height;
     [detailsView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,17 +73,17 @@
     }];
 
     // Background map image view
-    self.mapView = [[MKMapView alloc] init];
-    self.mapView.layer.masksToBounds = NO;
-    self.mapView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.mapView.layer.shadowRadius = 2;
-    self.mapView.layer.shadowOpacity = 0.5;
-    self.mapView.zoomEnabled = NO;
-    self.mapView.scrollEnabled = NO;
-    self.mapView.userInteractionEnabled = NO;
-    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view insertSubview:self.mapView belowSubview:detailsView];
-    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
+    _mapView = [[MKMapView alloc] init];
+    _mapView.layer.masksToBounds = NO;
+    _mapView.layer.shadowOffset = CGSizeMake(0, 1);
+    _mapView.layer.shadowRadius = 2;
+    _mapView.layer.shadowOpacity = 0.5;
+    _mapView.zoomEnabled = NO;
+    _mapView.scrollEnabled = NO;
+    _mapView.userInteractionEnabled = NO;
+    _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view insertSubview:_mapView belowSubview:detailsView];
+    [_mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
@@ -104,7 +101,7 @@
     [self.view addSubview:self.myRoutesButton];
     
     [self.myRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mapView.mas_bottom).with.offset(15);
+        make.top.equalTo(_mapView.mas_bottom).with.offset(15);
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(45));
@@ -139,20 +136,20 @@
     }];
     
     // Nearby routes button
-    self.nearbyRoutesButton = [[UIButton alloc] init];
-    [self.nearbyRoutesButton setTitle:@"Nearby Routes" forState:UIControlStateNormal];
-    [self.nearbyRoutesButton setBackgroundColor:buttonColor];
-    self.nearbyRoutesButton.layer.cornerRadius = 8.0f;
-    [self.view addSubview:self.nearbyRoutesButton];
+    _nearbyRoutesButton = [[UIButton alloc] init];
+    [_nearbyRoutesButton setTitle:@"Nearby Routes" forState:UIControlStateNormal];
+    [_nearbyRoutesButton setBackgroundColor:buttonColor];
+    _nearbyRoutesButton.layer.cornerRadius = 8.0f;
+    [self.view addSubview:_nearbyRoutesButton];
     
-    [self.nearbyRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_nearbyRoutesButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.myRoutesButton.mas_bottom).with.offset(15);
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@(45));
     }];
     
-    self.nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    _nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Nearby routes tapped"];
         JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -183,22 +180,22 @@
         return [RACSignal empty];
     }];
     
-    self.createRouteButton = [[UIButton alloc] init];
-    [self.createRouteButton setTitle:@"Create Route" forState:UIControlStateNormal];
-    [self.createRouteButton setBackgroundColor:buttonColor];
-    self.createRouteButton.layer.cornerRadius = 8.0f;
-    [self.view addSubview:self.createRouteButton];
+    _createRouteButton = [[UIButton alloc] init];
+    [_createRouteButton setTitle:@"Create Route" forState:UIControlStateNormal];
+    [_createRouteButton setBackgroundColor:buttonColor];
+    _createRouteButton.layer.cornerRadius = 8.0f;
+    [self.view addSubview:_createRouteButton];
     
-    [self.createRouteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nearbyRoutesButton.mas_bottom).with.offset(15);
+    [_createRouteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_nearbyRoutesButton.mas_bottom).with.offset(15);
         make.left.equalTo(self.view.mas_left).with.offset(22);
         make.right.equalTo(self.view.mas_right).with.offset(-22);
         make.height.equalTo(@60);
     }];
 
-    self.createRouteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    _createRouteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Route capture tapped"];
-        self.updateOnAppear = YES;
+        _updateOnAppear = YES;
         JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
         [self.navigationController pushViewController:captureController animated:YES];
         return [RACSignal empty];
@@ -217,9 +214,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [[JCLocationManager manager] startUpdatingCoarse];
-    if (self.updateOnAppear) {
+    if (_updateOnAppear) {
         [self update];
-        self.updateOnAppear = NO;
+        _updateOnAppear = NO;
     }
 }
 
@@ -236,7 +233,7 @@
 
 - (void)update
 {
-    [[self.viewModel loadDetails] subscribeError:^(NSError *error) {
+    [[_viewModel loadDetails] subscribeError:^(NSError *error) {
         NSLog(@"Failed to load user");
     } completed:^{
         NSLog(@"User details loaded");
@@ -259,7 +256,7 @@
     CLLocation *location = locations[0];
     CLLocationCoordinate2D loc = location.coordinate;
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 2500, 2500);
-    [self.mapView setRegion:region animated:YES];
+    [_mapView setRegion:region animated:YES];
 }
 
 #pragma mark - IASKSettingsDelegate methods

@@ -11,19 +11,14 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation JCUserView
-@synthesize viewModel;
-@synthesize firstNameLabel, lastNameLabel,
-        favouriteRouteView, favouriteRouteLabel, routesThisMonthView, routesThisMonthLabel,
-        timeThisMonthView, timeThisMonthLabel, distanceThisMonthView, distanceThisMonthLabel,
-        routesLabelTop, routesViewTop, favouriteLabelTop, favouriteViewTop, profileImageView, settingsButton;
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCUserViewModel *)userViewModel
+- (id)initWithViewModel:(JCUserViewModel *)userViewModel
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (!self) {
         return nil;
     }
-    self.viewModel = userViewModel;
+    _viewModel = userViewModel;
     [self setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.85]];
     self.layer.masksToBounds = YES;
     self.layer.cornerRadius = 8.0f;
@@ -32,59 +27,59 @@
     // Name
     UIFont *nameFont = [UIFont fontWithName:@"Helvetica Neue"
                                        size:20.0];
-    self.firstNameLabel = [[UILabel alloc] init];
-    [self.firstNameLabel setFont:nameFont];
+    _firstNameLabel = [[UILabel alloc] init];
+    [_firstNameLabel setFont:nameFont];
     RACChannelTo(self, firstNameLabel.text) = RACChannelTo(self, viewModel.firstName);
-    [self addSubview:self.firstNameLabel];
+    [self addSubview:_firstNameLabel];
 
-    self.lastNameLabel = [[UILabel alloc] init];
-    [self.lastNameLabel setFont:nameFont];
+    _lastNameLabel = [[UILabel alloc] init];
+    [_lastNameLabel setFont:nameFont];
     RACChannelTo(self, lastNameLabel.text) = RACChannelTo(self, viewModel.lastName);
-    [self addSubview:self.lastNameLabel];
+    [self addSubview:_lastNameLabel];
 
-    [self.firstNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_firstNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).with.offset(padding);
         make.left.equalTo(self.mas_left).with.offset(padding);
         make.height.equalTo(@(25));
     }];
 
-    [self.lastNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.firstNameLabel.mas_top);
-        make.left.equalTo(self.firstNameLabel.mas_right).with.offset(5);
+    [_lastNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_firstNameLabel.mas_top);
+        make.left.equalTo(_firstNameLabel.mas_right).with.offset(5);
         make.height.equalTo(@(25));
     }];
 
     // Profile
-    self.profileImageView = [[UIImageView alloc] init];
+    _profileImageView = [[UIImageView alloc] init];
     int profilePicSize = 50;
-    RACChannelTo(self.profileImageView, image) = RACChannelTo(self.viewModel, profilePic);
+    RACChannelTo(_profileImageView, image) = RACChannelTo(_viewModel, profilePic);
 
     // Mask profile pic to hexagon
     CALayer *mask = [CALayer layer];
     mask.contents = (id)[[UIImage imageNamed:@"fcd-profile-mask"] CGImage];
     mask.frame = CGRectMake(0, 0, profilePicSize, profilePicSize);
-    self.profileImageView.layer.mask = mask;
-    self.profileImageView.layer.masksToBounds = YES;
-    [self addSubview:self.profileImageView];
+    _profileImageView.layer.mask = mask;
+    _profileImageView.layer.masksToBounds = YES;
+    [self addSubview:_profileImageView];
 
-    [self.profileImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+    [_profileImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_firstNameLabel.mas_bottom).with.offset(padding);
         make.left.equalTo(self.mas_left).with.offset(padding);
         make.height.equalTo(@(profilePicSize));
         make.width.equalTo(@(profilePicSize));
     }];
 
     // Settings
-    self.settingsButton = [[UIButton alloc] init];
+    _settingsButton = [[UIButton alloc] init];
     UIImage *settingsImage = [UIImage imageNamed:@"gear-button"];
-    [self.settingsButton setBackgroundImage:settingsImage forState:UIControlStateNormal];
-    [self.settingsButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    self.settingsButton.layer.masksToBounds = YES;
-    self.settingsButton.layer.cornerRadius = 8.0f;
-    [self addSubview:self.settingsButton];
+    [_settingsButton setBackgroundImage:settingsImage forState:UIControlStateNormal];
+    [_settingsButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    _settingsButton.layer.masksToBounds = YES;
+    _settingsButton.layer.cornerRadius = 8.0f;
+    [self addSubview:_settingsButton];
 
-    [self.settingsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.profileImageView.mas_bottom).with.offset(padding);
+    [_settingsButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_profileImageView.mas_bottom).with.offset(padding);
         make.left.equalTo(self.mas_left).with.offset(padding);
         make.height.equalTo(@(50));
         make.width.equalTo(@(50));
@@ -95,65 +90,65 @@
 
     // Favourite Routes
     UIImage *favouriteImage = [UIImage imageNamed:@"christmas_star-50"];
-    self.favouriteRouteView = [[UIImageView alloc] initWithImage:favouriteImage];
-    [self addSubview:self.favouriteRouteView];
+    _favouriteRouteView = [[UIImageView alloc] initWithImage:favouriteImage];
+    [self addSubview:_favouriteRouteView];
 
-    [self.favouriteRouteView mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.favouriteViewTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
-        make.left.equalTo(self.profileImageView.mas_right).with.offset(padding);
+    [_favouriteRouteView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _favouriteViewTop = make.top.equalTo(_firstNameLabel.mas_bottom).with.offset(padding);
+        make.left.equalTo(_profileImageView.mas_right).with.offset(padding);
         make.width.equalTo(imageSize);
         make.height.equalTo(imageSize);
     }];
 
-    self.favouriteRouteLabel = [[UILabel alloc] init];
-    [self.favouriteRouteLabel setFont:statsFont];
-    [self addSubview:self.favouriteRouteLabel];
+    _favouriteRouteLabel = [[UILabel alloc] init];
+    [_favouriteRouteLabel setFont:statsFont];
+    [self addSubview:_favouriteRouteLabel];
 
-    [self.favouriteRouteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.favouriteLabelTop = make.top.equalTo(self.favouriteRouteView.mas_top);
-        make.left.equalTo(self.favouriteRouteView.mas_right).with.offset(padding);
+    [_favouriteRouteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _favouriteLabelTop = make.top.equalTo(_favouriteRouteView.mas_top);
+        make.left.equalTo(_favouriteRouteView.mas_right).with.offset(padding);
     }];
 
     // Monthly num routes
     UIImage *routesImage = [UIImage imageNamed:@"calendar-50"];
-    self.routesThisMonthView = [[UIImageView alloc] initWithImage:routesImage];
-    [self addSubview:self.routesThisMonthView];
+    _routesThisMonthView = [[UIImageView alloc] initWithImage:routesImage];
+    [self addSubview:_routesThisMonthView];
 
-    [self.routesThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.routesViewTop = make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
-        make.left.equalTo(self.favouriteRouteView.mas_left);
+    [_routesThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _routesViewTop = make.top.equalTo(_favouriteRouteView.mas_bottom).with.offset(padding);
+        make.left.equalTo(_favouriteRouteView.mas_left);
         make.width.equalTo(imageSize);
         make.height.equalTo(imageSize);
     }];
 
-    self.routesThisMonthLabel = [[UILabel alloc] init];
-    [self.routesThisMonthLabel setFont:statsFont];
+    _routesThisMonthLabel = [[UILabel alloc] init];
+    [_routesThisMonthLabel setFont:statsFont];
     RACChannelTerminal *routesNumLabelChannel = RACChannelTo(self, routesThisMonthLabel.text);
     RACChannelTerminal *routesNumModelChannel = RACChannelTo(self, viewModel.routesThisMonth);
     [[routesNumModelChannel map:^(id numRoutes){
         return [NSString stringWithFormat:@"%@ routes this month", numRoutes ? numRoutes : @"?"];
     }] subscribe:routesNumLabelChannel];
-    [self addSubview:self.routesThisMonthLabel];
+    [self addSubview:_routesThisMonthLabel];
 
-    [self.routesThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.routesLabelTop = make.top.equalTo(self.routesThisMonthView.mas_top);
-        make.left.equalTo(self.favouriteRouteLabel.mas_left);
+    [_routesThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _routesLabelTop = make.top.equalTo(_routesThisMonthView.mas_top);
+        make.left.equalTo(_favouriteRouteLabel.mas_left);
     }];
 
     // Monthly time
     UIImage *timeImage = [UIImage imageNamed:@"clock-50"];
-    self.timeThisMonthView = [[UIImageView alloc] initWithImage:timeImage];
-    [self addSubview:self.timeThisMonthView];
+    _timeThisMonthView = [[UIImageView alloc] initWithImage:timeImage];
+    [self addSubview:_timeThisMonthView];
 
-    [self.timeThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.routesThisMonthView.mas_bottom).with.offset(padding);
-        make.left.equalTo(self.favouriteRouteView.mas_left);
+    [_timeThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_routesThisMonthView.mas_bottom).with.offset(padding);
+        make.left.equalTo(_favouriteRouteView.mas_left);
         make.width.equalTo(imageSize);
         make.height.equalTo(imageSize);
     }];
 
-    self.timeThisMonthLabel = [[UILabel alloc] init];
-    [self.timeThisMonthLabel setFont:statsFont];
+    _timeThisMonthLabel = [[UILabel alloc] init];
+    [_timeThisMonthLabel setFont:statsFont];
     RACChannelTerminal *secondsLabelChannel = RACChannelTo(self, timeThisMonthLabel.text);
     RACChannelTerminal *secondsModelChannell = RACChannelTo(self, viewModel.secondsThisMonth);
     [[secondsModelChannell map:^(NSNumber *secondsThisMonth){
@@ -162,37 +157,37 @@
         int minutes = (seconds - (hours * 3600)) / 60;
         return [NSString stringWithFormat:@"%d:%02d hours this month", hours, minutes];
     }] subscribe:secondsLabelChannel];
-    [self addSubview:self.timeThisMonthLabel];
+    [self addSubview:_timeThisMonthLabel];
 
-    [self.timeThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.timeThisMonthView.mas_top);
-        make.left.equalTo(self.favouriteRouteLabel.mas_left);
+    [_timeThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_timeThisMonthView.mas_top);
+        make.left.equalTo(_favouriteRouteLabel.mas_left);
     }];
 
     // Monthly distance
     UIImage *metersImage = [UIImage imageNamed:@"length-50"];
-    self.distanceThisMonthView = [[UIImageView alloc] initWithImage:metersImage];
-    [self addSubview:self.distanceThisMonthView];
+    _distanceThisMonthView = [[UIImageView alloc] initWithImage:metersImage];
+    [self addSubview:_distanceThisMonthView];
 
-    [self.distanceThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.timeThisMonthView.mas_bottom).with.offset(padding);
-        make.left.equalTo(self.favouriteRouteView.mas_left);
+    [_distanceThisMonthView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_timeThisMonthView.mas_bottom).with.offset(padding);
+        make.left.equalTo(_favouriteRouteView.mas_left);
         make.width.equalTo(imageSize);
         make.height.equalTo(imageSize);
     }];
 
-    self.distanceThisMonthLabel = [[UILabel alloc] init];
-    [self.distanceThisMonthLabel setFont:statsFont];
+    _distanceThisMonthLabel = [[UILabel alloc] init];
+    [_distanceThisMonthLabel setFont:statsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceThisMonthLabel.text);
     RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.kmThisMonth);
     [[distanceModelChannel map:^(NSNumber *kmThisMonth){
         return [NSString stringWithFormat:@"%.02f km this month", [kmThisMonth doubleValue]];
     }] subscribe:distanceLabelChannel];
-    [self addSubview:self.distanceThisMonthLabel];
+    [self addSubview:_distanceThisMonthLabel];
 
-    [self.distanceThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.distanceThisMonthView.mas_top);
-        make.left.equalTo(self.favouriteRouteLabel.mas_left);
+    [_distanceThisMonthLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_distanceThisMonthView.mas_top);
+        make.left.equalTo(_favouriteRouteLabel.mas_left);
     }];
 
 
@@ -201,39 +196,39 @@
     [favouriteModelChannel subscribeNext:^(id favouriteRoute) {
         if (favouriteRoute) {
             // Show favourite route info
-            [self.favouriteRouteLabel setText:favouriteRoute];
-            [self.favouriteRouteLabel setHidden:NO];
-            [self.favouriteRouteView setHidden:NO];
+            [_favouriteRouteLabel setText:favouriteRoute];
+            [_favouriteRouteLabel setHidden:NO];
+            [_favouriteRouteView setHidden:NO];
 
-            [self.favouriteViewTop uninstall];
-            [self.favouriteViewTop uninstall];
-            [self.favouriteRouteView mas_updateConstraints:^(MASConstraintMaker *make) {
-                self.favouriteViewTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+            [_favouriteViewTop uninstall];
+            [_favouriteViewTop uninstall];
+            [_favouriteRouteView mas_updateConstraints:^(MASConstraintMaker *make) {
+                _favouriteViewTop = make.top.equalTo(_firstNameLabel.mas_bottom).with.offset(padding);
             }];
-            [self.favouriteRouteLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-                self.favouriteLabelTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+            [_favouriteRouteLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                _favouriteLabelTop = make.top.equalTo(_firstNameLabel.mas_bottom).with.offset(padding);
             }];
 
-            [self.routesViewTop uninstall];
-            [self.routesLabelTop uninstall];
-            [self.routesThisMonthView mas_updateConstraints:^(MASConstraintMaker *make) {
-                self.routesViewTop = make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
+            [_routesViewTop uninstall];
+            [_routesLabelTop uninstall];
+            [_routesThisMonthView mas_updateConstraints:^(MASConstraintMaker *make) {
+                _routesViewTop = make.top.equalTo(_favouriteRouteView.mas_bottom).with.offset(padding);
             }];
-            [self.routesThisMonthLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-                self.routesLabelTop = make.top.equalTo(self.favouriteRouteView.mas_bottom).with.offset(padding);
+            [_routesThisMonthLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                _routesLabelTop = make.top.equalTo(_favouriteRouteView.mas_bottom).with.offset(padding);
             }];
         } else {
             // Hide favourite route info
-            [self.favouriteRouteLabel setHidden:YES];
-            [self.favouriteRouteView setHidden:YES];
+            [_favouriteRouteLabel setHidden:YES];
+            [_favouriteRouteView setHidden:YES];
 
-            [self.routesViewTop uninstall];
-            [self.routesLabelTop uninstall];
-            [self.routesThisMonthView mas_updateConstraints:^(MASConstraintMaker *make) {
-                self.routesViewTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+            [_routesViewTop uninstall];
+            [_routesLabelTop uninstall];
+            [_routesThisMonthView mas_updateConstraints:^(MASConstraintMaker *make) {
+                _routesViewTop = make.top.equalTo(_firstNameLabel.mas_bottom).with.offset(padding);
             }];
-            [self.routesThisMonthLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-                self.routesLabelTop = make.top.equalTo(self.firstNameLabel.mas_bottom).with.offset(padding);
+            [_routesThisMonthLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                _routesLabelTop = make.top.equalTo(_firstNameLabel.mas_bottom).with.offset(padding);
             }];
         }
     }];
@@ -241,13 +236,12 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+#pragma mark - UIView
+
+- (void)layoutSubviews
 {
-    // Drawing code
+
+    [super layoutSubviews];
 }
-*/
 
 @end

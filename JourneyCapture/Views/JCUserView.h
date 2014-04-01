@@ -34,5 +34,5 @@
 @property (strong, nonatomic) MASConstraint *routesViewTop;
 
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCUserViewModel *)userViewModel;
+- (id)initWithViewModel:(JCUserViewModel *)userViewModel;
 @end
