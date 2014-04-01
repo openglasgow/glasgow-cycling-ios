@@ -17,13 +17,12 @@
 @end
 
 @implementation JCRouteCaptureViewController
-@synthesize viewModel, captureView, captureStart;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.viewModel = [[JCRouteViewModel alloc] init];
+        _viewModel = [[JCRouteViewModel alloc] init];
         self.routeUploaded = NO;
         self.reviewUploaded = NO;
     }
@@ -36,15 +35,15 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     CGRect captureFrame = [[UIScreen mainScreen] applicationFrame];
-    self.captureView = [[JCCaptureView alloc] initWithFrame:captureFrame viewModel:self.viewModel];
-    captureView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    _captureView = [[JCCaptureView alloc] initWithFrame:captureFrame viewModel:_viewModel];
+    _captureView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Tapped capture button");
-        if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Start"]) {
+        if ([[_captureView.captureButton.titleLabel text] isEqualToString:@"Start"]) {
             [Flurry logEvent:@"Route Capture" timed:YES];
 
             // Start
-            self.captureStart = [NSDate date];
-            [self.captureView transitionToActive];
+            _captureStart = [NSDate date];
+            [_captureView transitionToActive];
 
             // Show cancel button in place of back button
             self.navigationItem.hidesBackButton = YES;
@@ -70,12 +69,12 @@
 
             // Set warning notifications in case user forgets to stop capture
             [self scheduleWarningNotification];
-        } else if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
+        } else if ([[_captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
             // Cancel tracking notifications
             [[UIApplication sharedApplication] cancelAllLocalNotifications];
 
             // Stop
-            if (self.viewModel.points.count == 0) {
+            if (_viewModel.points.count == 0) {
                 UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Stop Capturing"
                                                                       message:@"No data has been collected, stop capturing?"
                                                                      delegate:nil
@@ -88,24 +87,24 @@
                 [Flurry logEvent:@"Route Submit" timed:YES];
                 [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
                 [[JCLocationManager manager] setDelegate:nil];
-                [self.captureView transitionToComplete];
+                [_captureView transitionToComplete];
             }
         } else {
             // Submit
             [Flurry endTimedEvent:@"Route Submit" withParameters:@{
-                                                                   @"Safety Rating": @(self.viewModel.safetyRating),
-                                                                   @"Environment Rating": @(self.viewModel.environmentRating),
-                                                                   @"Difficulty Rating": @(self.viewModel.difficultyRating)
+                                                                   @"Safety Rating": @(_viewModel.safetyRating),
+                                                                   @"Environment Rating": @(_viewModel.environmentRating),
+                                                                   @"Difficulty Rating": @(_viewModel.difficultyRating)
                                                                    }];
             [self upload];
         }
         return [RACSignal empty];
     }];
 
-    [self.captureView.statsTable setDelegate:self];
-    [self.captureView.statsTable setDataSource:self];
+    [_captureView.statsTable setDelegate:self];
+    [_captureView.statsTable setDataSource:self];
 
-    [self.view addSubview:self.captureView];
+    [self.view addSubview:_captureView];
 }
 
 -(void)upload
@@ -113,14 +112,12 @@
     @weakify(self);
     if (!self.routeUploaded) {
         NSLog(@"Uploading Route");
-        [[[self.viewModel uploadRoute] then:^RACSignal *{
-            @strongify(self);
-            self.captureView.uploading = YES;
+        [[[_viewModel uploadRoute] then:^RACSignal *{
+            _captureView.uploading = YES;
             return [RACSignal empty];
         }] subscribeError:^(NSError *error) {
             // TODO save locally and keep trying
-            @strongify(self);
-            self.captureView.uploading = NO;
+            _captureView.uploading = NO;
             NSLog(@"Couldn't upload");
         } completed:^{
             @strongify(self);
@@ -131,15 +128,14 @@
     } else {
         NSLog(@"Uploading Review");
         // Upload Review
-        [[[self.viewModel uploadReview] then:^RACSignal *{
-            @strongify(self);
-            self.captureView.uploading = YES;
+        [[[_viewModel uploadReview] then:^RACSignal *{
+            _captureView.uploading = YES;
             return [RACSignal empty];
         }] subscribeError:^(NSError *error) {
             NSLog(@"Couldn't upload review");
-            self.captureView.uploading = NO;
+            _captureView.uploading = NO;
         } completed:^{
-            self.captureView.uploading = NO;
+            _captureView.uploading = NO;
             NSLog(@"Review uploaded");
             @strongify(self);
             [self.navigationController popViewControllerAnimated:YES];
@@ -154,7 +150,7 @@
         NSLog(@"Got new location, adding to the route");
         CLLocation *latestLocation = locations[i];
 
-        if ([self.captureStart compare:latestLocation.timestamp] == NSOrderedDescending) {
+        if ([_captureStart compare:latestLocation.timestamp] == NSOrderedDescending) {
             // Location is older than start
             NSLog(@"Filtered old location");
             return;
@@ -169,13 +165,13 @@
         // Create point
         JCRoutePointViewModel *point = [[JCRoutePointViewModel alloc] init];
         point.location = latestLocation;
-        [self.viewModel addPoint:point];
+        [_viewModel addPoint:point];
 
         // Update route line on mapview
-        [self.captureView updateRouteLine];
+        [_captureView updateRouteLine];
 
         // Reload stats
-        [self.captureView.statsTable reloadData];
+        [_captureView.statsTable reloadData];
     }
 }
 
@@ -192,7 +188,7 @@
     @weakify(self);
     [foregroundSignal subscribeNext:^(id x) {
         @strongify(self);
-        if ([[self.captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
+        if ([[_captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
             [self scheduleWarningNotification];
         }
     }];
@@ -255,17 +251,17 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     if (indexPath.row == 0) {
         [[cell statName] setText:@"Current Speed"];
-        double currentSpeedMph = self.viewModel.currentSpeed;
+        double currentSpeedMph = _viewModel.currentSpeed;
         double currentSpeedKph = (currentSpeedMph * 60 * 60) / 1000;
         [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", currentSpeedKph]];
     } else if (indexPath.row == 1) {
         [[cell statName] setText:@"Average Speed"];
-        double averageSpeedMps = self.viewModel.averageSpeed;
+        double averageSpeedMps = _viewModel.averageSpeed;
         double averageSpeedKph = (averageSpeedMps * 60 * 60) / 1000;
         [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", averageSpeedKph]];
     } else if (indexPath.row == 2) {
         [[cell statName] setText:@"Distance"];
-        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", self.viewModel.totalKm]];
+        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", _viewModel.totalKm]];
     }
     [cell setAccessoryType:UITableViewCellAccessoryNone];
     return cell;

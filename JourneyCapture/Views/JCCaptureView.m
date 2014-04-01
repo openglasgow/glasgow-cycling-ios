@@ -12,11 +12,6 @@
 #import "JCRoutePointViewModel.h"
 
 @implementation JCCaptureView
-@synthesize mapView, routeLine, routeLineView, captureButton, statsTable, viewModel,
-            reviewScrollView, safetyRating, safetyReviewLabel, environmentRating, environmentReviewLabel,
-            difficultyRating, difficultyReviewLabel, animator, reviewBottomConstraint, reviewTopConstraint,
-            mapBottomConstraint, statsTopConstraint, statsBottomConstraint,
-            uploadView, uploadIndicatorView;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel
 {
@@ -25,27 +20,27 @@
         return nil;
     }
 
-    self.uploading = NO;
+    _uploading = NO;
     [RACObserve(self, uploading) subscribeNext:^(id isUploading) {
         NSLog(@"Uploading changed to %@", isUploading);
         [self showUploadIndicator:[isUploading boolValue]];
-        [self.captureButton setEnabled:![isUploading boolValue]];
+        [_captureButton setEnabled:![isUploading boolValue]];
     }];
 
-    self.viewModel = captureViewModel;
-    self.animator = [IFTTTAnimator new];
+    _viewModel = captureViewModel;
+    _animator = [IFTTTAnimator new];
 
     // Capture button
     UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
-    self.captureButton = [[UIButton alloc] init];
-    [self.captureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.captureButton setTitle:@"Start" forState:UIControlStateNormal];
-    [self.captureButton setBackgroundColor:buttonColor];
-    self.captureButton.layer.masksToBounds = YES;
-    self.captureButton.layer.cornerRadius = 8.0f;
-    [self addSubview:self.captureButton];
+    _captureButton = [[UIButton alloc] init];
+    [_captureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_captureButton setTitle:@"Start" forState:UIControlStateNormal];
+    [_captureButton setBackgroundColor:buttonColor];
+    _captureButton.layer.masksToBounds = YES;
+    _captureButton.layer.cornerRadius = 8.0f;
+    [self addSubview:_captureButton];
 
-    [self.captureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_captureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).with.offset(-25);
         make.top.equalTo(self.mas_bottom).with.offset(-75);
         make.left.equalTo(self).with.offset(22);
@@ -53,68 +48,68 @@
     }];
 
     // Map view
-    self.mapView = [[MKMapView alloc] init];
-    self.mapView.layer.masksToBounds = NO;
-    self.mapView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.mapView.layer.shadowRadius = 2;
-    self.mapView.layer.shadowOpacity = 0.5;
-    self.mapView.delegate = self;
-    self.mapView.showsUserLocation = YES;
-    [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
-    self.mapView.zoomEnabled = NO;
-    self.mapView.scrollEnabled = NO;
-    self.mapView.userInteractionEnabled = NO;
-    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self addSubview:self.mapView];
+    _mapView = [[MKMapView alloc] init];
+    _mapView.layer.masksToBounds = NO;
+    _mapView.layer.shadowOffset = CGSizeMake(0, 1);
+    _mapView.layer.shadowRadius = 2;
+    _mapView.layer.shadowOpacity = 0.5;
+    _mapView.delegate = self;
+    _mapView.showsUserLocation = YES;
+    [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+    _mapView.zoomEnabled = NO;
+    _mapView.scrollEnabled = NO;
+    _mapView.userInteractionEnabled = NO;
+    _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self addSubview:_mapView];
 
-    [self.mapView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self);
         make.right.equalTo(self);
-        self.mapBottomConstraint = make.bottom.equalTo(self.mas_bottom).with.offset(-100);
+        _mapBottomConstraint = make.bottom.equalTo(self.mas_bottom).with.offset(-100);
     }];
 
     // Stats
-    self.statsTable = [[UITableView alloc] init];
-    [self insertSubview:self.statsTable belowSubview:self.mapView];
-    [self.statsTable mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.statsBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
+    _statsTable = [[UITableView alloc] init];
+    [self insertSubview:_statsTable belowSubview:_mapView];
+    [_statsTable mas_makeConstraints:^(MASConstraintMaker *make) {
+        _statsBottomConstraint = make.bottom.equalTo(_captureButton.mas_top).with.offset(-25);
         make.left.equalTo(self);
         make.right.equalTo(self);
-        self.statsTopConstraint = make.top.equalTo(self.captureButton.mas_top).with.offset(-85);
+        _statsTopConstraint = make.top.equalTo(_captureButton.mas_top).with.offset(-85);
     }];
 
     // Review elements
     int scrollHeight = 100;
-    self.reviewScrollView = [[UIScrollView alloc] init];
-    self.reviewScrollView.contentSize = CGSizeMake(self.frame.size.width * 4, self.reviewScrollView.frame.size.height);
-    self.reviewScrollView.pagingEnabled = YES;
-    self.reviewScrollView.showsHorizontalScrollIndicator = NO;
-    self.reviewScrollView.contentSize = CGSizeMake(self.reviewScrollView.contentSize.width, scrollHeight);
-    [self insertSubview:self.reviewScrollView belowSubview:self.mapView];
-    [self.reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.reviewTopConstraint = make.top.equalTo(@(self.frame.size.height));
-        self.reviewBottomConstraint = make.bottom.equalTo(@(self.frame.size.height)).with.offset(scrollHeight);
+    _reviewScrollView = [[UIScrollView alloc] init];
+    _reviewScrollView.contentSize = CGSizeMake(self.frame.size.width * 4, _reviewScrollView.frame.size.height);
+    _reviewScrollView.pagingEnabled = YES;
+    _reviewScrollView.showsHorizontalScrollIndicator = NO;
+    _reviewScrollView.contentSize = CGSizeMake(_reviewScrollView.contentSize.width, scrollHeight);
+    [self insertSubview:_reviewScrollView belowSubview:_mapView];
+    [_reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _reviewTopConstraint = make.top.equalTo(@(self.frame.size.height));
+        _reviewBottomConstraint = make.bottom.equalTo(@(self.frame.size.height)).with.offset(scrollHeight);
         make.left.equalTo(self);
         make.right.equalTo(self);
     }];
 
     double labelY = 20;
     double labelHeight = 21;
-    double ratingY = self.safetyReviewLabel.frame.origin.y + labelHeight + 20;
+    double ratingY = _safetyReviewLabel.frame.origin.y + labelHeight + 20;
     double ratingWidth = 100;
     double ratingX = (self.frame.size.width/2) - (ratingWidth/2);
     double ratingHeight = 30;
 
     // Guidance
-    self.reviewGuidanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, ratingY + ratingHeight + 10, self.frame.size.width, labelHeight)];
-    [self.reviewGuidanceLabel setText:@"Tap to review"];
-    [self.reviewGuidanceLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.reviewScrollView addSubview:self.reviewGuidanceLabel];
+    _reviewGuidanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, ratingY + ratingHeight + 10, self.frame.size.width, labelHeight)];
+    [_reviewGuidanceLabel setText:@"Tap to review"];
+    [_reviewGuidanceLabel setTextAlignment:NSTextAlignmentCenter];
+    [_reviewScrollView addSubview:_reviewGuidanceLabel];
 
     // Animate review guidance label with scroll
     IFTTTFrameAnimation *frameAnimation = [IFTTTFrameAnimation new];
-    frameAnimation.view = self.reviewGuidanceLabel;
+    frameAnimation.view = _reviewGuidanceLabel;
     [frameAnimation addKeyFrame:[[IFTTTAnimationKeyFrame alloc] initWithTime:0
                                                                     andFrame:CGRectMake(0,
                                                                                         ratingY + ratingHeight + 10,
@@ -127,70 +122,70 @@
                                                                     andFrame:CGRectMake(self.frame.size.width*2,
                                                                                         ratingY + ratingHeight + 10,
                                                                                         self.frame.size.width, labelHeight)]];
-    [self.animator addAnimation:frameAnimation];
+    [_animator addAnimation:frameAnimation];
 
-    [RACObserve(self.reviewScrollView, contentOffset) subscribeNext:^(NSValue *value) {
-        NSInteger x = floor(self.reviewScrollView.contentOffset.x);
-        [self.animator animate:x];
+    [RACObserve(_reviewScrollView, contentOffset) subscribeNext:^(NSValue *value) {
+        NSInteger x = floor(_reviewScrollView.contentOffset.x);
+        [_animator animate:x];
     }];
 
     // Safety rating
-    self.safetyReviewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, labelY, self.frame.size.width, labelHeight)];
-    [self.safetyReviewLabel setText:@"Safety Rating"];
-    [self.safetyReviewLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.reviewScrollView addSubview:self.safetyReviewLabel];
+    _safetyReviewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, labelY, self.frame.size.width, labelHeight)];
+    [_safetyReviewLabel setText:@"Safety Rating"];
+    [_safetyReviewLabel setTextAlignment:NSTextAlignmentCenter];
+    [_reviewScrollView addSubview:_safetyReviewLabel];
 
-    self.safetyRating = [[EDStarRating alloc] initWithFrame:CGRectMake(ratingX, ratingY, ratingWidth, ratingHeight)];
-    [self.safetyRating setEditable:YES];
-    [self.safetyRating setDisplayMode:EDStarRatingDisplayFull];
-    self.safetyRating.starImage = [UIImage imageNamed:@"star-template"];
-    self.safetyRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
-    [self.safetyRating setBackgroundColor:[UIColor clearColor]];
-    self.safetyRating.horizontalMargin = 5;
-    [self.safetyRating setDelegate:self];
-    RACChannelTo(self.safetyRating, rating) = RACChannelTo(self.viewModel, safetyRating);
-    [self.reviewScrollView addSubview:self.safetyRating];
+    _safetyRating = [[EDStarRating alloc] initWithFrame:CGRectMake(ratingX, ratingY, ratingWidth, ratingHeight)];
+    [_safetyRating setEditable:YES];
+    [_safetyRating setDisplayMode:EDStarRatingDisplayFull];
+    _safetyRating.starImage = [UIImage imageNamed:@"star-template"];
+    _safetyRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
+    [_safetyRating setBackgroundColor:[UIColor clearColor]];
+    _safetyRating.horizontalMargin = 5;
+    [_safetyRating setDelegate:self];
+    RACChannelTo(_safetyRating, rating) = RACChannelTo(_viewModel, safetyRating);
+    [_reviewScrollView addSubview:_safetyRating];
 
     // Environment rating
-    self.environmentReviewLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width, labelY, self.frame.size.width, labelHeight)];
-    [self.environmentReviewLabel setText:@"Environment Rating"];
-    [self.environmentReviewLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.reviewScrollView addSubview:self.environmentReviewLabel];
+    _environmentReviewLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width, labelY, self.frame.size.width, labelHeight)];
+    [_environmentReviewLabel setText:@"Environment Rating"];
+    [_environmentReviewLabel setTextAlignment:NSTextAlignmentCenter];
+    [_reviewScrollView addSubview:_environmentReviewLabel];
 
-    self.environmentRating = [[EDStarRating alloc] initWithFrame:CGRectMake(ratingX + self.frame.size.width, ratingY, ratingWidth, ratingHeight)];
-    [self.environmentRating setEditable:YES];
-    [self.environmentRating setDisplayMode:EDStarRatingDisplayFull];
-    self.environmentRating.starImage = [UIImage imageNamed:@"star-template"];
-    self.environmentRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
-    [self.environmentRating setBackgroundColor:[UIColor clearColor]];
-    self.environmentRating.horizontalMargin = 5;
-    [self.environmentRating setDelegate:self];
-    RACChannelTo(self.environmentRating, rating) = RACChannelTo(self.viewModel, environmentRating);
-    [self.reviewScrollView addSubview:self.environmentRating];
+    _environmentRating = [[EDStarRating alloc] initWithFrame:CGRectMake(ratingX + self.frame.size.width, ratingY, ratingWidth, ratingHeight)];
+    [_environmentRating setEditable:YES];
+    [_environmentRating setDisplayMode:EDStarRatingDisplayFull];
+    _environmentRating.starImage = [UIImage imageNamed:@"star-template"];
+    _environmentRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
+    [_environmentRating setBackgroundColor:[UIColor clearColor]];
+    _environmentRating.horizontalMargin = 5;
+    [_environmentRating setDelegate:self];
+    RACChannelTo(_environmentRating, rating) = RACChannelTo(_viewModel, environmentRating);
+    [_reviewScrollView addSubview:_environmentRating];
 
     // Difficulty rating
-    self.difficultyReviewLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*2, labelY, self.frame.size.width, labelHeight)];
-    [self.difficultyReviewLabel setText:@"Difficulty Rating"];
-    [self.difficultyReviewLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.reviewScrollView addSubview:self.difficultyReviewLabel];
+    _difficultyReviewLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*2, labelY, self.frame.size.width, labelHeight)];
+    [_difficultyReviewLabel setText:@"Difficulty Rating"];
+    [_difficultyReviewLabel setTextAlignment:NSTextAlignmentCenter];
+    [_reviewScrollView addSubview:_difficultyReviewLabel];
 
-    self.difficultyRating = [[EDStarRating alloc] initWithFrame:CGRectMake(ratingX + (self.frame.size.width * 2), ratingY, ratingWidth, ratingHeight)];
-    [self.difficultyRating setEditable:YES];
-    [self.difficultyRating setDisplayMode:EDStarRatingDisplayFull];
-    self.difficultyRating.starImage = [UIImage imageNamed:@"star-template"];
-    self.difficultyRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
-    [self.difficultyRating setBackgroundColor:[UIColor clearColor]];
-    self.difficultyRating.horizontalMargin = 5;
-    [self.difficultyRating setDelegate:self];
-    RACChannelTo(self.difficultyRating, rating) = RACChannelTo(self.viewModel, difficultyRating);
-    [self.reviewScrollView addSubview:self.difficultyRating];
+    _difficultyRating = [[EDStarRating alloc] initWithFrame:CGRectMake(ratingX + (self.frame.size.width * 2), ratingY, ratingWidth, ratingHeight)];
+    [_difficultyRating setEditable:YES];
+    [_difficultyRating setDisplayMode:EDStarRatingDisplayFull];
+    _difficultyRating.starImage = [UIImage imageNamed:@"star-template"];
+    _difficultyRating.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
+    [_difficultyRating setBackgroundColor:[UIColor clearColor]];
+    _difficultyRating.horizontalMargin = 5;
+    [_difficultyRating setDelegate:self];
+    RACChannelTo(_difficultyRating, rating) = RACChannelTo(_viewModel, difficultyRating);
+    [_reviewScrollView addSubview:_difficultyRating];
 
     // Review complete
-    self.reviewCompleteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*3, 40,
+    _reviewCompleteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width*3, 40,
                                                                          self.frame.size.width, labelHeight)];
-    [self.reviewCompleteLabel setText:@"Review completed! Please submit"];
-    [self.reviewCompleteLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.reviewScrollView addSubview:self.reviewCompleteLabel];
+    [_reviewCompleteLabel setText:@"Review completed! Please submit"];
+    [_reviewCompleteLabel setTextAlignment:NSTextAlignmentCenter];
+    [_reviewScrollView addSubview:_reviewCompleteLabel];
 
     return self;
 }
@@ -198,14 +193,14 @@
 - (void)transitionToActive
 {
     // Move map and button
-    [self.mapBottomConstraint uninstall];
-    [self.mapView mas_updateConstraints:^(MASConstraintMaker *make) {
-        self.mapBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-self.frame.size.height/3.7);
+    [_mapBottomConstraint uninstall];
+    [_mapView mas_updateConstraints:^(MASConstraintMaker *make) {
+        _mapBottomConstraint = make.bottom.equalTo(_captureButton.mas_top).with.offset(-self.frame.size.height/3.7);
     }];
 
-    [self.statsTopConstraint uninstall];
-    [self.statsTable mas_updateConstraints:^(MASConstraintMaker *make) {
-        self.statsTopConstraint = make.top.equalTo(self.mapView.mas_bottom);
+    [_statsTopConstraint uninstall];
+    [_statsTable mas_updateConstraints:^(MASConstraintMaker *make) {
+        _statsTopConstraint = make.top.equalTo(_mapView.mas_bottom);
     }];
 
     UIColor *stopColor = [UIColor colorWithRed:243.0/255.0 green:60.0/255.0 blue:60.0/255.0 alpha:1.0];
@@ -213,26 +208,26 @@
                           delay:0.0
                         options: UIViewAnimationOptionCurveLinear
                      animations:^{
-                         [self.mapView layoutIfNeeded];
-                         [self.statsTable layoutIfNeeded];
-                         [self.captureButton setTitle:@"Stop" forState:UIControlStateNormal];
-                         [self.captureButton setBackgroundColor:stopColor];
-                         [self.statsTable reloadData];
+                         [_mapView layoutIfNeeded];
+                         [_statsTable layoutIfNeeded];
+                         [_captureButton setTitle:@"Stop" forState:UIControlStateNormal];
+                         [_captureButton setBackgroundColor:stopColor];
+                         [_statsTable reloadData];
                      }
                      completion:^(BOOL finished){
                          // Adjusting map can stop tracking
-                         [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+                         [_mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
                      }];
 }
 
 - (void)transitionToComplete
 {
     // Hide user location
-    [self.mapView setShowsUserLocation:NO];
+    [_mapView setShowsUserLocation:NO];
 
     // Calculate map area in which route is held
     MKMapRect zoomRect = MKMapRectNull;
-    for (JCRoutePointViewModel *point in self.viewModel.points)
+    for (JCRoutePointViewModel *point in _viewModel.points)
     {
         MKMapPoint annotationPoint = MKMapPointForCoordinate(point.location.coordinate);
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 150.0, 150.0);
@@ -245,29 +240,29 @@
     zoomRect = MKMapRectUnion(zoomRect, topRect);
 
     // Update positions
-    [self.mapBottomConstraint uninstall];
-    [self.mapView mas_updateConstraints:^(MASConstraintMaker *make) {
-        self.mapBottomConstraint = make.bottom.equalTo(self.captureButton.mas_top).with.offset(-self.frame.size.height/2.5);
+    [_mapBottomConstraint uninstall];
+    [_mapView mas_updateConstraints:^(MASConstraintMaker *make) {
+        _mapBottomConstraint = make.bottom.equalTo(_captureButton.mas_top).with.offset(-self.frame.size.height/2.5);
     }];
 
-    double statsHeight = self.statsTable.frame.size.height;
-    double tableOffset = statsHeight - (2 * [self.statsTable rowHeight]);
-    [self.statsTopConstraint uninstall];
-    [self.statsBottomConstraint uninstall];
-    [self.statsTable mas_updateConstraints:^(MASConstraintMaker *make) {
-        self.statsTopConstraint = make.top.equalTo(self.mapView.mas_bottom).with.offset(-(statsHeight/3));
-        self.statsBottomConstraint = make.bottom.equalTo(self.mapView.mas_bottom).with.offset(2*(statsHeight/3));
+    double statsHeight = _statsTable.frame.size.height;
+    double tableOffset = statsHeight - (2 * [_statsTable rowHeight]);
+    [_statsTopConstraint uninstall];
+    [_statsBottomConstraint uninstall];
+    [_statsTable mas_updateConstraints:^(MASConstraintMaker *make) {
+        _statsTopConstraint = make.top.equalTo(_mapView.mas_bottom).with.offset(-(statsHeight/3));
+        _statsBottomConstraint = make.bottom.equalTo(_mapView.mas_bottom).with.offset(2*(statsHeight/3));
     }];
 
-    double statsBottom = 200 - tableOffset + self.statsTable.frame.size.height;
-    self.reviewScrollView.frame = CGRectMake(0, statsBottom + 25,
-                                             self.frame.size.width, self.reviewScrollView.frame.size.height);
+    double statsBottom = 200 - tableOffset + _statsTable.frame.size.height;
+    _reviewScrollView.frame = CGRectMake(0, statsBottom + 25,
+                                             self.frame.size.width, _reviewScrollView.frame.size.height);
 
-    [self.reviewTopConstraint uninstall];
-    [self.reviewBottomConstraint uninstall];
-    [self.reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.reviewTopConstraint = make.top.equalTo(self.statsTable.mas_bottom).with.offset(10);
-        self.reviewBottomConstraint = make.bottom.equalTo(self.statsTable.mas_bottom).with.offset(110);
+    [_reviewTopConstraint uninstall];
+    [_reviewBottomConstraint uninstall];
+    [_reviewScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _reviewTopConstraint = make.top.equalTo(_statsTable.mas_bottom).with.offset(10);
+        _reviewBottomConstraint = make.bottom.equalTo(_statsTable.mas_bottom).with.offset(110);
     }];
 
     // Slide stats and review view up
@@ -276,86 +271,86 @@
                         options: UIViewAnimationOptionCurveLinear
                      animations:^{
                          // Shrink map, hide current speed
-                         [self.mapView layoutIfNeeded];
-                         [self.statsTable layoutIfNeeded];
+                         [_mapView layoutIfNeeded];
+                         [_statsTable layoutIfNeeded];
 
                          // Show review scrollview
-                         [self.reviewScrollView layoutIfNeeded];
+                         [_reviewScrollView layoutIfNeeded];
 
                          // Submit button
-                         [self.captureButton setTitle:@"Submit" forState:UIControlStateNormal];
-                         [self.captureButton setBackgroundColor:self.tintColor];
+                         [_captureButton setTitle:@"Submit" forState:UIControlStateNormal];
+                         [_captureButton setBackgroundColor:self.tintColor];
                      }
                      completion:^(BOOL finished){
                          // Show entire route
-                         [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:NO];
-                         [self.mapView setVisibleMapRect:zoomRect animated:YES];
+                         [_mapView setUserTrackingMode:MKUserTrackingModeNone animated:NO];
+                         [_mapView setVisibleMapRect:zoomRect animated:YES];
                      }];
 }
 
 -(void)showUploadIndicator:(BOOL)show
 {
     if (!show) {
-        if (self.uploadView) {
-            [self.uploadView removeFromSuperview];
-            self.uploadView = nil;
+        if (_uploadView) {
+            [_uploadView removeFromSuperview];
+            _uploadView = nil;
 
-            [self.uploadIndicatorView removeFromSuperview];
-            self.uploadIndicatorView = nil;
+            [_uploadIndicatorView removeFromSuperview];
+            _uploadIndicatorView = nil;
         }
         return;
     }
 
-    if (self.uploadView && self.uploadIndicatorView) {
+    if (_uploadView && _uploadIndicatorView) {
         return;
     }
 
-    self.uploadView = [UIView new];
-    [self.uploadView setBackgroundColor:[UIColor whiteColor]];
+    _uploadView = [UIView new];
+    [_uploadView setBackgroundColor:[UIColor whiteColor]];
 
-    self.uploadIndicatorView = [UIActivityIndicatorView new];
-    self.uploadIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [self.uploadIndicatorView startAnimating];
+    _uploadIndicatorView = [UIActivityIndicatorView new];
+    _uploadIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [_uploadIndicatorView startAnimating];
 
-    [self insertSubview:self.uploadView aboveSubview:self.reviewScrollView];
-    [self.uploadView addSubview:self.uploadIndicatorView];
+    [self insertSubview:_uploadView aboveSubview:_reviewScrollView];
+    [_uploadView addSubview:_uploadIndicatorView];
 
-    [self.uploadView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.statsTable.mas_bottom);
-        make.bottom.equalTo(self.captureButton.mas_top).with.offset(-25);
+    [_uploadView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_statsTable.mas_bottom);
+        make.bottom.equalTo(_captureButton.mas_top).with.offset(-25);
         make.right.equalTo(self);
         make.left.equalTo(self);
     }];
 
-    [self.uploadIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.uploadView);
-        make.bottom.equalTo(self.captureButton.mas_top).with.offset(-50);
+    [_uploadIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_uploadView);
+        make.bottom.equalTo(_captureButton.mas_top).with.offset(-50);
     }];
         
 }
 
 - (void)updateRouteLine
 {
-    NSUInteger numPoints = [self.viewModel.points count];
+    NSUInteger numPoints = [_viewModel.points count];
 
     if (numPoints < 2) {
         return;
     }
 
-    JCRoutePointViewModel *point = self.viewModel.points[numPoints-1];
+    JCRoutePointViewModel *point = _viewModel.points[numPoints-1];
     CLLocationCoordinate2D coord = point.location.coordinate;
 
-    JCRoutePointViewModel *previousPoint = self.viewModel.points[numPoints-2];
+    JCRoutePointViewModel *previousPoint = _viewModel.points[numPoints-2];
     CLLocationCoordinate2D previousCoord = previousPoint.location.coordinate;
 
     MKMapPoint *pointsArray = malloc(sizeof(CLLocationCoordinate2D)*2);
     pointsArray[0]= MKMapPointForCoordinate(previousCoord);
     pointsArray[1]= MKMapPointForCoordinate(coord);
 
-    routeLine = [MKPolyline polylineWithPoints:pointsArray count:2];
+    _routeLine = [MKPolyline polylineWithPoints:pointsArray count:2];
     free(pointsArray);
 
-    [[self mapView] addOverlay:routeLine];
+    [[self mapView] addOverlay:_routeLine];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
@@ -370,24 +365,24 @@
 {
     // Ensure mapview is zoomed in to a reasonable amount when user location is found
     // (seems to be an issue with mapView userTrackingEnabled where this sometimes doesn't happen)
-    MKCoordinateSpan zoomSpan = self.mapView.region.span;
+    MKCoordinateSpan zoomSpan = _mapView.region.span;
     if (zoomSpan.latitudeDelta > 1 || zoomSpan.longitudeDelta > 1) {
         // 1 might be a bit large, but delta is typically initially ~50-55
         CLLocationCoordinate2D loc = [userLocation coordinate];
         MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
-        [self.mapView setRegion:region animated:YES];
+        [_mapView setRegion:region animated:YES];
     }
 }
 
 - (void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
 {
     // Show next review
-    CGRect nextReviewRect = CGRectMake(self.reviewScrollView.contentOffset.x,
-                                       self.reviewScrollView.contentOffset.y,
-                                       self.reviewScrollView.bounds.size.width,
-                                       self.reviewScrollView.contentOffset.y + self.reviewScrollView.bounds.size.height);
-    nextReviewRect.origin.x += self.reviewScrollView.frame.size.width;
-    [self.reviewScrollView scrollRectToVisible:nextReviewRect animated:YES];
+    CGRect nextReviewRect = CGRectMake(_reviewScrollView.contentOffset.x,
+                                       _reviewScrollView.contentOffset.y,
+                                       _reviewScrollView.bounds.size.width,
+                                       _reviewScrollView.contentOffset.y + _reviewScrollView.bounds.size.height);
+    nextReviewRect.origin.x += _reviewScrollView.frame.size.width;
+    [_reviewScrollView scrollRectToVisible:nextReviewRect animated:YES];
 }
 
 @end
