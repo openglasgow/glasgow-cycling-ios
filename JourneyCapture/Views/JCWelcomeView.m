@@ -9,7 +9,6 @@
 #import "JCWelcomeView.h"
 
 @implementation JCWelcomeView
-@synthesize signupButton, signinButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -18,38 +17,34 @@
         return nil;
     }
     
-    // Buttons
-    self.signinButton = [[UIButton alloc] init];
-    [self.signinButton setTitle:@"Sign In" forState:UIControlStateNormal];
-    [self.signinButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    [self addSubview:self.signinButton];
-    
-    self.signupButton = [[UIButton alloc] init];
-    [self.signupButton setTitle:@"Sign Up" forState:UIControlStateNormal];
-    [self.signupButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    [self addSubview:self.signupButton];
-    
-    // Positioning
-    [self.signinButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.bottom.equalTo(self).with.offset(-200);
-    }];
-    
-    [self.signupButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.bottom.equalTo(self).with.offset(-100);
-    }];
+    _signinButton = [UIButton new];
+    _signinButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_signinButton setTitle:@"Sign In" forState:UIControlStateNormal];
+    [_signinButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    [self addSubview:_signinButton];
+
+    _signupButton = [UIButton new];
+    _signupButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_signupButton setTitle:@"Sign Up" forState:UIControlStateNormal];
+    [_signupButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    [self addSubview:_signupButton];
     
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+#pragma mark - UIView
+
+- (void)layoutSubviews
 {
-    // Drawing code
+    [_signinButton autoRemoveConstraintsAffectingView];
+    [_signinButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-200];
+    [_signinButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+
+    [_signupButton autoRemoveConstraintsAffectingView];
+    [_signupButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-100];
+    [_signupButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+
+    [super layoutSubviews];
 }
-*/
 
 @end

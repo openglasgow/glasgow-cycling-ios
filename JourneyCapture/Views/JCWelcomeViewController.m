@@ -27,6 +27,8 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];

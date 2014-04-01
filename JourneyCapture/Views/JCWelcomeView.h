@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface JCWelcomeView : UIView
-@property (strong, nonatomic) UIButton *signupButton;
 @property (strong, nonatomic) UIButton *signinButton;
+@property (strong, nonatomic) UIButton *signupButton;
 @end
