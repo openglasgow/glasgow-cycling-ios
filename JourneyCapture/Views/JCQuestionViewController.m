@@ -71,7 +71,9 @@
 {
     [super viewDidLoad];
     [self.navigationItem setTitle:_questionModel.title];
-    [self.navigationItem setHidesBackButton:YES];
+    if (_questionIndex == 0) {
+        [self.navigationItem setHidesBackButton:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
