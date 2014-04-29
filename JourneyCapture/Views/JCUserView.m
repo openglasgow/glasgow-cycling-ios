@@ -88,7 +88,7 @@
     _mapView.translatesAutoresizingMaskIntoConstraints = NO;
     [_scrollView addSubview:_mapView];
     
-    UIImage *captureImage = [UIImage imageNamed:@"Capture Icon"];
+    UIImage *captureImage = [UIImage imageNamed:@"capture-icon"];
     _captureImageView = [[UIImageView alloc] initWithImage:captureImage];
     _captureImageView.translatesAutoresizingMaskIntoConstraints = NO;
     _captureImageView.layer.masksToBounds = YES;

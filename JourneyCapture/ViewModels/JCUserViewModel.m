@@ -17,6 +17,14 @@
     if (!self) {
         return nil;
     }
+    _menuItems = @[@"My Routes", @"Nearby Routes", @"Glasgow Cycling Map", @"Something Else"];
+    _menuItemImages = @[
+                        [UIImage imageNamed:@"my-routes-icon"],
+                        [UIImage imageNamed:@"nearby-routes-icon"],
+                        [UIImage imageNamed:@"cycling-map-icon"],
+                        [UIImage imageNamed:@"nearby-routes-icon"]
+//                        [UIImage imageNamed:@""]
+                        ];
     return self;
 }
 
@@ -44,7 +52,6 @@
                                               [self setLastName:responseObject[@"last_name"]];
 
                                               NSDictionary *stats = responseObject[@"month"];
-                                              [self setFavouriteRouteName:stats[@"route"]];
                                               [self setSecondsThisMonth:stats[@"seconds"]];
                                               [self setKmThisMonth:stats[@"km"]];
                                               [self setRoutesThisMonth:stats[@"total"]];

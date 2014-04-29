@@ -14,6 +14,7 @@
 #import "JCRouteCaptureViewController.h"
 #import "JCNotificationManager.h"
 #import "MBProgressHUD.h"
+#import "JCMenuTableViewCell.h"
 
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -232,12 +233,15 @@
 #pragma mark - UITableViewDataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MenuItem"];
-    if (!cell) {
-        NSLog(@"Making a cell");
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MenuItem"];
-    }
+    // Every cell will be instantiated as it's in a tableview, no point trying to dequeue
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCMenuCell" owner:self options:nil];
+    JCMenuTableViewCell *cell = [topLevelObjects objectAtIndex:0];
     
+    NSString *title = _viewModel.menuItems[indexPath.row];
+    [cell.titleLabel setText:title];
+    
+    UIImage *icon = _viewModel.menuItemImages[indexPath.row];
+    [cell.iconImageView setImage:icon];
     return cell;
 }
 

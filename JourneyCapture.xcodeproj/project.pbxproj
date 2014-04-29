@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
+		12F8E6F5190FEFC900AA0216 /* JCMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F8E6F4190FEFC900AA0216 /* JCMenuCell.xib */; };
+		12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F8E6F7190FF0FB00AA0216 /* JCMenuTableViewCell.m */; };
 		8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8303E2D118C61C5700215760 /* JCQuestionViewModel.m */; };
 		8303E2D518C61E2100215760 /* JCQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8303E2D418C61E2100215760 /* JCQuestionViewController.m */; };
 		8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8303E2D718C62C2300215760 /* JCQuestionListViewModel.m */; };
@@ -73,6 +75,9 @@
 		12A9C26B190FAB8C004BB4B5 /* UIColor+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Application.h"; sourceTree = "<group>"; };
 		12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Application.m"; sourceTree = "<group>"; };
 		12E8303FB46D4087967CEECE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		12F8E6F4190FEFC900AA0216 /* JCMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCMenuCell.xib; sourceTree = "<group>"; };
+		12F8E6F6190FF0FB00AA0216 /* JCMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCMenuTableViewCell.h; sourceTree = "<group>"; };
+		12F8E6F7190FF0FB00AA0216 /* JCMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCMenuTableViewCell.m; sourceTree = "<group>"; };
 		8303E2D018C61C5700215760 /* JCQuestionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionViewModel.h; sourceTree = "<group>"; };
 		8303E2D118C61C5700215760 /* JCQuestionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionViewModel.m; sourceTree = "<group>"; };
 		8303E2D318C61E2100215760 /* JCQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionViewController.h; sourceTree = "<group>"; };
@@ -294,6 +299,9 @@
 				8341421418BF55C20020CF97 /* JCUserView.m */,
 				8341421018BF55B70020CF97 /* JCUserViewController.h */,
 				8341421118BF55B70020CF97 /* JCUserViewController.m */,
+				12F8E6F4190FEFC900AA0216 /* JCMenuCell.xib */,
+				12F8E6F6190FF0FB00AA0216 /* JCMenuTableViewCell.h */,
+				12F8E6F7190FF0FB00AA0216 /* JCMenuTableViewCell.m */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -574,6 +582,7 @@
 			files = (
 				831EDB5418BCBB33001468E4 /* InfoPlist.strings in Resources */,
 				83DC969918D0762800E66C26 /* Settings.bundle in Resources */,
+				12F8E6F5190FEFC900AA0216 /* JCMenuCell.xib in Resources */,
 				831EDB5C18BCBB34001468E4 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -648,6 +657,7 @@
 				83BD285E18CA04C50042F1E3 /* JCRouteViewModel.m in Sources */,
 				83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */,
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
+				12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */,
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
