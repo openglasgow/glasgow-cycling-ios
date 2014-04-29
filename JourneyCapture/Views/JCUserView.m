@@ -85,6 +85,7 @@
     [self addSubview:_captureImageView];
     
     _captureButton = [UIButton new];
+    _captureButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_captureButton];
     
     // Menu area
@@ -129,12 +130,12 @@
     [_captureImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView withOffset:43];
     [_captureImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView withOffset:-43];
     [_captureImageView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionHeight ofView:_captureImageView];
-//
-//    [_captureButton autoRemoveConstraintsAffectingView];
-//    [_captureButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView];
-//    [_captureButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_mapView];
-//    [_captureButton autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:_mapView];
-//    [_captureButton autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:_mapView];
+
+    [_captureButton autoRemoveConstraintsAffectingView];
+    [_captureButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView];
+    [_captureButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_mapView];
+    [_captureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView];
+    [_captureButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_mapView];
     
     // Menu
 
