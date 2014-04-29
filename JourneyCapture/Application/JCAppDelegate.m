@@ -13,6 +13,7 @@
 #import "JCAPIManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "Flurry.h"
+#import "UIImage+color.h"
 
 @implementation JCAppDelegate
 
@@ -48,10 +49,18 @@
     [self.window setRootViewController:navController];
     
     
-    //Nav Bar color
+    // Nav Bar customisation
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [navController.navigationBar setBarTintColor:[UIColor colorWithRed:0.0f/255.0f green:224.0f/255.0f blue:184.0f/255.0f alpha:0.7]];
+    [navController.navigationBar setBarTintColor:[UIColor jc_blueColor]];
+    [navController.navigationBar setTranslucent:NO];
     navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    
+    
+    [navController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor jc_blueColor]]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
+    
+    [navController.navigationBar setShadowImage:[UIImage new]];
     
     [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0]];
     navController.navigationBar.tintColor = [UIColor whiteColor];

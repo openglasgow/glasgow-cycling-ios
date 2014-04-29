@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSNumber *kmThisMonth;
 @property (strong, nonatomic) UIImage *profilePic;
 
+-(RACSignal *)fullNameSignal;
 -(RACSignal *)loadDetails;
 @end

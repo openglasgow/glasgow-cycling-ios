@@ -11,7 +11,6 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCUserViewModel
-@synthesize firstName, lastName, favouriteRouteName, routesThisMonth, secondsThisMonth, kmThisMonth;
 - (id)init
 {
     self = [super init];
@@ -19,6 +18,15 @@
         return nil;
     }
     return self;
+}
+
+-(RACSignal *)fullNameSignal
+{
+    RACSignal *firstNameSignal = RACObserve(self, firstName);
+    RACSignal *lastNameSignal = RACObserve(self, lastName);
+    return [[RACSignal combineLatest:@[firstNameSignal, lastNameSignal]] reduceEach:^id{
+        return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
+    }];
 }
 
 -(RACSignal *)loadDetails
@@ -47,7 +55,7 @@
                                                   UIImage *decodedProfilePic = [UIImage imageWithData:picData];
                                                   [self setProfilePic:decodedProfilePic];
                                               } else {
-                                                  [self setProfilePic:[UIImage imageNamed:@"default_profile_pic"]];
+                                                  [self setProfilePic:[UIImage imageNamed:@"profile-pic"]];
                                               }
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

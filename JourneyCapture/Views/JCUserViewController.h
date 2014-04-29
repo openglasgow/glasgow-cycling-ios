@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JCLocationManager.h"
-#import "IASKAppSettingsViewController.h"
 @class JCUserViewModel, JCUserView;
 
-@interface JCUserViewController : UIViewController <JCLocationManagerDelegate, IASKSettingsDelegate>
+@interface JCUserViewController : UIViewController <JCLocationManagerDelegate>
 @property (strong, nonatomic) JCUserViewModel *viewModel;
 @property (strong, nonatomic) JCUserView *userView;
 @property (strong, nonatomic) MKMapView *mapView;
@@ -21,5 +20,4 @@
 @property (readwrite, nonatomic) BOOL updateOnAppear;
 
 - (void)update;
-- (void)logout;
 @end
