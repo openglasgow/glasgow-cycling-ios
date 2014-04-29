@@ -16,6 +16,9 @@
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 
+// Pull down area (weather)
+@property (strong, nonatomic) UIView *pulldownBackgroundView;
+
 // Profile area
 @property (strong, nonatomic) UIView *profileBackgroundView;
 @property (strong, nonatomic) UIImageView *profileImageView;

@@ -160,8 +160,8 @@
     [super viewWillLayoutSubviews];
 
     [_userView autoRemoveConstraintsAffectingView];
-    [_userView autoPinToTopLayoutGuideOfViewController:self withInset:0];
-    [_userView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+//    [_userView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    [_userView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];// excludingEdge:ALEdgeTop];
 
     [self.view layoutSubviews];
 }

@@ -25,6 +25,12 @@
     _scrollView = [UIScrollView new];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_scrollView];
+    
+    // Pulldown area
+    _pulldownBackgroundView = [UIView new];
+    _pulldownBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+    _pulldownBackgroundView.backgroundColor = [UIColor jc_lightBlueColor];
+    [_scrollView addSubview:_pulldownBackgroundView];
 
     // Profile
     _profileBackgroundView = [UIView new];
@@ -109,9 +115,17 @@
     [_scrollView autoRemoveConstraintsAffectingView];
     [_scrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
     
+    // Pulldown area
+    [_pulldownBackgroundView autoRemoveConstraintsAffectingView];
+    [_pulldownBackgroundView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
+    [_pulldownBackgroundView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
+    [_pulldownBackgroundView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_profileBackgroundView];
+    [_pulldownBackgroundView autoSetDimension:ALDimensionHeight toSize:500.0f];
+    
     // Profile
     [_profileBackgroundView autoRemoveConstraintsAffectingView];
     [_profileBackgroundView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
+    [_profileBackgroundView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView];
     [_profileBackgroundView autoSetDimension:ALDimensionHeight toSize:213.0f];
     [_profileBackgroundView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     
