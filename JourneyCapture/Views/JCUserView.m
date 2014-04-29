@@ -120,7 +120,7 @@
     [_pulldownBackgroundView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
     [_pulldownBackgroundView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
     [_pulldownBackgroundView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_profileBackgroundView];
-    [_pulldownBackgroundView autoSetDimension:ALDimensionHeight toSize:500.0f];
+    [_pulldownBackgroundView autoSetDimension:ALDimensionHeight toSize:1000.0f];
     
     // Profile
     [_profileBackgroundView autoRemoveConstraintsAffectingView];
