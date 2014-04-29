@@ -18,16 +18,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //Flurry Analytics Setup - Crash reporting handled by Hockey App
-    [Flurry setCrashReportingEnabled:NO];
-    [Flurry startSession:@"DDFSMM7RXYZNTB298YW3"];
+    #if !TARGET_IPHONE_SIMULATOR
+        //Flurry Analytics Setup - Crash reporting handled by Hockey App
+        [Flurry setCrashReportingEnabled:NO];
+        [Flurry startSession:@"DDFSMM7RXYZNTB298YW3"];
 
-    //Hockey App Setup
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"
-                                                           delegate:self];
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
+        //Hockey App Setup
+        [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"
+                                                               delegate:self];
+        [[BITHockeyManager sharedHockeyManager] startManager];
+        [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+        [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
+    #endif
     
     // Present correct VC
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
