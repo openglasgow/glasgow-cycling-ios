@@ -111,11 +111,11 @@
     [_profileImageView autoSetDimensionsToSize:CGSizeMake(112, 112)];
     
     [_distanceThisMonthLabel autoRemoveConstraintsAffectingView];
-    [_distanceThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileImageView withOffset:10];
+    [_distanceThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileImageView withOffset:5];
     [_distanceThisMonthLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
 
     [_timeThisMonthLabel autoRemoveConstraintsAffectingView];
-    [_timeThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_distanceThisMonthLabel withOffset:10];
+    [_timeThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_distanceThisMonthLabel withOffset:5];
     [_timeThisMonthLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
     
     // Capture
