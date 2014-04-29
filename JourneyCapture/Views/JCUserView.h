@@ -14,6 +14,8 @@
 @interface JCUserView : UIView
 @property (strong, nonatomic) JCUserViewModel *viewModel;
 
+@property (strong, nonatomic) UIScrollView *scrollView;
+
 // Profile area
 @property (strong, nonatomic) UIView *profileBackgroundView;
 @property (strong, nonatomic) UIImageView *profileImageView;

@@ -20,12 +20,17 @@
     }
     _viewModel = userViewModel;
     self.backgroundColor = [UIColor whiteColor];
+    
+    // Scroll
+    _scrollView = [UIScrollView new];
+    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_scrollView];
 
     // Profile
     _profileBackgroundView = [UIView new];
     _profileBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
     _profileBackgroundView.backgroundColor = [UIColor jc_blueColor];
-    [self addSubview:_profileBackgroundView];
+    [_scrollView addSubview:_profileBackgroundView];
     
     _profileImageView = [UIImageView new];
     _profileImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -36,7 +41,7 @@
     _profileImageView.layer.cornerRadius = 56.0f;
     _profileImageView.layer.borderWidth = 4.0f;
     _profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    [self addSubview:_profileImageView];
+    [_scrollView addSubview:_profileImageView];
     
     // Profile stats
     UIFont *statsFont = [UIFont fontWithName:@"Helvetica Neue" size:12.0];
@@ -54,7 +59,7 @@
         int minutes = (seconds - (hours * 3600)) / 60;
         return [NSString stringWithFormat:@"%d:%02d hours this month", hours, minutes];
     }] subscribe:secondsLabelChannel];
-    [self addSubview:_timeThisMonthLabel];
+    [_scrollView addSubview:_timeThisMonthLabel];
 
     // Monthly distance
     _distanceThisMonthLabel = [UILabel new];
@@ -66,7 +71,7 @@
     [[distanceModelChannel map:^(NSNumber *kmThisMonth){
         return [NSString stringWithFormat:@"%.02f km this month", [kmThisMonth doubleValue]];
     }] subscribe:distanceLabelChannel];
-    [self addSubview:_distanceThisMonthLabel];
+    [_scrollView addSubview:_distanceThisMonthLabel];
 
     // Capture area
     _mapView = [MKMapView new];
@@ -75,23 +80,23 @@
     _mapView.userInteractionEnabled = NO;
     _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _mapView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_mapView];
+    [_scrollView addSubview:_mapView];
     
     UIImage *captureImage = [UIImage imageNamed:@"Capture Icon"];
     _captureImageView = [[UIImageView alloc] initWithImage:captureImage];
     _captureImageView.translatesAutoresizingMaskIntoConstraints = NO;
     _captureImageView.layer.masksToBounds = YES;
     _captureImageView.layer.cornerRadius = 21.5f;
-    [self addSubview:_captureImageView];
+    [_scrollView addSubview:_captureImageView];
     
     _captureButton = [UIButton new];
     _captureButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_captureButton];
+    [_scrollView addSubview:_captureButton];
     
     // Menu area
     _menuTableView = [UITableView new];
     _menuTableView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_menuTableView];
+    [_scrollView addSubview:_menuTableView];
 
     return self;
 }
@@ -100,13 +105,18 @@
 
 - (void)layoutSubviews
 {
+    // Scroll
+    [_scrollView autoRemoveConstraintsAffectingView];
+    [_scrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    
     // Profile
     [_profileBackgroundView autoRemoveConstraintsAffectingView];
     [_profileBackgroundView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
     [_profileBackgroundView autoSetDimension:ALDimensionHeight toSize:213.0f];
+    [_profileBackgroundView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     
     [_profileImageView autoRemoveConstraintsAffectingView];
-    [_profileImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:28];
+    [_profileImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView withOffset:28];
     [_profileImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
     [_profileImageView autoSetDimensionsToSize:CGSizeMake(112, 112)];
     
@@ -121,8 +131,8 @@
     // Capture
     [_mapView autoRemoveConstraintsAffectingView];
     [_mapView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileBackgroundView];
-    [_mapView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
-    [_mapView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
+    [_mapView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
+    [_mapView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
     [_mapView autoSetDimension:ALDimensionHeight toSize:128];
     
     [_captureImageView autoRemoveConstraintsAffectingView];
@@ -141,6 +151,7 @@
     [_menuTableView autoRemoveConstraintsAffectingView];
     [_menuTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
     [_menuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView];
+    [_menuTableView autoSetDimension:ALDimensionHeight toSize:240];
 
     [super layoutSubviews];
 }
