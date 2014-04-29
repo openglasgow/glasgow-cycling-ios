@@ -92,7 +92,7 @@
     _captureImageView = [[UIImageView alloc] initWithImage:captureImage];
     _captureImageView.translatesAutoresizingMaskIntoConstraints = NO;
     _captureImageView.layer.masksToBounds = YES;
-    _captureImageView.layer.cornerRadius = 21.5f;
+    _captureImageView.layer.cornerRadius = 33.75f;
     [_scrollView addSubview:_captureImageView];
     
     _captureButton = [UIButton new];
@@ -151,8 +151,8 @@
     
     [_captureImageView autoRemoveConstraintsAffectingView];
     [_captureImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_captureImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView withOffset:43];
-    [_captureImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView withOffset:-43];
+    [_captureImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView withOffset:30];
+    [_captureImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView withOffset:-30];
     [_captureImageView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionHeight ofView:_captureImageView];
 
     [_captureButton autoRemoveConstraintsAffectingView];
