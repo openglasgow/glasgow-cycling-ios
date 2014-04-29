@@ -89,9 +89,9 @@
     [self addSubview:_captureButton];
     
     // Menu area
-//    _menuTableView = [UITableView new];
-//    _menuTableView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self addSubview:_menuTableView];
+    _menuTableView = [UITableView new];
+    _menuTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_menuTableView];
 
     return self;
 }
@@ -138,6 +138,9 @@
     [_captureButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_mapView];
     
     // Menu
+    [_menuTableView autoRemoveConstraintsAffectingView];
+    [_menuTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [_menuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView];
 
     [super layoutSubviews];
 }
