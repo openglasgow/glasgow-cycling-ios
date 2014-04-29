@@ -51,9 +51,9 @@
     // User details
     _userView = [[JCUserView alloc] initWithViewModel:_viewModel];
     _userView.translatesAutoresizingMaskIntoConstraints = NO;
+    _userView.menuTableView.delegate = self;
+    _userView.menuTableView.dataSource = self;
     [self.view addSubview:_userView];
-
-    // Background map image view
 
 //    // Buttons
 //    UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
@@ -209,7 +209,37 @@
     CLLocation *location = locations[0];
     CLLocationCoordinate2D loc = location.coordinate;
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 2500, 2500);
-    [_mapView setRegion:region animated:YES];
+    [_userView.mapView setRegion:region animated:YES];
 }
+
+#pragma mark - UITableViewDelegate
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 4;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0f;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Selected a row");
+}
+
+#pragma mark - UITableViewDataSource
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MenuItem"];
+    if (!cell) {
+        NSLog(@"Making a cell");
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MenuItem"];
+    }
+    
+    return cell;
+}
+
 
 @end
