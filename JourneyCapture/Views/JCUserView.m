@@ -8,6 +8,7 @@
 
 #import "JCUserView.h"
 #import "JCUserViewModel.h"
+#import "JCScrollView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation JCUserView
@@ -22,8 +23,9 @@
     self.backgroundColor = [UIColor whiteColor];
     
     // Scroll
-    _scrollView = [UIScrollView new];
+    _scrollView = [JCScrollView new];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    _scrollView.canCancelContentTouches = YES;
     [self addSubview:_scrollView];
     
     // Pulldown area
