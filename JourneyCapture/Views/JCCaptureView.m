@@ -20,6 +20,8 @@
         return nil;
     }
     
+    _viewModel = captureViewModel;
+    
     // Map view
     _mapView = [MKMapView new];
     _mapView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -40,7 +42,7 @@
     [_captureButton setTitle:@"Finish Route" forState:UIControlStateNormal];
     [_captureButton setBackgroundColor:buttonColor];
     _captureButton.layer.masksToBounds = YES;
-    _captureButton.layer.cornerRadius = 8.0f;
+    _captureButton.layer.cornerRadius = 4.0f;
     [self addSubview:_captureButton];
 
     // Stats
@@ -102,7 +104,11 @@
     // Ensure mapview is zoomed in to a reasonable amount when user location is found
     // (seems to be an issue with mapView userTrackingEnabled where this sometimes doesn't happen)
     MKCoordinateSpan zoomSpan = _mapView.region.span;
-    if (zoomSpan.latitudeDelta > 1 || zoomSpan.longitudeDelta > 1) {
+    BOOL notZoomed = zoomSpan.latitudeDelta > 1 || zoomSpan.longitudeDelta > 1;
+    
+    CLLocation *mapLoc = [[CLLocation alloc] initWithLatitude:_mapView.region.center.latitude longitude:_mapView.region.center.longitude];
+    BOOL farAway = [mapLoc distanceFromLocation:userLocation.location] > 500;
+    if (notZoomed || farAway) {
         // 1 might be a bit large, but delta is typically initially ~50-55
         CLLocationCoordinate2D loc = [userLocation coordinate];
         MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
