@@ -48,14 +48,15 @@
     _averageSpeedLabel.textAlignment = NSTextAlignmentCenter;
     _averageSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_averageSpeedLabel setText:@"avg 26 mph"];
-    [self addSubview:_averageSpeedLabel];
     
     [RACChannelTo(_viewModel, averageSpeed) subscribeNext:^(id speedMps) {
-        double currentSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
-        double currentSpeedMph = currentSpeedKph* 0.621371192f;
-        NSString *currentSpeedText = [NSString stringWithFormat:@"~ %.02f mph", currentSpeedMph];
-        _averageSpeedLabel.text = currentSpeedText;
+        double averageSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
+        double averageSpeedMph = averageSpeedKph* 0.621371192f;
+        NSString *averageSpeedText = [NSString stringWithFormat:@"~ %.02f mph", averageSpeedMph];
+        _averageSpeedLabel.text = averageSpeedText;
     }];
+    
+    [self addSubview:_averageSpeedLabel];
     
     // Total time
     _totalTimeLabel = [UILabel new];
@@ -71,6 +72,14 @@
     _totalDistanceLabel.textAlignment = NSTextAlignmentCenter;
     _totalDistanceLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_totalDistanceLabel setText:@"34.5 miles"];
+    
+    [RACChannelTo(_viewModel, totalKm) subscribeNext:^(id totalDistanceKm) {
+        double distanceKm = [totalDistanceKm doubleValue];
+        double distanceMiles = distanceKm * 0.621371192f;
+        NSString *distanceText = [NSString stringWithFormat:@"%.02f miles", distanceMiles];
+        _totalDistanceLabel.text = distanceText;
+    }];
+    
     [self addSubview:_totalDistanceLabel];
     
     return self;
