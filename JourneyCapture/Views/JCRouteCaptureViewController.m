@@ -85,6 +85,8 @@
 
 - (void)startRoute
 {
+    NSLog(@"Starting route");
+    
     [Flurry logEvent:@"Route Capture" timed:YES];
     _capturing = YES;
     _captureStart = [NSDate date];
@@ -108,8 +110,8 @@
     }];
     
     // Start updating location
-    [[JCLocationManager sharedManager] startUpdatingNav];
     [[JCLocationManager sharedManager] setDelegate:self];
+    [[JCLocationManager sharedManager] startUpdatingNav];
     
     // Set warning notifications in case user forgets to stop capture
     [self scheduleWarningNotification];
@@ -118,6 +120,7 @@
 - (void)endRoute
 {
     [self cancelWarningNotification];
+    NSLog(@"Ending route");
     
     // Only allow routes with captured locations
     if (_viewModel.points.count == 0) {
@@ -182,7 +185,7 @@
 - (void)scheduleWarningNotification
 {
     // Ensure we don't schedule too many
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [self cancelWarningNotification];
 
     // Capturing - Schedule notifications in case the user forgets to stop capturing
     int oneHour = 60 * 60; // seconds
@@ -259,6 +262,7 @@
 {
     if(buttonIndex == 1) {
         // Stop route capture (route cancel alert)
+        NSLog(@"Cancelling route");
         [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
         [[JCLocationManager sharedManager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];

@@ -24,6 +24,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    NSLog(@"Location manager got location update");
     [self.delegate didUpdateLocations:locations];
 }
 
