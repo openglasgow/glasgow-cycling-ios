@@ -13,9 +13,9 @@
 
 @implementation JCCaptureView
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel
+- (id)initWithViewModel:(JCRouteViewModel *)captureViewModel
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (!self) {
         return nil;
     }

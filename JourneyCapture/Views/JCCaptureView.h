@@ -43,7 +43,7 @@
 @property (strong, nonatomic) UIView *uploadView;
 @property (strong, nonatomic) UIActivityIndicatorView *uploadIndicatorView;
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel;
+- (id)initWithViewModel:(JCRouteViewModel *)captureViewModel;
 - (void)transitionToActive;
 - (void)transitionToComplete;
 - (void)updateRouteLine;

@@ -77,7 +77,37 @@
     }
 }
 
--(RACSignal *)uploadRoute
+- (RACSignal *)uploadAll
+{
+    NSLog(@"Uploading Route");
+    
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [[self uploadRoute]
+         subscribeError:^(NSError *error) {
+             // TODO save locally and keep trying
+             NSLog(@"Couldn't upload");
+             [subscriber sendError:error];
+         } completed:^{
+             NSLog(@"Route uploaded");
+             [subscriber sendNext:nil];
+             
+             // Upload review
+             [[self uploadReview] subscribeError:^(NSError *error) {
+                 NSLog(@"Couldn't upload review");
+                 [subscriber sendError:error];
+             } completed:^{
+                 NSLog(@"Review uploaded");
+                 [subscriber sendCompleted];
+             }];
+         }];
+        
+        return [RACDisposable disposableWithBlock:^{
+            NSLog(@"Disposed");
+        }];
+    }];
+}
+
+- (RACSignal *)uploadRoute
 {
     NSLog(@"Uploading user route");
     JCAPIManager *manager = [JCAPIManager manager];
