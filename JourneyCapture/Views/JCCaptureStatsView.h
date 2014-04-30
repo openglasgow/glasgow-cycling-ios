@@ -19,5 +19,8 @@
 @property (strong, nonatomic) UILabel *totalTimeLabel;
 @property (strong, nonatomic) UILabel *totalDistanceLabel;
 
+@property (strong, nonatomic) NSTimer *timer;
+
+- (void)updateTime;
 - (id)initWithViewModel:(JCRouteViewModel *)routeViewModel;
 @end

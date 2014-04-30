@@ -8,6 +8,7 @@
 
 #import "JCCaptureStatsView.h"
 #import "JCRouteViewModel.h"
+#import "JCRoutePointViewModel.h"
 
 @implementation JCCaptureStatsView
 
@@ -63,7 +64,11 @@
     _totalTimeLabel.font = statsFont;
     _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
     _totalTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_totalTimeLabel setText:@"3:15.30"];
+    [_totalTimeLabel setText:@"3:15:30"];
+    
+    _timer = [NSTimer timerWithTimeInterval:0.5f target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    
     [self addSubview:_totalTimeLabel];
     
     // Total distance
@@ -83,6 +88,27 @@
     [self addSubview:_totalDistanceLabel];
     
     return self;
+}
+
+- (void)updateTime
+{
+    JCRoutePointViewModel *firstPoint = [_viewModel.points firstObject];
+    CLLocation *firstLocation = [firstPoint location];
+    NSDate *startTime = [firstLocation timestamp];
+    NSDate *now = [NSDate date];
+    NSTimeInterval totalSeconds = [now timeIntervalSinceDate:startTime];
+    
+    int hours = totalSeconds / 3600;
+    int minutes = (totalSeconds - (hours * 3600)) / 60;
+    int seconds = totalSeconds - (minutes * 60);
+    NSString *shortTime = @"";
+    if (hours == 0) {
+        shortTime = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+    } else {
+        shortTime = [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
+    }
+    
+    _totalTimeLabel.text = shortTime;
 }
 
 #pragma mark - UIView
