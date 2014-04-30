@@ -55,6 +55,14 @@
     _userView.menuTableView.delegate = self;
     _userView.menuTableView.dataSource = self;
     [self.view addSubview:_userView];
+    
+    _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [Flurry logEvent:@"Route capture tapped"];
+        _updateOnAppear = YES;
+        JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
+        [self.navigationController pushViewController:captureController animated:YES];
+        return [RACSignal empty];
+    }];
 
 //    // Buttons
 //    UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
@@ -133,24 +141,8 @@
 //        });
 //        return [RACSignal empty];
 //    }];
-//    
-//    _createRouteButton = [[UIButton alloc] init];
-//    _createRouteButton.translatesAutoresizingMaskIntoConstraints = NO;
-//    [_createRouteButton setTitle:@"Create Route" forState:UIControlStateNormal];
-//    [_createRouteButton setBackgroundColor:buttonColor];
-//    _createRouteButton.layer.cornerRadius = 8.0f;
-//    [self.view addSubview:_createRouteButton];
-//
-//    _createRouteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-//        [Flurry logEvent:@"Route capture tapped"];
-//        _updateOnAppear = YES;
-//        JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
-//        [self.navigationController pushViewController:captureController animated:YES];
-//        return [RACSignal empty];
-//    }];
 
     // Nav
-    [self.navigationItem setTitle:@"Profile"];
     [_viewModel.fullNameSignal subscribeNext:^(NSString *fullName) {
         [self.navigationItem setTitle:fullName];
     }];
