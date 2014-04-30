@@ -37,14 +37,8 @@
 
     _captureView = [[JCCaptureView alloc] initWithViewModel:_viewModel];
     _captureView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        NSLog(@"Tapped capture button");
-        if (_capturing) {
-            // Stop cature
-            [self endRoute];
-        } else {
-            // Upload route
-            [self uploadRoute];
-        }
+        NSLog(@"Tapped capture finish button");
+        [self endRoute];
         return [RACSignal empty];
     }];
 
@@ -80,9 +74,8 @@
 - (void)startRoute
 {
     [Flurry logEvent:@"Route Capture" timed:YES];
-        _capturing = YES;
+    _capturing = YES;
     _captureStart = [NSDate date];
-    [_captureView transitionToActive];
     
     // Show cancel button in place of back button
     self.navigationItem.hidesBackButton = YES;
@@ -124,29 +117,20 @@
         [cancelAlert show];
         cancelAlert.delegate = self;
     } else {
+        // Stop capturing
         [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
-        [Flurry logEvent:@"Route Submit" timed:YES];
+        [Flurry logEvent:@"Route Submit"];
         [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
         [[JCLocationManager manager] setDelegate:nil];
-        [_captureView transitionToComplete];
+        
+        // Upload
+        [[_viewModel uploadRoute] subscribeError:^(NSError *error) {
+            NSLog(@"Upload failed");
+        } completed:^{
+            NSLog(@"Upload completed");
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
     }
-}
-
--(void)uploadRoute
-{
-    [Flurry endTimedEvent:@"Route Submit" withParameters:@{
-                                                           @"Safety Rating": @(_viewModel.safetyRating),
-                                                           @"Environment Rating": @(_viewModel.environmentRating),
-                                                           @"Difficulty Rating": @(_viewModel.difficultyRating)
-                                                           }];
-    [[_viewModel uploadAll] subscribeNext:^(id x) {
-        NSLog(@"Progress made on upload");
-    } error:^(NSError *error) {
-        NSLog(@"Upload failed");
-    } completed:^{
-        NSLog(@"Upload completed");
-        [self.navigationController popViewControllerAnimated:YES];
-    }];;
 }
 
 /*

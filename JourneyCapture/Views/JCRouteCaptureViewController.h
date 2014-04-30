@@ -17,7 +17,6 @@
 @property (strong, nonatomic) JCCaptureView *captureView;
 - (void)startRoute;
 - (void)endRoute;
-- (void)uploadRoute;
 - (void)scheduleWarningNotification;
 - (void)cancelWarningNotification;
 @end
