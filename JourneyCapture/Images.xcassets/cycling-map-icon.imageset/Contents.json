@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "profile-pic.png"
+      "filename" : "cycling-map-icon.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "profile-pic@2x.png"
+      "filename" : "cycling-map-icon@2x.png"
     }
   ],
   "info" : {

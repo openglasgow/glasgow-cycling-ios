@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "profile-pic.png"
+      "filename" : "bike_rider.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "profile-pic@2x.png"
+      "filename" : "bike_rider@2x.png"
     }
   ],
   "info" : {

@@ -11,14 +11,30 @@
 #import <GSKeychain/GSKeychain.h>
 
 @implementation JCUserViewModel
-@synthesize firstName, lastName, favouriteRouteName, routesThisMonth, secondsThisMonth, kmThisMonth;
 - (id)init
 {
     self = [super init];
     if (!self) {
         return nil;
     }
+    _menuItems = @[@"My Routes", @"Nearby Routes", @"Glasgow Cycling Map", @"Something Else"];
+    _menuItemImages = @[
+                        [UIImage imageNamed:@"my-routes-icon"],
+                        [UIImage imageNamed:@"nearby-routes-icon"],
+                        [UIImage imageNamed:@"cycling-map-icon"],
+                        [UIImage imageNamed:@"nearby-routes-icon"]
+//                        [UIImage imageNamed:@""]
+                        ];
     return self;
+}
+
+-(RACSignal *)fullNameSignal
+{
+    RACSignal *firstNameSignal = RACObserve(self, firstName);
+    RACSignal *lastNameSignal = RACObserve(self, lastName);
+    return [[RACSignal combineLatest:@[firstNameSignal, lastNameSignal]] reduceEach:^id{
+        return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
+    }];
 }
 
 -(RACSignal *)loadDetails
@@ -36,7 +52,6 @@
                                               [self setLastName:responseObject[@"last_name"]];
 
                                               NSDictionary *stats = responseObject[@"month"];
-                                              [self setFavouriteRouteName:stats[@"route"]];
                                               [self setSecondsThisMonth:stats[@"seconds"]];
                                               [self setKmThisMonth:stats[@"km"]];
                                               [self setRoutesThisMonth:stats[@"total"]];
@@ -47,7 +62,7 @@
                                                   UIImage *decodedProfilePic = [UIImage imageWithData:picData];
                                                   [self setProfilePic:decodedProfilePic];
                                               } else {
-                                                  [self setProfilePic:[UIImage imageNamed:@"default_profile_pic"]];
+                                                  [self setProfilePic:[UIImage imageNamed:@"profile-pic"]];
                                               }
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

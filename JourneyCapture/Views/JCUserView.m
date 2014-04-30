@@ -8,6 +8,7 @@
 
 #import "JCUserView.h"
 #import "JCUserViewModel.h"
+#import "JCScrollView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation JCUserView
@@ -19,73 +20,43 @@
         return nil;
     }
     _viewModel = userViewModel;
-    [self setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.85]];
-    self.layer.masksToBounds = YES;
-    self.layer.cornerRadius = 8.0f;
-
-    // Name
-    UIFont *nameFont = [UIFont fontWithName:@"Helvetica Neue" size:20.0];
-    _firstNameLabel = [UILabel new];
-    _firstNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_firstNameLabel setFont:nameFont];
-    RACChannelTo(self, firstNameLabel.text) = RACChannelTo(self, viewModel.firstName);
-    [self addSubview:_firstNameLabel];
-
-    _lastNameLabel = [UILabel new];
-    _lastNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_lastNameLabel setFont:nameFont];
-    RACChannelTo(self, lastNameLabel.text) = RACChannelTo(self, viewModel.lastName);
-    [self addSubview:_lastNameLabel];
+    self.backgroundColor = [UIColor whiteColor];
+    
+    // Scroll
+    _scrollView = [JCScrollView new];
+    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    _scrollView.canCancelContentTouches = YES;
+    [self addSubview:_scrollView];
+    
+    // Pulldown area
+    _pulldownBackgroundView = [UIView new];
+    _pulldownBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+    _pulldownBackgroundView.backgroundColor = [UIColor jc_lightBlueColor];
+    [_scrollView addSubview:_pulldownBackgroundView];
 
     // Profile
+    _profileBackgroundView = [UIView new];
+    _profileBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+    _profileBackgroundView.backgroundColor = [UIColor jc_blueColor];
+    [_scrollView addSubview:_profileBackgroundView];
+    
     _profileImageView = [UIImageView new];
     _profileImageView.translatesAutoresizingMaskIntoConstraints = NO;
     RACChannelTo(_profileImageView, image) = RACChannelTo(_viewModel, profilePic);
 
-    // Mask profile pic to hexagon
-    CALayer *mask = [CALayer layer];
-    int profilePicSize = 50;
-    mask.contents = (id)[[UIImage imageNamed:@"fcd-profile-mask"] CGImage];
-    mask.frame = CGRectMake(0, 0, profilePicSize, profilePicSize);
-    _profileImageView.layer.mask = mask;
+    // Mask profile pic
     _profileImageView.layer.masksToBounds = YES;
-    [self addSubview:_profileImageView];
-
-    // Settings
-    _settingsButton = [UIButton new];
-    UIImage *settingsImage = [UIImage imageNamed:@"gear-button"];
-    [_settingsButton setBackgroundImage:settingsImage forState:UIControlStateNormal];
-    [_settingsButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    _settingsButton.layer.masksToBounds = YES;
-    _settingsButton.layer.cornerRadius = 8.0f;
-    _settingsButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_settingsButton];
-
+    _profileImageView.layer.cornerRadius = 56.0f;
+    _profileImageView.layer.borderWidth = 4.0f;
+    _profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    [_scrollView addSubview:_profileImageView];
+    
+    // Profile stats
     UIFont *statsFont = [UIFont fontWithName:@"Helvetica Neue" size:12.0];
 
-    // Monthly num routes
-    UIImage *routesImage = [UIImage imageNamed:@"calendar-50"];
-    _routesThisMonthView = [[UIImageView alloc] initWithImage:routesImage];
-    _routesThisMonthView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_routesThisMonthView];
-
-    _routesThisMonthLabel = [UILabel new];
-    _routesThisMonthLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_routesThisMonthLabel setFont:statsFont];
-    RACChannelTerminal *routesNumLabelChannel = RACChannelTo(self, routesThisMonthLabel.text);
-    RACChannelTerminal *routesNumModelChannel = RACChannelTo(self, viewModel.routesThisMonth);
-    [[routesNumModelChannel map:^(id numRoutes){
-        return [NSString stringWithFormat:@"%@ routes this month", numRoutes ? numRoutes : @"?"];
-    }] subscribe:routesNumLabelChannel];
-    [self addSubview:_routesThisMonthLabel];
-
     // Monthly time
-    UIImage *timeImage = [UIImage imageNamed:@"clock-50"];
-    _timeThisMonthView = [[UIImageView alloc] initWithImage:timeImage];
-    _timeThisMonthView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_timeThisMonthView];
-
     _timeThisMonthLabel = [UILabel new];
+    _timeThisMonthLabel.textColor = [UIColor whiteColor];
     _timeThisMonthLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_timeThisMonthLabel setFont:statsFont];
     RACChannelTerminal *secondsLabelChannel = RACChannelTo(self, timeThisMonthLabel.text);
@@ -96,15 +67,11 @@
         int minutes = (seconds - (hours * 3600)) / 60;
         return [NSString stringWithFormat:@"%d:%02d hours this month", hours, minutes];
     }] subscribe:secondsLabelChannel];
-    [self addSubview:_timeThisMonthLabel];
+    [_scrollView addSubview:_timeThisMonthLabel];
 
     // Monthly distance
-    UIImage *metersImage = [UIImage imageNamed:@"length-50"];
-    _distanceThisMonthView = [[UIImageView alloc] initWithImage:metersImage];
-    _distanceThisMonthView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_distanceThisMonthView];
-
     _distanceThisMonthLabel = [UILabel new];
+    _distanceThisMonthLabel.textColor = [UIColor whiteColor];
     _distanceThisMonthLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_distanceThisMonthLabel setFont:statsFont];
     RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceThisMonthLabel.text);
@@ -112,7 +79,32 @@
     [[distanceModelChannel map:^(NSNumber *kmThisMonth){
         return [NSString stringWithFormat:@"%.02f km this month", [kmThisMonth doubleValue]];
     }] subscribe:distanceLabelChannel];
-    [self addSubview:_distanceThisMonthLabel];
+    [_scrollView addSubview:_distanceThisMonthLabel];
+
+    // Capture area
+    _mapView = [MKMapView new];
+    _mapView.zoomEnabled = NO;
+    _mapView.scrollEnabled = NO;
+    _mapView.userInteractionEnabled = NO;
+    _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_scrollView addSubview:_mapView];
+    
+    UIImage *captureImage = [UIImage imageNamed:@"capture-icon"];
+    _captureImageView = [[UIImageView alloc] initWithImage:captureImage];
+    _captureImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    _captureImageView.layer.masksToBounds = YES;
+    _captureImageView.layer.cornerRadius = 33.75f;
+    [_scrollView addSubview:_captureImageView];
+    
+    _captureButton = [UIButton new];
+    _captureButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_scrollView addSubview:_captureButton];
+    
+    // Menu area
+    _menuTableView = [UITableView new];
+    _menuTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_scrollView addSubview:_menuTableView];
 
     return self;
 }
@@ -121,56 +113,61 @@
 
 - (void)layoutSubviews
 {
-    int padding = 12;
-    int profilePicSize = 50;
-    int imageSize = 18;
-
-    [_firstNameLabel autoRemoveConstraintsAffectingView];
-    [_firstNameLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding];
-    [_firstNameLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_firstNameLabel autoSetDimension:ALDimensionHeight toSize:25];
-
-    [_lastNameLabel autoRemoveConstraintsAffectingView];
-    [_lastNameLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_firstNameLabel];
-    [_lastNameLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:_firstNameLabel withOffset:5];
-    [_lastNameLabel autoSetDimension:ALDimensionHeight toSize:25];
-
+    // Scroll
+    [_scrollView autoRemoveConstraintsAffectingView];
+    [_scrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    
+    // Pulldown area
+    [_pulldownBackgroundView autoRemoveConstraintsAffectingView];
+    [_pulldownBackgroundView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
+    [_pulldownBackgroundView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
+    [_pulldownBackgroundView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_profileBackgroundView];
+    [_pulldownBackgroundView autoSetDimension:ALDimensionHeight toSize:1000.0f];
+    
+    // Profile
+    [_profileBackgroundView autoRemoveConstraintsAffectingView];
+    [_profileBackgroundView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
+    [_profileBackgroundView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView];
+    [_profileBackgroundView autoSetDimension:ALDimensionHeight toSize:213.0f];
+    [_profileBackgroundView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+    
     [_profileImageView autoRemoveConstraintsAffectingView];
-    [_profileImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_firstNameLabel withOffset:padding];
-    [_profileImageView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_profileImageView autoSetDimensionsToSize:CGSizeMake(profilePicSize, profilePicSize)];
-
-    [_settingsButton autoRemoveConstraintsAffectingView];
-    [_settingsButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileImageView withOffset:padding];
-    [_settingsButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_settingsButton autoSetDimensionsToSize:CGSizeMake(50, 50)];
-
-    [_routesThisMonthView autoRemoveConstraintsAffectingView];
-    [_routesThisMonthView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:_profileImageView withOffset:padding];
-    [_routesThisMonthView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_firstNameLabel withOffset:padding];
-    [_routesThisMonthView autoSetDimensionsToSize:CGSizeMake(imageSize, imageSize)];
-
-    [_timeThisMonthView autoRemoveConstraintsAffectingView];
-    [_timeThisMonthView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_routesThisMonthView withOffset:padding];
-    [_timeThisMonthView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_routesThisMonthView];
-    [_timeThisMonthView autoSetDimensionsToSize:CGSizeMake(imageSize, imageSize)];
-
-    [_distanceThisMonthView autoRemoveConstraintsAffectingView];
-    [_distanceThisMonthView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_timeThisMonthView withOffset:padding];
-    [_distanceThisMonthView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_routesThisMonthView];
-    [_distanceThisMonthView autoSetDimensionsToSize:CGSizeMake(imageSize, imageSize)];
-
+    [_profileImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView withOffset:28];
+    [_profileImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    [_profileImageView autoSetDimensionsToSize:CGSizeMake(112, 112)];
+    
     [_distanceThisMonthLabel autoRemoveConstraintsAffectingView];
-    [_distanceThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_distanceThisMonthView];
-    [_distanceThisMonthLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:_distanceThisMonthView withOffset:padding];
-
-    [_routesThisMonthLabel autoRemoveConstraintsAffectingView];
-    [_routesThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_routesThisMonthView];
-    [_routesThisMonthLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_distanceThisMonthLabel];
+    [_distanceThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileImageView withOffset:5];
+    [_distanceThisMonthLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
 
     [_timeThisMonthLabel autoRemoveConstraintsAffectingView];
-    [_timeThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_timeThisMonthView];
-    [_timeThisMonthLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_distanceThisMonthLabel];
+    [_timeThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_distanceThisMonthLabel withOffset:5];
+    [_timeThisMonthLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    
+    // Capture
+    [_mapView autoRemoveConstraintsAffectingView];
+    [_mapView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileBackgroundView];
+    [_mapView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
+    [_mapView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
+    [_mapView autoSetDimension:ALDimensionHeight toSize:128];
+    
+    [_captureImageView autoRemoveConstraintsAffectingView];
+    [_captureImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    [_captureImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView withOffset:30];
+    [_captureImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView withOffset:-30];
+    [_captureImageView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionHeight ofView:_captureImageView];
+
+    [_captureButton autoRemoveConstraintsAffectingView];
+    [_captureButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView];
+    [_captureButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_mapView];
+    [_captureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView];
+    [_captureButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_mapView];
+    
+    // Menu
+    [_menuTableView autoRemoveConstraintsAffectingView];
+    [_menuTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [_menuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView];
+    [_menuTableView autoSetDimension:ALDimensionHeight toSize:240];
 
     [super layoutSubviews];
 }

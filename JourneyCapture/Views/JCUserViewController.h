@@ -8,18 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "JCLocationManager.h"
-#import "IASKAppSettingsViewController.h"
 @class JCUserViewModel, JCUserView;
 
-@interface JCUserViewController : UIViewController <JCLocationManagerDelegate, IASKSettingsDelegate>
+@interface JCUserViewController : UIViewController <JCLocationManagerDelegate,
+    UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) JCUserViewModel *viewModel;
 @property (strong, nonatomic) JCUserView *userView;
-@property (strong, nonatomic) MKMapView *mapView;
-@property (strong, nonatomic) UIButton *myRoutesButton;
-@property (strong, nonatomic) UIButton *nearbyRoutesButton;
-@property (strong, nonatomic) UIButton *createRouteButton;
 @property (readwrite, nonatomic) BOOL updateOnAppear;
 
 - (void)update;
-- (void)logout;
 @end
