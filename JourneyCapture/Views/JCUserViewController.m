@@ -36,7 +36,7 @@
     if (!self) {
         return nil;
     }
-    [[JCLocationManager manager] setDelegate:self];
+    [[JCLocationManager sharedManager] setDelegate:self];
     _viewModel = [[JCUserViewModel alloc] init];
     [self update];
     return self;
@@ -167,7 +167,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [[JCLocationManager manager] startUpdatingCoarse];
+    [[JCLocationManager sharedManager] startUpdatingCoarse];
     if (_updateOnAppear) {
         [self update];
         _updateOnAppear = NO;
@@ -176,7 +176,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
+    [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning

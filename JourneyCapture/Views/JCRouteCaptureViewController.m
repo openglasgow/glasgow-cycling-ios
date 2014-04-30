@@ -108,8 +108,8 @@
     }];
     
     // Start updating location
-    [[JCLocationManager manager] startUpdatingNav];
-    [[JCLocationManager manager] setDelegate:self];
+    [[JCLocationManager sharedManager] startUpdatingNav];
+    [[JCLocationManager sharedManager] setDelegate:self];
     
     // Set warning notifications in case user forgets to stop capture
     [self scheduleWarningNotification];
@@ -132,8 +132,8 @@
         // Stop capturing
         [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
         [Flurry logEvent:@"Route Submit"];
-        [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
-        [[JCLocationManager manager] setDelegate:nil];
+        [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
+        [[JCLocationManager sharedManager] setDelegate:nil];
         
         // Upload
         [[_viewModel uploadRoute] subscribeError:^(NSError *error) {
@@ -259,8 +259,8 @@
 {
     if(buttonIndex == 1) {
         // Stop route capture (route cancel alert)
-        [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
-        [[JCLocationManager manager] setDelegate:nil];
+        [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
+        [[JCLocationManager sharedManager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
         [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @NO}];
         [self cancelWarningNotification];

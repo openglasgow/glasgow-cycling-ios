@@ -52,7 +52,7 @@
 
 #pragma mark - Singleton Methods
 
-+ (JCLocationManager *)manager
++ (JCLocationManager *)sharedManager
 {
     static dispatch_once_t pred;
     static JCLocationManager *_manager = nil;
