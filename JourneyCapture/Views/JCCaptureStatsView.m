@@ -32,8 +32,14 @@
     _currentSpeedLabel.font = statsFont;
     _currentSpeedLabel.textAlignment = NSTextAlignmentCenter;
     _currentSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_currentSpeedLabel setText:@"21 mph"];
     [self addSubview:_currentSpeedLabel];
+    
+    [RACChannelTo(_viewModel, currentSpeed) subscribeNext:^(id speedKph) {
+        double currentSpeedKph = [speedKph doubleValue];
+        double currentSpeedMph = currentSpeedKph * 0.621371192f;
+        NSString *currentSpeedText = [NSString stringWithFormat:@"%.02f mph", currentSpeedMph];
+        _currentSpeedLabel.text = currentSpeedText;
+    }];
     
     _averageSpeedLabel = [UILabel new];
     _averageSpeedLabel.font = statsFont;
