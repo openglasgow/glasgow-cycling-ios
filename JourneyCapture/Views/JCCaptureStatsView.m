@@ -35,9 +35,9 @@
     _currentSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_currentSpeedLabel];
     
-    [RACChannelTo(_viewModel, currentSpeed) subscribeNext:^(id speedKph) {
-        double currentSpeedKph = [speedKph doubleValue];
-        double currentSpeedMph = currentSpeedKph * 0.621371192f;
+    [RACChannelTo(_viewModel, currentSpeed) subscribeNext:^(id speedMps) {
+        double currentSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
+        double currentSpeedMph = currentSpeedKph* 0.621371192f;
         NSString *currentSpeedText = [NSString stringWithFormat:@"%.02f mph", currentSpeedMph];
         _currentSpeedLabel.text = currentSpeedText;
     }];
@@ -50,9 +50,9 @@
     [_averageSpeedLabel setText:@"avg 26 mph"];
     [self addSubview:_averageSpeedLabel];
     
-    [RACChannelTo(_viewModel, averageSpeed) subscribeNext:^(id speedKph) {
-        double currentSpeedKph = [speedKph doubleValue];
-        double currentSpeedMph = currentSpeedKph * 0.621371192f;
+    [RACChannelTo(_viewModel, averageSpeed) subscribeNext:^(id speedMps) {
+        double currentSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
+        double currentSpeedMph = currentSpeedKph* 0.621371192f;
         NSString *currentSpeedText = [NSString stringWithFormat:@"~ %.02f mph", currentSpeedMph];
         _averageSpeedLabel.text = currentSpeedText;
     }];
