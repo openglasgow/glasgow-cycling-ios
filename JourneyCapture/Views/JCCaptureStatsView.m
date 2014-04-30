@@ -28,6 +28,7 @@
     // Stats
     UIFont *statsFont = [UIFont systemFontOfSize:24];
     
+    // Current speed
     _currentSpeedLabel = [UILabel new];
     _currentSpeedLabel.font = statsFont;
     _currentSpeedLabel.textAlignment = NSTextAlignmentCenter;
@@ -41,6 +42,7 @@
         _currentSpeedLabel.text = currentSpeedText;
     }];
     
+    // Average speed
     _averageSpeedLabel = [UILabel new];
     _averageSpeedLabel.font = statsFont;
     _averageSpeedLabel.textAlignment = NSTextAlignmentCenter;
@@ -48,6 +50,14 @@
     [_averageSpeedLabel setText:@"avg 26 mph"];
     [self addSubview:_averageSpeedLabel];
     
+    [RACChannelTo(_viewModel, averageSpeed) subscribeNext:^(id speedKph) {
+        double currentSpeedKph = [speedKph doubleValue];
+        double currentSpeedMph = currentSpeedKph * 0.621371192f;
+        NSString *currentSpeedText = [NSString stringWithFormat:@"~ %.02f mph", currentSpeedMph];
+        _averageSpeedLabel.text = currentSpeedText;
+    }];
+    
+    // Total time
     _totalTimeLabel = [UILabel new];
     _totalTimeLabel.font = statsFont;
     _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
@@ -55,6 +65,7 @@
     [_totalTimeLabel setText:@"3:15.30"];
     [self addSubview:_totalTimeLabel];
     
+    // Total distance
     _totalDistanceLabel = [UILabel new];
     _totalDistanceLabel.font = statsFont;
     _totalDistanceLabel.textAlignment = NSTextAlignmentCenter;
