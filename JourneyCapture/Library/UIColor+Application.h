@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIColor (Application)
-+(UIColor *)jc_blueColor;
-+(UIColor *)jc_lightBlueColor;
++ (UIColor *)jc_blueColor;
++ (UIColor *)jc_lightBlueColor;
++ (UIColor *)jc_redColor;
 @end

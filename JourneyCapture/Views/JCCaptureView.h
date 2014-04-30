@@ -6,46 +6,20 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
-#import "IFTTTJazzHands.h"
-#import <EDStarRating/EDStarRating.h>
+@import UIKit;
+@import MapKit;
+
 @class JCRouteViewModel;
 
-@interface JCCaptureView : UIView <MKMapViewDelegate, EDStarRatingProtocol>
+@interface JCCaptureView : UIView <MKMapViewDelegate>
+@property (strong, nonatomic) JCRouteViewModel *viewModel;
+
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) MKPolyline *routeLine;
 @property (nonatomic, strong) MKPolylineView *routeLineView;
+
 @property (strong, nonatomic) UIButton *captureButton;
-@property (strong, nonatomic) UITableView *statsTable;
-@property (strong, nonatomic) JCRouteViewModel *viewModel;
-
-// Review
-@property (strong, nonatomic) UIScrollView *reviewScrollView;
-@property (strong, nonatomic) UILabel *safetyReviewLabel;
-@property (strong, nonatomic) EDStarRating *safetyRating;
-@property (strong, nonatomic) UILabel *environmentReviewLabel;
-@property (strong, nonatomic) EDStarRating *environmentRating;
-@property (strong, nonatomic) UILabel *difficultyReviewLabel;
-@property (strong, nonatomic) EDStarRating *difficultyRating;
-@property (strong, nonatomic) UILabel *reviewCompleteLabel;
-@property (strong, nonatomic) UILabel *reviewGuidanceLabel;
-
-@property (strong, nonatomic) IFTTTAnimator *animator;
-@property (strong, nonatomic) MASConstraint *mapBottomConstraint;
-@property (strong, nonatomic) MASConstraint *statsTopConstraint;
-@property (strong, nonatomic) MASConstraint *statsBottomConstraint;
-@property (strong, nonatomic) MASConstraint *reviewTopConstraint;
-@property (strong, nonatomic) MASConstraint *reviewBottomConstraint;
-
-// Upload
-@property (readwrite, nonatomic) BOOL uploading;
-@property (strong, nonatomic) UIView *uploadView;
-@property (strong, nonatomic) UIActivityIndicatorView *uploadIndicatorView;
 
 - (id)initWithViewModel:(JCRouteViewModel *)captureViewModel;
-- (void)transitionToActive;
-- (void)transitionToComplete;
 - (void)updateRouteLine;
-- (void)showUploadIndicator:(BOOL)show;
 @end

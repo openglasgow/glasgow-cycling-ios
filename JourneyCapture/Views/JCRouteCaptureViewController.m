@@ -36,6 +36,8 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     _captureView = [[JCCaptureView alloc] initWithViewModel:_viewModel];
+    _captureView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     _captureView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Tapped capture finish button");
         [self endRoute];
@@ -43,6 +45,17 @@
     }];
 
     [self.view addSubview:_captureView];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [_captureView autoRemoveConstraintsAffectingView];
+    [_captureView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [_captureView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    
+    [_captureView layoutSubviews];
+    
+    [super viewWillLayoutSubviews];
 }
 
 - (void)viewDidLoad
@@ -55,12 +68,11 @@
 {
     [super viewDidAppear:animated];
     RACSignal *foregroundSignal = [[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil];
+
     @weakify(self);
     [foregroundSignal subscribeNext:^(id x) {
         @strongify(self);
-        if ([[_captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
-            [self scheduleWarningNotification];
-        }
+        [self scheduleWarningNotification];
     }];
 }
 
@@ -162,9 +174,6 @@
 
         // Update route line on mapview
         [_captureView updateRouteLine];
-
-        // Reload stats
-        [_captureView.statsTable reloadData];
     }
 }
 

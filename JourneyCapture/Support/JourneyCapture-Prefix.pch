@@ -14,8 +14,6 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-    #import "UIColor+Application.h"
-
     // Pods
     #import <ReactiveViewModel/ReactiveViewModel.h>
     #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -23,7 +21,10 @@
     #import <Masonry/Masonry.h>
     #import <CoreData+MagicalRecord.h>
     #import "UIView+AutoLayout.h"
+
+    #import "UIColor+Application.h"
 #endif
+
 
 #if TARGET_IPHONE_SIMULATOR
 static NSString *const API_URI = @"http://0.0.0.0:3000/";
