@@ -10,13 +10,17 @@
 @import MapKit;
 
 @class JCRouteViewModel;
+@class JCCaptureStatsView;
 
 @interface JCCaptureView : UIView <MKMapViewDelegate>
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 
+// Map
 @property (strong, nonatomic) MKMapView *mapView;
-@property (nonatomic, strong) MKPolyline *routeLine;
-@property (nonatomic, strong) MKPolylineView *routeLineView;
+@property (strong, nonatomic) MKPolyline *routeLine;
+@property (strong, nonatomic) MKPolylineView *routeLineView;
+
+@property (strong, nonatomic) JCCaptureStatsView *statsView;
 
 @property (strong, nonatomic) UIButton *captureButton;
 

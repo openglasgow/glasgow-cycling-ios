@@ -10,6 +10,7 @@
 #import "JCCaptureView.h"
 #import "JCRouteViewModel.h"
 #import "JCRoutePointViewModel.h"
+#import "JCCaptureStatsView.h"
 
 @implementation JCCaptureView
 
@@ -33,6 +34,11 @@
     _mapView.userInteractionEnabled = NO;
     _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:_mapView];
+    
+    // Stats
+    _statsView = [[JCCaptureStatsView alloc] initWithViewModel:_viewModel];
+    _statsView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_statsView];
 
     // Capture button
     UIColor *buttonColor = [UIColor jc_redColor];
@@ -44,8 +50,6 @@
     _captureButton.layer.masksToBounds = YES;
     _captureButton.layer.cornerRadius = 4.0f;
     [self addSubview:_captureButton];
-
-    // Stats
 
     return self;
 }
@@ -85,6 +89,12 @@
     [_captureButton autoRemoveConstraintsAffectingView];
     [_captureButton autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(15, 15, 15, 15) excludingEdge:ALEdgeTop];
     [_captureButton autoSetDimension:ALDimensionHeight toSize:42.5f];
+    
+    [_statsView autoRemoveConstraintsAffectingView];
+    [_statsView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView];
+    [_statsView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_captureButton];
+    [_statsView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
+    [_statsView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     
     [super layoutSubviews];
 }
