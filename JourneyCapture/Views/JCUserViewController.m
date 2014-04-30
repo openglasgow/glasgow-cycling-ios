@@ -174,11 +174,6 @@
     }
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
-    [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
