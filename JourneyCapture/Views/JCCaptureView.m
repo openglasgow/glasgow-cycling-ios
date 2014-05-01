@@ -44,6 +44,7 @@
     _graphView.translatesAutoresizingMaskIntoConstraints = NO;
     _graphView.frame = CGRectMake(0, 240, 320, 40);
     [self addSubview:_graphView];
+    [_graphView reloadData];
     
     _statsView = [[JCCaptureStatsView alloc] initWithViewModel:_viewModel];
     _statsView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -151,19 +152,27 @@
 
 - (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex
 {
-    NSUInteger totalPoints = _viewModel.points.count;
-    NSUInteger pointsToShow = totalPoints > MAX_GRAPH_POINTS ? MAX_GRAPH_POINTS : totalPoints;
-    return pointsToShow;
+    return MAX_GRAPH_POINTS;
 }
 
 #pragma mark - JBLineChartViewDelegate
 
 -(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
 {
-    NSUInteger index = horizontalIndex;
+    NSInteger index = horizontalIndex;
+    if (_viewModel.points.count < MAX_GRAPH_POINTS) {
+        NSUInteger offset = MAX_GRAPH_POINTS - _viewModel.points.count;
+        index -= offset;
+        
+        if (index < 0) {
+            return 0;
+        }
+    }
+    
     if (_viewModel.points.count > MAX_GRAPH_POINTS) {
         index = _viewModel.points.count - MAX_GRAPH_POINTS + horizontalIndex;
     }
+    
     JCRoutePointViewModel *point = _viewModel.points[index];
     return point.location.altitude;
 }

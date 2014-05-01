@@ -23,6 +23,7 @@
     
     // Stats
     UIFont *statsFont = [UIFont boldSystemFontOfSize:24];
+    UIFont *statsTitleFont = [UIFont systemFontOfSize:12];
     UIColor *statsColor = [UIColor colorWithRed:127/255.0f green:106/255.0f blue:106/255.0f alpha:1.0];
     
     // Current speed
@@ -32,7 +33,6 @@
     _currentSpeedLabel.textAlignment = NSTextAlignmentCenter;
     _currentSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _currentSpeedLabel.text = @"0.0 mph";
-    [self addSubview:_currentSpeedLabel];
     
     [RACChannelTo(_viewModel, currentSpeed) subscribeNext:^(id speedMps) {
         double currentSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
@@ -40,6 +40,15 @@
         NSString *currentSpeedText = [NSString stringWithFormat:@"%.01f mph", currentSpeedMph];
         _currentSpeedLabel.text = currentSpeedText;
     }];
+    
+    [self addSubview:_currentSpeedLabel];
+    
+    _currentSpeedTitleLabel = [UILabel new];
+    _currentSpeedTitleLabel.font = statsTitleFont;
+    _currentSpeedTitleLabel.textColor = statsColor;
+    _currentSpeedTitleLabel.text = @"Speed";
+    _currentSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_currentSpeedTitleLabel];
     
     // Average speed
     _averageSpeedLabel = [UILabel new];
@@ -58,6 +67,13 @@
     
     [self addSubview:_averageSpeedLabel];
     
+    _averageSpeedTitleLabel = [UILabel new];
+    _averageSpeedTitleLabel.font = statsTitleFont;
+    _averageSpeedTitleLabel.textColor = statsColor;
+    _averageSpeedTitleLabel.text = @"Average Speed";
+    _averageSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_averageSpeedTitleLabel];
+    
     // Total time
     _totalTimeLabel = [UILabel new];
     _totalTimeLabel.font = statsFont;
@@ -70,6 +86,13 @@
     [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     
     [self addSubview:_totalTimeLabel];
+    
+    _totalTimeTitleLabel = [UILabel new];
+    _totalTimeTitleLabel.font = statsTitleFont;
+    _totalTimeTitleLabel.textColor = statsColor;
+    _totalTimeTitleLabel.text = @"Total Time";
+    _totalTimeTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_totalTimeTitleLabel];
     
     // Total distance
     _totalDistanceLabel = [UILabel new];
@@ -87,6 +110,13 @@
     }];
     
     [self addSubview:_totalDistanceLabel];
+    
+    _totalDistanceTitleLabel = [UILabel new];
+    _totalDistanceTitleLabel.font = statsTitleFont;
+    _totalDistanceTitleLabel.textColor = statsColor;
+    _totalDistanceTitleLabel.text = @"Total Distance";
+    _totalDistanceTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_totalDistanceTitleLabel];
     
     return self;
 }
@@ -119,27 +149,51 @@
 
 - (void)layoutSubviews
 {
-    // Top left, top right, bot left, bot right
+    // Stats are in four quadrants
     
+    // Current speed - top left
     [_currentSpeedLabel autoRemoveConstraintsAffectingView];
-    [_currentSpeedLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:15];
-    [_currentSpeedLabel autoConstrainAttribute:ALEdgeRight toAttribute:ALAxisVertical ofView:self withOffset:-14.9];
-    [_currentSpeedLabel autoConstrainAttribute:ALEdgeBottom toAttribute:ALAxisHorizontal ofView:self withOffset:-14.9];
+    [_currentSpeedLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:20];
+    [_currentSpeedLabel autoConstrainAttribute:ALEdgeRight toAttribute:ALAxisVertical ofView:self withOffset:-15];
+    [_currentSpeedLabel autoConstrainAttribute:ALEdgeBottom toAttribute:ALAxisHorizontal ofView:self withOffset:-15];
     
+    [_currentSpeedTitleLabel autoRemoveConstraintsAffectingView];
+    [_currentSpeedTitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_currentSpeedLabel];
+    [_currentSpeedTitleLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_currentSpeedLabel];
+    [_currentSpeedTitleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_currentSpeedLabel];
+    
+    // Average speed - top right
     [_averageSpeedLabel autoRemoveConstraintsAffectingView];
     [_averageSpeedLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-15];
-    [_averageSpeedLabel autoConstrainAttribute:ALEdgeLeft toAttribute:ALAxisVertical ofView:self withOffset:14.9];
-    [_averageSpeedLabel autoConstrainAttribute:ALEdgeBottom toAttribute:ALAxisHorizontal ofView:self withOffset:-14.9];
+    [_averageSpeedLabel autoConstrainAttribute:ALEdgeLeft toAttribute:ALAxisVertical ofView:self withOffset:15];
+    [_averageSpeedLabel autoConstrainAttribute:ALEdgeBottom toAttribute:ALAxisHorizontal ofView:self withOffset:-15];
     
+    [_averageSpeedTitleLabel autoRemoveConstraintsAffectingView];
+    [_averageSpeedTitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_averageSpeedLabel];
+    [_averageSpeedTitleLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_averageSpeedLabel];
+    [_averageSpeedTitleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_averageSpeedLabel];
+    
+    // Total time - bottom left
     [_totalTimeLabel autoRemoveConstraintsAffectingView];
-    [_totalTimeLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:15];
-    [_totalTimeLabel autoConstrainAttribute:ALEdgeRight toAttribute:ALAxisVertical ofView:self withOffset:-14.9];
-    [_totalTimeLabel autoConstrainAttribute:ALEdgeTop toAttribute:ALAxisHorizontal ofView:self withOffset:14.9];
+    [_totalTimeLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:20];
+    [_totalTimeLabel autoConstrainAttribute:ALEdgeRight toAttribute:ALAxisVertical ofView:self withOffset:-15];
+    [_totalTimeLabel autoConstrainAttribute:ALEdgeTop toAttribute:ALAxisHorizontal ofView:self withOffset:15];
     
+    [_totalTimeTitleLabel autoRemoveConstraintsAffectingView];
+    [_totalTimeTitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_totalTimeLabel];
+    [_totalTimeTitleLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_totalTimeLabel];
+    [_totalTimeTitleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_totalTimeLabel];
+    
+    // Total distance - bottom right
     [_totalDistanceLabel autoRemoveConstraintsAffectingView];
     [_totalDistanceLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-15];
-    [_totalDistanceLabel autoConstrainAttribute:ALEdgeLeft toAttribute:ALAxisVertical ofView:self withOffset:14.9];
-    [_totalDistanceLabel autoConstrainAttribute:ALEdgeTop toAttribute:ALAxisHorizontal ofView:self withOffset:14.9];
+    [_totalDistanceLabel autoConstrainAttribute:ALEdgeLeft toAttribute:ALAxisVertical ofView:self withOffset:15];
+    [_totalDistanceLabel autoConstrainAttribute:ALEdgeTop toAttribute:ALAxisHorizontal ofView:self withOffset:15];
+    
+    [_totalDistanceTitleLabel autoRemoveConstraintsAffectingView];
+    [_totalDistanceTitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_totalDistanceLabel];
+    [_totalDistanceTitleLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_totalDistanceLabel];
+    [_totalDistanceTitleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_totalDistanceLabel];
     
     [super layoutSubviews];
 }

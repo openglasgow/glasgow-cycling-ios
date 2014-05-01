@@ -207,60 +207,11 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
-//
-//#pragma mark - UITableViewDataSource
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 1;
-//}
-//
-//
-//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return 3;
-//}
-//
-//#pragma mark - UITableViewDelegate
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return tableView.frame.size.height / 3;
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    static NSString *CellIdentifier = @"StatsCell";
-//
-//    JCStatCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (cell == nil) {
-//        cell = [[JCStatCell alloc] initWithStyle:UITableViewCellStyleDefault
-//                                 reuseIdentifier:CellIdentifier];
-//    }
-//    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-//    if (indexPath.row == 0) {
-//        [[cell statName] setText:@"Current Speed"];
-//        double currentSpeedMph = _viewModel.currentSpeed;
-//        double currentSpeedKph = (currentSpeedMph * 60 * 60) / 1000;
-//        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", currentSpeedKph]];
-//    } else if (indexPath.row == 1) {
-//        [[cell statName] setText:@"Average Speed"];
-//        double averageSpeedMps = _viewModel.averageSpeed;
-//        double averageSpeedKph = (averageSpeedMps * 60 * 60) / 1000;
-//        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", averageSpeedKph]];
-//    } else if (indexPath.row == 2) {
-//        [[cell statName] setText:@"Distance"];
-//        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", _viewModel.totalKm]];
-//    }
-//    [cell setAccessoryType:UITableViewCellAccessoryNone];
-//    return cell;
-//}
-
 #pragma mark - UIAlertViewDelgate
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 1) {
+    if (buttonIndex == 1) {
         // Stop route capture (route cancel alert)
         NSLog(@"Cancelling route");
         [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
