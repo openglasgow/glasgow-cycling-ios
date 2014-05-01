@@ -22,9 +22,10 @@
     _viewModel = routeViewModel;
     
     // Stats
-    UIFont *statsFont = [UIFont boldSystemFontOfSize:24];
     UIFont *statsTitleFont = [UIFont systemFontOfSize:12];
-    UIColor *statsColor = [UIColor colorWithRed:127/255.0f green:106/255.0f blue:106/255.0f alpha:1.0];
+    UIColor *statsTitleColor = [UIColor jc_lightBlueColor];
+    UIFont *statsFont = [UIFont boldSystemFontOfSize:24];
+    UIColor *statsColor = [UIColor jc_blueColor];//[UIColor colorWithRed:127/255.0f green:106/255.0f blue:106/255.0f alpha:1.0];
     
     // Current speed
     _currentSpeedLabel = [UILabel new];
@@ -45,7 +46,7 @@
     
     _currentSpeedTitleLabel = [UILabel new];
     _currentSpeedTitleLabel.font = statsTitleFont;
-    _currentSpeedTitleLabel.textColor = statsColor;
+    _currentSpeedTitleLabel.textColor = statsTitleColor;
     _currentSpeedTitleLabel.text = @"Speed";
     _currentSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_currentSpeedTitleLabel];
@@ -69,7 +70,7 @@
     
     _averageSpeedTitleLabel = [UILabel new];
     _averageSpeedTitleLabel.font = statsTitleFont;
-    _averageSpeedTitleLabel.textColor = statsColor;
+    _averageSpeedTitleLabel.textColor = statsTitleColor;
     _averageSpeedTitleLabel.text = @"Average Speed";
     _averageSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_averageSpeedTitleLabel];
@@ -89,7 +90,7 @@
     
     _totalTimeTitleLabel = [UILabel new];
     _totalTimeTitleLabel.font = statsTitleFont;
-    _totalTimeTitleLabel.textColor = statsColor;
+    _totalTimeTitleLabel.textColor = statsTitleColor;
     _totalTimeTitleLabel.text = @"Total Time";
     _totalTimeTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_totalTimeTitleLabel];
@@ -113,7 +114,7 @@
     
     _totalDistanceTitleLabel = [UILabel new];
     _totalDistanceTitleLabel.font = statsTitleFont;
-    _totalDistanceTitleLabel.textColor = statsColor;
+    _totalDistanceTitleLabel.textColor = statsTitleColor;
     _totalDistanceTitleLabel.text = @"Total Distance";
     _totalDistanceTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_totalDistanceTitleLabel];
