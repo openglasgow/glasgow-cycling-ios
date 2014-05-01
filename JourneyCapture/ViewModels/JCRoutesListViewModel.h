@@ -10,6 +10,7 @@
 
 @interface JCRoutesListViewModel : RVMViewModel
 @property (strong, nonatomic) NSMutableArray *routes;
+@property (strong, nonatomic) NSString *title;
 - (RACSignal *)loadRoutes;
 //-(RACSignal *)loadUserRoutes;
 //-(RACSignal *)loadNearbyRoutes;

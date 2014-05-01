@@ -10,15 +10,12 @@
 #import "JCUserViewModel.h"
 
 #import "JCRoutesViewController.h"
-#import "JCRoutesListViewModel.h"
+#import "JCUserRoutesViewModel.h"
 #import "JCRouteCaptureViewController.h"
-#import "JCNotificationManager.h"
-#import "MBProgressHUD.h"
 #import "JCMenuTableViewCell.h"
 
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "JCWelcomeViewController.h"
 
 #import "Flurry.h"
 #import <GBDeviceInfo/GBDeviceInfo.h>
@@ -227,9 +224,19 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Selected a row");
+    if (indexPath.row == 0) {
+        // My Routes
+        [Flurry logEvent:@"My routes tapped"];
+        JCUserRoutesViewModel *userRoutesVM = [JCUserRoutesViewModel new];
+        JCRoutesViewController *routesVC = [[JCRoutesViewController alloc] initWithViewModel:userRoutesVM];
+        [self.navigationController pushViewController:routesVC animated:YES];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Every cell will be instantiated as it's in a tableview, no point trying to dequeue

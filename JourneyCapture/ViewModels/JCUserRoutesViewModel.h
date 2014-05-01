@@ -10,5 +10,4 @@
 #import "JCRoutesListViewModel.h"
 
 @interface JCUserRoutesViewModel : JCRoutesListViewModel
-@property (strong, nonatomic) NSString *title;
 @end
