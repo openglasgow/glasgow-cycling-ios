@@ -12,6 +12,8 @@
 #import "JCRoutePointViewModel.h"
 #import "JCCaptureStatsView.h"
 
+#define MAX_GRAPH_POINTS 20
+
 @implementation JCCaptureView
 
 - (id)initWithViewModel:(JCRouteViewModel *)captureViewModel
@@ -36,6 +38,13 @@
     [self addSubview:_mapView];
     
     // Stats
+    _graphView = [[JBLineChartView alloc] init];
+    _graphView.delegate = self;
+    _graphView.dataSource = self;
+    _graphView.translatesAutoresizingMaskIntoConstraints = NO;
+    _graphView.frame = CGRectMake(0, 240, 320, 40);
+    [self addSubview:_graphView];
+    
     _statsView = [[JCCaptureStatsView alloc] initWithViewModel:_viewModel];
     _statsView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_statsView];
@@ -75,7 +84,8 @@
     _routeLine = [MKPolyline polylineWithPoints:pointsArray count:2];
     free(pointsArray);
 
-    [[self mapView] addOverlay:_routeLine];
+    [_mapView addOverlay:_routeLine];
+    [_graphView reloadData];
 }
 
 #pragma mark - UIView
@@ -90,8 +100,14 @@
     [_captureButton autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(15, 15, 15, 15) excludingEdge:ALEdgeTop];
     [_captureButton autoSetDimension:ALDimensionHeight toSize:42.5f];
     
+    [_graphView autoRemoveConstraintsAffectingView];
+    [_graphView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView withOffset:10];
+    [_graphView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
+    [_graphView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
+    [_graphView autoSetDimension:ALDimensionHeight toSize:40];
+    
     [_statsView autoRemoveConstraintsAffectingView];
-    [_statsView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView];
+    [_statsView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_graphView withOffset:10];
     [_statsView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_captureButton];
     [_statsView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
     [_statsView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
@@ -124,6 +140,42 @@
         MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000, 1000);
         [_mapView setRegion:region animated:YES];
     }
+}
+
+#pragma mark - JBLineChartViewDataSource
+
+- (NSUInteger)numberOfLinesInLineChartView:(JBLineChartView *)lineChartView
+{
+    return 1;
+}
+
+- (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex
+{
+    NSUInteger totalPoints = _viewModel.points.count;
+    NSUInteger pointsToShow = totalPoints > MAX_GRAPH_POINTS ? MAX_GRAPH_POINTS : totalPoints;
+    return pointsToShow;
+}
+
+#pragma mark - JBLineChartViewDelegate
+
+-(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
+{
+    NSUInteger index = horizontalIndex;
+    if (_viewModel.points.count > MAX_GRAPH_POINTS) {
+        index = _viewModel.points.count - MAX_GRAPH_POINTS + horizontalIndex;
+    }
+    JCRoutePointViewModel *point = _viewModel.points[index];
+    return point.location.altitude;
+}
+
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex
+{
+    return [UIColor jc_blueColor];
+}
+
+- (CGFloat)lineChartView:(JBLineChartView *)lineChartView widthForLineAtLineIndex:(NSUInteger)lineIndex
+{
+    return 4.0f;
 }
 
 @end

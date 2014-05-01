@@ -29,6 +29,7 @@ PODS:
   - HockeySDK (3.5.4)
   - InAppSettingsKit (2.0.1)
   - JazzHands (0.0.3)
+  - JBChartView (2.4.2)
   - libextobjc (0.4):
     - libextobjc/EXTADT
     - libextobjc/EXTConcreteProtocol
@@ -90,6 +91,7 @@ DEPENDENCIES:
   - HockeySDK (~> 3.5)
   - InAppSettingsKit (~> 2.0)
   - JazzHands (~> 0.0.3)
+  - JBChartView (~> 2.4.2)
   - libextobjc (~> 0.4)
   - MagicalRecord (~> 2.2)
   - Masonry (~> 0.4.0)
@@ -109,6 +111,7 @@ SPEC CHECKSUMS:
   HockeySDK: aa28abb106de7804d31acf515f2c9aa4e6481fd0
   InAppSettingsKit: 5e42f626b9be9c33e3b04c0cc9523ca5eabe7ad3
   JazzHands: 01a8a6e933746bc7a6c749bfd6ed95f2a91c91aa
+  JBChartView: 30cfb8262ff50a7f61e2ae9aee1a1caedf39d4b9
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
