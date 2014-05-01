@@ -59,7 +59,7 @@
 {
     NSLog(@"Loading user routes");
     JCAPIManager *manager = [JCAPIManager manager];
-    CLLocation *currentLocation = [[JCLocationManager manager] currentLocation];
+    CLLocation *currentLocation = [[JCLocationManager sharedManager] currentLocation];
     NSDictionary *locationParams = @{
                                      @"lat": @(currentLocation.coordinate.latitude),
                                      @"long": @(currentLocation.coordinate.longitude)

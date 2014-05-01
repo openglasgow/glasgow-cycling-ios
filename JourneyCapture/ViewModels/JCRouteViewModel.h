@@ -31,9 +31,13 @@
 @property (strong, nonatomic) UIImage *routeImage;
 
 -(void)addPoint:(JCRoutePointViewModel *)point;
--(RACSignal *)uploadRoute;
--(RACSignal *)uploadReview;
--(RACSignal *)loadPoints;
+
+- (RACSignal *)uploadAll;
+- (RACSignal *)uploadRoute;
+- (RACSignal *)uploadReview;
+
+- (RACSignal *)loadPoints;
 - (NSNumber *)averageRating;
+- (NSString *)shortTime;
 - (NSString *)readableTime;
 @end

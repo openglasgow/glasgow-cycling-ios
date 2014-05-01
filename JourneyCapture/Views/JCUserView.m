@@ -85,21 +85,22 @@
     _mapView = [MKMapView new];
     _mapView.zoomEnabled = NO;
     _mapView.scrollEnabled = NO;
-    _mapView.userInteractionEnabled = NO;
+    _mapView.rotateEnabled = NO;
+    _mapView.pitchEnabled = NO;
     _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _mapView.translatesAutoresizingMaskIntoConstraints = NO;
     [_scrollView addSubview:_mapView];
     
-    UIImage *captureImage = [UIImage imageNamed:@"capture-icon"];
-    _captureImageView = [[UIImageView alloc] initWithImage:captureImage];
-    _captureImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    _captureImageView.layer.masksToBounds = YES;
-    _captureImageView.layer.cornerRadius = 33.75f;
-    [_scrollView addSubview:_captureImageView];
-    
     _captureButton = [UIButton new];
     _captureButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _captureButton.layer.masksToBounds = YES;
+    _captureButton.layer.cornerRadius = 33.75f;
     [_scrollView addSubview:_captureButton];
+
+    UIImage *captureImage = [UIImage imageNamed:@"capture-button"];
+    UIImage *captureTappedImage = [UIImage imageNamed:@"capture-button-tapped"];
+    [_captureButton setImage:captureImage forState:UIControlStateNormal];
+    [_captureButton setImage:captureTappedImage forState:UIControlStateHighlighted];
     
     // Menu area
     _menuTableView = [UITableView new];
@@ -151,17 +152,12 @@
     [_mapView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
     [_mapView autoSetDimension:ALDimensionHeight toSize:128];
     
-    [_captureImageView autoRemoveConstraintsAffectingView];
-    [_captureImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_captureImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView withOffset:30];
-    [_captureImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView withOffset:-30];
-    [_captureImageView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionHeight ofView:_captureImageView];
-
     [_captureButton autoRemoveConstraintsAffectingView];
-    [_captureButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView];
-    [_captureButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_mapView];
-    [_captureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView];
-    [_captureButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_mapView];
+    [_captureButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    [_captureButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_mapView withOffset:15];
+    [_captureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView withOffset:-15];
+    [_captureButton autoMatchDimension:ALDimensionWidth toDimension:ALDimensionHeight ofView:_captureButton];
+
     
     // Menu
     [_menuTableView autoRemoveConstraintsAffectingView];

@@ -6,46 +6,26 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
-#import "IFTTTJazzHands.h"
-#import <EDStarRating/EDStarRating.h>
-@class JCRouteViewModel;
+@import UIKit;
+@import MapKit;
+#import "JBLineChartView.h"
 
-@interface JCCaptureView : UIView <MKMapViewDelegate, EDStarRatingProtocol>
-@property (strong, nonatomic) MKMapView *mapView;
-@property (nonatomic, strong) MKPolyline *routeLine;
-@property (nonatomic, strong) MKPolylineView *routeLineView;
-@property (strong, nonatomic) UIButton *captureButton;
-@property (strong, nonatomic) UITableView *statsTable;
+@class JCRouteViewModel;
+@class JCCaptureStatsView;
+
+@interface JCCaptureView : UIView <MKMapViewDelegate, JBLineChartViewDelegate, JBLineChartViewDataSource>
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 
-// Review
-@property (strong, nonatomic) UIScrollView *reviewScrollView;
-@property (strong, nonatomic) UILabel *safetyReviewLabel;
-@property (strong, nonatomic) EDStarRating *safetyRating;
-@property (strong, nonatomic) UILabel *environmentReviewLabel;
-@property (strong, nonatomic) EDStarRating *environmentRating;
-@property (strong, nonatomic) UILabel *difficultyReviewLabel;
-@property (strong, nonatomic) EDStarRating *difficultyRating;
-@property (strong, nonatomic) UILabel *reviewCompleteLabel;
-@property (strong, nonatomic) UILabel *reviewGuidanceLabel;
+// Map
+@property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) MKPolyline *routeLine;
+@property (strong, nonatomic) MKPolylineView *routeLineView;
 
-@property (strong, nonatomic) IFTTTAnimator *animator;
-@property (strong, nonatomic) MASConstraint *mapBottomConstraint;
-@property (strong, nonatomic) MASConstraint *statsTopConstraint;
-@property (strong, nonatomic) MASConstraint *statsBottomConstraint;
-@property (strong, nonatomic) MASConstraint *reviewTopConstraint;
-@property (strong, nonatomic) MASConstraint *reviewBottomConstraint;
+@property (strong, nonatomic) JBLineChartView *graphView;
+@property (strong, nonatomic) JCCaptureStatsView *statsView;
 
-// Upload
-@property (readwrite, nonatomic) BOOL uploading;
-@property (strong, nonatomic) UIView *uploadView;
-@property (strong, nonatomic) UIActivityIndicatorView *uploadIndicatorView;
+@property (strong, nonatomic) UIButton *captureButton;
 
-- (id)initWithFrame:(CGRect)frame viewModel:(JCRouteViewModel *)captureViewModel;
-- (void)transitionToActive;
-- (void)transitionToComplete;
+- (id)initWithViewModel:(JCRouteViewModel *)captureViewModel;
 - (void)updateRouteLine;
-- (void)showUploadIndicator:(BOOL)show;
 @end

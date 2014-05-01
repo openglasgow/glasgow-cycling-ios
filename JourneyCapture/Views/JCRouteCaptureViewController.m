@@ -8,12 +8,12 @@
 
 #import "JCRouteCaptureViewController.h"
 #import "JCCaptureView.h"
-#import "JCStatCell.h"
 #import "JCRoutePointViewModel.h"
 #import "Flurry.h"
 
 @interface JCRouteCaptureViewController ()
-
+@property (readwrite, nonatomic) BOOL capturing;
+@property (strong, nonatomic) NSDate *captureStart;
 @end
 
 @implementation JCRouteCaptureViewController
@@ -23,126 +23,134 @@
     self = [super init];
     if (self) {
         _viewModel = [[JCRouteViewModel alloc] init];
-        self.routeUploaded = NO;
-        self.reviewUploaded = NO;
+        [self startRoute];
     }
     return self;
 }
+
+#pragma mark - UIViewController
 
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
-    CGRect captureFrame = [[UIScreen mainScreen] applicationFrame];
-    _captureView = [[JCCaptureView alloc] initWithFrame:captureFrame viewModel:_viewModel];
+    _captureView = [[JCCaptureView alloc] initWithViewModel:_viewModel];
+    _captureView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     _captureView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        NSLog(@"Tapped capture button");
-        if ([[_captureView.captureButton.titleLabel text] isEqualToString:@"Start"]) {
-            [Flurry logEvent:@"Route Capture" timed:YES];
-
-            // Start
-            _captureStart = [NSDate date];
-            [_captureView transitionToActive];
-
-            // Show cancel button in place of back button
-            self.navigationItem.hidesBackButton = YES;
-            UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
-            self.navigationItem.leftBarButtonItem = cancelButton;
-            cancelButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-                UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Stop Capturing"
-                                                                      message:@"Are you sure you want to stop capturing the route?"
-                                                                     delegate:nil
-                                                            cancelButtonTitle:@"Keep Going"
-                                                            otherButtonTitles:@"Stop Capturing", nil];
-                [cancelAlert show];
-                cancelAlert.delegate = self;
-                return [RACSignal empty];
-            }];
-
-            // Start updating location
-            [[JCLocationManager manager] startUpdatingNav];
-            [[JCLocationManager manager] setDelegate:self];
-
-            // Set warning notifications in case user forgets to stop capture
-            [self scheduleWarningNotification];
-        } else if ([[_captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
-            // Cancel tracking notifications
-            [[UIApplication sharedApplication] cancelAllLocalNotifications];
-
-            // Stop
-            if (_viewModel.points.count == 0) {
-                UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Stop Capturing"
-                                                                      message:@"No data has been collected, stop capturing?"
-                                                                     delegate:nil
-                                                            cancelButtonTitle:@"Keep Going"
-                                                            otherButtonTitles:@"Stop Capturing", nil];
-                [cancelAlert show];
-                cancelAlert.delegate = self;
-            } else {
-                [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
-                [Flurry logEvent:@"Route Submit" timed:YES];
-                [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
-                [[JCLocationManager manager] setDelegate:nil];
-                [_captureView transitionToComplete];
-            }
-        } else {
-            // Submit
-            [Flurry endTimedEvent:@"Route Submit" withParameters:@{
-                                                                   @"Safety Rating": @(_viewModel.safetyRating),
-                                                                   @"Environment Rating": @(_viewModel.environmentRating),
-                                                                   @"Difficulty Rating": @(_viewModel.difficultyRating)
-                                                                   }];
-            [self upload];
-        }
+        NSLog(@"Tapped capture finish button");
+        [self endRoute];
         return [RACSignal empty];
     }];
-
-    [_captureView.statsTable setDelegate:self];
-    [_captureView.statsTable setDataSource:self];
 
     [self.view addSubview:_captureView];
 }
 
--(void)upload
+- (void)viewWillLayoutSubviews
 {
+    [_captureView autoRemoveConstraintsAffectingView];
+    [_captureView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [_captureView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    
+    [_captureView layoutSubviews];
+    
+    [super viewWillLayoutSubviews];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	[self.navigationItem setTitle:@"Capture"];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    RACSignal *foregroundSignal = [[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil];
+
     @weakify(self);
-    if (!self.routeUploaded) {
-        NSLog(@"Uploading Route");
-        [[[_viewModel uploadRoute] then:^RACSignal *{
-            _captureView.uploading = YES;
-            return [RACSignal empty];
-        }] subscribeError:^(NSError *error) {
-            // TODO save locally and keep trying
-            _captureView.uploading = NO;
-            NSLog(@"Couldn't upload");
-        } completed:^{
-            @strongify(self);
-            self.routeUploaded = YES;
-            [self upload];
-            NSLog(@"Route uploaded");
-        }];
+    [foregroundSignal subscribeNext:^(id x) {
+        @strongify(self);
+        [self scheduleWarningNotification];
+    }];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Route Capture
+
+- (void)startRoute
+{
+    NSLog(@"Starting route");
+    
+    [Flurry logEvent:@"Route Capture" timed:YES];
+    _capturing = YES;
+    _captureStart = [NSDate date];
+    
+    // Show cancel button in place of back button
+    self.navigationItem.hidesBackButton = YES;
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:nil
+                                                                    action:nil];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    cancelButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Stop Capturing"
+                                                              message:@"Are you sure you want to stop capturing the route?"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"Keep Going"
+                                                    otherButtonTitles:@"Stop Capturing", nil];
+        [cancelAlert show];
+        cancelAlert.delegate = self;
+        return [RACSignal empty];
+    }];
+    
+    // Start updating location
+    [[JCLocationManager sharedManager] setDelegate:self];
+    [[JCLocationManager sharedManager] startUpdatingNav];
+    
+    // Set warning notifications in case user forgets to stop capture
+    [self scheduleWarningNotification];
+}
+
+- (void)endRoute
+{
+    [self cancelWarningNotification];
+    NSLog(@"Ending route");
+    
+    // Only allow routes with captured locations
+    if (_viewModel.points.count == 0) {
+        UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Stop Capturing"
+                                                              message:@"No data has been collected, stop capturing?"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"Keep Going"
+                                                    otherButtonTitles:@"Stop Capturing", nil];
+        [cancelAlert show];
+        cancelAlert.delegate = self;
     } else {
-        NSLog(@"Uploading Review");
-        // Upload Review
-        [[[_viewModel uploadReview] then:^RACSignal *{
-            _captureView.uploading = YES;
-            return [RACSignal empty];
-        }] subscribeError:^(NSError *error) {
-            NSLog(@"Couldn't upload review");
-            _captureView.uploading = NO;
+        // Stop capturing
+        [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
+        [Flurry logEvent:@"Route Submit"];
+        [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
+        [[JCLocationManager sharedManager] setDelegate:nil];
+        
+        // Upload
+        [[_viewModel uploadRoute] subscribeError:^(NSError *error) {
+            NSLog(@"Upload failed");
         } completed:^{
-            _captureView.uploading = NO;
-            NSLog(@"Review uploaded");
-            @strongify(self);
+            NSLog(@"Upload completed");
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }
 }
 
+/*
+ * Add location to route being captured
+ */
 - (void)didUpdateLocations:(NSArray *)locations
 {
     int numLocations = (int)locations.count;
@@ -169,37 +177,17 @@
 
         // Update route line on mapview
         [_captureView updateRouteLine];
-
-        // Reload stats
-        [_captureView.statsTable reloadData];
     }
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	[self.navigationItem setTitle:@"Capture"];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    RACSignal *foregroundSignal = [[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil];
-    @weakify(self);
-    [foregroundSignal subscribeNext:^(id x) {
-        @strongify(self);
-        if ([[_captureView.captureButton.titleLabel text] isEqualToString:@"Stop"]) {
-            [self scheduleWarningNotification];
-        }
-    }];
-}
+#pragma mark - Notifications
 
 - (void)scheduleWarningNotification
 {
     // Ensure we don't schedule too many
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [self cancelWarningNotification];
 
-    // Capturing - Schedule a notification in case the user forgets to stop capturing
+    // Capturing - Schedule notifications in case the user forgets to stop capturing
     int oneHour = 60 * 60; // seconds
     NSDate *notificatinTime = [NSDate dateWithTimeIntervalSinceNow:oneHour];
 
@@ -214,73 +202,23 @@
     }
 }
 
--(void)dealloc
+- (void)cancelWarningNotification
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
-#pragma mark - UITableViewDataSource methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 3;
-}
-
-#pragma mark - UITableViewDelegate methods
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return tableView.frame.size.height / 3;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"StatsCell";
-
-    JCStatCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[JCStatCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                 reuseIdentifier:CellIdentifier];
-    }
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    if (indexPath.row == 0) {
-        [[cell statName] setText:@"Current Speed"];
-        double currentSpeedMph = _viewModel.currentSpeed;
-        double currentSpeedKph = (currentSpeedMph * 60 * 60) / 1000;
-        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", currentSpeedKph]];
-    } else if (indexPath.row == 1) {
-        [[cell statName] setText:@"Average Speed"];
-        double averageSpeedMps = _viewModel.averageSpeed;
-        double averageSpeedKph = (averageSpeedMps * 60 * 60) / 1000;
-        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f kph", averageSpeedKph]];
-    } else if (indexPath.row == 2) {
-        [[cell statName] setText:@"Distance"];
-        [[cell statValue] setText:[NSString stringWithFormat:@"%.02f km", _viewModel.totalKm]];
-    }
-    [cell setAccessoryType:UITableViewCellAccessoryNone];
-    return cell;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
+#pragma mark - UIAlertViewDelgate
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 1) {
-        // Stop
-        [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
-        [[JCLocationManager manager] setDelegate:nil];
+    if (buttonIndex == 1) {
+        // Stop route capture (route cancel alert)
+        NSLog(@"Cancelling route");
+        [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
+        [[JCLocationManager sharedManager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
         [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @NO}];
-        [[UIApplication sharedApplication] cancelAllLocalNotifications]; // Cancel GPS warnings
+        [self cancelWarningNotification];
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }

@@ -17,4 +17,5 @@
 @property (readwrite, nonatomic) BOOL updateOnAppear;
 
 - (void)update;
+- (void)showCapture;
 @end

@@ -10,14 +10,19 @@
 
 @implementation UIColor (Application)
 
-+(UIColor *)jc_blueColor
++ (UIColor *)jc_blueColor
 {
     return [UIColor colorWithRed:0.0f green:161/255.0f blue:223/255.0f alpha:1.0f];
 }
 
-+(UIColor *)jc_lightBlueColor
++ (UIColor *)jc_lightBlueColor
 {
     return [UIColor colorWithRed:76/255.0f green:185/255.0f blue:226/255.0f alpha:1.0f];
+}
+
++ (UIColor *)jc_redColor
+{
+    return [UIColor colorWithRed:255/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
 }
 
 @end

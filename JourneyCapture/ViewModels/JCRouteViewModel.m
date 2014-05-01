@@ -77,7 +77,7 @@
     }
 }
 
--(RACSignal *)uploadRoute
+- (RACSignal *)uploadRoute
 {
     NSLog(@"Uploading user route");
     JCAPIManager *manager = [JCAPIManager manager];

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
+		12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BCB75119114AA500629192 /* JCCaptureStatsView.m */; };
 		12F8E6F5190FEFC900AA0216 /* JCMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F8E6F4190FEFC900AA0216 /* JCMenuCell.xib */; };
 		12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F8E6F7190FF0FB00AA0216 /* JCMenuTableViewCell.m */; };
 		12F8E6FB190FFE3C00AA0216 /* JCScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F8E6FA190FFE3C00AA0216 /* JCScrollView.m */; };
@@ -48,7 +49,6 @@
 		83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022618BE474D00EE7787 /* JCSigninViewController.m */; };
 		83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022C18BE477700EE7787 /* JCSigninViewModel.m */; };
 		83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022F18BE482B00EE7787 /* JCSigninView.m */; };
-		83BD285A18CA01010042F1E3 /* JCStatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD285918CA01010042F1E3 /* JCStatCell.m */; };
 		83BD285E18CA04C50042F1E3 /* JCRouteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD285D18CA04C50042F1E3 /* JCRouteViewModel.m */; };
 		83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BD286018CA06640042F1E3 /* JCRoutePointViewModel.m */; };
 		83D98DD018C9D3AD00E72279 /* JCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D98DCF18C9D3AD00E72279 /* JCLocationManager.m */; };
@@ -75,6 +75,8 @@
 /* Begin PBXFileReference section */
 		12A9C26B190FAB8C004BB4B5 /* UIColor+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Application.h"; sourceTree = "<group>"; };
 		12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Application.m"; sourceTree = "<group>"; };
+		12BCB75019114AA500629192 /* JCCaptureStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureStatsView.h; sourceTree = "<group>"; };
+		12BCB75119114AA500629192 /* JCCaptureStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCaptureStatsView.m; sourceTree = "<group>"; };
 		12E8303FB46D4087967CEECE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		12F8E6F4190FEFC900AA0216 /* JCMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCMenuCell.xib; sourceTree = "<group>"; };
 		12F8E6F6190FF0FB00AA0216 /* JCMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCMenuTableViewCell.h; sourceTree = "<group>"; };
@@ -145,8 +147,6 @@
 		83BA022C18BE477700EE7787 /* JCSigninViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninViewModel.m; sourceTree = "<group>"; };
 		83BA022E18BE482B00EE7787 /* JCSigninView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSigninView.h; sourceTree = "<group>"; };
 		83BA022F18BE482B00EE7787 /* JCSigninView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninView.m; sourceTree = "<group>"; };
-		83BD285818CA01010042F1E3 /* JCStatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCStatCell.h; sourceTree = "<group>"; };
-		83BD285918CA01010042F1E3 /* JCStatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCStatCell.m; sourceTree = "<group>"; };
 		83BD285C18CA04C50042F1E3 /* JCRouteViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteViewModel.h; sourceTree = "<group>"; };
 		83BD285D18CA04C50042F1E3 /* JCRouteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteViewModel.m; sourceTree = "<group>"; };
 		83BD285F18CA06640042F1E3 /* JCRoutePointViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRoutePointViewModel.h; sourceTree = "<group>"; };
@@ -482,10 +482,10 @@
 			children = (
 				83D98DD518C9DB4100E72279 /* JCCaptureView.h */,
 				83D98DD618C9DB4100E72279 /* JCCaptureView.m */,
-				83BD285818CA01010042F1E3 /* JCStatCell.h */,
-				83BD285918CA01010042F1E3 /* JCStatCell.m */,
 				83D98DD218C9DB2F00E72279 /* JCRouteCaptureViewController.h */,
 				83D98DD318C9DB2F00E72279 /* JCRouteCaptureViewController.m */,
+				12BCB75019114AA500629192 /* JCCaptureStatsView.h */,
+				12BCB75119114AA500629192 /* JCCaptureStatsView.m */,
 			);
 			name = "Route Capture";
 			sourceTree = "<group>";
@@ -550,7 +550,7 @@
 				ORGANIZATIONNAME = FCD;
 				TargetAttributes = {
 					831EDB4518BCBB33001468E4 = {
-						DevelopmentTeam = N22NQHGM2W;
+						DevelopmentTeam = L342PDL5NN;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -666,6 +666,7 @@
 				12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */,
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */,
+				12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
 				83B3484F18C09EFF00D59FB9 /* JCRouteCell.m in Sources */,
 				83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */,
@@ -674,7 +675,6 @@
 				83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */,
 				83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */,
 				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,
-				83BD285A18CA01010042F1E3 /* JCStatCell.m in Sources */,
 				83641C1918D2052700671A2A /* JCNotificationManager.m in Sources */,
 				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
 				83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */,

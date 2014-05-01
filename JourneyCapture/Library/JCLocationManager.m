@@ -24,6 +24,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    NSLog(@"Location manager got location update");
     [self.delegate didUpdateLocations:locations];
 }
 
@@ -52,7 +53,7 @@
 
 #pragma mark - Singleton Methods
 
-+ (JCLocationManager *)manager
++ (JCLocationManager *)sharedManager
 {
     static dispatch_once_t pred;
     static JCLocationManager *_manager = nil;

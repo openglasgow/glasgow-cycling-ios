@@ -12,13 +12,11 @@
 
 @class JCCaptureView;
 
-@interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate, UIAlertViewDelegate,
-                                                            UITableViewDataSource, UITableViewDelegate>
-@property (strong, nonatomic) NSDate *captureStart;
+@interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 @property (strong, nonatomic) JCCaptureView *captureView;
-@property (readwrite, nonatomic) BOOL routeUploaded;
-@property (readwrite, nonatomic) BOOL reviewUploaded;
-- (void)upload;
+- (void)startRoute;
+- (void)endRoute;
 - (void)scheduleWarningNotification;
+- (void)cancelWarningNotification;
 @end

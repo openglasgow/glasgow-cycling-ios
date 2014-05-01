@@ -36,7 +36,7 @@
     if (!self) {
         return nil;
     }
-    [[JCLocationManager manager] setDelegate:self];
+    [[JCLocationManager sharedManager] setDelegate:self];
     _viewModel = [[JCUserViewModel alloc] init];
     [self update];
     return self;
@@ -57,12 +57,16 @@
     [self.view addSubview:_userView];
     
     _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [Flurry logEvent:@"Route capture tapped"];
-        _updateOnAppear = YES;
-        JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
-        [self.navigationController pushViewController:captureController animated:YES];
+        [self showCapture];
         return [RACSignal empty];
     }];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
+                                          initWithTarget:self
+                                          action:@selector(showCapture)];
+    tapGesture.cancelsTouchesInView = YES;
+    tapGesture.delaysTouchesEnded = NO;
+    [_userView.mapView addGestureRecognizer:tapGesture];
 
 //    // Buttons
 //    UIColor *buttonColor = [UIColor colorWithRed:0 green:224.0/255.0 blue:184.0/255.0 alpha:1.0];
@@ -167,16 +171,11 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [[JCLocationManager manager] startUpdatingCoarse];
+    [[JCLocationManager sharedManager] startUpdatingCoarse];
     if (_updateOnAppear) {
         [self update];
         _updateOnAppear = NO;
     }
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [[[JCLocationManager manager] locationManager] stopUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -192,6 +191,14 @@
     } completed:^{
         NSLog(@"User details loaded");
     }];
+}
+
+- (void)showCapture
+{
+    [Flurry logEvent:@"Route capture tapped"];
+    _updateOnAppear = YES;
+    JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
+    [self.navigationController pushViewController:captureController animated:YES];
 }
 
 #pragma mark - JCLocationManagerDelegate

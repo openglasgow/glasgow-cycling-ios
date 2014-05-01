@@ -20,5 +20,5 @@
 -(void)startUpdatingNav;
 
 - (CLLocation *)currentLocation;
-+ (JCLocationManager *)manager;
++ (JCLocationManager *)sharedManager;
 @end
