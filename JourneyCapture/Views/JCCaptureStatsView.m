@@ -21,19 +21,17 @@
     
     _viewModel = routeViewModel;
     
-    UIImage *backgroundImage = [UIImage imageNamed:@"stats-background"];
-    _backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
-    _backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_backgroundImageView];
-    
     // Stats
-    UIFont *statsFont = [UIFont systemFontOfSize:24];
+    UIFont *statsFont = [UIFont boldSystemFontOfSize:24];
+    UIColor *statsColor = [UIColor colorWithRed:127/255.0f green:106/255.0f blue:106/255.0f alpha:1.0];
     
     // Current speed
     _currentSpeedLabel = [UILabel new];
     _currentSpeedLabel.font = statsFont;
+    _currentSpeedLabel.textColor = statsColor;
     _currentSpeedLabel.textAlignment = NSTextAlignmentCenter;
     _currentSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _currentSpeedLabel.text = @"0.0 mph";
     [self addSubview:_currentSpeedLabel];
     
     [RACChannelTo(_viewModel, currentSpeed) subscribeNext:^(id speedMps) {
@@ -46,14 +44,15 @@
     // Average speed
     _averageSpeedLabel = [UILabel new];
     _averageSpeedLabel.font = statsFont;
+    _averageSpeedLabel.textColor = statsColor;
     _averageSpeedLabel.textAlignment = NSTextAlignmentCenter;
     _averageSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_averageSpeedLabel setText:@"avg 26 mph"];
+    _averageSpeedLabel.text = @"0.0 mph";
     
     [RACChannelTo(_viewModel, averageSpeed) subscribeNext:^(id speedMps) {
         double averageSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
         double averageSpeedMph = averageSpeedKph* 0.621371192f;
-        NSString *averageSpeedText = [NSString stringWithFormat:@"~ %.01f mph", averageSpeedMph];
+        NSString *averageSpeedText = [NSString stringWithFormat:@"%.01f mph", averageSpeedMph];
         _averageSpeedLabel.text = averageSpeedText;
     }];
     
@@ -62,9 +61,10 @@
     // Total time
     _totalTimeLabel = [UILabel new];
     _totalTimeLabel.font = statsFont;
+    _totalTimeLabel.textColor = statsColor;
     _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
     _totalTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_totalTimeLabel setText:@"00:00"];
+    _totalTimeLabel.text = @"00:00";
     
     _timer = [NSTimer timerWithTimeInterval:0.5f target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
@@ -74,14 +74,15 @@
     // Total distance
     _totalDistanceLabel = [UILabel new];
     _totalDistanceLabel.font = statsFont;
+    _totalDistanceLabel.textColor = statsColor;
     _totalDistanceLabel.textAlignment = NSTextAlignmentCenter;
     _totalDistanceLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_totalDistanceLabel setText:@"34.5 miles"];
+    _totalDistanceLabel.text = @"0.0 mi";
     
     [RACChannelTo(_viewModel, totalKm) subscribeNext:^(id totalDistanceKm) {
         double distanceKm = [totalDistanceKm doubleValue];
         double distanceMiles = distanceKm * 0.621371192f;
-        NSString *distanceText = [NSString stringWithFormat:@"%.01f miles", distanceMiles];
+        NSString *distanceText = [NSString stringWithFormat:@"%.01f mi", distanceMiles];
         _totalDistanceLabel.text = distanceText;
     }];
     
@@ -118,9 +119,6 @@
 
 - (void)layoutSubviews
 {
-    [_backgroundImageView autoRemoveConstraintsAffectingView];
-    [_backgroundImageView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(50, 30, 50, 30)];
-    
     // Top left, top right, bot left, bot right
     
     [_currentSpeedLabel autoRemoveConstraintsAffectingView];

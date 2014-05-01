@@ -12,8 +12,6 @@
 @interface JCCaptureStatsView : UIView
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 
-@property (strong, nonatomic) UIImageView *backgroundImageView;
-
 @property (strong, nonatomic) UILabel *currentSpeedLabel;
 @property (strong, nonatomic) UILabel *averageSpeedLabel;
 @property (strong, nonatomic) UILabel *totalTimeLabel;
