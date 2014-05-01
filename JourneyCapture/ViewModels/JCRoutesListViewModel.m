@@ -8,11 +8,9 @@
 
 #import "JCRoutesListViewModel.h"
 #import "JCRouteViewModel.h"
-#import "JCAPIManager.h"
-#import "JCLocationManager.h"
+//#import "JCLocationManager.h"
 
 @implementation JCRoutesListViewModel
-@synthesize routes, title;
 
 - (id)init
 {
@@ -24,72 +22,46 @@
     return self;
 }
 
--(RACSignal *)loadUserRoutes
+//-(RACSignal *)loadNearbyRoutes
+//{
+//    NSLog(@"Loading user routes");
+//    JCAPIManager *manager = [JCAPIManager manager];
+//    CLLocation *currentLocation = [[JCLocationManager sharedManager] currentLocation];
+//    NSDictionary *locationParams = @{
+//                                     @"lat": @(currentLocation.coordinate.latitude),
+//                                     @"long": @(currentLocation.coordinate.longitude)
+//                                     };
+//    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+//        AFHTTPRequestOperation *op = [manager GET:@"/routes/nearby.json"
+//                                       parameters:locationParams
+//                                          success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
+//                                              // Registered, store user token
+//                                              _routes = [[NSMutableArray alloc] init];
+//
+//                                              NSLog(@"Nearby routes load success");
+//                                              NSLog(@"%@", routesDict);
+//                                              NSArray *routesResponse = routesDict[@"routes"];
+//
+//                                              [self storeRoutes:routesResponse];
+//                                              
+//                                              [subscriber sendCompleted];
+//                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                                              NSLog(@"Nearby routes load failure");
+//                                              NSLog(@"%@", error);
+//                                              NSLog(@"%@", operation.responseObject);
+//                                              [subscriber sendError:error];
+//                                          }
+//                                      ];
+//        
+//        return [RACDisposable disposableWithBlock:^{
+//            [op cancel];
+//        }];
+//    }];
+//}
+
+- (RACSignal *)loadRoutes
 {
-    NSLog(@"Loading user routes");
-    JCAPIManager *manager = [JCAPIManager manager];
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager GET:@"/routes/user_summaries/1000/1.json"
-                                       parameters:nil
-                                          success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
-                                              // Registered, store user token
-                                              self.routes = [[NSMutableArray alloc] init];
-
-                                              NSLog(@"User routes load success");
-                                              NSLog(@"%@", routesDict);
-                                              NSArray *routesResponse = routesDict[@"routes"];
-
-                                              [self storeRoutes:routesResponse];
-
-                                              [subscriber sendCompleted];
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              NSLog(@"User routes load failure");
-                                              NSLog(@"%@", error);
-                                              [subscriber sendError:error];
-                                          }
-                                      ];
-
-        return [RACDisposable disposableWithBlock:^{
-            [op cancel];
-        }];
-    }];
-}
-
--(RACSignal *)loadNearbyRoutes
-{
-    NSLog(@"Loading user routes");
-    JCAPIManager *manager = [JCAPIManager manager];
-    CLLocation *currentLocation = [[JCLocationManager sharedManager] currentLocation];
-    NSDictionary *locationParams = @{
-                                     @"lat": @(currentLocation.coordinate.latitude),
-                                     @"long": @(currentLocation.coordinate.longitude)
-                                     };
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager GET:@"/routes/nearby.json"
-                                       parameters:locationParams
-                                          success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
-                                              // Registered, store user token
-                                              self.routes = [[NSMutableArray alloc] init];
-
-                                              NSLog(@"Nearby routes load success");
-                                              NSLog(@"%@", routesDict);
-                                              NSArray *routesResponse = routesDict[@"routes"];
-
-                                              [self storeRoutes:routesResponse];
-                                              
-                                              [subscriber sendCompleted];
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              NSLog(@"Nearby routes load failure");
-                                              NSLog(@"%@", error);
-                                              NSLog(@"%@", operation.responseObject);
-                                              [subscriber sendError:error];
-                                          }
-                                      ];
-        
-        return [RACDisposable disposableWithBlock:^{
-            [op cancel];
-        }];
-    }];
+    return [RACSignal empty];
 }
 
 -(void)storeRoutes:(NSArray *)routesData
