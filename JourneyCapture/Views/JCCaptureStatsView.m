@@ -39,7 +39,7 @@
     [RACChannelTo(_viewModel, currentSpeed) subscribeNext:^(id speedMps) {
         double currentSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
         double currentSpeedMph = currentSpeedKph* 0.621371192f;
-        NSString *currentSpeedText = [NSString stringWithFormat:@"%.02f mph", currentSpeedMph];
+        NSString *currentSpeedText = [NSString stringWithFormat:@"%.01f mph", currentSpeedMph];
         _currentSpeedLabel.text = currentSpeedText;
     }];
     
@@ -53,7 +53,7 @@
     [RACChannelTo(_viewModel, averageSpeed) subscribeNext:^(id speedMps) {
         double averageSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
         double averageSpeedMph = averageSpeedKph* 0.621371192f;
-        NSString *averageSpeedText = [NSString stringWithFormat:@"~ %.02f mph", averageSpeedMph];
+        NSString *averageSpeedText = [NSString stringWithFormat:@"~ %.01f mph", averageSpeedMph];
         _averageSpeedLabel.text = averageSpeedText;
     }];
     
@@ -64,7 +64,7 @@
     _totalTimeLabel.font = statsFont;
     _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
     _totalTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_totalTimeLabel setText:@"3:15:30"];
+    [_totalTimeLabel setText:@"00:00"];
     
     _timer = [NSTimer timerWithTimeInterval:0.5f target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
@@ -81,7 +81,7 @@
     [RACChannelTo(_viewModel, totalKm) subscribeNext:^(id totalDistanceKm) {
         double distanceKm = [totalDistanceKm doubleValue];
         double distanceMiles = distanceKm * 0.621371192f;
-        NSString *distanceText = [NSString stringWithFormat:@"%.02f miles", distanceMiles];
+        NSString *distanceText = [NSString stringWithFormat:@"%.01f miles", distanceMiles];
         _totalDistanceLabel.text = distanceText;
     }];
     
@@ -93,10 +93,13 @@
 - (void)updateTime
 {
     JCRoutePointViewModel *firstPoint = [_viewModel.points firstObject];
-    CLLocation *firstLocation = [firstPoint location];
-    NSDate *startTime = [firstLocation timestamp];
-    NSDate *now = [NSDate date];
-    NSTimeInterval totalSeconds = [now timeIntervalSinceDate:startTime];
+    NSTimeInterval totalSeconds = 0;
+    if (firstPoint) {
+        CLLocation *firstLocation = [firstPoint location];
+        NSDate *startTime = [firstLocation timestamp];
+        NSDate *now = [NSDate date];
+        totalSeconds = [now timeIntervalSinceDate:startTime];
+    }
     
     int hours = totalSeconds / 3600;
     int minutes = (totalSeconds - (hours * 3600)) / 60;
