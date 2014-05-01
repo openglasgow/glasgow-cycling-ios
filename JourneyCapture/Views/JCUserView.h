@@ -27,7 +27,6 @@
 
 // Capture area
 @property (strong, nonatomic) MKMapView *mapView;
-@property (strong, nonatomic) UIImageView *captureImageView;
 @property (strong, nonatomic) UIButton *captureButton;
 
 // Menu area
