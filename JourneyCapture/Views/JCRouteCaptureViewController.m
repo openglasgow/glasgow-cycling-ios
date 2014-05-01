@@ -211,7 +211,7 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 1) {
+    if (buttonIndex == 1) {
         // Stop route capture (route cancel alert)
         NSLog(@"Cancelling route");
         [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
