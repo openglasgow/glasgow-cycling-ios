@@ -203,6 +203,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		125340FC1913A412008E1856 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				12C76B0D1912A22400B7F964 /* JCLoadingView.h */,
+				12C76B0E1912A22400B7F964 /* JCLoadingView.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		8303E2CE18C619E900215760 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +415,7 @@
 		838C16D918BCBBEB0053BFB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				125340FC1913A412008E1856 /* Common */,
 				83DC969A18D07F3E00E66C26 /* Nav */,
 				83BA021D18BE3E6F00EE7787 /* Welcome */,
 				83BA021E18BE3E7300EE7787 /* Signin */,
@@ -437,8 +447,6 @@
 				83B3484E18C09EFF00D59FB9 /* JCRouteCell.m */,
 				83B5DEC918BFA3130032F7E1 /* JCRoutesViewController.h */,
 				83B5DECA18BFA3130032F7E1 /* JCRoutesViewController.m */,
-				12C76B0D1912A22400B7F964 /* JCLoadingView.h */,
-				12C76B0E1912A22400B7F964 /* JCLoadingView.m */,
 			);
 			name = "Routes List";
 			sourceTree = "<group>";
