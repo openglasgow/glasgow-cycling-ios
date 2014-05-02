@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		125340FE1913A489008E1856 /* JCRouteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 125340FD1913A489008E1856 /* JCRouteCell.xib */; };
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
 		12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BCB75119114AA500629192 /* JCCaptureStatsView.m */; };
 		12BEEA0B19129BDA00025B0E /* JCUserRoutesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BEEA0A19129BDA00025B0E /* JCUserRoutesViewModel.m */; };
@@ -75,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		125340FD1913A489008E1856 /* JCRouteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCRouteCell.xib; sourceTree = "<group>"; };
 		12A9C26B190FAB8C004BB4B5 /* UIColor+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Application.h"; sourceTree = "<group>"; };
 		12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Application.m"; sourceTree = "<group>"; };
 		12BCB75019114AA500629192 /* JCCaptureStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureStatsView.h; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 			children = (
 				83B3484D18C09EFF00D59FB9 /* JCRouteCell.h */,
 				83B3484E18C09EFF00D59FB9 /* JCRouteCell.m */,
+				125340FD1913A489008E1856 /* JCRouteCell.xib */,
 				83B5DEC918BFA3130032F7E1 /* JCRoutesViewController.h */,
 				83B5DECA18BFA3130032F7E1 /* JCRoutesViewController.m */,
 			);
@@ -604,6 +607,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				831EDB5418BCBB33001468E4 /* InfoPlist.strings in Resources */,
+				125340FE1913A489008E1856 /* JCRouteCell.xib in Resources */,
 				83DC969918D0762800E66C26 /* Settings.bundle in Resources */,
 				12F8E6F5190FEFC900AA0216 /* JCMenuCell.xib in Resources */,
 				831EDB5C18BCBB34001468E4 /* Images.xcassets in Resources */,

@@ -67,37 +67,48 @@
 -(void)storeRoutes:(NSArray *)routesData
 {
     for (int i = 0; i < routesData.count; i++) {
-        NSDictionary *routeData = routesData[i][@"details"];
+        NSDictionary *routeData = routesData[i];
         JCRouteViewModel *route = [[JCRouteViewModel alloc] init];
-        [route setName:routeData[@"name"]];
+        NSString *startName = routeData[@"start_name"];
+        NSString *endName = routeData[@"end_name"];
+        [route setName:[NSString stringWithFormat:@"%@ to %@", startName, endName]];
 
-        double safetyRating = [routeData[@"safety_rating"] doubleValue];
+        [route setUses:[routeData[@"uses"] intValue]];
+        
+        NSDictionary *averages = routeData[@"averages"];
+        
+        double safetyRating = 0;
+        if (averages[@"safety_rating"] != [NSNull null]) {
+            safetyRating = [averages[@"safety_rating"] doubleValue];
+        }
         [route setSafetyRating:safetyRating];
 
-        double difficultyRating = [routeData[@"difficulty_rating"] doubleValue];
+        double difficultyRating = 0;
+        if (averages[@"difficulty_rating"] != [NSNull null]) {
+            difficultyRating = [averages[@"difficulty_rating"] doubleValue];
+        }
         [route setDifficultyRating:difficultyRating];
 
-        double environmentRating = [routeData[@"environment_rating"] doubleValue];
-        [route setEnvironmentRating:environmentRating];
-        [route setEstimatedTime:routeData[@"estimated_time"]];
+        double environmentRating = 0;
+        if (averages[@"environment_rating"] != [NSNull null]) {
+            environmentRating = [averages[@"environment_rating"] doubleValue];
+        }
+        [route setSafetyRating:environmentRating];
 
-        double distance = [routeData[@"total_distance"] doubleValue];
+        double time = 0;
+        if (averages[@"time"] != [NSNull null]) {
+            time = [averages[@"time"] doubleValue];
+        }
+        [route setEstimatedTime:@(time)];
+
+        double distance = 0;
+        if (averages[@"distance"] != [NSNull null]) {
+            distance = [averages[@"distance"] doubleValue];
+        }
         [route setTotalKm:distance];
 
-        int routeId = [routeData[@"id"] intValue];
-        [route setRouteId:routeId];
-
-        NSDictionary *endPicture = routeData[@"end_picture"];
-        if (endPicture) {
-            NSString *routeImageBase64 = endPicture[@"image"];
-            if (routeImageBase64) {
-                NSData *picData = [[NSData alloc] initWithBase64EncodedString:routeImageBase64 options:0];
-                UIImage *decodedRoutePic = [UIImage imageWithData:picData];
-                [route setRouteImage:decodedRoutePic];
-            } else {
-                [route setRouteImage:[UIImage imageNamed:@"science-centre"]];
-            }
-        }
+//        int routeId = [routeData[@"id"] intValue];
+//        [route setRouteId:routeId];
 
         [[self routes] addObject:route];
     }
