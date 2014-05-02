@@ -41,8 +41,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BSG-LA-p8C">
-                        <rect key="frame" x="30" y="55" width="160" height="17.5"/>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BSG-LA-p8C" customClass="EDStarRating">
+                        <rect key="frame" x="30" y="55" width="125" height="17.5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -52,7 +52,7 @@
                 <outlet property="distanceLabel" destination="hlH-pL-yHB" id="VJc-W1-mfO"/>
                 <outlet property="nameLabel" destination="0V6-LT-ICG" id="ZRo-OW-tUF"/>
                 <outlet property="numRoutesLabel" destination="NAH-Qh-uu4" id="Oka-vL-z0S"/>
-                <outlet property="ratingView" destination="BSG-LA-p8C" id="R9i-8Y-FRI"/>
+                <outlet property="ratingView" destination="BSG-LA-p8C" id="Yab-l2-H8l"/>
                 <outlet property="timeLabel" destination="hOL-8g-toy" id="02r-8h-pyp"/>
             </connections>
         </tableViewCell>

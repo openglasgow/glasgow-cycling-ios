@@ -38,6 +38,5 @@
 
 - (RACSignal *)loadPoints;
 - (NSNumber *)averageRating;
-- (NSString *)shortTime;
 - (NSString *)readableTime;
 @end

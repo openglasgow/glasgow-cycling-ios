@@ -17,7 +17,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self commonInit];
+        
     }
     
     return self;
@@ -27,14 +27,16 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self commonInit];
+        
     }
     
     return self;
 }
 
-- (void)commonInit
+- (void)setViewModel:(JCRouteViewModel *)viewModel
 {
+    self->_viewModel = viewModel;
+    
     UIColor *nameColor = [UIColor blackColor];
     UIColor *secondaryColor = [UIColor colorWithRed:88/255.0f green:77/255.0f blue:77/255.0f alpha:1];
     
@@ -59,15 +61,16 @@
     _numRoutesLabel.textColor = secondaryColor;
     
     // Rating view
-    _starRatingView = [[EDStarRating alloc] initWithFrame:_ratingView.frame];
-    [_starRatingView setEditable:NO];
-    [_starRatingView setDisplayMode:EDStarRatingDisplayFull];
-    _starRatingView.rating = [self.viewModel.averageRating floatValue];
-    _starRatingView.starImage = [UIImage imageNamed:@"star-template"];
-    _starRatingView.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
-    [_starRatingView setBackgroundColor:[UIColor clearColor]];
-    _starRatingView.horizontalMargin = 5;
-    [_ratingView addSubview:_starRatingView];
+    [_ratingView setEditable:NO];
+    [_ratingView setDisplayMode:EDStarRatingDisplayFull];
+    _ratingView.starImage = [UIImage imageNamed:@"star"];
+    _ratingView.starHighlightedImage = [UIImage imageNamed:@"filled-star"];
+    [_ratingView setBackgroundColor:[UIColor clearColor]];
+    _ratingView.horizontalMargin = 2;
+    
+    [RACChannelTo(self, viewModel.averageRating) subscribeNext:^(id rating) {
+        _ratingView.rating = [rating floatValue];
+    }];
     
 }
 
@@ -111,17 +114,17 @@
 //    }];
 //    
 //    // Average Rating
-//    _starRatingView = [[EDStarRating alloc] init];
-//    [_starRatingView setEditable:NO];
-//    [_starRatingView setDisplayMode:EDStarRatingDisplayFull];
-//    _starRatingView.rating = [self.viewModel.averageRating floatValue];
-//    _starRatingView.starImage = [UIImage imageNamed:@"star-template"];
-//    _starRatingView.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
-//    [_starRatingView setBackgroundColor:[UIColor clearColor]];
-//    _starRatingView.horizontalMargin = 5;
-//    [self.contentView addSubview:_starRatingView];
+//    _ratingView = [[EDStarRating alloc] init];
+//    [_ratingView setEditable:NO];
+//    [_ratingView setDisplayMode:EDStarRatingDisplayFull];
+//    _ratingView.rating = [self.viewModel.averageRating floatValue];
+//    _ratingView.starImage = [UIImage imageNamed:@"star-template"];
+//    _ratingView.starHighlightedImage = [UIImage imageNamed:@"star-highlighted-template"];
+//    [_ratingView setBackgroundColor:[UIColor clearColor]];
+//    _ratingView.horizontalMargin = 5;
+//    [self.contentView addSubview:_ratingView];
 //
-//    [_starRatingView mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [_ratingView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.nameLabel.mas_bottom).with.offset(10);
 //        make.left.equalTo(self.nameLabel.mas_left).with.offset(-5);
 //        make.width.equalTo(@95);
@@ -133,7 +136,7 @@
 //    self.estimatedTimeView = [[UIImageView alloc] initWithImage:estimatedTimeImage];
 //    [self.contentView addSubview:self.estimatedTimeView];
 //    [self.estimatedTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_starRatingView.mas_bottom).with.offset(10);
+//        make.top.equalTo(_ratingView.mas_bottom).with.offset(10);
 //        make.left.equalTo(self.nameLabel.mas_left);
 //        make.width.equalTo(@12);
 //        make.height.equalTo(@12);

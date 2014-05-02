@@ -15,14 +15,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
-@property (strong, nonatomic) EDStarRating *starRatingView;
-@property (weak, nonatomic) IBOutlet UIView *ratingView; // container
+@property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (strong, nonatomic) EDStarRating *averageRating;
 
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numRoutesLabel;
-
-- (void)commonInit;
 
 @end
