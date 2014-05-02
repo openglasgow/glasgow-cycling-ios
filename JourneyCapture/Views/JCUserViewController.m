@@ -154,8 +154,7 @@
     [super viewWillLayoutSubviews];
 
     [_userView autoRemoveConstraintsAffectingView];
-//    [_userView autoPinToTopLayoutGuideOfViewController:self withInset:0];
-    [_userView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];// excludingEdge:ALEdgeTop];
+    [_userView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
 
     [self.view layoutSubviews];
 }
@@ -163,7 +162,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self.navigationItem setHidesBackButton:YES];
+    
+    // Set back button for pushed VCs to be titled "Me" instead of the user's name
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Me"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:nil
+                                   action:nil];
+    
+    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -224,6 +233,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Selected a row");
+    
     if (indexPath.row == 0) {
         // My Routes
         [Flurry logEvent:@"My routes tapped"];
