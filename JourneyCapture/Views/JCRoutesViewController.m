@@ -62,7 +62,6 @@
 {
     [_loadingView autoRemoveConstraintsAffectingView];
     [_loadingView autoCenterInSuperview];
-    [_loadingView autoSetDimensionsToSize:CGSizeMake(100, 83)];
     [_loadingView layoutSubviews];
     
     [super viewWillLayoutSubviews];

@@ -68,6 +68,8 @@
 
 - (void)layoutSubviews
 {
+    [self autoSetDimensionsToSize:CGSizeMake(100, 83)];
+    
     [_bikeFrame autoRemoveConstraintsAffectingView];
     [_bikeFrame autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 26, 15, 28)];
     
