@@ -174,7 +174,11 @@
     }
     
     JCRoutePointViewModel *point = _viewModel.points[index];
-    return point.location.altitude;
+    double speed = point.location.speed;
+    if (!speed) {
+        speed = 0;
+    }
+    return speed;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex
