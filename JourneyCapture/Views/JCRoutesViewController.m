@@ -11,6 +11,7 @@
 #import "JCRoutesListViewModel.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
+#import "JCLoadingView.h"
 #import "Flurry.h"
 
 @interface JCRoutesViewController ()
@@ -28,26 +29,43 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)loadView
 {
     self.view = [[UIView alloc] init];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor jc_mediumBlueColor]];
     
-    UITableView *routesTableView = [[UITableView alloc] init];
-    [self.view addSubview:routesTableView];
-    [routesTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
+    _loadingView = [JCLoadingView new];
+    _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_loadingView];
+    _loadingView.loading = YES;
+    
+//    UITableView *routesTableView = [[UITableView alloc] init];
+//    [self.view addSubview:routesTableView];
+//    [routesTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
 
-    [routesTableView setDelegate:self];
-    [routesTableView setDataSource:self];
-    routesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    [routesTableView setDelegate:self];
+//    [routesTableView setDataSource:self];
+//    routesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.navigationItem setTitle:self.viewModel.title];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [_loadingView autoRemoveConstraintsAffectingView];
+    [_loadingView autoCenterInSuperview];
+    [_loadingView autoSetDimensionsToSize:CGSizeMake(100, 83)];
+    [_loadingView layoutSubviews];
+    
+    [super viewWillLayoutSubviews];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

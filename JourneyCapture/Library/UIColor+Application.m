@@ -15,6 +15,11 @@
     return [UIColor colorWithRed:0.0f green:161/255.0f blue:223/255.0f alpha:1.0f];
 }
 
++ (UIColor *)jc_mediumBlueColor
+{
+    return [UIColor colorWithRed:0/255.0f green:171/255.0f blue:237/255.0f alpha:1.0f];
+}
+
 + (UIColor *)jc_lightBlueColor
 {
     return [UIColor colorWithRed:76/255.0f green:185/255.0f blue:226/255.0f alpha:1.0f];
