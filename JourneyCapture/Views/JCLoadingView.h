@@ -11,7 +11,10 @@
 @interface JCLoadingView : UIView
 @property (readwrite, nonatomic) BOOL loading;
 
+@property (strong, nonatomic) UIView *cyclistView;
 @property (strong, nonatomic) UIImageView *bikeFrame;
 @property (strong, nonatomic) UIImageView *backWheel;
 @property (strong, nonatomic) UIImageView *frontWheel;
+
+@property (strong, nonatomic) UILabel *infoLabel;
 @end
