@@ -21,9 +21,6 @@
 @property (strong, nonatomic) UILabel *temperatureTitleLabel;
 @property (strong, nonatomic) UILabel *temperatureLabel;
 
-@property (strong, nonatomic) UILabel *uvIndexTitleLabel;
-@property (strong, nonatomic) UILabel *uvIndexLabel;
-
 @property (strong, nonatomic) UILabel *windSpeedTitleLabel;
 @property (strong, nonatomic) UILabel *windSpeedLabel;
 

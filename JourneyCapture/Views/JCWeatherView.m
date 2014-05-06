@@ -19,6 +19,7 @@
     }
     
     _viewModel = weatherViewModel;
+    UIFont *titleFont = [UIFont systemFontOfSize:12.0f];
     
     // Icon
     _weatherIconView = [[UIImageView alloc] initWithImage:_viewModel.weatherIcon];
@@ -29,6 +30,8 @@
     _precipitationTitleLabel = [UILabel new];
     _precipitationTitleLabel.text = @"Precipitation";
     _precipitationTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _precipitationTitleLabel.textColor = [UIColor whiteColor];
+    _precipitationTitleLabel.font = titleFont;
     [self addSubview:_precipitationTitleLabel];
     
     _precipitationLabel = [UILabel new];
@@ -38,24 +41,21 @@
     // Temperature
     _temperatureTitleLabel = [UILabel new];
     _temperatureTitleLabel.text = @"Temperature";
+    _temperatureTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _temperatureTitleLabel.textColor = [UIColor whiteColor];
+    _temperatureTitleLabel.font = titleFont;
     [self addSubview:_temperatureTitleLabel];
     
     _temperatureLabel = [UILabel new];
     _temperatureLabel.text = [NSString stringWithFormat:@"%d°C", [_viewModel.temperatureCelsius intValue]];
     [self addSubview:_temperatureLabel];
-    
-    // UVIndex
-    _uvIndexTitleLabel = [UILabel new];
-    _uvIndexTitleLabel.text = @"UV Index";
-    [self addSubview:_uvIndexTitleLabel];
-    
-    _uvIndexLabel = [UILabel new];
-    _uvIndexLabel.text = [NSString stringWithFormat:@"%d", [_viewModel.uvIndex intValue]];
-    [self addSubview:_uvIndexLabel];
-    
+
     // Wind Speed
     _windSpeedTitleLabel = [UILabel new];
     _windSpeedTitleLabel.text = @"Wind Speed";
+    _windSpeedTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _windSpeedTitleLabel.textColor = [UIColor whiteColor];
+    _windSpeedTitleLabel.font = titleFont;
     [self addSubview:_windSpeedTitleLabel];
     
     _windSpeedLabel = [UILabel new];
@@ -80,10 +80,19 @@
     [_weatherIconView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-20];
     [_weatherIconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
 
-    // Precipitation
+    // Titles
     [_precipitationTitleLabel autoRemoveConstraintsAffectingView];
     [_precipitationTitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:_weatherIconView withOffset:12];
     [_precipitationTitleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-40];
+    
+    [_temperatureTitleLabel autoRemoveConstraintsAffectingView];
+    [_temperatureTitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:_precipitationTitleLabel withOffset:12];
+    [_temperatureTitleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-40];
+
+    [_windSpeedTitleLabel autoRemoveConstraintsAffectingView];
+    [_windSpeedTitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:_temperatureTitleLabel withOffset:12];
+    [_windSpeedTitleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-40];
+
     
     [super layoutSubviews];
 }
