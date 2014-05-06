@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JCRoutesListViewModel;
+@class JCRoutesListViewModel, JCLoadingView;
 
 @interface JCRoutesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) JCRoutesListViewModel *viewModel;
+@property (strong, nonatomic) JCLoadingView *loadingView;
+@property (strong, nonatomic) UITableView *routesTableView;
 
 - (id)initWithViewModel:(JCRoutesListViewModel *)routesViewModel;
 @end

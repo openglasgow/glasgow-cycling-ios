@@ -10,6 +10,7 @@
 
 @interface UIColor (Application)
 + (UIColor *)jc_blueColor;
++ (UIColor *)jc_mediumBlueColor;
 + (UIColor *)jc_lightBlueColor;
 + (UIColor *)jc_redColor;
 @end

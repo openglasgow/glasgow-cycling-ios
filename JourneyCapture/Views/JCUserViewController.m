@@ -10,15 +10,12 @@
 #import "JCUserViewModel.h"
 
 #import "JCRoutesViewController.h"
-#import "JCRoutesListViewModel.h"
+#import "JCUserRoutesViewModel.h"
 #import "JCRouteCaptureViewController.h"
-#import "JCNotificationManager.h"
-#import "MBProgressHUD.h"
 #import "JCMenuTableViewCell.h"
 
 #import "JCUserView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "JCWelcomeViewController.h"
 
 #import "Flurry.h"
 #import <GBDeviceInfo/GBDeviceInfo.h>
@@ -157,8 +154,7 @@
     [super viewWillLayoutSubviews];
 
     [_userView autoRemoveConstraintsAffectingView];
-//    [_userView autoPinToTopLayoutGuideOfViewController:self withInset:0];
-    [_userView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];// excludingEdge:ALEdgeTop];
+    [_userView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
 
     [self.view layoutSubviews];
 }
@@ -166,7 +162,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self.navigationItem setHidesBackButton:YES];
+    
+    // Set back button for pushed VCs to be titled "Me" instead of the user's name
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Me"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:nil
+                                   action:nil];
+    
+    [self.navigationItem setBackBarButtonItem:backButton];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -227,9 +233,20 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Selected a row");
+    
+    if (indexPath.row == 0) {
+        // My Routes
+        [Flurry logEvent:@"My routes tapped"];
+        JCUserRoutesViewModel *userRoutesVM = [JCUserRoutesViewModel new];
+        JCRoutesViewController *routesVC = [[JCRoutesViewController alloc] initWithViewModel:userRoutesVM];
+        [self.navigationController pushViewController:routesVC animated:YES];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Every cell will be instantiated as it's in a tableview, no point trying to dequeue

@@ -11,6 +11,7 @@
 #import "JCRoutesListViewModel.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
+#import "JCLoadingView.h"
 #import "Flurry.h"
 
 @interface JCRoutesViewController ()
@@ -28,26 +29,60 @@
     return self;
 }
 
+#pragma mark - UIViewController
+
 - (void)loadView
 {
-    self.view = [[UIView alloc] init];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+//    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    self.view = [UIView new];
+    [self.view setBackgroundColor:[UIColor jc_mediumBlueColor]];
     
-    UITableView *routesTableView = [[UITableView alloc] init];
-    [self.view addSubview:routesTableView];
-    [routesTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+    // Loading indicator
+    _loadingView = [JCLoadingView new];
+    _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_loadingView];
+    _loadingView.loading = YES;
+    
+    // Routes table
+    _routesTableView = [UITableView new];
+    _routesTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _routesTableView.delegate = self;
+    _routesTableView.dataSource = self;
+    
+    // Load routes
+    [[_viewModel loadRoutes] subscribeError:^(NSError *error) {
+        NSLog(@"Error loading");
+    } completed:^{
+        NSLog(@"Loaded routes");
+        _loadingView.loading = NO;
+        [_loadingView removeFromSuperview];
+        [self.view addSubview:_routesTableView];
+        [_routesTableView reloadData];
+//        [self.view setNeedsDisplay];
     }];
-
-    [routesTableView setDelegate:self];
-    [routesTableView setDataSource:self];
-    routesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.navigationItem setTitle:self.viewModel.title];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    if ([[self.view subviews] containsObject:_loadingView]) {
+        [_loadingView autoRemoveConstraintsAffectingView];
+        [_loadingView autoCenterInSuperview];
+        [_loadingView layoutSubviews];
+    }
+    
+    if ([[self.view subviews] containsObject:_routesTableView]) {
+        [_routesTableView autoRemoveConstraintsAffectingView];
+        [_routesTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+        [_routesTableView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    }
+    
+    [super viewWillLayoutSubviews];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -66,9 +101,9 @@
 
     JCRouteCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[JCRouteCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                  reuseIdentifier:CellIdentifier
-                                        viewModel:self.viewModel.routes[indexPath.row]];
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCRouteCell" owner:self options:nil];
+        cell = [topLevelObjects objectAtIndex:0];
+        cell.viewModel = self.viewModel.routes[indexPath.row];
     }
     [cell setViewModel:self.viewModel.routes[indexPath.row]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -77,7 +112,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 160.0;
+    return 80.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

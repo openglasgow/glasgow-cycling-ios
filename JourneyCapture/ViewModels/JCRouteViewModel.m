@@ -227,11 +227,11 @@
     NSString *minuteDesc = minutes == 1 ? @"minute" : @"minutes";
     NSString *hourDesc = hours == 1 ? @"hour" : @"hours";
     if (hours == 0) {
-        return [NSString stringWithFormat:@"Around %d %@", minutes, minuteDesc];
+        return [NSString stringWithFormat:@"%d %@", minutes, minuteDesc];
     } else if (minutes == 0) {
-        return [NSString stringWithFormat:@"Around %d %@", hours, hourDesc];
+        return [NSString stringWithFormat:@"%d %@", hours, hourDesc];
     } else {
-        return [NSString stringWithFormat:@"Around %d %@ and %2d %@", hours, hourDesc,
+        return [NSString stringWithFormat:@"%d %@ and %2d %@", hours, hourDesc,
                 minutes, minuteDesc];
     }
 }

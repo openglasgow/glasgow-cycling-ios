@@ -29,15 +29,15 @@
 @property (strong, nonatomic) NSNumber *estimatedTime;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) UIImage *routeImage;
+@property (readwrite, nonatomic) NSInteger uses;
+@property (readwrite, nonatomic) NSInteger numReviews;
 
 -(void)addPoint:(JCRoutePointViewModel *)point;
 
-- (RACSignal *)uploadAll;
 - (RACSignal *)uploadRoute;
 - (RACSignal *)uploadReview;
 
 - (RACSignal *)loadPoints;
 - (NSNumber *)averageRating;
-- (NSString *)shortTime;
 - (NSString *)readableTime;
 @end

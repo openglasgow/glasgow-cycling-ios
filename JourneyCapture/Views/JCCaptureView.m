@@ -165,7 +165,7 @@
         index -= offset;
         
         if (index < 0) {
-            return 0;
+            return 0.0f;
         }
     }
     
@@ -174,7 +174,11 @@
     }
     
     JCRoutePointViewModel *point = _viewModel.points[index];
-    return point.location.altitude;
+    CGFloat speed = point.location.speed;
+    if (!speed  || speed < 0) {
+        speed = 0.0f;
+    }
+    return speed;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex
