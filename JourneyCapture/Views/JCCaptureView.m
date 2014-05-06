@@ -165,7 +165,7 @@
         index -= offset;
         
         if (index < 0) {
-            return 0;
+            return 0.0f;
         }
     }
     
@@ -174,9 +174,9 @@
     }
     
     JCRoutePointViewModel *point = _viewModel.points[index];
-    double speed = point.location.speed;
-    if (!speed) {
-        speed = 0;
+    CGFloat speed = point.location.speed;
+    if (!speed  || speed < 0) {
+        speed = 0.0f;
     }
     return speed;
 }
