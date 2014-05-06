@@ -6,10 +6,13 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
+@import QuartzCore;
+
 #import "JCUserView.h"
 #import "JCUserViewModel.h"
 #import "JCScrollView.h"
-#import <QuartzCore/QuartzCore.h>
+#import "JCWeatherView.h"
+#import "JCWeatherViewModel.h"
 
 @implementation JCUserView
 
@@ -26,13 +29,15 @@
     _scrollView = [JCScrollView new];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     _scrollView.canCancelContentTouches = YES;
+    _scrollView.backgroundColor = [UIColor clearColor];
     [self addSubview:_scrollView];
     
     // Pulldown area
-    _pulldownBackgroundView = [UIView new];
-    _pulldownBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
-    _pulldownBackgroundView.backgroundColor = [UIColor jc_lightBlueColor];
-    [_scrollView addSubview:_pulldownBackgroundView];
+    JCWeatherViewModel *weatherVM = [JCWeatherViewModel new];
+    _pulldownView = [[JCWeatherView alloc] initWithViewModel:weatherVM];
+    _pulldownView.translatesAutoresizingMaskIntoConstraints = NO;
+    _pulldownView.backgroundColor = [UIColor jc_lightBlueColor];
+    [_scrollView addSubview:_pulldownView];
 
     // Profile
     _profileBackgroundView = [UIView new];
@@ -119,11 +124,11 @@
     [_scrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
     
     // Pulldown area
-    [_pulldownBackgroundView autoRemoveConstraintsAffectingView];
-    [_pulldownBackgroundView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
-    [_pulldownBackgroundView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
-    [_pulldownBackgroundView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_profileBackgroundView];
-    [_pulldownBackgroundView autoSetDimension:ALDimensionHeight toSize:1000.0f];
+    [_pulldownView autoRemoveConstraintsAffectingView];
+    [_pulldownView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
+    [_pulldownView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
+    [_pulldownView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView withOffset:-1000.0f];
+    [_pulldownView autoSetDimension:ALDimensionHeight toSize:1000.0f];
     
     // Profile
     [_profileBackgroundView autoRemoveConstraintsAffectingView];
@@ -158,7 +163,6 @@
     [_captureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_mapView withOffset:-15];
     [_captureButton autoMatchDimension:ALDimensionWidth toDimension:ALDimensionHeight ofView:_captureButton];
 
-    
     // Menu
     [_menuTableView autoRemoveConstraintsAffectingView];
     [_menuTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];

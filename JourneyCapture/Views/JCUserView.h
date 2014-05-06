@@ -9,7 +9,7 @@
 @import UIKit;
 @import MapKit;
 
-@class JCUserViewModel;
+@class JCUserViewModel, JCWeatherView;
 
 @interface JCUserView : UIView
 @property (strong, nonatomic) JCUserViewModel *viewModel;
@@ -17,7 +17,7 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 
 // Pull down area (weather)
-@property (strong, nonatomic) UIView *pulldownBackgroundView;
+@property (strong, nonatomic) JCWeatherView *pulldownView;
 
 // Profile area
 @property (strong, nonatomic) UIView *profileBackgroundView;
