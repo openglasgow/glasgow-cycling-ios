@@ -74,7 +74,9 @@
         [route setName:[NSString stringWithFormat:@"%@ to %@", startName, endName]];
 
         [route setUses:[routeData[@"uses"] intValue]];
+        [route setNumReviews:[routeData[@"num_reviews"] intValue]];
         
+        // Average values
         NSDictionary *averages = routeData[@"averages"];
         
         double safetyRating = 0;

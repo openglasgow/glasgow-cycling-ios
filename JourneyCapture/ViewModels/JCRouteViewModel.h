@@ -30,6 +30,7 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) UIImage *routeImage;
 @property (readwrite, nonatomic) NSInteger uses;
+@property (readwrite, nonatomic) NSInteger numReviews;
 
 -(void)addPoint:(JCRoutePointViewModel *)point;
 

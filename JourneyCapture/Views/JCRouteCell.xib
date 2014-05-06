@@ -46,11 +46,18 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(1)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-8O-0TD">
+                        <rect key="frame" x="160" y="56" width="19" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="distanceLabel" destination="hlH-pL-yHB" id="VJc-W1-mfO"/>
                 <outlet property="nameLabel" destination="0V6-LT-ICG" id="ZRo-OW-tUF"/>
+                <outlet property="numReviewsLabel" destination="lfu-8O-0TD" id="C0d-Wc-a35"/>
                 <outlet property="numRoutesLabel" destination="NAH-Qh-uu4" id="Oka-vL-z0S"/>
                 <outlet property="ratingView" destination="BSG-LA-p8C" id="Yab-l2-H8l"/>
                 <outlet property="timeLabel" destination="hOL-8g-toy" id="02r-8h-pyp"/>

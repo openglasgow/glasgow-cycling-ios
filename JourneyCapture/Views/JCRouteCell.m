@@ -40,6 +40,7 @@
     UIColor *nameColor = [UIColor blackColor];
     UIColor *secondaryColor = [UIColor colorWithRed:88/255.0f green:77/255.0f blue:77/255.0f alpha:1];
     
+    // Link labels with VM
     [RACChannelTo(self, viewModel.name) subscribeNext:^(id name) {
         _nameLabel.text = name;
     }];
@@ -65,13 +66,15 @@
     [_ratingView setDisplayMode:EDStarRatingDisplayFull];
     _ratingView.starImage = [UIImage imageNamed:@"star"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"filled-star"];
-    [_ratingView setBackgroundColor:[UIColor clearColor]];
-    _ratingView.horizontalMargin = 2;
     
     [RACChannelTo(self, viewModel.averageRating) subscribeNext:^(id rating) {
         _ratingView.rating = [rating floatValue];
     }];
     
+    [RACChannelTo(self, viewModel.numReviews) subscribeNext:^(id numReviews) {
+        _numReviewsLabel.text = [NSString stringWithFormat:@"(%d)", [numReviews intValue]];
+    }];
+    _numReviewsLabel.textColor = secondaryColor;
 }
 
 //- (void)setViewModel:(JCRouteViewModel *)routeViewModel
