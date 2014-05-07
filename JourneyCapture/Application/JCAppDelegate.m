@@ -50,7 +50,6 @@
     
     
     // Nav Bar customisation
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [navController.navigationBar setBarTintColor:[UIColor jc_blueColor]];
     [navController.navigationBar setTranslucent:NO];
     navController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
