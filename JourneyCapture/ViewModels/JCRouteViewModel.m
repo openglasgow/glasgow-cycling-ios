@@ -14,7 +14,7 @@
 @implementation JCRouteViewModel
 @synthesize currentSpeed, averageSpeed, totalKm, points, routeId,
         safetyRating, difficultyRating, environmentRating,
-        estimatedTime, routeImage, name, lastGeocodedKm;
+        estimatedTime, name, lastGeocodedKm;
 
 - (id)init
 {
@@ -128,7 +128,7 @@
                                 };
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         if (!self.routeId) {
-            // TODO send reasonable error
+            // TODO send reasonable NSError
             NSLog(@"Failed to store route review - no route id");
             [subscriber sendError:nil];
         }

@@ -33,7 +33,6 @@
 
 - (void)loadView
 {
-//    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.view = [UIView new];
     [self.view setBackgroundColor:[UIColor jc_mediumBlueColor]];
     
@@ -58,7 +57,6 @@
         [_loadingView removeFromSuperview];
         [self.view addSubview:_routesTableView];
         [_routesTableView reloadData];
-//        [self.view setNeedsDisplay];
     }];
 }
 

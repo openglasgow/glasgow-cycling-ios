@@ -73,7 +73,7 @@
         NSString *endName = routeData[@"end_name"];
         [route setName:[NSString stringWithFormat:@"%@ to %@", startName, endName]];
 
-        [route setUses:[routeData[@"uses"] intValue]];
+        [route setUses:[routeData[@"num_routes"] intValue]];
         [route setNumReviews:[routeData[@"num_reviews"] intValue]];
         
         // Average values

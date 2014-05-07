@@ -11,6 +11,7 @@
 		12477C7D1919196700CCF5E5 /* JCWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12477C7C1919196700CCF5E5 /* JCWeatherView.m */; };
 		125340FE1913A489008E1856 /* JCRouteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 125340FD1913A489008E1856 /* JCRouteCell.xib */; };
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
+		12AF45EE191A72F7003F7524 /* JCJourneyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */; };
 		12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BCB75119114AA500629192 /* JCCaptureStatsView.m */; };
 		12BEEA0B19129BDA00025B0E /* JCUserRoutesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BEEA0A19129BDA00025B0E /* JCUserRoutesViewModel.m */; };
 		12C76B0F1912A22400B7F964 /* JCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C76B0E1912A22400B7F964 /* JCLoadingView.m */; };
@@ -85,6 +86,8 @@
 		125340FD1913A489008E1856 /* JCRouteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCRouteCell.xib; sourceTree = "<group>"; };
 		12A9C26B190FAB8C004BB4B5 /* UIColor+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Application.h"; sourceTree = "<group>"; };
 		12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Application.m"; sourceTree = "<group>"; };
+		12AF45EC191A72F7003F7524 /* JCJourneyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCJourneyViewModel.h; path = "../../../journey-ios/JourneyCapture/ViewModels/JCJourneyViewModel.h"; sourceTree = "<group>"; };
+		12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCJourneyViewModel.m; path = "../../../journey-ios/JourneyCapture/ViewModels/JCJourneyViewModel.m"; sourceTree = "<group>"; };
 		12BCB75019114AA500629192 /* JCCaptureStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureStatsView.h; sourceTree = "<group>"; };
 		12BCB75119114AA500629192 /* JCCaptureStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCaptureStatsView.m; sourceTree = "<group>"; };
 		12BEEA0919129BDA00025B0E /* JCUserRoutesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUserRoutesViewModel.h; sourceTree = "<group>"; };
@@ -477,6 +480,8 @@
 			children = (
 				83B3485018C0A79800D59FB9 /* JCRoutesListViewModel.h */,
 				83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */,
+				12AF45EC191A72F7003F7524 /* JCJourneyViewModel.h */,
+				12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */,
 				83BD285C18CA04C50042F1E3 /* JCRouteViewModel.h */,
 				83BD285D18CA04C50042F1E3 /* JCRouteViewModel.m */,
 				83BD285F18CA06640042F1E3 /* JCRoutePointViewModel.h */,
@@ -709,6 +714,7 @@
 				12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */,
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				12477C7D1919196700CCF5E5 /* JCWeatherView.m in Sources */,
+				12AF45EE191A72F7003F7524 /* JCJourneyViewModel.m in Sources */,
 				83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */,
 				12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
