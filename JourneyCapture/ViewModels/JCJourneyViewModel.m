@@ -10,9 +10,4 @@
 
 @implementation JCJourneyViewModel
 
-- (NSString *)readableTime
-{
-    return @"TODO";
-}
-
 @end

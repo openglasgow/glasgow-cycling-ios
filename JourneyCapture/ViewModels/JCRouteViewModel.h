@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "RVMViewModel.h"
+#import "JCPathViewModel.h"
 
 @class JCRoutePointViewModel;
 
-@interface JCRouteViewModel : RVMViewModel
+@interface JCRouteViewModel : JCPathViewModel
 
 // Location data
 @property (readwrite, nonatomic) double currentSpeed;
@@ -38,6 +38,4 @@
 - (RACSignal *)uploadReview;
 
 - (RACSignal *)loadPoints;
-- (NSNumber *)averageRating;
-- (NSString *)readableTime;
 @end
