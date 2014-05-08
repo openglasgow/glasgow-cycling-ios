@@ -46,7 +46,7 @@
 		837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B15A518BDF31F000EEFAB /* JCSignupView.m */; };
 		837B15A818BE023B000EEFAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B15A718BE023B000EEFAB /* QuartzCore.framework */; };
 		83B3484F18C09EFF00D59FB9 /* JCRouteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3484E18C09EFF00D59FB9 /* JCRouteCell.m */; };
-		83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */; };
+		83B3485218C0A79800D59FB9 /* JCJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485118C0A79800D59FB9 /* JCJourneyListViewModel.m */; };
 		83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */; };
 		83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */; };
 		83B5DECB18BFA3130032F7E1 /* JCRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DECA18BFA3130032F7E1 /* JCRoutesViewController.m */; };
@@ -146,8 +146,8 @@
 		837B15A718BE023B000EEFAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83B3484D18C09EFF00D59FB9 /* JCRouteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteCell.h; sourceTree = "<group>"; };
 		83B3484E18C09EFF00D59FB9 /* JCRouteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteCell.m; sourceTree = "<group>"; };
-		83B3485018C0A79800D59FB9 /* JCRoutesListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRoutesListViewModel.h; sourceTree = "<group>"; };
-		83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRoutesListViewModel.m; sourceTree = "<group>"; };
+		83B3485018C0A79800D59FB9 /* JCJourneyListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJourneyListViewModel.h; sourceTree = "<group>"; };
+		83B3485118C0A79800D59FB9 /* JCJourneyListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJourneyListViewModel.m; sourceTree = "<group>"; };
 		83B3485718C0BCFC00D59FB9 /* JCRouteSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteSummaryView.h; sourceTree = "<group>"; };
 		83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteSummaryView.m; sourceTree = "<group>"; };
 		83B3485A18C0BD1F00D59FB9 /* JCRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteViewController.h; sourceTree = "<group>"; };
@@ -478,8 +478,8 @@
 		83B5DEC518BFA2000032F7E1 /* Routes List */ = {
 			isa = PBXGroup;
 			children = (
-				83B3485018C0A79800D59FB9 /* JCRoutesListViewModel.h */,
-				83B3485118C0A79800D59FB9 /* JCRoutesListViewModel.m */,
+				83B3485018C0A79800D59FB9 /* JCJourneyListViewModel.h */,
+				83B3485118C0A79800D59FB9 /* JCJourneyListViewModel.m */,
 				12AF45EC191A72F7003F7524 /* JCJourneyViewModel.h */,
 				12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */,
 				83BD285C18CA04C50042F1E3 /* JCRouteViewModel.h */,
@@ -708,7 +708,7 @@
 				83519E7318CDC42800DA1E70 /* UIImage+Compression.m in Sources */,
 				83BD285E18CA04C50042F1E3 /* JCRouteViewModel.m in Sources */,
 				12BEEA0B19129BDA00025B0E /* JCUserRoutesViewModel.m in Sources */,
-				83B3485218C0A79800D59FB9 /* JCRoutesListViewModel.m in Sources */,
+				83B3485218C0A79800D59FB9 /* JCJourneyListViewModel.m in Sources */,
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				12C76B0F1912A22400B7F964 /* JCLoadingView.m in Sources */,
 				12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */,

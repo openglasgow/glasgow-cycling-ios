@@ -7,7 +7,7 @@
 //
 
 #import "JCRouteCell.h"
-#import "JCRouteViewModel.h"
+#import "JCJourneyViewModel.h"
 @import QuartzCore;
 #import <EDStarRating/EDStarRating.h>
 
@@ -33,7 +33,7 @@
     return self;
 }
 
-- (void)setViewModel:(JCRouteViewModel *)viewModel
+- (void)setViewModel:(JCJourneyViewModel *)viewModel
 {
     self->_viewModel = viewModel;
     
@@ -46,18 +46,18 @@
     }];
     _nameLabel.textColor = nameColor;
     
-    [RACChannelTo(self, viewModel.totalKm) subscribeNext:^(id distance) {
+    [RACChannelTo(self, viewModel.averageMiles) subscribeNext:^(id distance) {
         _distanceLabel.text = [NSString stringWithFormat:@"%.02f", [distance floatValue]];
     }];
     _distanceLabel.textColor = secondaryColor;
     
-    [RACChannelTo(self, viewModel.estimatedTime) subscribeNext:^(id time) {
+    [RACChannelTo(self, viewModel.averageTime) subscribeNext:^(id time) {
         _timeLabel.text = [_viewModel readableTime];
     }];
     _timeLabel.textColor = secondaryColor;
 
-    [RACChannelTo(self, viewModel.uses) subscribeNext:^(id uses) {
-        _numRoutesLabel.text = [NSString stringWithFormat:@"%d uses", [uses intValue]];
+    [RACChannelTo(self, viewModel.numRoutes) subscribeNext:^(id numRoutes) {
+        _numRoutesLabel.text = [NSString stringWithFormat:@"%d uses", [numRoutes intValue]];
     }];
     _numRoutesLabel.textColor = secondaryColor;
     

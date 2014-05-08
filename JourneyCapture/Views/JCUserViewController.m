@@ -78,7 +78,7 @@
 //    
 //    _myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
 //        [Flurry logEvent:@"My routes tapped"];
-//        JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
+//        JCJourneyListViewModel *routesViewModel = [[JCJourneyListViewModel alloc] init];
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 //            dispatch_async(dispatch_get_main_queue(), ^{
@@ -114,7 +114,7 @@
 //    
 //    _nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
 //        [Flurry logEvent:@"Nearby routes tapped"];
-//        JCRoutesListViewModel *routesViewModel = [[JCRoutesListViewModel alloc] init];
+//        JCJourneyListViewModel *routesViewModel = [[JCJourneyListViewModel alloc] init];
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 //            // Do something...

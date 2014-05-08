@@ -8,7 +8,7 @@
 
 #import "JCRoutesViewController.h"
 #import "JCRouteCell.h"
-#import "JCRoutesListViewModel.h"
+#import "JCJourneyListViewModel.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
 #import "JCLoadingView.h"
@@ -20,7 +20,7 @@
 
 @implementation JCRoutesViewController
 
-- (id)initWithViewModel:(JCRoutesListViewModel *)routesViewModel
+- (id)initWithViewModel:(JCJourneyListViewModel *)routesViewModel
 {
     self = [super init];
     if (self) {
@@ -90,7 +90,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.viewModel routes] count];
+    return [[self.viewModel journeys] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,9 +101,9 @@
     if (cell == nil) {
         NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCRouteCell" owner:self options:nil];
         cell = [topLevelObjects objectAtIndex:0];
-        cell.viewModel = self.viewModel.routes[indexPath.row];
+        cell.viewModel = self.viewModel.journeys[indexPath.row];
     }
-    [cell setViewModel:self.viewModel.routes[indexPath.row]];
+    [cell setViewModel:self.viewModel.journeys[indexPath.row]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
@@ -115,12 +115,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JCRouteViewModel *routeModel = self.viewModel.routes[indexPath.row];
+    JCRouteViewModel *routeModel = self.viewModel.journeys[indexPath.row];
     JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeModel];
     [self.navigationController pushViewController:routeController animated:YES];
     [Flurry logEvent:@"Route selected" withParameters:@{
                                                         @"index": @(indexPath.row),
-                                                        @"total_routes": @(self.viewModel.routes.count),
+                                                        @"total_routes": @(self.viewModel.journeys.count),
                                                         @"average_rating": @(routeModel.averageRating.floatValue)
                                                         }];
 }
