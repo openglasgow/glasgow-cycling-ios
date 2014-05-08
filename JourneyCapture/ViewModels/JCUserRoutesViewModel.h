@@ -7,7 +7,7 @@
 //
 
 #import "RVMViewModel.h"
-#import "JCRoutesListViewModel.h"
+#import "JCJourneyListViewModel.h"
 
-@interface JCUserRoutesViewModel : JCRoutesListViewModel
+@interface JCUserRoutesViewModel : JCJourneyListViewModel
 @end
