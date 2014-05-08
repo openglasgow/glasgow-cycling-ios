@@ -8,7 +8,6 @@
 
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
-#import "JCRouteSummaryView.h"
 #import "JCRoutePointViewModel.h"
 
 @interface JCRouteViewController ()
@@ -33,17 +32,17 @@
     self.view = [[UIView alloc] init];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    JCRouteSummaryView *routeSummary = [[JCRouteSummaryView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)
-                                                                       viewModel:self.viewModel];
-    [self.view addSubview:routeSummary];
-    
-    int navBarHeight = self.navigationController.navigationBar.frame.size.height;
-    [routeSummary mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // 20 for status bar
-        make.left.equalTo(self.view.mas_left).with.offset(15);
-        make.right.equalTo(self.view.mas_right).with.offset(-15);
-        make.bottom.equalTo(routeSummary.environmentView.mas_bottom).with.offset(15);
-    }];
+//    JCRouteSummaryView *routeSummary = [[JCRouteSummaryView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)
+//                                                                       viewModel:self.viewModel];
+//    [self.view addSubview:routeSummary];
+//    
+//    int navBarHeight = self.navigationController.navigationBar.frame.size.height;
+//    [routeSummary mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.view.mas_top).with.offset(navBarHeight + 35); // 20 for status bar
+//        make.left.equalTo(self.view.mas_left).with.offset(15);
+//        make.right.equalTo(self.view.mas_right).with.offset(-15);
+//        make.bottom.equalTo(routeSummary.environmentView.mas_bottom).with.offset(15);
+//    }];
     
 //    // Background route image view
 //    UIImage *routeImage = self.viewModel.routeImage;

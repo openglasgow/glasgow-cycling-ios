@@ -8,7 +8,7 @@
 
 @import QuartzCore;
 #import "JCCaptureView.h"
-#import "JCRouteViewModel.h"
+#import "JCCaptureViewModel.h"
 #import "JCRoutePointViewModel.h"
 #import "JCCaptureStatsView.h"
 
@@ -16,7 +16,7 @@
 
 @implementation JCCaptureView
 
-- (id)initWithViewModel:(JCRouteViewModel *)captureViewModel
+- (id)initWithViewModel:(JCCaptureViewModel *)captureViewModel
 {
     self = [super init];
     if (!self) {

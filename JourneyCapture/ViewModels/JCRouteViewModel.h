@@ -16,8 +16,5 @@
 @property (readwrite, nonatomic) double environmentRating;
 @property (readwrite, nonatomic) double difficultyRating;
 
-- (RACSignal *)uploadRoute;
-- (RACSignal *)uploadReview;
-
 - (RACSignal *)loadPoints;
 @end

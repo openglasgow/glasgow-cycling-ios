@@ -90,7 +90,7 @@
             [journey setName:@"Glasgow City Route"];
         }
 
-        [journey setNumRoutes:[journeyData[@"num_routes"] intValue]];
+        [journey setNumInstances:[journeyData[@"num_routes"] intValue]];
         [journey setNumReviews:[journeyData[@"num_reviews"] intValue]];
 
         // Average values
@@ -121,7 +121,7 @@
         if (averages[@"time"] != [NSNull null]) {
             time = [averages[@"time"] doubleValue];
         }
-        [journey setAverageTime:@(time)];
+        [journey setTime:@(time)];
 
         double distanceKm = 0;
         if (averages[@"distance"] != [NSNull null]) {

@@ -52,7 +52,6 @@
 		837B15A818BE023B000EEFAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B15A718BE023B000EEFAB /* QuartzCore.framework */; };
 		83B3484F18C09EFF00D59FB9 /* JCJourneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3484E18C09EFF00D59FB9 /* JCJourneyCell.m */; };
 		83B3485218C0A79800D59FB9 /* JCJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485118C0A79800D59FB9 /* JCJourneyListViewModel.m */; };
-		83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */; };
 		83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */; };
 		83B5DECB18BFA3130032F7E1 /* JCJourneysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DECA18BFA3130032F7E1 /* JCJourneysViewController.m */; };
 		83BA022118BE3E8E00EE7787 /* JCWelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022018BE3E8E00EE7787 /* JCWelcomeView.m */; };
@@ -162,8 +161,6 @@
 		83B3484E18C09EFF00D59FB9 /* JCJourneyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJourneyCell.m; sourceTree = "<group>"; };
 		83B3485018C0A79800D59FB9 /* JCJourneyListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJourneyListViewModel.h; sourceTree = "<group>"; };
 		83B3485118C0A79800D59FB9 /* JCJourneyListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJourneyListViewModel.m; sourceTree = "<group>"; };
-		83B3485718C0BCFC00D59FB9 /* JCRouteSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteSummaryView.h; sourceTree = "<group>"; };
-		83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteSummaryView.m; sourceTree = "<group>"; };
 		83B3485A18C0BD1F00D59FB9 /* JCRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteViewController.h; sourceTree = "<group>"; };
 		83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteViewController.m; sourceTree = "<group>"; };
 		83B5DEC918BFA3130032F7E1 /* JCJourneysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJourneysViewController.h; sourceTree = "<group>"; };
@@ -492,8 +489,6 @@
 		83B3485618C0BCD100D59FB9 /* Route View */ = {
 			isa = PBXGroup;
 			children = (
-				83B3485718C0BCFC00D59FB9 /* JCRouteSummaryView.h */,
-				83B3485818C0BCFC00D59FB9 /* JCRouteSummaryView.m */,
 				83B3485A18C0BD1F00D59FB9 /* JCRouteViewController.h */,
 				83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */,
 			);
@@ -758,7 +753,6 @@
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				12477C7D1919196700CCF5E5 /* JCWeatherView.m in Sources */,
 				12AF45EE191A72F7003F7524 /* JCJourneyViewModel.m in Sources */,
-				83B3485918C0BCFC00D59FB9 /* JCRouteSummaryView.m in Sources */,
 				12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
 				83B3484F18C09EFF00D59FB9 /* JCJourneyCell.m in Sources */,

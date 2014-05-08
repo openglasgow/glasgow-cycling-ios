@@ -11,6 +11,7 @@
 #import "JCJourneyListViewModel.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
+#import "JCCaptureViewModel.h"
 #import "JCLoadingView.h"
 #import "Flurry.h"
 
@@ -115,13 +116,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JCRouteViewModel *routeModel = self.viewModel.journeys[indexPath.row];
-    JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeModel];
+    JCRouteViewModel *routeVM = self.viewModel.journeys[indexPath.row];
+    JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
     [self.navigationController pushViewController:routeController animated:YES];
     [Flurry logEvent:@"Route selected" withParameters:@{
                                                         @"index": @(indexPath.row),
                                                         @"total_routes": @(self.viewModel.journeys.count),
-                                                        @"average_rating": @(routeModel.averageRating.floatValue)
+                                                        @"average_rating": @(routeVM.averageRating.floatValue)
                                                         }];
 }
 

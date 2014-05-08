@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-@class JCRouteViewModel;
+@import UIKit;
+@class JCCaptureViewModel;
 
 @interface JCCaptureStatsView : UIView
-@property (strong, nonatomic) JCRouteViewModel *viewModel;
+@property (strong, nonatomic) JCCaptureViewModel *viewModel;
 
 @property (strong, nonatomic) UILabel *currentSpeedTitleLabel;
 @property (strong, nonatomic) UILabel *averageSpeedTitleLabel;
@@ -25,5 +25,5 @@
 @property (strong, nonatomic) NSTimer *timer;
 
 - (void)updateTime;
-- (id)initWithViewModel:(JCRouteViewModel *)routeViewModel;
+- (id)initWithViewModel:(JCCaptureViewModel *)captureViewModel;
 @end

@@ -8,6 +8,7 @@
 
 #import "JCRouteCaptureViewController.h"
 #import "JCCaptureView.h"
+#import "JCCaptureViewModel.h"
 #import "JCRoutePointViewModel.h"
 #import "Flurry.h"
 
@@ -22,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        _viewModel = [[JCRouteViewModel alloc] init];
+        _viewModel = [[JCCaptureViewModel alloc] init];
         [self startRoute];
     }
     return self;

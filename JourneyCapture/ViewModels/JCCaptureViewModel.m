@@ -15,58 +15,58 @@
 {
     self = [super init];
     if (self) {
-        self.lastGeocodedKm = 0;
+        _lastGeocodedKm = 0;
     }
     return self;
 }
 
 -(void)addPoint:(JCRoutePointViewModel *)point
 {
-    [self.points addObject:point];
+    [_points addObject:point];
 
     // Calculate total distance
-    if (self.points.count > 1) {
-        self.totalKm = 0;
-        for (int i = 0; i < self.points.count - 1; i++) {
-            JCRoutePointViewModel *thisPoint = self.points[i];
-            JCRoutePointViewModel *nextPoint = self.points[i+1];
+    if (_points.count > 1) {
+        _totalKm = 0;
+        for (int i = 0; i < _points.count - 1; i++) {
+            JCRoutePointViewModel *thisPoint = _points[i];
+            JCRoutePointViewModel *nextPoint = _points[i+1];
             CLLocation *firstLoc = thisPoint.location;
             CLLocation *nextLoc = nextPoint.location;
-            self.totalKm += ([nextLoc distanceFromLocation:firstLoc] / 1000.0);
+            _totalKm += ([nextLoc distanceFromLocation:firstLoc] / 1000.0);
         }
     }
 
-    if (self.totalKm > (self.lastGeocodedKm + 0.1)) {
+    if (_totalKm > (_lastGeocodedKm + 0.1)) {
         [point reverseGeocode];
-        self.lastGeocodedKm = self.totalKm;
+        _lastGeocodedKm = _totalKm;
     }
 
     // Geocode every 100m
 
     // Calculate current speed
-    if (self.points.count > 0) {
-        JCRoutePointViewModel *lastPoint = self.points.lastObject;
+    if (_points.count > 0) {
+        JCRoutePointViewModel *lastPoint = _points.lastObject;
         if (lastPoint.location.speed > 0) {
-            self.currentSpeed = lastPoint.location.speed;
+            _currentSpeed = lastPoint.location.speed;
         } else {
-            self.currentSpeed = 0;
+            _currentSpeed = 0;
         }
     } else {
-        self.currentSpeed = 0;
+        _currentSpeed = 0;
     }
 
     // Calculate average speed
     double totalSpeed = 0.0;
-    if (self.points.count > 0) {
-        for (int i = 0; i < self.points.count; i++) {
-            JCRoutePointViewModel *point = self.points[i];
+    if (_points.count > 0) {
+        for (int i = 0; i < _points.count; i++) {
+            JCRoutePointViewModel *point = _points[i];
             totalSpeed += point.location.speed;
         }
-        double avgSpeed = totalSpeed / self.points.count;
+        double avgSpeed = totalSpeed / _points.count;
         if (avgSpeed > 0) {
-            self.averageSpeed = avgSpeed;
+            _averageSpeed = avgSpeed;
         } else {
-            self.averageSpeed = 0;
+            _averageSpeed = 0;
         }
     }
 }
@@ -77,8 +77,8 @@
     JCAPIManager *manager = [JCAPIManager manager];
 
     NSMutableArray *pointsData = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.points.count; i++) {
-        JCRoutePointViewModel *point = self.points[i];
+    for (int i = 0; i < _points.count; i++) {
+        JCRoutePointViewModel *point = _points[i];
         [pointsData addObject:point.data];
     }
 

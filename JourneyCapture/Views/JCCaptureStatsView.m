@@ -7,19 +7,19 @@
 //
 
 #import "JCCaptureStatsView.h"
-#import "JCRouteViewModel.h"
+#import "JCCaptureViewModel.h"
 #import "JCRoutePointViewModel.h"
 
 @implementation JCCaptureStatsView
 
-- (id)initWithViewModel:(JCRouteViewModel *)routeViewModel
+- (id)initWithViewModel:(JCCaptureViewModel *)captureViewModel
 {
     self = [super init];
     if (!self) {
         return self;
     }
     
-    _viewModel = routeViewModel;
+    _viewModel = captureViewModel;
     
     // Stats
     UIFont *statsTitleFont = [UIFont systemFontOfSize:12];
