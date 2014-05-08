@@ -49,7 +49,7 @@
     self.estimatedTimeLabel = [[UILabel alloc] init];
     [self.estimatedTimeLabel setFont:statsFont];
     RACChannelTerminal *estimatedTimeLabelChannel = RACChannelTo(self, estimatedTimeLabel.text);
-    RACChannelTerminal *estimatedTimeModelChannel = RACChannelTo(self, viewModel.estimatedTime);
+    RACChannelTerminal *estimatedTimeModelChannel = RACChannelTo(self, viewModel.time);
     [[estimatedTimeModelChannel map:^(id estSeconds){
         return [self.viewModel readableTime];
     }] subscribe:estimatedTimeLabelChannel];

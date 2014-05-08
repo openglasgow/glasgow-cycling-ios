@@ -12,147 +12,69 @@
 #import "JCAPIManager.h"
 
 @implementation JCRouteViewModel
-@synthesize currentSpeed, averageSpeed, totalKm, points, routeId,
-        safetyRating, difficultyRating, environmentRating,
-        estimatedTime, name, lastGeocodedKm;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         self.points = [[NSMutableArray alloc] init];
-        self.lastGeocodedKm = 0;
     }
     return self;
 }
 
--(void)addPoint:(JCRoutePointViewModel *)point
+- (RACSignal *)readableInstanceCount
 {
-    [self.points addObject:point];
-
-    // Calculate total distance
-    if (self.points.count > 1) {
-        self.totalKm = 0;
-        for (int i = 0; i < self.points.count - 1; i++) {
-            JCRoutePointViewModel *thisPoint = self.points[i];
-            JCRoutePointViewModel *nextPoint = self.points[i+1];
-            CLLocation *firstLoc = thisPoint.location;
-            CLLocation *nextLoc = nextPoint.location;
-            self.totalKm += ([nextLoc distanceFromLocation:firstLoc] / 1000.0);
-        }
-    }
-
-    if (self.totalKm > (self.lastGeocodedKm + 0.1)) {
-        [point reverseGeocode];
-        self.lastGeocodedKm = self.totalKm;
-    }
-
-    // Geocode every 100m
-
-    // Calculate current speed
-    if (self.points.count > 0) {
-        JCRoutePointViewModel *lastPoint = self.points.lastObject;
-        if (lastPoint.location.speed > 0) {
-            self.currentSpeed = lastPoint.location.speed;
-        } else {
-            self.currentSpeed = 0;
-        }
-    } else {
-        self.currentSpeed = 0;
-    }
-
-    // Calculate average speed
-    double totalSpeed = 0.0;
-    if (self.points.count > 0) {
-        for (int i = 0; i < self.points.count; i++) {
-            JCRoutePointViewModel *point = self.points[i];
-            totalSpeed += point.location.speed;
-        }
-        double avgSpeed = totalSpeed / self.points.count;
-        if (avgSpeed > 0) {
-            self.averageSpeed = avgSpeed;
-        } else {
-            self.averageSpeed = 0;
-        }
-    }
-}
-
-- (RACSignal *)uploadRoute
-{
-    NSLog(@"Uploading user route");
-    JCAPIManager *manager = [JCAPIManager manager];
-
-    NSMutableArray *pointsData = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.points.count; i++) {
-        JCRoutePointViewModel *point = self.points[i];
-        [pointsData addObject:point.data];
-    }
-
-    NSDictionary *routeData = @{ @"points" : pointsData };
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager POST:@"/routes.json"
-                                       parameters:routeData
-                                          success:^(AFHTTPRequestOperation *operation, NSDictionary *routeResponse) {
-                                              // Route stored
-                                              NSLog(@"User route stored successfully");
-                                              NSLog(@"%@", routeResponse);
-                                              self.routeId = [routeResponse[@"route_id"] integerValue];
-                                              [subscriber sendCompleted];
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              NSLog(@"User route store failure");
-                                              NSLog(@"%@", error);
-                                              [subscriber sendError:error];
-                                          }
-                                      ];
-        
-        return [RACDisposable disposableWithBlock:^{
-            [op cancel];
+   return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+        [RACObserve(self, numInstances) subscribeNext:^(NSNumber *numInstances) {
+            [subscriber sendNext:[NSString stringWithFormat:@"%d uses", [numInstances intValue]]];
         }];
+        return nil;
     }];
 }
 
--(RACSignal *)uploadReview
-{
-    NSLog(@"Uploading user review");
-    JCAPIManager *manager = [JCAPIManager manager];
-
-    NSDictionary *reviewData = @{
-                                 @"safety_rating": @(self.safetyRating),
-                                 @"difficulty_rating": @(self.difficultyRating),
-                                 @"environment_rating": @(self.environmentRating)
-                                };
-
-    NSDictionary *routeReview = @{
-                                 @"route_id" : @(self.routeId),
-                                 @"review" : reviewData
-                                };
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        if (!self.routeId) {
-            // TODO send reasonable NSError
-            NSLog(@"Failed to store route review - no route id");
-            [subscriber sendError:nil];
-        }
-
-        AFHTTPRequestOperation *op = [manager POST:@"/reviews.json"
-                                        parameters:routeReview
-                                           success:^(AFHTTPRequestOperation *operation, id responseObj) {
-                                               // Route stored
-                                               NSLog(@"User review stored successfully");
-                                               NSLog(@"%@", responseObj);
-
-                                               [subscriber sendCompleted];
-                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                               NSLog(@"User review store failure");
-                                               NSLog(@"%@", error);
-                                               [subscriber sendError:error];
-                                           }
-                                      ];
-
-        return [RACDisposable disposableWithBlock:^{
-            [op cancel];
-        }];
-    }];
-}
+// TODO move to a Review VM
+//-(RACSignal *)uploadReview
+//{
+//    NSLog(@"Uploading user review");
+//    JCAPIManager *manager = [JCAPIManager manager];
+//
+//    NSDictionary *reviewData = @{
+//                                 @"safety_rating": @(self.safetyRating),
+//                                 @"difficulty_rating": @(self.difficultyRating),
+//                                 @"environment_rating": @(self.environmentRating)
+//                                };
+//
+//    NSDictionary *routeReview = @{
+//                                 @"route_id" : @(self.routeId),
+//                                 @"review" : reviewData
+//                                };
+//    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+//        if (!self.routeId) {
+//            // TODO send reasonable NSError
+//            NSLog(@"Failed to store route review - no route id");
+//            [subscriber sendError:nil];
+//        }
+//
+//        AFHTTPRequestOperation *op = [manager POST:@"/reviews.json"
+//                                        parameters:routeReview
+//                                           success:^(AFHTTPRequestOperation *operation, id responseObj) {
+//                                               // Route stored
+//                                               NSLog(@"User review stored successfully");
+//                                               NSLog(@"%@", responseObj);
+//
+//                                               [subscriber sendCompleted];
+//                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                                               NSLog(@"User review store failure");
+//                                               NSLog(@"%@", error);
+//                                               [subscriber sendError:error];
+//                                           }
+//                                      ];
+//
+//        return [RACDisposable disposableWithBlock:^{
+//            [op cancel];
+//        }];
+//    }];
+//}
 
 -(RACSignal *)loadPoints
 {

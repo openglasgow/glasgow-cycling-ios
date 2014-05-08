@@ -10,4 +10,14 @@
 
 @implementation JCJourneyViewModel
 
+- (RACSignal *)readableInstanceCount
+{
+    return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+        [RACObserve(self, numInstances) subscribeNext:^(NSNumber *numInstances) {
+            [subscriber sendNext:[NSString stringWithFormat:@"%d routes", [numInstances intValue]]];
+        }];
+        return nil;
+    }];}
+}
+
 @end

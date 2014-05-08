@@ -10,19 +10,24 @@
 
 @interface JCPathViewModel : RVMViewModel
 
+// Location
+@property (strong, nonatomic) NSMutableArray *points;
+@property (strong, nonatomic) NSString *startMaidenhead;
+@property (strong, nonatomic) NSString *endMaidenhead;
+
+// Info
 @property (strong, nonatomic) NSNumber *time;
 @property (strong, nonatomic) NSNumber *averageMiles;
 @property (strong, nonatomic) NSString *name;
-@property (readwrite, nonatomic) NSInteger numRoutes;
+@property (readwrite, nonatomic) NSInteger numInstances;
 @property (readwrite, nonatomic) NSInteger numReviews;
 
+// Review
 @property (readwrite, nonatomic) double safetyRating;
 @property (readwrite, nonatomic) double environmentRating;
 @property (readwrite, nonatomic) double difficultyRating;
 
-@property (strong, nonatomic) NSString *startMaidenhead;
-@property (strong, nonatomic) NSString *endMaidenhead;
-
+- (RACSignal *)readableInstanceCount;
 - (NSString *)readableTime;
 - (NSNumber *)averageRating;
 

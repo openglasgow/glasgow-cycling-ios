@@ -10,14 +10,27 @@
 
 @implementation JCPathViewModel
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _points = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
 - (NSNumber *)averageRating
 {
-    return @((self.environmentRating + self.difficultyRating + self.safetyRating) / 3);
+    return @((self.environmentRating + self.difficultyRating + self.safetyRating) / 3.0f);
+}
+
+- (RACSignal *)readableInstanceCount {
+    return nil;
 }
 
 - (NSString *)readableTime
 {
-    int seconds = [self.time intValue];
+    int seconds = [_time intValue];
     int hours = seconds / 3600;
     int minutes = (seconds - (hours * 3600)) / 60;
     NSString *minuteDesc = minutes == 1 ? @"minute" : @"minutes";

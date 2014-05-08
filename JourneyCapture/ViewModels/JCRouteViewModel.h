@@ -8,31 +8,13 @@
 
 #import "JCPathViewModel.h"
 
-@class JCRoutePointViewModel;
-
 @interface JCRouteViewModel : JCPathViewModel
-
-// Location data
-@property (readwrite, nonatomic) double currentSpeed;
-@property (readwrite, nonatomic) double averageSpeed;
-@property (readwrite, nonatomic) double totalKm;
-@property (readwrite, nonatomic) double lastGeocodedKm;
-@property (strong, nonatomic) NSMutableArray *points;
 
 // Review data
 @property (readwrite, nonatomic) NSInteger routeId;
 @property (readwrite, nonatomic) double safetyRating;
 @property (readwrite, nonatomic) double environmentRating;
 @property (readwrite, nonatomic) double difficultyRating;
-
-// Loaded route data
-@property (strong, nonatomic) NSNumber *estimatedTime;
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) UIImage *routeImage;
-@property (readwrite, nonatomic) NSInteger uses;
-@property (readwrite, nonatomic) NSInteger numReviews;
-
--(void)addPoint:(JCRoutePointViewModel *)point;
 
 - (RACSignal *)uploadRoute;
 - (RACSignal *)uploadReview;
