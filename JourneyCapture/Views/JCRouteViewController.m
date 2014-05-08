@@ -45,16 +45,16 @@
         make.bottom.equalTo(routeSummary.environmentView.mas_bottom).with.offset(15);
     }];
     
-    // Background route image view
-    UIImage *routeImage = self.viewModel.routeImage;
-    self.routeImageView = [[UIImageView alloc] initWithImage:routeImage];
-    [self.view insertSubview:self.routeImageView belowSubview:routeSummary];
-    [self.routeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top);
-        make.height.equalTo(@(257.5)); // TODO dynamic - FIX issue with this moving firstNameField
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-    }];
+//    // Background route image view
+//    UIImage *routeImage = self.viewModel.routeImage;
+//    self.routeImageView = [[UIImageView alloc] initWithImage:routeImage];
+//    [self.view insertSubview:self.routeImageView belowSubview:routeSummary];
+//    [self.routeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.view.mas_top);
+//        make.height.equalTo(@(257.5)); // TODO dynamic - FIX issue with this moving firstNameField
+//        make.left.equalTo(self.view.mas_left);
+//        make.right.equalTo(self.view.mas_right);
+//    }];
     
     // Background map image view
     self.mapView = [[MKMapView alloc] init];

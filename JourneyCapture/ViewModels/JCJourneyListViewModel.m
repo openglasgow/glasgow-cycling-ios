@@ -68,7 +68,7 @@
 {
     for (int i = 0; i < allJourneyData.count; i++) {
         NSDictionary *journeyData = allJourneyData[i];
-        JCJourneyViewModel *journey = [[JCJourneyViewModel alloc] init];
+        JCPathViewModel *journey = [[JCPathViewModel alloc] init];
 
         NSString *startName;
         if (journeyData[@"start_name"] != [NSNull null]) {

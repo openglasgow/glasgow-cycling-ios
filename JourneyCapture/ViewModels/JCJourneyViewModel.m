@@ -17,7 +17,7 @@
             [subscriber sendNext:[NSString stringWithFormat:@"%d routes", [numInstances intValue]]];
         }];
         return nil;
-    }];}
+    }];
 }
 
 @end

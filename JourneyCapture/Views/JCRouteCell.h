@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JCJourneyViewModel, EDStarRating;
+@class JCPathViewModel, EDStarRating;
 
 @interface JCRouteCell : UITableViewCell
 
-@property (strong, nonatomic, setter = setViewModel:) JCJourneyViewModel *viewModel;
+@property (strong, nonatomic, setter = setViewModel:) JCPathViewModel *viewModel;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
