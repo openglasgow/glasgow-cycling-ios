@@ -9,7 +9,7 @@
 #import "JCUserViewController.h"
 #import "JCUserViewModel.h"
 
-#import "JCRoutesViewController.h"
+#import "JCJourneysViewController.h"
 #import "JCUserRoutesViewModel.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCMenuTableViewCell.h"
@@ -90,7 +90,7 @@
 //                    NSLog(@"Got my routes");
 //                    if (routesViewModel.routes.count > 0) {
 //                        [routesViewModel setTitle:@"My Routes"];
-//                        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
+//                        JCJourneysViewController *routesController = [[JCJourneysViewController alloc] initWithViewModel:routesViewModel];
 //                        [self.navigationController pushViewController:routesController animated:YES];
 //                    } else {
 //                        // No routes
@@ -129,7 +129,7 @@
 //                    NSLog(@"Got nearby routes");
 //                    if (routesViewModel.routes.count > 0) {
 //                        [routesViewModel setTitle:@"Nearby Routes"];
-//                        JCRoutesViewController *routesController = [[JCRoutesViewController alloc] initWithViewModel:routesViewModel];
+//                        JCJourneysViewController *routesController = [[JCJourneysViewController alloc] initWithViewModel:routesViewModel];
 //                        [self.navigationController pushViewController:routesController animated:YES];
 //                    } else {
 //                        // No routes
@@ -238,7 +238,7 @@
         // My Routes
         [Flurry logEvent:@"My routes tapped"];
         JCUserRoutesViewModel *userRoutesVM = [JCUserRoutesViewModel new];
-        JCRoutesViewController *routesVC = [[JCRoutesViewController alloc] initWithViewModel:userRoutesVM];
+        JCJourneysViewController *routesVC = [[JCJourneysViewController alloc] initWithViewModel:userRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     }
     

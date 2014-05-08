@@ -1,24 +1,24 @@
 //
-//  JCRoutesViewController.m
+//  JCJourneysViewController.m
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 27/02/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "JCRoutesViewController.h"
-#import "JCRouteCell.h"
+#import "JCJourneysViewController.h"
+#import "JCJourneyCell.h"
 #import "JCJourneyListViewModel.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
 #import "JCLoadingView.h"
 #import "Flurry.h"
 
-@interface JCRoutesViewController ()
+@interface JCJourneysViewController ()
 
 @end
 
-@implementation JCRoutesViewController
+@implementation JCJourneysViewController
 
 - (id)initWithViewModel:(JCJourneyListViewModel *)routesViewModel
 {
@@ -97,9 +97,9 @@
 {
     static NSString *CellIdentifier = @"routeCell";
 
-    JCRouteCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    JCJourneyCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCRouteCell" owner:self options:nil];
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCJourneyCell" owner:self options:nil];
         cell = [topLevelObjects objectAtIndex:0];
         cell.viewModel = self.viewModel.journeys[indexPath.row];
     }

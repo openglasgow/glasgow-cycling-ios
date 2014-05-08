@@ -1,5 +1,5 @@
 //
-//  JCRouteCell.h
+//  JCJourneyCell.h
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 28/02/2014.
@@ -9,7 +9,7 @@
 @import UIKit;
 @class JCJourneyViewModel, EDStarRating;
 
-@interface JCRouteCell : UITableViewCell
+@interface JCJourneyCell : UITableViewCell
 
 @property (strong, nonatomic, setter = setViewModel:) JCJourneyViewModel *viewModel;
 
