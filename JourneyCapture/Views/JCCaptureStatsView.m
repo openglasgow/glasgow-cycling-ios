@@ -7,19 +7,19 @@
 //
 
 #import "JCCaptureStatsView.h"
-#import "JCRouteViewModel.h"
+#import "JCCaptureViewModel.h"
 #import "JCRoutePointViewModel.h"
 
 @implementation JCCaptureStatsView
 
-- (id)initWithViewModel:(JCRouteViewModel *)routeViewModel
+- (id)initWithViewModel:(JCCaptureViewModel *)captureViewModel
 {
     self = [super init];
     if (!self) {
         return self;
     }
     
-    _viewModel = routeViewModel;
+    _viewModel = captureViewModel;
     
     // Stats
     UIFont *statsTitleFont = [UIFont systemFontOfSize:12];
@@ -35,7 +35,7 @@
     _currentSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _currentSpeedLabel.text = @"0.0 mph";
     
-    [RACChannelTo(_viewModel, currentSpeed) subscribeNext:^(id speedMps) {
+    [RACObserve(_viewModel, currentSpeed) subscribeNext:^(id speedMps) {
         double currentSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
         double currentSpeedMph = currentSpeedKph* 0.621371192f;
         NSString *currentSpeedText = [NSString stringWithFormat:@"%.01f mph", currentSpeedMph];
@@ -59,7 +59,7 @@
     _averageSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _averageSpeedLabel.text = @"0.0 mph";
     
-    [RACChannelTo(_viewModel, averageSpeed) subscribeNext:^(id speedMps) {
+    [RACObserve(_viewModel, averageSpeed) subscribeNext:^(id speedMps) {
         double averageSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
         double averageSpeedMph = averageSpeedKph* 0.621371192f;
         NSString *averageSpeedText = [NSString stringWithFormat:@"%.01f mph", averageSpeedMph];
@@ -103,7 +103,7 @@
     _totalDistanceLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _totalDistanceLabel.text = @"0.0 mi";
     
-    [RACChannelTo(_viewModel, totalKm) subscribeNext:^(id totalDistanceKm) {
+    [RACObserve(_viewModel, totalKm) subscribeNext:^(id totalDistanceKm) {
         double distanceKm = [totalDistanceKm doubleValue];
         double distanceMiles = distanceKm * 0.621371192f;
         NSString *distanceText = [NSString stringWithFormat:@"%.01f mi", distanceMiles];

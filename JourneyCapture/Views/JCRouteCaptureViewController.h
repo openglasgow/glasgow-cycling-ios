@@ -6,14 +6,13 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "JCLocationManager.h"
-#import "JCRouteViewModel.h"
 
-@class JCCaptureView;
+@class JCCaptureView, JCCaptureViewModel;
 
 @interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate, UIAlertViewDelegate>
-@property (strong, nonatomic) JCRouteViewModel *viewModel;
+@property (strong, nonatomic) JCCaptureViewModel *viewModel;
 @property (strong, nonatomic) JCCaptureView *captureView;
 - (void)startRoute;
 - (void)endRoute;

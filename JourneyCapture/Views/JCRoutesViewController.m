@@ -2,17 +2,11 @@
 //  JCRoutesViewController.m
 //  JourneyCapture
 //
-//  Created by Chris Sloey on 27/02/2014.
+//  Created by Chris Sloey on 08/05/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
 #import "JCRoutesViewController.h"
-#import "JCRouteCell.h"
-#import "JCRoutesListViewModel.h"
-#import "JCRouteViewController.h"
-#import "JCRouteViewModel.h"
-#import "JCLoadingView.h"
-#import "Flurry.h"
 
 @interface JCRoutesViewController ()
 
@@ -20,109 +14,19 @@
 
 @implementation JCRoutesViewController
 
-- (id)initWithViewModel:(JCRoutesListViewModel *)routesViewModel
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.viewModel = routesViewModel;
+        // Custom initialization
     }
     return self;
-}
-
-#pragma mark - UIViewController
-
-- (void)loadView
-{
-    self.view = [UIView new];
-    [self.view setBackgroundColor:[UIColor jc_mediumBlueColor]];
-    
-    // Loading indicator
-    _loadingView = [JCLoadingView new];
-    _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_loadingView];
-    _loadingView.loading = YES;
-    
-    // Routes table
-    _routesTableView = [UITableView new];
-    _routesTableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _routesTableView.delegate = self;
-    _routesTableView.dataSource = self;
-    
-    // Load routes
-    [[_viewModel loadRoutes] subscribeError:^(NSError *error) {
-        NSLog(@"Error loading");
-    } completed:^{
-        NSLog(@"Loaded routes");
-        _loadingView.loading = NO;
-        [_loadingView removeFromSuperview];
-        [self.view addSubview:_routesTableView];
-        [_routesTableView reloadData];
-    }];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationItem setTitle:self.viewModel.title];
-}
-
-- (void)viewWillLayoutSubviews
-{
-    if ([[self.view subviews] containsObject:_loadingView]) {
-        [_loadingView autoRemoveConstraintsAffectingView];
-        [_loadingView autoCenterInSuperview];
-        [_loadingView layoutSubviews];
-    }
-    
-    if ([[self.view subviews] containsObject:_routesTableView]) {
-        [_routesTableView autoRemoveConstraintsAffectingView];
-        [_routesTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
-        [_routesTableView autoPinToTopLayoutGuideOfViewController:self withInset:0];
-    }
-    
-    [super viewWillLayoutSubviews];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [[self.viewModel routes] count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"routeCell";
-
-    JCRouteCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCRouteCell" owner:self options:nil];
-        cell = [topLevelObjects objectAtIndex:0];
-        cell.viewModel = self.viewModel.routes[indexPath.row];
-    }
-    [cell setViewModel:self.viewModel.routes[indexPath.row]];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 80.0;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    JCRouteViewModel *routeModel = self.viewModel.routes[indexPath.row];
-    JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeModel];
-    [self.navigationController pushViewController:routeController animated:YES];
-    [Flurry logEvent:@"Route selected" withParameters:@{
-                                                        @"index": @(indexPath.row),
-                                                        @"total_routes": @(self.viewModel.routes.count),
-                                                        @"average_rating": @(routeModel.averageRating.floatValue)
-                                                        }];
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -130,5 +34,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

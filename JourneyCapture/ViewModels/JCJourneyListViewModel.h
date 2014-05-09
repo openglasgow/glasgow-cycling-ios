@@ -1,5 +1,5 @@
 //
-//  JCRoutesListViewModel.h
+//  JCJourneyListViewModel.h
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 28/02/2014.
@@ -8,11 +8,11 @@
 
 #import "RVMViewModel.h"
 
-@interface JCRoutesListViewModel : RVMViewModel
-@property (strong, nonatomic) NSMutableArray *routes;
+@interface JCJourneyListViewModel : RVMViewModel
+@property (strong, nonatomic) NSMutableArray *journeys;
 @property (strong, nonatomic) NSString *title;
 - (RACSignal *)loadRoutes;
 //-(RACSignal *)loadUserRoutes;
 //-(RACSignal *)loadNearbyRoutes;
--(void)storeRoutes:(NSArray *)routesData;
+-(void)storeRoutes:(NSArray *)allJourneyData;
 @end

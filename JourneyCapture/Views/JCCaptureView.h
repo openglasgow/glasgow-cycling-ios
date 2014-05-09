@@ -10,11 +10,10 @@
 @import MapKit;
 #import "JBLineChartView.h"
 
-@class JCRouteViewModel;
-@class JCCaptureStatsView;
+@class JCCaptureStatsView, JCCaptureViewModel;
 
 @interface JCCaptureView : UIView <MKMapViewDelegate, JBLineChartViewDelegate, JBLineChartViewDataSource>
-@property (strong, nonatomic) JCRouteViewModel *viewModel;
+@property (strong, nonatomic) JCCaptureViewModel *viewModel;
 
 // Map
 @property (strong, nonatomic) MKMapView *mapView;
@@ -26,6 +25,6 @@
 
 @property (strong, nonatomic) UIButton *captureButton;
 
-- (id)initWithViewModel:(JCRouteViewModel *)captureViewModel;
+- (id)initWithViewModel:(JCCaptureViewModel *)captureViewModel;
 - (void)updateRouteLine;
 @end

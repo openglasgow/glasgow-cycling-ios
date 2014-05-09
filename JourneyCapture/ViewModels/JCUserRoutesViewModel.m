@@ -33,7 +33,7 @@
                                        parameters:nil
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
                                               // Registered, store user token
-                                              self.routes = [[NSMutableArray alloc] init];
+                                              self.journeys = [[NSMutableArray alloc] init];
                                               
                                               NSLog(@"User routes load success");
                                               NSLog(@"%@", routesDict);

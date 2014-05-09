@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
+@import UIKit;
+@import MapKit;
 @class JCRouteViewModel;
 
 @interface JCRouteViewController : UIViewController <MKMapViewDelegate>
