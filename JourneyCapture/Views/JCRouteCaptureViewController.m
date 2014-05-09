@@ -23,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        _viewModel = [[JCCaptureViewModel alloc] init];
+        _viewModel = [JCCaptureViewModel new];
         [self startRoute];
     }
     return self;
@@ -172,7 +172,7 @@
         }
 
         // Create point
-        JCRoutePointViewModel *point = [[JCRoutePointViewModel alloc] init];
+        JCRoutePointViewModel *point = [JCRoutePointViewModel new];
         point.location = latestLocation;
         [_viewModel addPoint:point];
 
@@ -215,11 +215,11 @@
     if (buttonIndex == 1) {
         // Stop route capture (route cancel alert)
         NSLog(@"Cancelling route");
+        [self cancelWarningNotification];
         [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
         [[JCLocationManager sharedManager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
         [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @NO}];
-        [self cancelWarningNotification];
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }

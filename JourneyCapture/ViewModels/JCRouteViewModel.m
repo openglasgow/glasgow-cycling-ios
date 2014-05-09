@@ -13,15 +13,6 @@
 
 @implementation JCRouteViewModel
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        self.points = [[NSMutableArray alloc] init];
-    }
-    return self;
-}
-
 - (RACSignal *)readableInstanceCount
 {
    return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {

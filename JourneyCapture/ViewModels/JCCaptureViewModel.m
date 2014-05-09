@@ -10,12 +10,14 @@
 #import "JCAPIManager.h"
 
 @implementation JCCaptureViewModel
+@synthesize currentSpeed, averageSpeed, totalKm; // Synthesis due to RAC quirk
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         _lastGeocodedKm = 0;
+        _points = [NSMutableArray new];
     }
     return self;
 }
@@ -26,19 +28,19 @@
 
     // Calculate total distance
     if (_points.count > 1) {
-        _totalKm = 0;
+        self.totalKm = 0;
         for (int i = 0; i < _points.count - 1; i++) {
             JCRoutePointViewModel *thisPoint = _points[i];
             JCRoutePointViewModel *nextPoint = _points[i+1];
             CLLocation *firstLoc = thisPoint.location;
             CLLocation *nextLoc = nextPoint.location;
-            _totalKm += ([nextLoc distanceFromLocation:firstLoc] / 1000.0);
+            self.totalKm += ([nextLoc distanceFromLocation:firstLoc] / 1000.0f);
         }
     }
 
-    if (_totalKm > (_lastGeocodedKm + 0.1)) {
+    if (self.totalKm > (_lastGeocodedKm + 0.1)) {
         [point reverseGeocode];
-        _lastGeocodedKm = _totalKm;
+        _lastGeocodedKm = self.totalKm;
     }
 
     // Geocode every 100m
@@ -47,12 +49,12 @@
     if (_points.count > 0) {
         JCRoutePointViewModel *lastPoint = _points.lastObject;
         if (lastPoint.location.speed > 0) {
-            _currentSpeed = lastPoint.location.speed;
+            self.currentSpeed = lastPoint.location.speed;
         } else {
-            _currentSpeed = 0;
+            self.currentSpeed = 0;
         }
     } else {
-        _currentSpeed = 0;
+        self.currentSpeed = 0;
     }
 
     // Calculate average speed
@@ -64,9 +66,9 @@
         }
         double avgSpeed = totalSpeed / _points.count;
         if (avgSpeed > 0) {
-            _averageSpeed = avgSpeed;
+            self.averageSpeed = avgSpeed;
         } else {
-            _averageSpeed = 0;
+            self.averageSpeed = 0;
         }
     }
 }

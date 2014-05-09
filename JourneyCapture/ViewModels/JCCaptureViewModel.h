@@ -16,7 +16,7 @@
 @property (strong, nonatomic) NSMutableArray *points;
 @property (readwrite, nonatomic) double lastGeocodedKm;
 @property (readwrite, nonatomic) NSInteger routeId;
-@property (readwrite, nonatomic) NSInteger totalKm;
+@property (readwrite, nonatomic) CGFloat totalKm;
 @property (readwrite, nonatomic) CLLocationSpeed currentSpeed;
 @property (readwrite, nonatomic) CLLocationSpeed averageSpeed;
 

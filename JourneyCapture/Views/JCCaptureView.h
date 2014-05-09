@@ -10,8 +10,7 @@
 @import MapKit;
 #import "JBLineChartView.h"
 
-@class JCCaptureViewModel;
-@class JCCaptureStatsView;
+@class JCCaptureStatsView, JCCaptureViewModel;
 
 @interface JCCaptureView : UIView <MKMapViewDelegate, JBLineChartViewDelegate, JBLineChartViewDataSource>
 @property (strong, nonatomic) JCCaptureViewModel *viewModel;
