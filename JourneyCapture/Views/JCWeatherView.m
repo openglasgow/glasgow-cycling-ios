@@ -66,7 +66,7 @@
     
     _temperatureLabel = [UILabel new];
     [RACObserve(self, viewModel.temperatureCelsius) subscribeNext:^(NSNumber *temperature) {
-        _temperatureLabel.text = [NSString stringWithFormat:@"%.0f°C", round([temperature intValue]-32/1.8)];
+        _temperatureLabel.text = [NSString stringWithFormat:@"%.0f°C", round(([temperature intValue]-32)/1.8)];
     }];
     _temperatureLabel.font = statFont;
     _temperatureLabel.textColor = statColor;
