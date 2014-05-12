@@ -7,6 +7,7 @@
 //
 
 #import "JCWeatherViewModel.h"
+#import "JCAPIManager.h"
 
 @implementation JCWeatherViewModel
 
@@ -16,15 +17,29 @@
     if (!self) {
         return self;
     }
-    
-    _precipitation = @(0.95);
-    _temperatureCelsius = @8;
-    _uvIndex = @0;
-    _windSpeed = @12;
-    _weatherIcon = [UIImage imageNamed:@"confused-icon"];
     _weatherSource = @"Powered by forecast.io";
-    
+    [self loadWeather];
     return self;
+}
+
+-(void)loadWeather
+{
+    NSLog(@"Loading weather");
+    JCAPIManager *manager = [JCAPIManager manager];
+    [manager GET:@"/weather.json"
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+             [self setPrecipitation:responseObject[@"precipitation_probability"]];
+             [self setTemperatureCelsius:responseObject[@"temp"]];
+             
+             [self setWindSpeed:responseObject[@"wind_speed"]];
+             [self setWeatherIconName:responseObject[@"icon"]];
+             [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"User load failure");
+             NSLog(@"%@", error);
+         }
+     ];
 }
 
 @end

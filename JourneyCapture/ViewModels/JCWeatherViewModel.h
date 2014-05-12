@@ -9,6 +9,7 @@
 #import "RVMViewModel.h"
 
 @interface JCWeatherViewModel : RVMViewModel
+@property (strong, nonatomic) NSString *weatherIconName;
 @property (strong, nonatomic) NSNumber *precipitation;
 @property (strong, nonatomic) NSNumber *temperatureCelsius;
 @property (strong, nonatomic) NSNumber *uvIndex;
