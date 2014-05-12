@@ -72,6 +72,11 @@
     [self setTitle:self.viewModel.name];
 }
 
+- (void)viewWillLayoutSubviews
+{    
+    [super viewWillLayoutSubviews];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

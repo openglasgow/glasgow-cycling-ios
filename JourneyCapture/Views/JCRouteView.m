@@ -20,6 +20,10 @@
     
     _viewModel = routeViewModel;
     
+    // Map
+    _mapView = [MKMapView new];
+    _mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_mapView];
     
     return self;
 }
@@ -28,7 +32,9 @@
 
 - (void)layoutSubviews
 {
-    
+    [_mapView autoRemoveConstraintsAffectingView];
+    [_mapView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
+    [_mapView autoSetDimension:ALDimensionHeight toSize:362];
     
     [super layoutSubviews];
 }
