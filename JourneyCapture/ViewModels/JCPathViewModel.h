@@ -30,7 +30,7 @@
 // Child paths
 @property (readwrite, nonatomic) BOOL hasChildren;
 
-- (RACSignal *)loadChildren;
+- (Class)childClass;
 - (RACSignal *)readableInstanceCount;
 - (NSString *)readableTime;
 - (NSNumber *)averageRating;

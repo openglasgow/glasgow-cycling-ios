@@ -9,6 +9,7 @@
 #import "JCJourneyViewModel.h"
 #import "JCAPIManager.h"
 #import "JCPathListViewModel.h"
+#import "JCRouteListViewModel.h"
 
 @implementation JCJourneyViewModel
 
@@ -19,6 +20,11 @@
         self.hasChildren = YES;
     }
     return self;
+}
+
+- (Class)childClass
+{
+    return [JCRouteListViewModel class];
 }
 
 - (RACSignal *)readableInstanceCount

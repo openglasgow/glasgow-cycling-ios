@@ -20,6 +20,11 @@
     return self;
 }
 
+- (Class)childClass
+{
+    return nil;
+}
+
 - (NSNumber *)averageRating
 {
     return @((self.environmentRating + self.difficultyRating + self.safetyRating) / 3.0f);
