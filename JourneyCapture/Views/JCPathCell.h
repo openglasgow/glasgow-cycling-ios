@@ -1,18 +1,19 @@
 //
-//  JCRouteCell.h
+//  JCJourneyCell.h
 //  JourneyCapture
 //
-//  Created by Chris Sloey on 08/05/2014.
+//  Created by Chris Sloey on 28/02/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 @class JCPathViewModel, EDStarRating;
 
-@interface JCRouteCell : UITableViewCell
+@interface JCPathCell : UITableViewCell
 
 @property (strong, nonatomic, setter = setViewModel:) JCPathViewModel *viewModel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;

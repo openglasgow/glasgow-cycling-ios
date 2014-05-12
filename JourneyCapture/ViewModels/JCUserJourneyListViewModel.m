@@ -1,15 +1,18 @@
 //
-//  JCUserRoutesViewModel.m
+//  JCUserJourneyListViewModel.m
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 01/05/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "JCUserRoutesViewModel.h"
+#import "JCUserJourneyListViewModel.h"
 #import "JCAPIManager.h"
+#import "JCRouteViewModel.h"
+#import "JCJourneyViewModel.h"
+#import "JCPathListViewModel.h"
 
-@implementation JCUserRoutesViewModel
+@implementation JCUserJourneyListViewModel
 - (instancetype)init
 {
     self = [super init];
@@ -22,9 +25,9 @@
     return self;
 }
 
-#pragma mark - JCRoutesListViewModel
+#pragma mark - JCJourneyListViewModel
 
--(RACSignal *)loadRoutes
+-(RACSignal *)loadItems
 {
     NSLog(@"Loading user routes");
     JCAPIManager *manager = [JCAPIManager manager];
@@ -33,13 +36,13 @@
                                        parameters:nil
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
                                               // Registered, store user token
-                                              self.journeys = [[NSMutableArray alloc] init];
+                                              self.items = [NSMutableArray new];
                                               
                                               NSLog(@"User routes load success");
                                               NSLog(@"%@", routesDict);
                                               NSArray *routesResponse = routesDict[@"routes"];
                                               
-                                              [self storeRoutes:routesResponse];
+                                              [self storeItems:routesResponse];
                                               
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -54,4 +57,5 @@
         }];
     }];
 }
+
 @end

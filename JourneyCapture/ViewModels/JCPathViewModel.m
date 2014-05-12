@@ -15,8 +15,14 @@
     self = [super init];
     if (self) {
         _points = [[NSMutableArray alloc] init];
+        _hasChildren = NO;
     }
     return self;
+}
+
+-(JCPathListViewModel *)newChild
+{
+    return nil;
 }
 
 - (NSNumber *)averageRating

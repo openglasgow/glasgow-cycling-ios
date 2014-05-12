@@ -1,27 +1,28 @@
 //
-//  JCJourneysViewController.m
+//  JCPathListViewController.m
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 27/02/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "JCJourneysViewController.h"
-#import "JCJourneyCell.h"
-#import "JCJourneyListViewModel.h"
+#import "JCPathListViewController.h"
+#import "JCPathCell.h"
+#import "JCPathListViewModel.h"
+#import "JCRouteListViewModel.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
 #import "JCCaptureViewModel.h"
 #import "JCLoadingView.h"
 #import "Flurry.h"
 
-@interface JCJourneysViewController ()
+@interface JCPathListViewController ()
 
 @end
 
-@implementation JCJourneysViewController
+@implementation JCPathListViewController
 
-- (id)initWithViewModel:(JCJourneyListViewModel *)routesViewModel
+- (id)initWithViewModel:(JCPathListViewModel *)routesViewModel
 {
     self = [super init];
     if (self) {
@@ -48,9 +49,15 @@
     _routesTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _routesTableView.delegate = self;
     _routesTableView.dataSource = self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.navigationItem setTitle:self.viewModel.title];
     
     // Load routes
-    [[_viewModel loadRoutes] subscribeError:^(NSError *error) {
+    [[_viewModel loadItems] subscribeError:^(NSError *error) {
         NSLog(@"Error loading");
     } completed:^{
         NSLog(@"Loaded routes");
@@ -59,12 +66,6 @@
         [self.view addSubview:_routesTableView];
         [_routesTableView reloadData];
     }];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self.navigationItem setTitle:self.viewModel.title];
 }
 
 - (void)viewWillLayoutSubviews
@@ -91,20 +92,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.viewModel journeys] count];
+    return [[self.viewModel items] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"routeCell";
 
-    JCJourneyCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    JCPathCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCJourneyCell" owner:self options:nil];
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCPathCell" owner:self options:nil];
         cell = [topLevelObjects objectAtIndex:0];
-        cell.viewModel = self.viewModel.journeys[indexPath.row];
+        cell.viewModel = self.viewModel.items[indexPath.row];
     }
-    [cell setViewModel:self.viewModel.journeys[indexPath.row]];
+    [cell setViewModel:self.viewModel.items[indexPath.row]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
@@ -116,14 +117,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JCRouteViewModel *routeVM = self.viewModel.journeys[indexPath.row];
-    JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
-    [self.navigationController pushViewController:routeController animated:YES];
-    [Flurry logEvent:@"Route selected" withParameters:@{
-                                                        @"index": @(indexPath.row),
-                                                        @"total_routes": @(self.viewModel.journeys.count),
-                                                        @"average_rating": @(routeVM.averageRating.floatValue)
-                                                        }];
+    JCPathViewModel *pathVM = self.viewModel.items[indexPath.row];
+    if (pathVM.hasChildren) {
+        // Load children items
+        JCPathListViewModel *childVM = [pathVM newChild];
+        JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:childVM];
+        [self.navigationController pushViewController:routesVC animated:YES];
+    } else {
+        // Load overview
+        JCRouteViewModel *routeVM = (JCRouteViewModel *)pathVM;
+        JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
+        [self.navigationController pushViewController:routeController animated:YES];
+        [Flurry logEvent:@"Route selected" withParameters:@{
+                                                            @"index": @(indexPath.row),
+                                                            @"total_routes": @(self.viewModel.items.count),
+                                                            @"average_rating": @(pathVM.averageRating.floatValue)
+                                                            }];
+    }
 }
 
 - (void)didReceiveMemoryWarning

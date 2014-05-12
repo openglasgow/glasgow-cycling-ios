@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "JCJourneyCell.h"
+#import "JCPathCell.h"
 #import "JCPathViewModel.h"
 @import QuartzCore;
 #import <EDStarRating/EDStarRating.h>
 
-@implementation JCJourneyCell
+@implementation JCPathCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -40,6 +40,16 @@
     UIColor *nameColor = [UIColor blackColor];
     UIColor *secondaryColor = [UIColor colorWithRed:88/255.0f green:77/255.0f blue:77/255.0f alpha:1];
     
+    // Icon
+    [[RACSignal combineLatest:@[RACObserve(self, viewModel.hasChildren),
+                               RACObserve(self, viewModel.numInstances)]] subscribeNext:^(id x) {
+        if (!_viewModel.hasChildren || _viewModel.numInstances == 1) {
+            _iconImageView.image = [UIImage imageNamed:@"single-route-icon"];
+        } else {
+            _iconImageView.image = [UIImage imageNamed:@"multi-route-icon"];
+        }
+    }];
+    
     // Link labels with VM
     [RACChannelTo(self, viewModel.name) subscribeNext:^(id name) {
         _nameLabel.text = name;
@@ -47,7 +57,7 @@
     _nameLabel.textColor = nameColor;
     
     [RACChannelTo(self, viewModel.averageMiles) subscribeNext:^(id distance) {
-        _distanceLabel.text = [NSString stringWithFormat:@"%.02f", [distance floatValue]];
+        _distanceLabel.text = [NSString stringWithFormat:@"%.01f miles", [distance floatValue]];
     }];
     _distanceLabel.textColor = secondaryColor;
     

@@ -9,8 +9,8 @@
 #import "JCUserViewController.h"
 #import "JCUserViewModel.h"
 
-#import "JCJourneysViewController.h"
-#import "JCUserRoutesViewModel.h"
+#import "JCPathListViewController.h"
+#import "JCUserJourneyListViewModel.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCMenuTableViewCell.h"
 
@@ -78,7 +78,7 @@
 //    
 //    _myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
 //        [Flurry logEvent:@"My routes tapped"];
-//        JCJourneyListViewModel *routesViewModel = [[JCJourneyListViewModel alloc] init];
+//        JCUserJourneyListViewModel *routesViewModel = [[JCUserJourneyListViewModel alloc] init];
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 //            dispatch_async(dispatch_get_main_queue(), ^{
@@ -90,7 +90,7 @@
 //                    NSLog(@"Got my routes");
 //                    if (routesViewModel.routes.count > 0) {
 //                        [routesViewModel setTitle:@"My Routes"];
-//                        JCJourneysViewController *routesController = [[JCJourneysViewController alloc] initWithViewModel:routesViewModel];
+//                        JCPathListViewController *routesController = [[JCPathListViewController alloc] initWithViewModel:routesViewModel];
 //                        [self.navigationController pushViewController:routesController animated:YES];
 //                    } else {
 //                        // No routes
@@ -114,7 +114,7 @@
 //    
 //    _nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
 //        [Flurry logEvent:@"Nearby routes tapped"];
-//        JCJourneyListViewModel *routesViewModel = [[JCJourneyListViewModel alloc] init];
+//        JCUserJourneyListViewModel *routesViewModel = [[JCUserJourneyListViewModel alloc] init];
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 //            // Do something...
@@ -129,7 +129,7 @@
 //                    NSLog(@"Got nearby routes");
 //                    if (routesViewModel.routes.count > 0) {
 //                        [routesViewModel setTitle:@"Nearby Routes"];
-//                        JCJourneysViewController *routesController = [[JCJourneysViewController alloc] initWithViewModel:routesViewModel];
+//                        JCPathListViewController *routesController = [[JCPathListViewController alloc] initWithViewModel:routesViewModel];
 //                        [self.navigationController pushViewController:routesController animated:YES];
 //                    } else {
 //                        // No routes
@@ -237,8 +237,8 @@
     if (indexPath.row == 0) {
         // My Routes
         [Flurry logEvent:@"My routes tapped"];
-        JCUserRoutesViewModel *userRoutesVM = [JCUserRoutesViewModel new];
-        JCJourneysViewController *routesVC = [[JCJourneysViewController alloc] initWithViewModel:userRoutesVM];
+        JCUserJourneyListViewModel *userRoutesVM = [JCUserJourneyListViewModel new];
+        JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:userRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     }
     

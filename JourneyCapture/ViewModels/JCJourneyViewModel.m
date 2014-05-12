@@ -7,8 +7,28 @@
 //
 
 #import "JCJourneyViewModel.h"
+#import "JCAPIManager.h"
+#import "JCPathListViewModel.h"
+#import "JCRouteListViewModel.h"
 
 @implementation JCJourneyViewModel
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.hasChildren = YES;
+    }
+    return self;
+}
+
+- (JCPathListViewModel *)newChild
+{
+    JCRouteListViewModel *routeListVM = [JCRouteListViewModel new];
+    routeListVM.startMaidenhead = self.startMaidenhead;
+    routeListVM.endMaidenhead = self.endMaidenhead;
+    return routeListVM;
+}
 
 - (RACSignal *)readableInstanceCount
 {
