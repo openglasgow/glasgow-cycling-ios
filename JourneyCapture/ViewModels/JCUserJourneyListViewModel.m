@@ -8,6 +8,7 @@
 
 #import "JCUserJourneyListViewModel.h"
 #import "JCAPIManager.h"
+#import "JCRouteViewModel.h"
 #import "JCJourneyViewModel.h"
 #import "JCPathListViewModel.h"
 
@@ -55,13 +56,6 @@
             [op cancel];
         }];
     }];
-}
-
-- (void)storeItems:(NSArray *)allItemData
-{
-    for (NSDictionary *data in allItemData) {
-        [self storeItem:data inViewModel:[JCJourneyViewModel new]];
-    }
 }
 
 @end

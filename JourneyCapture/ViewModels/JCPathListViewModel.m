@@ -4,7 +4,7 @@
 //
 
 #import "JCJourneyViewModel.h"
-#import "JCPathViewModel.h"
+#import "JCRouteViewModel.h"
 #import "JCUserJourneyListViewModel.h"
 #import "JCPathListViewModel.h"
 
@@ -28,8 +28,13 @@
 
 - (void)storeItems:(NSArray *)allItemData
 {
-    for(NSDictionary *data in allItemData) {
-        [self storeItem:data inViewModel:[JCPathViewModel new]];
+    for (NSDictionary *data in allItemData) {
+        if ([data[@"num_routes"] intValue] == 1) {
+            // Item is a route with x uses
+            [self storeItem:data inViewModel:[JCRouteViewModel new]];
+        } else {
+            [self storeItem:data inViewModel:[JCJourneyViewModel new]];
+        }
     }
 }
 
