@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         _points = [[NSMutableArray alloc] init];
+        _hasChildren = NO;
     }
     return self;
 }

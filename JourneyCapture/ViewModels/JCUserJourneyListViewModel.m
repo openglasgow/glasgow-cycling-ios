@@ -8,6 +8,8 @@
 
 #import "JCUserJourneyListViewModel.h"
 #import "JCAPIManager.h"
+#import "JCJourneyViewModel.h"
+#import "JCPathListViewModel.h"
 
 @implementation JCUserJourneyListViewModel
 - (instancetype)init
@@ -33,14 +35,14 @@
                                        parameters:nil
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
                                               // Registered, store user token
-                                              self.items = [[NSMutableArray alloc] init];
-
+                                              self.items = [NSMutableArray new];
+                                              
                                               NSLog(@"User routes load success");
                                               NSLog(@"%@", routesDict);
                                               NSArray *routesResponse = routesDict[@"routes"];
-
-                    [self storeItems:routesResponse];
-
+                                              
+                                              [self storeItems:routesResponse];
+                                              
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                               NSLog(@"User routes load failure");
@@ -53,6 +55,13 @@
             [op cancel];
         }];
     }];
+}
+
+- (void)storeItems:(NSArray *)allItemData
+{
+    for (NSDictionary *data in allItemData) {
+        [self storeItem:data inViewModel:[JCJourneyViewModel new]];
+    }
 }
 
 @end

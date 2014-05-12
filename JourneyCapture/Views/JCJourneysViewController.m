@@ -9,6 +9,7 @@
 #import "JCJourneysViewController.h"
 #import "JCJourneyCell.h"
 #import "JCPathListViewModel.h"
+#import "JCRouteListViewModel.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
 #import "JCCaptureViewModel.h"
@@ -116,14 +117,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JCRouteViewModel *routeVM = self.viewModel.items[indexPath.row];
-    JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
-    [self.navigationController pushViewController:routeController animated:YES];
-    [Flurry logEvent:@"Route selected" withParameters:@{
-                                                        @"index": @(indexPath.row),
-                                                        @"total_routes": @(self.viewModel.items.count),
-                                                        @"average_rating": @(routeVM.averageRating.floatValue)
-                                                        }];
+    JCPathViewModel *pathVM = self.viewModel.items[indexPath.row];
+    if (pathVM.hasChildren) {
+        // Load children items
+        JCRouteListViewModel *routesVM = [JCRouteListViewModel new];
+        JCJourneysViewController *routesVC = [[JCJourneysViewController alloc] initWithViewModel:routesVM];
+        [self.navigationController pushViewController:routesVC animated:YES];
+    } else {
+        // Load overview
+        JCRouteViewModel *routeVM = (JCRouteViewModel *)pathVM;
+        JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
+        [self.navigationController pushViewController:routeController animated:YES];
+        [Flurry logEvent:@"Route selected" withParameters:@{
+                                                            @"index": @(indexPath.row),
+                                                            @"total_routes": @(self.viewModel.items.count),
+                                                            @"average_rating": @(pathVM.averageRating.floatValue)
+                                                            }];
+    }
 }
 
 - (void)didReceiveMemoryWarning

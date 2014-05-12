@@ -7,8 +7,19 @@
 //
 
 #import "JCJourneyViewModel.h"
+#import "JCAPIManager.h"
+#import "JCPathListViewModel.h"
 
 @implementation JCJourneyViewModel
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.hasChildren = YES;
+    }
+    return self;
+}
 
 - (RACSignal *)readableInstanceCount
 {

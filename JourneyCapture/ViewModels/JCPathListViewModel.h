@@ -4,6 +4,7 @@
 //
 
 @import Foundation;
+@class JCPathViewModel;
 
 @interface JCPathListViewModel : RVMViewModel
 @property (strong, nonatomic) NSMutableArray *items;
@@ -12,4 +13,5 @@
 - (RACSignal *)loadItems;
 
 -(void)storeItems:(NSArray *)allItemData;
+-(void)storeItem:(NSDictionary *)itemData inViewModel:(JCPathViewModel *)pathVM;
 @end

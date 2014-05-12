@@ -27,6 +27,10 @@
 @property (readwrite, nonatomic) double environmentRating;
 @property (readwrite, nonatomic) double difficultyRating;
 
+// Child paths
+@property (readwrite, nonatomic) BOOL hasChildren;
+
+- (RACSignal *)loadChildren;
 - (RACSignal *)readableInstanceCount;
 - (NSString *)readableTime;
 - (NSNumber *)averageRating;
