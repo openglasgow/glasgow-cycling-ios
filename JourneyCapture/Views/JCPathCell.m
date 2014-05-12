@@ -40,6 +40,16 @@
     UIColor *nameColor = [UIColor blackColor];
     UIColor *secondaryColor = [UIColor colorWithRed:88/255.0f green:77/255.0f blue:77/255.0f alpha:1];
     
+    // Icon
+    [[RACSignal combineLatest:@[RACObserve(self, viewModel.hasChildren),
+                               RACObserve(self, viewModel.numInstances)]] subscribeNext:^(id x) {
+        if (!_viewModel.hasChildren || _viewModel.numInstances == 1) {
+            _iconImageView.image = [UIImage imageNamed:@"single-route-icon"];
+        } else {
+            _iconImageView.image = [UIImage imageNamed:@"multi-route-icon"];
+        }
+    }];
+    
     // Link labels with VM
     [RACChannelTo(self, viewModel.name) subscribeNext:^(id name) {
         _nameLabel.text = name;
