@@ -29,8 +29,8 @@
 - (void)storeItems:(NSArray *)allItemData
 {
     for (NSDictionary *data in allItemData) {
-        if ([data[@"num_routes"] intValue] == 1) {
-            // Item is a route with x uses
+        if (data[@"id"]) {
+            // Item is a route - not a collection of routes
             [self storeItem:data inViewModel:[JCRouteViewModel new]];
         } else {
             [self storeItem:data inViewModel:[JCJourneyViewModel new]];
@@ -71,11 +71,7 @@
     }
 
     // Reviews
-    if (itemData[@"num_routes"]) {
-        [pathVM setNumInstances:[itemData[@"num_routes"] intValue]];
-    } else {
-        [pathVM setNumInstances:[itemData[@"uses"] intValue]];
-    }
+    [pathVM setNumInstances:[itemData[@"num_instances"] intValue]];
     [pathVM setNumReviews:[itemData[@"num_reviews"] intValue]];
 
     // Average values
