@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JCJourneyListViewModel, JCLoadingView;
+@class JCPathListViewModel, JCLoadingView;
 
 @interface JCJourneysViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-@property (strong, nonatomic) JCJourneyListViewModel *viewModel;
+@property (strong, nonatomic) JCPathListViewModel *viewModel;
 @property (strong, nonatomic) JCLoadingView *loadingView;
 @property (strong, nonatomic) UITableView *routesTableView;
 
-- (id)initWithViewModel:(JCJourneyListViewModel *)routesViewModel;
+- (id)initWithViewModel:(JCPathListViewModel *)routesViewModel;
 @end

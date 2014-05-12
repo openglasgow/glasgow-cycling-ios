@@ -1,0 +1,13 @@
+//
+//  JCRouteListViewModel.m
+//  JourneyCapture
+//
+//  Created by Chris Sloey on 12/05/2014.
+//  Copyright (c) 2014 FCD. All rights reserved.
+//
+
+#import "JCRouteListViewModel.h"
+
+@implementation JCRouteListViewModel
+
+@end

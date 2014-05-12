@@ -8,7 +8,7 @@
 
 #import "JCJourneysViewController.h"
 #import "JCJourneyCell.h"
-#import "JCJourneyListViewModel.h"
+#import "JCPathListViewModel.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
 #import "JCCaptureViewModel.h"
@@ -21,7 +21,7 @@
 
 @implementation JCJourneysViewController
 
-- (id)initWithViewModel:(JCJourneyListViewModel *)routesViewModel
+- (id)initWithViewModel:(JCPathListViewModel *)routesViewModel
 {
     self = [super init];
     if (self) {
@@ -56,7 +56,7 @@
     [self.navigationItem setTitle:self.viewModel.title];
     
     // Load routes
-    [[_viewModel loadJourneys] subscribeError:^(NSError *error) {
+    [[_viewModel loadItems] subscribeError:^(NSError *error) {
         NSLog(@"Error loading");
     } completed:^{
         NSLog(@"Loaded routes");
@@ -91,7 +91,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.viewModel journeys] count];
+    return [[self.viewModel items] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -102,9 +102,9 @@
     if (cell == nil) {
         NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCJourneyCell" owner:self options:nil];
         cell = [topLevelObjects objectAtIndex:0];
-        cell.viewModel = self.viewModel.journeys[indexPath.row];
+        cell.viewModel = self.viewModel.items[indexPath.row];
     }
-    [cell setViewModel:self.viewModel.journeys[indexPath.row]];
+    [cell setViewModel:self.viewModel.items[indexPath.row]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
@@ -116,12 +116,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JCRouteViewModel *routeVM = self.viewModel.journeys[indexPath.row];
+    JCRouteViewModel *routeVM = self.viewModel.items[indexPath.row];
     JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
     [self.navigationController pushViewController:routeController animated:YES];
     [Flurry logEvent:@"Route selected" withParameters:@{
                                                         @"index": @(indexPath.row),
-                                                        @"total_routes": @(self.viewModel.journeys.count),
+                                                        @"total_routes": @(self.viewModel.items.count),
                                                         @"average_rating": @(routeVM.averageRating.floatValue)
                                                         }];
 }

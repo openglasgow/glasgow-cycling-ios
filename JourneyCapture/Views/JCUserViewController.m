@@ -10,7 +10,7 @@
 #import "JCUserViewModel.h"
 
 #import "JCJourneysViewController.h"
-#import "JCUserJourneysViewModel.h"
+#import "JCUserJourneyListViewModel.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCMenuTableViewCell.h"
 
@@ -78,7 +78,7 @@
 //    
 //    _myRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
 //        [Flurry logEvent:@"My routes tapped"];
-//        JCJourneyListViewModel *routesViewModel = [[JCJourneyListViewModel alloc] init];
+//        JCUserJourneyListViewModel *routesViewModel = [[JCUserJourneyListViewModel alloc] init];
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 //            dispatch_async(dispatch_get_main_queue(), ^{
@@ -114,7 +114,7 @@
 //    
 //    _nearbyRoutesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
 //        [Flurry logEvent:@"Nearby routes tapped"];
-//        JCJourneyListViewModel *routesViewModel = [[JCJourneyListViewModel alloc] init];
+//        JCUserJourneyListViewModel *routesViewModel = [[JCUserJourneyListViewModel alloc] init];
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 //            // Do something...
@@ -237,7 +237,7 @@
     if (indexPath.row == 0) {
         // My Routes
         [Flurry logEvent:@"My routes tapped"];
-        JCUserJourneysViewModel *userRoutesVM = [JCUserJourneysViewModel new];
+        JCUserJourneyListViewModel *userRoutesVM = [JCUserJourneyListViewModel new];
         JCJourneysViewController *routesVC = [[JCJourneysViewController alloc] initWithViewModel:userRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     }
