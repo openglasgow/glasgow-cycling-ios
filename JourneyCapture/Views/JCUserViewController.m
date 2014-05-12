@@ -10,7 +10,7 @@
 #import "JCUserViewModel.h"
 
 #import "JCJourneysViewController.h"
-#import "JCUserRoutesViewModel.h"
+#import "JCUserJourneysViewModel.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCMenuTableViewCell.h"
 
@@ -237,7 +237,7 @@
     if (indexPath.row == 0) {
         // My Routes
         [Flurry logEvent:@"My routes tapped"];
-        JCUserRoutesViewModel *userRoutesVM = [JCUserRoutesViewModel new];
+        JCUserJourneysViewModel *userRoutesVM = [JCUserJourneysViewModel new];
         JCJourneysViewController *routesVC = [[JCJourneysViewController alloc] initWithViewModel:userRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     }

@@ -1,5 +1,5 @@
 //
-//  JCUserRoutesViewModel.h
+//  JCUserJourneysViewModel.h
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 01/05/2014.
@@ -9,5 +9,5 @@
 #import "RVMViewModel.h"
 #import "JCJourneyListViewModel.h"
 
-@interface JCUserRoutesViewModel : JCJourneyListViewModel
+@interface JCUserJourneysViewModel : JCJourneyListViewModel
 @end

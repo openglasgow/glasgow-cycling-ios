@@ -11,8 +11,8 @@
 @interface JCJourneyListViewModel : RVMViewModel
 @property (strong, nonatomic) NSMutableArray *journeys;
 @property (strong, nonatomic) NSString *title;
-- (RACSignal *)loadRoutes;
+- (RACSignal *)loadJourneys;
 //-(RACSignal *)loadUserRoutes;
 //-(RACSignal *)loadNearbyRoutes;
--(void)storeRoutes:(NSArray *)allJourneyData;
+-(void)storeJourneys:(NSArray *)allJourneyData;
 @end

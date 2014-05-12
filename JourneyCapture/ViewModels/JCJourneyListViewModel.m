@@ -59,16 +59,16 @@
 //    }];
 //}
 
-- (RACSignal *)loadRoutes
+- (RACSignal *)loadJourneys
 {
     return [RACSignal empty];
 }
 
--(void)storeRoutes:(NSArray *)allJourneyData
+-(void)storeJourneys:(NSArray *)allJourneyData
 {
     for (int i = 0; i < allJourneyData.count; i++) {
         NSDictionary *journeyData = allJourneyData[i];
-        JCPathViewModel *journey = [[JCPathViewModel alloc] init];
+        JCJourneyViewModel *journey = [[JCJourneyViewModel alloc] init];
 
         NSString *startName;
         if (journeyData[@"start_name"] != [NSNull null]) {

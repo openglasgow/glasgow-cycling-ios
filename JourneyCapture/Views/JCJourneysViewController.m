@@ -48,9 +48,15 @@
     _routesTableView.translatesAutoresizingMaskIntoConstraints = NO;
     _routesTableView.delegate = self;
     _routesTableView.dataSource = self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.navigationItem setTitle:self.viewModel.title];
     
     // Load routes
-    [[_viewModel loadRoutes] subscribeError:^(NSError *error) {
+    [[_viewModel loadJourneys] subscribeError:^(NSError *error) {
         NSLog(@"Error loading");
     } completed:^{
         NSLog(@"Loaded routes");
@@ -59,12 +65,6 @@
         [self.view addSubview:_routesTableView];
         [_routesTableView reloadData];
     }];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self.navigationItem setTitle:self.viewModel.title];
 }
 
 - (void)viewWillLayoutSubviews
