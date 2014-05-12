@@ -29,7 +29,10 @@
     UIColor *sourceColor = [UIColor colorWithRed:199/255.0f green:233/255.0f blue:246/255.0f alpha:1.0];
     
     // Icon
-    _weatherIconView = [[UIImageView alloc] initWithImage:_viewModel.weatherIcon];
+    _weatherIconView = [UIImageView new];
+    [RACObserve(self, viewModel.weatherIcon) subscribeNext:^(UIImage *weatherIcon) {
+        _weatherIconView.image = weatherIcon;
+    }];
     _weatherIconView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_weatherIconView];
     
@@ -63,7 +66,7 @@
     
     _temperatureLabel = [UILabel new];
     [RACObserve(self, viewModel.temperatureCelsius) subscribeNext:^(NSNumber *temperature) {
-        _temperatureLabel.text = [NSString stringWithFormat:@"%d°C", [temperature intValue]];
+        _temperatureLabel.text = [NSString stringWithFormat:@"%.0f°C", round([temperature intValue]-32/1.8)];
     }];
     _temperatureLabel.font = statFont;
     _temperatureLabel.textColor = statColor;
