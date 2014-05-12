@@ -22,9 +22,12 @@
     return self;
 }
 
-- (Class)childClass
+- (JCPathListViewModel *)newChild
 {
-    return [JCRouteListViewModel class];
+    JCRouteListViewModel *routeListVM = [JCRouteListViewModel new];
+    routeListVM.startMaidenhead = self.startMaidenhead;
+    routeListVM.endMaidenhead = self.endMaidenhead;
+    return routeListVM;
 }
 
 - (RACSignal *)readableInstanceCount

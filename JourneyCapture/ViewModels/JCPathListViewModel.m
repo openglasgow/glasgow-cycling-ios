@@ -35,6 +35,7 @@
 
 -(void)storeItem:(NSDictionary *)itemData inViewModel:(JCPathViewModel *)pathVM
 {
+    // Location Names
     NSString *startName;
     if (itemData[@"start_name"] != [NSNull null]) {
         startName = itemData[@"start_name"];
@@ -54,8 +55,22 @@
     } else {
         [pathVM setName:@"Glasgow City Route"];
     }
+    
+    // Locations
+    if (itemData[@"start_maidenhead"] != [NSNull null]) {
+        [pathVM setStartMaidenhead:itemData[@"start_maidenhead"]];
+    }
+    
+    if (itemData[@"end_maidenhead"] != [NSNull null]) {
+        [pathVM setEndMaidenhead:itemData[@"end_maidenhead"]];
+    }
 
-    [pathVM setNumInstances:[itemData[@"num_routes"] intValue]];
+    // Reviews
+    if (itemData[@"num_routes"]) {
+        [pathVM setNumInstances:[itemData[@"num_routes"] intValue]];
+    } else {
+        [pathVM setNumInstances:[itemData[@"uses"] intValue]];
+    }
     [pathVM setNumReviews:[itemData[@"num_reviews"] intValue]];
 
     // Average values

@@ -120,7 +120,7 @@
     JCPathViewModel *pathVM = self.viewModel.items[indexPath.row];
     if (pathVM.hasChildren) {
         // Load children items
-        JCPathListViewModel *childVM = [[pathVM childClass] new];
+        JCPathListViewModel *childVM = [pathVM newChild];
         JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:childVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     } else {

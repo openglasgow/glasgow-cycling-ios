@@ -47,7 +47,7 @@
     _nameLabel.textColor = nameColor;
     
     [RACChannelTo(self, viewModel.averageMiles) subscribeNext:^(id distance) {
-        _distanceLabel.text = [NSString stringWithFormat:@"%.02f", [distance floatValue]];
+        _distanceLabel.text = [NSString stringWithFormat:@"%.01f miles", [distance floatValue]];
     }];
     _distanceLabel.textColor = secondaryColor;
     

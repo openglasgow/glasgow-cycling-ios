@@ -7,6 +7,7 @@
 //
 
 #import "RVMViewModel.h"
+@class JCPathListViewModel;
 
 @interface JCPathViewModel : RVMViewModel
 
@@ -30,7 +31,7 @@
 // Child paths
 @property (readwrite, nonatomic) BOOL hasChildren;
 
-- (Class)childClass;
+- (JCPathListViewModel *)newChild;
 - (RACSignal *)readableInstanceCount;
 - (NSString *)readableTime;
 - (NSNumber *)averageRating;

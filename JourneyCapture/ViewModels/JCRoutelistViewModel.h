@@ -11,4 +11,7 @@
 
 @interface JCRouteListViewModel : JCPathListViewModel
 
+@property (strong, nonatomic) NSString *startMaidenhead;
+@property (strong, nonatomic) NSString *endMaidenhead;
+
 @end

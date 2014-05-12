@@ -20,7 +20,7 @@
     return self;
 }
 
-- (Class)childClass
+-(JCPathListViewModel *)newChild
 {
     return nil;
 }

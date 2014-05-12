@@ -30,14 +30,20 @@
 {
     NSLog(@"Loading user routes");
     JCAPIManager *manager = [JCAPIManager manager];
+    NSDictionary *searchParams = @{
+                                   @"per_page": @1000,
+                                   @"page_num": @1,
+                                   @"start_maidenhead": _startMaidenhead,
+                                   @"end_maidenhead": _endMaidenhead
+                                   };
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager GET:@"/routes/user_summaries/1000/1.json"
-                                       parameters:nil
+        AFHTTPRequestOperation *op = [manager GET:@"/routes.json"
+                                       parameters:searchParams
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
                                               // Registered, store user token
                                               self.items = [NSMutableArray new];
                                               
-                                              NSLog(@"User routes load success");
+                                              NSLog(@"Routes load success (%@ to %@)", _startMaidenhead, _endMaidenhead);
                                               NSLog(@"%@", routesDict);
                                               NSArray *routesResponse = routesDict[@"routes"];
                                               
