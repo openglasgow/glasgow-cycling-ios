@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "JCJourneyCell.h"
+#import "JCPathCell.h"
 #import "JCPathViewModel.h"
 @import QuartzCore;
 #import <EDStarRating/EDStarRating.h>
 
-@implementation JCJourneyCell
+@implementation JCPathCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

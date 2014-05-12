@@ -1,13 +1,13 @@
 //
-//  JCJourneysViewController.m
+//  JCPathListViewController.m
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 27/02/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import "JCJourneysViewController.h"
-#import "JCJourneyCell.h"
+#import "JCPathListViewController.h"
+#import "JCPathCell.h"
 #import "JCPathListViewModel.h"
 #import "JCRouteListViewModel.h"
 #import "JCRouteViewController.h"
@@ -16,11 +16,11 @@
 #import "JCLoadingView.h"
 #import "Flurry.h"
 
-@interface JCJourneysViewController ()
+@interface JCPathListViewController ()
 
 @end
 
-@implementation JCJourneysViewController
+@implementation JCPathListViewController
 
 - (id)initWithViewModel:(JCPathListViewModel *)routesViewModel
 {
@@ -99,9 +99,9 @@
 {
     static NSString *CellIdentifier = @"routeCell";
 
-    JCJourneyCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    JCPathCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCJourneyCell" owner:self options:nil];
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCPathCell" owner:self options:nil];
         cell = [topLevelObjects objectAtIndex:0];
         cell.viewModel = self.viewModel.items[indexPath.row];
     }
@@ -121,7 +121,7 @@
     if (pathVM.hasChildren) {
         // Load children items
         JCPathListViewModel *childVM = [[pathVM childClass] new];
-        JCJourneysViewController *routesVC = [[JCJourneysViewController alloc] initWithViewModel:childVM];
+        JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:childVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     } else {
         // Load overview

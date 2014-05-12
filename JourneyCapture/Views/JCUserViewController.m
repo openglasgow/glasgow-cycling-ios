@@ -9,7 +9,7 @@
 #import "JCUserViewController.h"
 #import "JCUserViewModel.h"
 
-#import "JCJourneysViewController.h"
+#import "JCPathListViewController.h"
 #import "JCUserJourneyListViewModel.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCMenuTableViewCell.h"
@@ -90,7 +90,7 @@
 //                    NSLog(@"Got my routes");
 //                    if (routesViewModel.routes.count > 0) {
 //                        [routesViewModel setTitle:@"My Routes"];
-//                        JCJourneysViewController *routesController = [[JCJourneysViewController alloc] initWithViewModel:routesViewModel];
+//                        JCPathListViewController *routesController = [[JCPathListViewController alloc] initWithViewModel:routesViewModel];
 //                        [self.navigationController pushViewController:routesController animated:YES];
 //                    } else {
 //                        // No routes
@@ -129,7 +129,7 @@
 //                    NSLog(@"Got nearby routes");
 //                    if (routesViewModel.routes.count > 0) {
 //                        [routesViewModel setTitle:@"Nearby Routes"];
-//                        JCJourneysViewController *routesController = [[JCJourneysViewController alloc] initWithViewModel:routesViewModel];
+//                        JCPathListViewController *routesController = [[JCPathListViewController alloc] initWithViewModel:routesViewModel];
 //                        [self.navigationController pushViewController:routesController animated:YES];
 //                    } else {
 //                        // No routes
@@ -238,7 +238,7 @@
         // My Routes
         [Flurry logEvent:@"My routes tapped"];
         JCUserJourneyListViewModel *userRoutesVM = [JCUserJourneyListViewModel new];
-        JCJourneysViewController *routesVC = [[JCJourneysViewController alloc] initWithViewModel:userRoutesVM];
+        JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:userRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     }
     
