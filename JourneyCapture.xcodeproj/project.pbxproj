@@ -489,7 +489,7 @@
 				8303E2CE18C619E900215760 /* Onboarding */,
 				8341420F18BF55A90020CF97 /* User */,
 				83D98DD118C9DAC900E72279 /* Route Capture */,
-				83B5DEC418BFA1F10032F7E1 /* Journey List */,
+				83B5DEC418BFA1F10032F7E1 /* Journey/Route Lists */,
 				83B3485618C0BCD100D59FB9 /* Route View */,
 			);
 			path = Views;
@@ -504,7 +504,7 @@
 			name = "Route View";
 			sourceTree = "<group>";
 		};
-		83B5DEC418BFA1F10032F7E1 /* Journey List */ = {
+		83B5DEC418BFA1F10032F7E1 /* Journey/Route Lists */ = {
 			isa = PBXGroup;
 			children = (
 				83B3484D18C09EFF00D59FB9 /* JCPathCell.h */,
@@ -513,7 +513,7 @@
 				83B5DEC918BFA3130032F7E1 /* JCPathListViewController.h */,
 				83B5DECA18BFA3130032F7E1 /* JCPathListViewController.m */,
 			);
-			name = "Journey List";
+			name = "Journey/Route Lists";
 			sourceTree = "<group>";
 		};
 		83BA021B18BE3E5600EE7787 /* Signin */ = {
