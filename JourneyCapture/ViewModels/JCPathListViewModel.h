@@ -9,6 +9,7 @@
 @interface JCPathListViewModel : RVMViewModel
 @property (strong, nonatomic) NSMutableArray *items;
 @property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *noItemsError;
 
 - (NSDictionary *)searchParams;
 - (RACSignal *)loadItems;

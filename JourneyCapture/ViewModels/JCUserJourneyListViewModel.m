@@ -21,6 +21,7 @@
     }
     
     self.title = @"My Routes";
+    self.noItemsError = @"You haven't recorded any routes";
     
     return self;
 }

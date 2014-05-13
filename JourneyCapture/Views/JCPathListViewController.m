@@ -62,9 +62,14 @@
     } completed:^{
         NSLog(@"Loaded routes");
         _loadingView.loading = NO;
-        [_loadingView removeFromSuperview];
-        [self.view addSubview:_routesTableView];
-        [_routesTableView reloadData];
+        
+        if (_viewModel.items.count > 0) {
+            [_loadingView removeFromSuperview];
+            [self.view addSubview:_routesTableView];
+            [_routesTableView reloadData];
+        } else {
+            _loadingView.infoLabel.text = _viewModel.noItemsError;
+        }
     }];
 }
 
