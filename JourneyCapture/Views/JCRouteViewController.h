@@ -9,10 +9,10 @@
 @import UIKit;
 @import MapKit;
 @class JCRouteViewModel;
+@class JCRouteView;
 
 @interface JCRouteViewController : UIViewController <MKMapViewDelegate>
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
-@property (strong, nonatomic) UIImageView *routeImageView;
-@property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) JCRouteView *routeView;
 - (id)initWithViewModel:(JCRouteViewModel *)routeViewModel;
 @end

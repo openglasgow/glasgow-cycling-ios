@@ -18,6 +18,7 @@
 
 // Info
 @property (strong, nonatomic) NSNumber *time;
+@property (strong, nonatomic) NSNumber *averaeSpeed;
 @property (strong, nonatomic) NSNumber *averageMiles;
 @property (strong, nonatomic) NSString *name;
 @property (readwrite, nonatomic) NSInteger numInstances;

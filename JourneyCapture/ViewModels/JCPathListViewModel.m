@@ -29,9 +29,11 @@
 - (void)storeItems:(NSArray *)allItemData
 {
     for (NSDictionary *data in allItemData) {
-        if ([data[@"num_routes"] intValue] == 1) {
-            // Item is a route with x uses
-            [self storeItem:data inViewModel:[JCRouteViewModel new]];
+        if (data[@"id"]) {
+            // Item is a route - not a collection of routes
+            JCRouteViewModel *routeVM = [JCRouteViewModel new];
+            routeVM.routeId = [data[@"id"] intValue];
+            [self storeItem:data inViewModel:routeVM];
         } else {
             [self storeItem:data inViewModel:[JCJourneyViewModel new]];
         }
@@ -71,11 +73,7 @@
     }
 
     // Reviews
-    if (itemData[@"num_routes"]) {
-        [pathVM setNumInstances:[itemData[@"num_routes"] intValue]];
-    } else {
-        [pathVM setNumInstances:[itemData[@"uses"] intValue]];
-    }
+    [pathVM setNumInstances:[itemData[@"num_instances"] intValue]];
     [pathVM setNumReviews:[itemData[@"num_reviews"] intValue]];
 
     // Average values
@@ -114,6 +112,13 @@
     }
     double distanceMiles = distanceKm * 0.621371192;
     [pathVM setAverageMiles:@(distanceMiles)];
+    
+    double speedMetersPerSec = 0;
+    if (averages[@"distance"] != [NSNull null]) {
+        speedMetersPerSec = [averages[@"speed"] doubleValue];
+    }
+    double speedMph = speedMetersPerSec * 2.23693629;
+    [pathVM setAveraeSpeed:@(speedMph)];
 
     [[self items] addObject:pathVM];
 }
