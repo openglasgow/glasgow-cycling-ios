@@ -53,7 +53,7 @@
     _reviewStarView.displayMode = EDStarRatingDisplayFull;
     _reviewStarView.starImage = [UIImage imageNamed:@"star"];
     _reviewStarView.starHighlightedImage = [UIImage imageNamed:@"filled-star"];
-    _reviewStarView.rating = 3;
+    _reviewStarView.rating = [_viewModel.averageRating intValue];
     _reviewStarView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_reviewStarView];
 
