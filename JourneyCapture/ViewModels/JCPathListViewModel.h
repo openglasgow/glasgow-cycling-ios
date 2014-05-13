@@ -10,6 +10,7 @@
 @property (strong, nonatomic) NSMutableArray *items;
 @property (strong, nonatomic) NSString *title;
 
+- (NSDictionary *)searchParams;
 - (RACSignal *)loadItems;
 
 -(void)storeItems:(NSArray *)allItemData;

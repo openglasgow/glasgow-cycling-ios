@@ -11,6 +11,7 @@
 
 #import "JCPathListViewController.h"
 #import "JCUserJourneyListViewModel.h"
+#import "JCNearbyJourneyListViewModel.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCMenuTableViewCell.h"
 
@@ -239,6 +240,12 @@
         [Flurry logEvent:@"My routes tapped"];
         JCUserJourneyListViewModel *userRoutesVM = [JCUserJourneyListViewModel new];
         JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:userRoutesVM];
+        [self.navigationController pushViewController:routesVC animated:YES];
+    } else if (indexPath.row == 1) {
+        // Nearby Routes
+        [Flurry logEvent:@"My routes tapped"];
+        JCNearbyJourneyListViewModel *nearbyRoutesVM = [JCNearbyJourneyListViewModel new];
+        JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:nearbyRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     }
     

@@ -14,6 +14,7 @@
 		129BE689191BC5470021437F /* JCCaptureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE688191BC5470021437F /* JCCaptureViewModel.m */; };
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
 		12AF45EE191A72F7003F7524 /* JCJourneyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */; };
+		12B660AD1922750800F3E9BF /* JCNearbyJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B660AC1922750800F3E9BF /* JCNearbyJourneyListViewModel.m */; };
 		12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BCB75119114AA500629192 /* JCCaptureStatsView.m */; };
 		12BEEA0B19129BDA00025B0E /* JCUserJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BEEA0A19129BDA00025B0E /* JCUserJourneyListViewModel.m */; };
 		12C76B0F1912A22400B7F964 /* JCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C76B0E1912A22400B7F964 /* JCLoadingView.m */; };
@@ -95,6 +96,8 @@
 		12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Application.m"; sourceTree = "<group>"; };
 		12AF45EC191A72F7003F7524 /* JCJourneyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJourneyViewModel.h; sourceTree = "<group>"; };
 		12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJourneyViewModel.m; sourceTree = "<group>"; };
+		12B660AB1922750800F3E9BF /* JCNearbyJourneyListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCNearbyJourneyListViewModel.h; sourceTree = "<group>"; };
+		12B660AC1922750800F3E9BF /* JCNearbyJourneyListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCNearbyJourneyListViewModel.m; sourceTree = "<group>"; };
 		12BCB75019114AA500629192 /* JCCaptureStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureStatsView.h; sourceTree = "<group>"; };
 		12BCB75119114AA500629192 /* JCCaptureStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCaptureStatsView.m; sourceTree = "<group>"; };
 		12BEEA0919129BDA00025B0E /* JCUserJourneyListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUserJourneyListViewModel.h; sourceTree = "<group>"; };
@@ -261,6 +264,8 @@
 			children = (
 				12BEEA0919129BDA00025B0E /* JCUserJourneyListViewModel.h */,
 				12BEEA0A19129BDA00025B0E /* JCUserJourneyListViewModel.m */,
+				12B660AB1922750800F3E9BF /* JCNearbyJourneyListViewModel.h */,
+				12B660AC1922750800F3E9BF /* JCNearbyJourneyListViewModel.m */,
 				12AF45EC191A72F7003F7524 /* JCJourneyViewModel.h */,
 				12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */,
 			);
@@ -758,6 +763,7 @@
 				83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */,
 				83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */,
 				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,
+				12B660AD1922750800F3E9BF /* JCNearbyJourneyListViewModel.m in Sources */,
 				83641C1918D2052700671A2A /* JCNotificationManager.m in Sources */,
 				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
 				83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */,

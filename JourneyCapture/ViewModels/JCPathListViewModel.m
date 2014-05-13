@@ -7,7 +7,7 @@
 #import "JCRouteViewModel.h"
 #import "JCUserJourneyListViewModel.h"
 #import "JCPathListViewModel.h"
-
+#import "JCAPIManager.h"
 
 @implementation JCPathListViewModel
 
@@ -21,9 +21,40 @@
     return self;
 }
 
+-(NSDictionary *)searchParams
+{
+    return @{};
+}
+
 - (RACSignal *)loadItems
 {
-    return [RACSignal empty];
+    NSLog(@"Loading user routes");
+    JCAPIManager *manager = [JCAPIManager manager];
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        AFHTTPRequestOperation *op = [manager GET:@"/routes.json"
+                                       parameters:[self searchParams]
+                                          success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
+                                              // Registered, store user token
+                                              self.items = [NSMutableArray new];
+                                              
+                                              NSLog(@"User routes load success");
+                                              NSLog(@"%@", routesDict);
+                                              NSArray *routesResponse = routesDict[@"routes"];
+                                              
+                                              [self storeItems:routesResponse];
+                                              
+                                              [subscriber sendCompleted];
+                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              NSLog(@"User routes load failure");
+                                              NSLog(@"%@", error);
+                                              [subscriber sendError:error];
+                                          }
+                                      ];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [op cancel];
+        }];
+    }];
 }
 
 - (void)storeItems:(NSArray *)allItemData
