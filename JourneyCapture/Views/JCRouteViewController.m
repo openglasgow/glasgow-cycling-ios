@@ -9,13 +9,13 @@
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
 #import "JCRoutePointViewModel.h"
+#import "JCRouteView.h"
 
 @interface JCRouteViewController ()
 
 @end
 
 @implementation JCRouteViewController
-@synthesize viewModel, routeImageView, mapView;
 
 - (id)initWithViewModel:(JCRouteViewModel *)routeViewModel
 {
@@ -23,7 +23,7 @@
     if (!self) {
         return nil;
     }
-    self.viewModel = routeViewModel;
+    _viewModel = routeViewModel;
     return self;
 }
 
@@ -34,46 +34,54 @@
     self.view = [UIView new];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    _routeView = [[JCRouteView alloc] initWithViewModel:_viewModel];
+    _routeView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_routeView];
+    
     // Load route points
-    [[self.viewModel loadPoints] subscribeError:^(NSError *error) {
-        NSLog(@"Error loading route points");
-    } completed:^{
-        NSLog(@"Loaded route points");
-
-        // Draw points
-        NSUInteger numPoints = [self.viewModel.points count];
-
-        if (numPoints < 2) {
-            return;
-        }
-
-        MKMapPoint *pointsArray = malloc(sizeof(CLLocationCoordinate2D)*numPoints);
-        for (int i = 0; i < numPoints; i++) {
-            JCRoutePointViewModel *point = self.viewModel.points[i];
-            pointsArray[i] = MKMapPointForCoordinate(point.location.coordinate);
-        }
-
-        MKPolyline *routeLine = [MKPolyline polylineWithPoints:pointsArray count:numPoints];
-        free(pointsArray);
-        
-        [[self mapView] addOverlay:routeLine];
-
-        // Zoom to points
-        MKMapRect zoomRect = MKMapRectNull;
-        for (JCRoutePointViewModel *point in self.viewModel.points)
-        {
-            MKMapPoint annotationPoint = MKMapPointForCoordinate(point.location.coordinate);
-            MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 350.0, 350.0);
-            zoomRect = MKMapRectUnion(zoomRect, pointRect);
-        }
-        [self.mapView setVisibleMapRect:zoomRect animated:YES];
-    }];
+//    [[self.viewModel loadPoints] subscribeError:^(NSError *error) {
+//        NSLog(@"Error loading route points");
+//    } completed:^{
+//        NSLog(@"Loaded route points");
+//
+//        // Draw points
+//        NSUInteger numPoints = [self.viewModel.points count];
+//
+//        if (numPoints < 2) {
+//            return;
+//        }
+//
+//        MKMapPoint *pointsArray = malloc(sizeof(CLLocationCoordinate2D)*numPoints);
+//        for (int i = 0; i < numPoints; i++) {
+//            JCRoutePointViewModel *point = self.viewModel.points[i];
+//            pointsArray[i] = MKMapPointForCoordinate(point.location.coordinate);
+//        }
+//
+//        MKPolyline *routeLine = [MKPolyline polylineWithPoints:pointsArray count:numPoints];
+//        free(pointsArray);
+//        
+//        [[self mapView] addOverlay:routeLine];
+//
+//        // Zoom to points
+//        MKMapRect zoomRect = MKMapRectNull;
+//        for (JCRoutePointViewModel *point in self.viewModel.points)
+//        {
+//            MKMapPoint annotationPoint = MKMapPointForCoordinate(point.location.coordinate);
+//            MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 350.0, 350.0);
+//            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+//        }
+//        [self.mapView setVisibleMapRect:zoomRect animated:YES];
+//    }];
 
     [self setTitle:self.viewModel.name];
 }
 
 - (void)viewWillLayoutSubviews
-{    
+{
+    [_routeView autoRemoveConstraintsAffectingView];
+    [_routeView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [_routeView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    
     [super viewWillLayoutSubviews];
 }
 
