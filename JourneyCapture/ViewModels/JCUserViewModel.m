@@ -23,7 +23,6 @@
                         [UIImage imageNamed:@"nearby-routes-icon"],
                         [UIImage imageNamed:@"cycling-map-icon"],
                         [UIImage imageNamed:@"nearby-routes-icon"]
-//                        [UIImage imageNamed:@""]
                         ];
     return self;
 }
