@@ -112,6 +112,13 @@
     }
     double distanceMiles = distanceKm * 0.621371192;
     [pathVM setAverageMiles:@(distanceMiles)];
+    
+    double speedMetersPerSec = 0;
+    if (averages[@"distance"] != [NSNull null]) {
+        speedMetersPerSec = [averages[@"speed"] doubleValue];
+    }
+    double speedMph = speedMetersPerSec * 2.23693629;
+    [pathVM setAveraeSpeed:@(speedMph)];
 
     [[self items] addObject:pathVM];
 }

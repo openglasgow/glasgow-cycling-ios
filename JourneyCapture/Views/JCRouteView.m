@@ -29,19 +29,19 @@
 
     // Stats
     _timeLabel = [UILabel new];
-    _timeLabel.text = @"3:15:30";
+    _timeLabel.text = [_viewModel readableTime];
     _timeLabel.textAlignment = NSTextAlignmentCenter;
     _timeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_timeLabel];
 
     _distanceLabel = [UILabel new];
-    _distanceLabel.text = @"34.5 miles";
+    _distanceLabel.text = [NSString stringWithFormat:@"%.01f miles", [_viewModel.averageMiles floatValue]];
     _distanceLabel.textAlignment = NSTextAlignmentCenter;
     _distanceLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_distanceLabel];
 
     _avgSpeedLabel = [UILabel new];
-    _avgSpeedLabel.text = @"26 mph";
+    _avgSpeedLabel.text = [NSString stringWithFormat:@"%.01f mph", [_viewModel.averaeSpeed floatValue]];
     _avgSpeedLabel.textAlignment = NSTextAlignmentCenter;
     _avgSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_avgSpeedLabel];
