@@ -16,5 +16,6 @@
 @property (strong, nonatomic) MKMapView *mapView;
 
 - (id)initWithViewModel:(JCRouteViewModel *)routeViewModel;
+- (void)drawRoute;
 
 @end

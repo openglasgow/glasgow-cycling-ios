@@ -31,7 +31,9 @@
     for (NSDictionary *data in allItemData) {
         if (data[@"id"]) {
             // Item is a route - not a collection of routes
-            [self storeItem:data inViewModel:[JCRouteViewModel new]];
+            JCRouteViewModel *routeVM = [JCRouteViewModel new];
+            routeVM.routeId = [data[@"id"] intValue];
+            [self storeItem:data inViewModel:routeVM];
         } else {
             [self storeItem:data inViewModel:[JCJourneyViewModel new]];
         }
