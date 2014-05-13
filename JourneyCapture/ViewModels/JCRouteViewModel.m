@@ -23,50 +23,6 @@
     }];
 }
 
-// TODO move to a Review VM
-//-(RACSignal *)uploadReview
-//{
-//    NSLog(@"Uploading user review");
-//    JCAPIManager *manager = [JCAPIManager manager];
-//
-//    NSDictionary *reviewData = @{
-//                                 @"safety_rating": @(self.safetyRating),
-//                                 @"difficulty_rating": @(self.difficultyRating),
-//                                 @"environment_rating": @(self.environmentRating)
-//                                };
-//
-//    NSDictionary *routeReview = @{
-//                                 @"route_id" : @(self.routeId),
-//                                 @"review" : reviewData
-//                                };
-//    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-//        if (!self.routeId) {
-//            // TODO send reasonable NSError
-//            NSLog(@"Failed to store route review - no route id");
-//            [subscriber sendError:nil];
-//        }
-//
-//        AFHTTPRequestOperation *op = [manager POST:@"/reviews.json"
-//                                        parameters:routeReview
-//                                           success:^(AFHTTPRequestOperation *operation, id responseObj) {
-//                                               // Route stored
-//                                               NSLog(@"User review stored successfully");
-//                                               NSLog(@"%@", responseObj);
-//
-//                                               [subscriber sendCompleted];
-//                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                                               NSLog(@"User review store failure");
-//                                               NSLog(@"%@", error);
-//                                               [subscriber sendError:error];
-//                                           }
-//                                      ];
-//
-//        return [RACDisposable disposableWithBlock:^{
-//            [op cancel];
-//        }];
-//    }];
-//}
-
 -(RACSignal *)loadPoints
 {
     NSLog(@"Loading route points");
