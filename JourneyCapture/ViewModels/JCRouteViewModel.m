@@ -25,6 +25,10 @@
 
 -(RACSignal *)loadPoints
 {
+    if (self.points.count > 0) {
+        return [RACSignal empty];
+    }
+    
     NSLog(@"Loading route points");
     JCAPIManager *manager = [JCAPIManager manager];
 
