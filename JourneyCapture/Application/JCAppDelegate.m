@@ -32,6 +32,9 @@
         [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
     #endif
     
+    // Core Data
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"JourneyModel"];
+    
     // Present correct VC
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -47,7 +50,6 @@
     }
     JCNavViewController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
     [self.window setRootViewController:navController];
-    
     
     // Nav Bar customisation
     [navController.navigationBar setBarTintColor:[UIColor jc_blueColor]];
@@ -66,9 +68,6 @@
 
     // Allow API manager to logout user
     [[JCAPIManager manager] setNavController:navController];
-
-    // Core Data
-    [MagicalRecord setupAutoMigratingCoreDataStack];
 
     return YES;
 }
