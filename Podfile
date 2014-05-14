@@ -1,5 +1,7 @@
 platform :ios, "7.0"
 
+inhibit_all_warnings!
+
 pod 'ReactiveCocoa', '~> 2.2'
 pod 'ReactiveViewModel', '~> 0.2'
 pod 'libextobjc', '~> 0.4'

@@ -2,7 +2,7 @@
 //  User.h
 //  JourneyCapture
 //
-//  Created by Chris Sloey on 03/03/2014.
+//  Created by Chris Sloey on 14/05/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
@@ -13,9 +13,10 @@
 @interface User : NSManagedObject
 
 @property (nonatomic, retain) NSString * firstName;
-@property (nonatomic, retain) NSNumber * monthSeconds;
-@property (nonatomic, retain) NSString * monthFavouriteRoute;
-@property (nonatomic, retain) NSNumber * monthMeters;
 @property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSNumber * monthRoutes;
+@property (nonatomic, retain) NSNumber * monthKm;
+@property (nonatomic, retain) NSNumber * monthSeconds;
+@property (nonatomic, retain) NSData * image;
 
 @end

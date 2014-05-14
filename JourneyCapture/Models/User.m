@@ -2,7 +2,7 @@
 //  User.m
 //  JourneyCapture
 //
-//  Created by Chris Sloey on 03/03/2014.
+//  Created by Chris Sloey on 14/05/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
@@ -12,9 +12,10 @@
 @implementation User
 
 @dynamic firstName;
-@dynamic monthSeconds;
-@dynamic monthFavouriteRoute;
-@dynamic monthMeters;
 @dynamic lastName;
+@dynamic monthRoutes;
+@dynamic monthKm;
+@dynamic monthSeconds;
+@dynamic image;
 
 @end
