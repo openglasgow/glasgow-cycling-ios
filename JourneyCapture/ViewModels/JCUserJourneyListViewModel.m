@@ -31,8 +31,6 @@
 - (NSDictionary *)searchParams
 {
     return @{
-             @"per_page": @1000,
-             @"page_num": @1,
              @"user_only": @YES
              };
 }

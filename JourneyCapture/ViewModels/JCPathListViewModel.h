@@ -10,6 +10,8 @@
 @property (strong, nonatomic) NSMutableArray *items;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *noItemsError;
+@property (readwrite, nonatomic) NSInteger currentPage;
+@property (readwrite, nonatomic) NSInteger perPage;
 
 - (NSDictionary *)searchParams;
 - (RACSignal *)loadItems;

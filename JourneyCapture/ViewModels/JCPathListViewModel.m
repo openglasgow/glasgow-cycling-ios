@@ -17,6 +17,9 @@
     if (!self) {
         return nil;
     }
+    
+    _perPage = 10;
+    _currentPage = 1;
         
     return self;
 }
@@ -30,9 +33,12 @@
 {
     NSLog(@"Loading user routes");
     JCAPIManager *manager = [JCAPIManager manager];
+    NSMutableDictionary *searchParameters = [[self searchParams] mutableCopy];
+    searchParameters[@"per_page"] = @(_perPage);
+    searchParameters[@"page_num"] = @(_currentPage);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         AFHTTPRequestOperation *op = [manager GET:@"/routes.json"
-                                       parameters:[self searchParams]
+                                       parameters:searchParameters
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
                                               // Registered, store user token
                                               self.items = [NSMutableArray new];
