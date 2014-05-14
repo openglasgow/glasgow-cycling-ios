@@ -8,10 +8,12 @@
 
 #import "JCUserViewController.h"
 #import "JCUserViewModel.h"
+#import "JCWeatherView.h"
 
 #import "JCPathListViewController.h"
 #import "JCUserJourneyListViewModel.h"
 #import "JCNearbyJourneyListViewModel.h"
+#import "JCWeatherViewModel.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCMenuTableViewCell.h"
 
@@ -34,9 +36,11 @@
     if (!self) {
         return nil;
     }
+    
     [[JCLocationManager sharedManager] setDelegate:self];
-    _viewModel = [[JCUserViewModel alloc] init];
+    _viewModel = [JCUserViewModel new];
     [self update];
+    
     return self;
 }
 
@@ -96,6 +100,11 @@
                                    action:nil];
     
     [self.navigationItem setBackBarButtonItem:backButton];
+    
+    // Update weather
+    JCWeatherView *weatherView = _userView.pulldownView;
+    JCWeatherViewModel *weatherVM = weatherView.viewModel;
+    [weatherVM loadWeather];
 }
 
 -(void)viewWillAppear:(BOOL)animated

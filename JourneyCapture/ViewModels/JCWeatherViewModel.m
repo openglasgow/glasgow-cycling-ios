@@ -8,6 +8,7 @@
 
 #import "JCWeatherViewModel.h"
 #import "JCAPIManager.h"
+#import "Weather.h"
 
 @implementation JCWeatherViewModel
 
@@ -18,24 +19,44 @@
         return self;
     }
     _weatherSource = @"Powered by forecast.io";
-    [self loadWeather];
+    
+    // Weather model
+    if ([Weather MR_countOfEntities] > 0) {
+        _weather = [Weather MR_findFirst];
+        if (!_weather.time || _weather.time < [NSDate dateWithTimeIntervalSinceNow:-3600]) {
+            [Weather MR_truncateAll];
+        }
+    }
+    
+    if ([Weather MR_countOfEntities] == 0) {
+        _weather = [Weather MR_createEntity];
+    }
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+        NSLog(@"Saved weather model");
+    }];
+    
+    [self loadFromWeather:_weather];
+    
     return self;
 }
 
--(void)loadWeather
+- (void)loadWeather
 {
     NSLog(@"Loading weather");
     JCAPIManager *manager = [JCAPIManager manager];
     [manager GET:@"/weather.json"
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-             [self setPrecipitation:responseObject[@"precipitation_probability"]];
-             [self setTemperatureCelsius:responseObject[@"temp"]];
-             
-             [self setWindSpeed:responseObject[@"wind_speed"]];
-             [self setWeatherIconName:responseObject[@"icon"]];
-             [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
-             [self setWeatherError:nil];
+             _weather.precipitation = responseObject[@"precipitation_probability"];
+             _weather.temperature = responseObject[@"temp"];
+             _weather.windSpeed = responseObject[@"wind_speed"];
+             _weather.iconName = responseObject[@"icon"];
+             _weather.time = [NSDate dateWithTimeIntervalSince1970:[responseObject[@"time"] intValue]];
+             [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+                 NSLog(@"Saved weather model");
+                 [self loadFromWeather:_weather];
+             }];
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              [self setWeatherError:@"Error finding weather"]; //TODO User better error message from server??
              [self setWeatherIconName:@"sad-face"];
@@ -45,6 +66,16 @@
              NSLog(@"%@", error);
          }
      ];
+}
+
+- (void)loadFromWeather:(Weather *)weatherModel
+{
+    [self setPrecipitation:_weather.precipitation];
+    [self setTemperatureCelsius:_weather.temperature];
+    [self setWindSpeed:_weather.windSpeed];
+    [self setWeatherIconName:_weather.iconName];
+    [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
+    [self setWeatherError:nil];
 }
 
 @end

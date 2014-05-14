@@ -19,6 +19,7 @@
 		12BEEA0B19129BDA00025B0E /* JCUserJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BEEA0A19129BDA00025B0E /* JCUserJourneyListViewModel.m */; };
 		12C76B0F1912A22400B7F964 /* JCLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C76B0E1912A22400B7F964 /* JCLoadingView.m */; };
 		12EF442F19237D1E00C392E9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EF442E19237D1E00C392E9 /* User.m */; };
+		12EF44351923A1BE00C392E9 /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EF44341923A1BE00C392E9 /* Weather.m */; };
 		12F8E6F5190FEFC900AA0216 /* JCMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12F8E6F4190FEFC900AA0216 /* JCMenuCell.xib */; };
 		12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F8E6F7190FF0FB00AA0216 /* JCMenuTableViewCell.m */; };
 		12F8E6FB190FFE3C00AA0216 /* JCScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F8E6FA190FFE3C00AA0216 /* JCScrollView.m */; };
@@ -107,6 +108,8 @@
 		12E8303FB46D4087967CEECE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		12EF442D19237D1E00C392E9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		12EF442E19237D1E00C392E9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		12EF44331923A1BE00C392E9 /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
+		12EF44341923A1BE00C392E9 /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
 		12F8E6F4190FEFC900AA0216 /* JCMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCMenuCell.xib; sourceTree = "<group>"; };
 		12F8E6F6190FF0FB00AA0216 /* JCMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCMenuTableViewCell.h; sourceTree = "<group>"; };
 		12F8E6F7190FF0FB00AA0216 /* JCMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCMenuTableViewCell.m; sourceTree = "<group>"; };
@@ -453,6 +456,8 @@
 			isa = PBXGroup;
 			children = (
 				83F811DF18C49E860010B1CD /* JCJourneyModel.xcdatamodeld */,
+				12EF44331923A1BE00C392E9 /* Weather.h */,
+				12EF44341923A1BE00C392E9 /* Weather.m */,
 				12EF442D19237D1E00C392E9 /* User.h */,
 				12EF442E19237D1E00C392E9 /* User.m */,
 			);
@@ -757,6 +762,7 @@
 				12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
 				83B3484F18C09EFF00D59FB9 /* JCPathCell.m in Sources */,
+				12EF44351923A1BE00C392E9 /* Weather.m in Sources */,
 				83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */,
 				83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */,
 				83F811E118C49E860010B1CD /* JCJourneyModel.xcdatamodeld in Sources */,

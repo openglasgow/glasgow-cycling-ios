@@ -22,5 +22,6 @@
 @property (strong, nonatomic) NSArray *menuItemImages;
 
 -(RACSignal *)fullNameSignal;
+-(void)loadFromUser:(User *)userModel;
 -(RACSignal *)loadDetails;
 @end
