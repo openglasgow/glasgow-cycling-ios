@@ -16,6 +16,8 @@
 #import "JCLoadingView.h"
 #import "Flurry.h"
 
+static NSInteger const kLoadingCellTag = 1;
+
 @interface JCPathListViewController ()
 
 @end
@@ -90,6 +92,8 @@
     [super viewWillLayoutSubviews];
 }
 
+# pragma mark - UITableViewDataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -97,22 +101,63 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.viewModel items] count];
+    if (_viewModel.lastPageReached) {
+        return _viewModel.items.count;
+    } else {
+        // Loading indicator road
+        return _viewModel.items.count + 1;
+    }
+}
+
+# pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView
+  willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (cell.tag == kLoadingCellTag) {
+        _viewModel.currentPage++;
+        [[_viewModel loadItems] subscribeError:^(NSError *error) {
+            NSLog(@"Error loading more");
+        } completed:^{
+            NSLog(@"Loaded more");
+            [_routesTableView reloadData];
+        }];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"routeCell";
-
-    JCPathCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCPathCell" owner:self options:nil];
-        cell = [topLevelObjects objectAtIndex:0];
-        cell.viewModel = self.viewModel.items[indexPath.row];
+    if (indexPath.row < _viewModel.items.count) {
+        // Route
+        static NSString *CellIdentifier = @"routeCell";
+        
+        JCPathCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCPathCell" owner:self options:nil];
+            cell = [topLevelObjects objectAtIndex:0];
+            cell.viewModel = self.viewModel.items[indexPath.row];
+        }
+        [cell setViewModel:self.viewModel.items[indexPath.row]];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        return cell;
+    } else {
+        // Loading indicator cell
+        UITableViewCell *cell = [[UITableViewCell alloc]
+                                 initWithStyle:UITableViewCellStyleDefault
+                                 reuseIdentifier:nil];
+        
+        UIActivityIndicatorView *activityIndicator =
+        [[UIActivityIndicatorView alloc]
+         initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.center = cell.center;
+        [cell addSubview:activityIndicator];
+        
+        [activityIndicator startAnimating];
+        
+        cell.tag = kLoadingCellTag;
+        
+        return cell;
     }
-    [cell setViewModel:self.viewModel.items[indexPath.row]];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

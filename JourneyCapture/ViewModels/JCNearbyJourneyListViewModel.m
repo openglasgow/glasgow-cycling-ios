@@ -30,8 +30,6 @@
 {
     CLLocationCoordinate2D userCoords = [[JCLocationManager sharedManager] currentLocation].coordinate;
     return @{
-             @"per_page": @1000,
-             @"page_num": @1,
              @"source_lat": @(userCoords.latitude),
              @"source_long": @(userCoords.longitude),
              };

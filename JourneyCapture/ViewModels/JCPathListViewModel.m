@@ -17,6 +17,10 @@
     if (!self) {
         return nil;
     }
+    
+    _perPage = 10;
+    _currentPage = 1;
+    _lastPageReached = NO;
         
     return self;
 }
@@ -30,18 +34,27 @@
 {
     NSLog(@"Loading user routes");
     JCAPIManager *manager = [JCAPIManager manager];
+    NSMutableDictionary *searchParameters = [[self searchParams] mutableCopy];
+    searchParameters[@"per_page"] = @(_perPage);
+    searchParameters[@"page_num"] = @(_currentPage);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         AFHTTPRequestOperation *op = [manager GET:@"/routes.json"
-                                       parameters:[self searchParams]
+                                       parameters:searchParameters
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
                                               // Registered, store user token
-                                              self.items = [NSMutableArray new];
+                                              if (_currentPage == 1) {
+                                                  self.items = [NSMutableArray new];
+                                              }
                                               
                                               NSLog(@"User routes load success");
                                               NSLog(@"%@", routesDict);
                                               NSArray *routesResponse = routesDict[@"routes"];
                                               
-                                              [self storeItems:routesResponse];
+                                              if (routesResponse.count == 0) {
+                                                  _lastPageReached = YES;
+                                              } else {
+                                                  [self storeItems:routesResponse];
+                                              }
                                               
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -145,7 +158,7 @@
     [pathVM setAverageMiles:@(distanceMiles)];
     
     double speedMetersPerSec = 0;
-    if (averages[@"distance"] != [NSNull null]) {
+    if (averages[@"speed"] != [NSNull null]) {
         speedMetersPerSec = [averages[@"speed"] doubleValue];
     }
     double speedMph = speedMetersPerSec * 2.23693629;

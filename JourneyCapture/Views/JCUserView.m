@@ -167,7 +167,7 @@
     [_menuTableView autoRemoveConstraintsAffectingView];
     [_menuTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
     [_menuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView];
-    [_menuTableView autoSetDimension:ALDimensionHeight toSize:240];
+    [_menuTableView autoSetDimension:ALDimensionHeight toSize:180];
 
     [super layoutSubviews];
 }
