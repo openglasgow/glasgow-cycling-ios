@@ -145,7 +145,7 @@
     [pathVM setAverageMiles:@(distanceMiles)];
     
     double speedMetersPerSec = 0;
-    if (averages[@"distance"] != [NSNull null]) {
+    if (averages[@"speed"] != [NSNull null]) {
         speedMetersPerSec = [averages[@"speed"] doubleValue];
     }
     double speedMph = speedMetersPerSec * 2.23693629;
