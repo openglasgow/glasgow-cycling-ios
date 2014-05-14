@@ -130,9 +130,8 @@
     if(_viewModel.weatherError){
         [_errorLabel setHidden:false];
         [_errorLabel autoRemoveConstraintsAffectingView];
-        [_errorLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:_weatherIconView withOffset:12];
-        [_errorLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-10];
-        [_errorLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-25];
+        [_errorLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
+        [_errorLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:_weatherIconView];
         
         // Hide others
         [_weatherSourceLabel setHidden:true];
