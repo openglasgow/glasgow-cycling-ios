@@ -20,6 +20,7 @@
     
     _perPage = 10;
     _currentPage = 1;
+    _lastPageReached = NO;
         
     return self;
 }
@@ -41,13 +42,19 @@
                                        parameters:searchParameters
                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routesDict) {
                                               // Registered, store user token
-                                              self.items = [NSMutableArray new];
+                                              if (_currentPage == 1) {
+                                                  self.items = [NSMutableArray new];
+                                              }
                                               
                                               NSLog(@"User routes load success");
                                               NSLog(@"%@", routesDict);
                                               NSArray *routesResponse = routesDict[@"routes"];
                                               
-                                              [self storeItems:routesResponse];
+                                              if (routesResponse.count == 0) {
+                                                  _lastPageReached = YES;
+                                              } else {
+                                                  [self storeItems:routesResponse];
+                                              }
                                               
                                               [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

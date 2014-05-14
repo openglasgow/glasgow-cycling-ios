@@ -10,8 +10,11 @@
 @property (strong, nonatomic) NSMutableArray *items;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *noItemsError;
+
+// Pagination
 @property (readwrite, nonatomic) NSInteger currentPage;
 @property (readwrite, nonatomic) NSInteger perPage;
+@property (readwrite, nonatomic) BOOL lastPageReached;
 
 - (NSDictionary *)searchParams;
 - (RACSignal *)loadItems;
