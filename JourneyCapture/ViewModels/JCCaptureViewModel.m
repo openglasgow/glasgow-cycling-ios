@@ -8,6 +8,8 @@
 
 #import "JCCaptureViewModel.h"
 #import "JCAPIManager.h"
+#import "Route.h"
+#import "RoutePoint.h"
 
 @implementation JCCaptureViewModel
 @synthesize currentSpeed, averageSpeed, totalKm; // Synthesis due to RAC quirk
@@ -18,6 +20,8 @@
     if (self) {
         _lastGeocodedKm = 0;
         _points = [NSMutableArray new];
+        _route = [Route MR_createEntity];
+        NSLog(@"Create route - %lu now in queue", (unsigned long)[Route MR_countOfEntities]);
     }
     return self;
 }
@@ -71,6 +75,22 @@
             self.averageSpeed = 0;
         }
     }
+    
+    // RoutePoint model
+    RoutePoint *routePoint = [RoutePoint MR_createEntity];
+    routePoint.lat = @(point.location.coordinate.latitude);
+    routePoint.lng = @(point.location.coordinate.longitude);
+    routePoint.altitude = @(point.location.altitude);
+    routePoint.verticalAccuracy = @(point.location.verticalAccuracy);
+    routePoint.horizontalAccuracy = @(point.location.horizontalAccuracy);
+    routePoint.course = @(point.location.course);
+    routePoint.kph = @((point.location.speed * 60 * 60) / 1000);
+    routePoint.streetName = point.streetName;
+    routePoint.route = _route;
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+        NSLog(@"Saved route point");
+    }];
 }
 
 - (RACSignal *)uploadRoute

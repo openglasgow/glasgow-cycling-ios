@@ -35,9 +35,8 @@
     _currentSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _currentSpeedLabel.text = @"0.0 mph";
     
-    [RACObserve(_viewModel, currentSpeed) subscribeNext:^(id speedMps) {
-        double currentSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
-        double currentSpeedMph = currentSpeedKph* 0.621371192f;
+    [RACObserve(_viewModel, currentSpeed) subscribeNext:^(id currentSpeedKph) {
+        double currentSpeedMph = [currentSpeedKph doubleValue] * 0.621371192f;
         NSString *currentSpeedText = [NSString stringWithFormat:@"%.01f mph", currentSpeedMph];
         _currentSpeedLabel.text = currentSpeedText;
     }];

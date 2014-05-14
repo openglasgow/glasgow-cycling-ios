@@ -10,8 +10,11 @@
 #import "JCRoutePointViewModel.h"
 
 @class JCRoutePointViewModel;
+@class Route;
 
 @interface JCCaptureViewModel : RVMViewModel
+
+@property (strong, nonatomic) Route *route;
 
 @property (strong, nonatomic) NSMutableArray *points;
 @property (readwrite, nonatomic) double lastGeocodedKm;
