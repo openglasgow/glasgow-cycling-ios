@@ -17,12 +17,11 @@
     if (!self) {
         return nil;
     }
-    _menuItems = @[@"My Routes", @"Nearby Routes", @"Glasgow Cycling Map", @"Something Else"];
+    _menuItems = @[@"My Routes", @"Nearby Routes", @"Glasgow Cycling Map"];
     _menuItemImages = @[
                         [UIImage imageNamed:@"my-routes-icon"],
                         [UIImage imageNamed:@"nearby-routes-icon"],
-                        [UIImage imageNamed:@"cycling-map-icon"],
-                        [UIImage imageNamed:@"nearby-routes-icon"]
+                        [UIImage imageNamed:@"cycling-map-icon"]
                         ];
     return self;
 }
