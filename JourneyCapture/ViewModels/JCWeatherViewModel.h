@@ -16,4 +16,6 @@
 @property (strong, nonatomic) NSNumber *windSpeed;
 @property (strong, nonatomic) NSString *weatherSource;
 @property (strong, nonatomic) UIImage *weatherIcon;
+@property (strong, nonatomic) NSString *weatherError;
+
 @end

@@ -35,7 +35,12 @@
              [self setWindSpeed:responseObject[@"wind_speed"]];
              [self setWeatherIconName:responseObject[@"icon"]];
              [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
+             [self setWeatherError:nil];
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self setWeatherError:@"Error finding weather"]; //TODO User better error message from server??
+             [self setWeatherIconName:@"sad-face"];
+             [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
+             
              NSLog(@"User load failure");
              NSLog(@"%@", error);
          }

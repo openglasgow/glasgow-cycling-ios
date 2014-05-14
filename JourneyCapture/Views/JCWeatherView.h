@@ -24,6 +24,8 @@
 @property (strong, nonatomic) UILabel *windSpeedTitleLabel;
 @property (strong, nonatomic) UILabel *windSpeedLabel;
 
+@property (strong, nonatomic) UILabel *errorLabel;
+
 @property (strong, nonatomic) UILabel *weatherSourceLabel;
 
 - (id)initWithViewModel:(JCWeatherViewModel *)weatherViewModel;
