@@ -141,6 +141,7 @@
         
         // Set route as completed
         [_viewModel setCompleted];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
