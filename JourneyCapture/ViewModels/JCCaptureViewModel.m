@@ -18,9 +18,6 @@
 {
     self = [super init];
     if (self) {
-        _lastGeocodedKm = 0;
-        _totalKm = 0;
-        
         _route = [Route MR_createEntity];
         NSLog(@"Create route - %lu now in queue", (unsigned long)[Route MR_countOfEntities]);
     }
@@ -29,7 +26,16 @@
 
 - (instancetype)initWithModel:(Route *)routeModel
 {
+    self = [super init];
+    if (self) {
+    }
     return self;
+}
+
+- (void)commonInit
+{
+    _lastGeocodedKm = 0;
+    _totalKm = 0;
 }
 
 - (NSOrderedSet *)points
@@ -119,53 +125,10 @@
     }
 }
 
-- (void)completeRoute {
+- (void)setCompleted {
     _route.completed = @YES;
     [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
         NSLog(@"Saved route point");
-    }];
-}
-
-- (RACSignal *)uploadRoute
-{
-    NSLog(@"Uploading user route");
-    JCAPIManager *manager = [JCAPIManager manager];
-
-    NSMutableArray *pointsData = [[NSMutableArray alloc] init];
-    for (RoutePoint *point in _route.points) {
-        [pointsData addObject:@{
-                                @"lat": point.lat,
-                                @"long": point.lng,
-                                @"kph": point.kph,
-                                @"altitude": point.altitude,
-                                @"time": @([point.time timeIntervalSince1970]),
-                                @"vertical_accuracy": point.verticalAccuracy,
-                                @"horizontal_accuracy": point.horizontalAccuracy,
-                                @"course": point.course,
-                                @"street_name": point.streetName
-                                }];
-    }
-
-    NSDictionary *routeData = @{ @"points" : pointsData };
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager POST:@"/routes.json"
-                                        parameters:routeData
-                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routeResponse) {
-                    // Route stored
-                    NSLog(@"User route stored successfully");
-                    NSLog(@"%@", routeResponse);
-                    _routeId = [routeResponse[@"route_id"] integerValue];
-                    [subscriber sendCompleted];
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"User route store failure");
-                    NSLog(@"%@", error);
-                    [subscriber sendError:error];
-                }
-        ];
-
-        return [RACDisposable disposableWithBlock:^{
-            [op cancel];
-        }];
     }];
 }
 

@@ -22,8 +22,10 @@
 @property (readwrite, nonatomic) CLLocationSpeed currentSpeed;
 @property (readwrite, nonatomic) CLLocationSpeed averageSpeed;
 
+- (instancetype)initWithModel:(Route *)routeModel;
+- (void)commonInit;
 - (void)addLocation:(CLLocation *)location;
-- (void)completeRoute;
+- (void)setCompleted;
 - (NSOrderedSet *)points;
 - (RACSignal *)uploadRoute;
 

@@ -8,27 +8,13 @@
 
 #import "Route.h"
 #import "RoutePoint.h"
+#import "JCAPIManager.h"
 
 
 @implementation Route
 
 @dynamic completed;
 @dynamic points;
-
-+ (void)deleteIncomplete
-{
-    NSPredicate *incompletePredicate = [NSPredicate predicateWithFormat:@"completed = %@", @NO];
-    NSArray *incompleteRoutes = [Route MR_findAllWithPredicate:incompletePredicate];
-    if (incompleteRoutes.count > 0) {
-        for (Route *incomplete in incompleteRoutes) {
-            [incomplete MR_deleteEntity];
-        }
-        
-        [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
-            NSLog(@"Deleted incomplete routes");
-        }];
-    }
-}
 
 # pragma mark - CoreDataGeneratedAccessors
 

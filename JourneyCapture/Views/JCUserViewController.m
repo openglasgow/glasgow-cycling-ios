@@ -24,6 +24,7 @@
 #import "Flurry.h"
 #import <GBDeviceInfo/GBDeviceInfo.h>
 #import <GSKeychain/GSKeychain.h>
+#import "JCRouteManager.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -121,7 +122,8 @@
     }
     
     // Check capture queue
-    [Route deleteIncomplete];
+    [[JCRouteManager sharedManager] deleteIncompleteRoutes];
+    [[JCRouteManager sharedManager] uploadCompletedRoutes];
 }
 
 - (void)didReceiveMemoryWarning
