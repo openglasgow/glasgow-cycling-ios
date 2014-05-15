@@ -2,7 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Route" representedClassName="Route" syncable="YES">
         <attribute name="completed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <relationship name="points" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RoutePoint" inverseName="route" inverseEntity="RoutePoint" syncable="YES"/>
+        <relationship name="points" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RoutePoint" inverseName="route" inverseEntity="RoutePoint" syncable="YES"/>
     </entity>
     <entity name="RoutePoint" representedClassName="RoutePoint" syncable="YES">
         <attribute name="altitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -32,9 +32,9 @@
         <attribute name="windSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Route" positionX="180" positionY="306" width="128" height="75"/>
+        <element name="RoutePoint" positionX="171" positionY="261" width="128" height="193"/>
         <element name="User" positionX="160" positionY="192" width="128" height="135"/>
         <element name="Weather" positionX="162" positionY="234" width="128" height="118"/>
-        <element name="RoutePoint" positionX="171" positionY="261" width="128" height="193"/>
-        <element name="Route" positionX="180" positionY="306" width="128" height="73"/>
     </elements>
 </model>

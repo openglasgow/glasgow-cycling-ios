@@ -23,7 +23,8 @@
 @property (readwrite, nonatomic) CLLocationSpeed currentSpeed;
 @property (readwrite, nonatomic) CLLocationSpeed averageSpeed;
 
--(void)addPoint:(JCRoutePointViewModel *)point;
+- (void)addLocation:(CLLocation *)location;
+- (void)completeRoute;
 - (RACSignal *)uploadRoute;
 
 @end

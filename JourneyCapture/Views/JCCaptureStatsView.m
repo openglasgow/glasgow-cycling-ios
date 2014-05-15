@@ -58,9 +58,8 @@
     _averageSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _averageSpeedLabel.text = @"0.0 mph";
     
-    [RACObserve(_viewModel, averageSpeed) subscribeNext:^(id speedMps) {
-        double averageSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
-        double averageSpeedMph = averageSpeedKph* 0.621371192f;
+    [RACObserve(_viewModel, averageSpeed) subscribeNext:^(id avgSpeedKph) {
+        double averageSpeedMph = [avgSpeedKph doubleValue] * 0.621371192f;
         NSString *averageSpeedText = [NSString stringWithFormat:@"%.01f mph", averageSpeedMph];
         _averageSpeedLabel.text = averageSpeedText;
     }];

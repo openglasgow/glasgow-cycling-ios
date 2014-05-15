@@ -171,10 +171,8 @@
             return;
         }
 
-        // Create point
-        JCRoutePointViewModel *point = [JCRoutePointViewModel new];
-        point.location = latestLocation;
-        [_viewModel addPoint:point];
+        // Add location to route
+        [_viewModel addLocation:latestLocation];
 
         // Update route line on mapview
         [_captureView updateRouteLine];
