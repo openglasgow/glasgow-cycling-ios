@@ -41,7 +41,7 @@
     }
 }
 
-- (RACSignal *)uploadRoute:(Route *)route
+- (void)uploadRoute:(Route *)route
 {
     NSLog(@"Uploading user route");
     JCAPIManager *manager = [JCAPIManager manager];
@@ -67,32 +67,23 @@
     }
     
     NSDictionary *routeData = @{ @"points" : pointsData };
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager POST:@"/routes.json"
-                                        parameters:routeData
-                                           success:^(AFHTTPRequestOperation *operation, NSDictionary *routeResponse) {
-                                               // Route stored on server
-                                               NSLog(@"User route stored successfully");
-                                               NSLog(@"%@", routeResponse);
-                                               
-                                               // Delete route model
-                                               [route MR_deleteEntity];
-                                               [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
-                                                   NSLog(@"Deleted submitted route");
-                                               }];
-                                               
-                                               [subscriber sendCompleted];
-                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                               NSLog(@"User route store failure");
-                                               NSLog(@"%@", error);
-                                               [subscriber sendError:error];
-                                           }
-                                      ];
-        
-        return [RACDisposable disposableWithBlock:^{
-            [op cancel];
-        }];
-    }];
+    [manager POST:@"/routes.json"
+       parameters:routeData
+          success:^(AFHTTPRequestOperation *operation, NSDictionary *routeResponse) {
+              // Route stored on server
+              NSLog(@"User route stored successfully");
+              NSLog(@"%@", routeResponse);
+              
+              // Delete route model
+              [route MR_deleteEntity];
+              [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
+                  NSLog(@"Deleted submitted route");
+              }];
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"User route store failure");
+              NSLog(@"%@", error);
+          }
+     ];
 }
 
 #pragma mark - Singleton Methods
