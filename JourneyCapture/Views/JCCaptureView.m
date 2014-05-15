@@ -159,7 +159,8 @@
 
 #pragma mark - JBLineChartViewDelegate
 
--(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
+-(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
+            atLineIndex:(NSUInteger)lineIndex
 {
     NSInteger index = horizontalIndex;
     if (_viewModel.points.count < MAX_GRAPH_POINTS) {
@@ -175,8 +176,8 @@
         index = _viewModel.points.count - MAX_GRAPH_POINTS + horizontalIndex;
     }
     
-    JCRoutePointViewModel *point = _viewModel.points[index];
-    CGFloat speed = point.location.speed;
+    RoutePoint *point = _viewModel.points[index];
+    CGFloat speed = [point.kph floatValue];
     if (!speed  || speed < 0) {
         speed = 0.0f;
     }
