@@ -18,7 +18,6 @@
     if (!self) {
         return self;
     }
-    _weatherSource = @"Powered by forecast.io";
     
     // Weather model
     if ([Weather MR_countOfEntities] > 0) {
@@ -53,6 +52,7 @@
              _weather.windSpeed = responseObject[@"wind_speed"];
              _weather.iconName = responseObject[@"icon"];
              _weather.time = [NSDate dateWithTimeIntervalSince1970:[responseObject[@"time"] intValue]];
+             _weather.source = responseObject[@"source"];
              [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfWithCompletion:^(BOOL success, NSError *error) {
                  NSLog(@"Saved weather model");
                  [self loadFromWeather:_weather];
@@ -75,6 +75,7 @@
     [self setWindSpeed:_weather.windSpeed];
     [self setWeatherIconName:_weather.iconName];
     [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
+    [self setWeatherSource:_weather.source];
     [self setWeatherError:nil];
 }
 

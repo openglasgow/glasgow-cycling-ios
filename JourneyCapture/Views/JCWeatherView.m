@@ -94,7 +94,9 @@
     
     // Weather Source
     _weatherSourceLabel = [UILabel new];
-    _weatherSourceLabel.text = _viewModel.weatherSource;
+    [RACObserve(self, viewModel.weatherSource) subscribeNext:^(NSString *source) {
+        _weatherSourceLabel.text = source;
+    }];
     _weatherSourceLabel.font = sourceFont;
     _weatherSourceLabel.textColor = sourceColor;
     _weatherSourceLabel.translatesAutoresizingMaskIntoConstraints = NO;
