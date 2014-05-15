@@ -58,9 +58,13 @@
                  [self loadFromWeather:_weather];
              }];
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self setWeatherError:@"Error finding weather"]; //TODO User better error message from server??
-             [self setWeatherIconName:@"sad-face"];
-             [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
+             // Only show weather error if cache is outdated
+             if (!_weather.time || _weather.time < [NSDate dateWithTimeIntervalSinceNow:-3600]) {
+                 [Weather MR_truncateAll];
+                 [self setWeatherError:@"Error finding weather"]; //TODO Use better error message from server??
+                 [self setWeatherIconName:@"sad-face"];
+                 [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
+             }
              
              NSLog(@"Weather load failure");
              NSLog(@"%@", error);
