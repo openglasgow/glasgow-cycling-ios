@@ -62,23 +62,6 @@
     _userView.menuTableView.delegate = self;
     _userView.menuTableView.dataSource = self;
     [self.view addSubview:_userView];
-    
-    _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [self showCapture];
-        return [RACSignal empty];
-    }];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
-                                          initWithTarget:self
-                                          action:@selector(showCapture)];
-    tapGesture.cancelsTouchesInView = YES;
-    tapGesture.delaysTouchesEnded = NO;
-    [_userView.mapView addGestureRecognizer:tapGesture];
-
-    // Nav
-    [_viewModel.fullNameSignal subscribeNext:^(NSString *fullName) {
-        [self.navigationItem setTitle:fullName];
-    }];
 }
 
 - (void)viewWillLayoutSubviews
@@ -94,8 +77,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self.navigationItem setHidesBackButton:YES];
+    
+    // Capture
+    _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self showCapture];
+        return [RACSignal empty];
+    }];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
+                                          initWithTarget:self
+                                          action:@selector(showCapture)];
+    tapGesture.cancelsTouchesInView = YES;
+    tapGesture.delaysTouchesEnded = NO;
+    [_userView.mapView addGestureRecognizer:tapGesture];
+    
+    // Nav title
+    [_viewModel.fullNameSignal subscribeNext:^(NSString *fullName) {
+        [self.navigationItem setTitle:fullName];
+    }];
     
     // Set back button for pushed VCs to be titled "Me" instead of the user's name
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
