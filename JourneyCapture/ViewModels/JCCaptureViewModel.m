@@ -32,7 +32,7 @@
     return self;
 }
 
-- (NSArray *)points
+- (NSOrderedSet *)points
 {
     return _route.points;
 }
@@ -50,6 +50,7 @@
     routePoint.horizontalAccuracy = @(location.horizontalAccuracy);
     routePoint.course = @(location.course);
     routePoint.kph = @(speedKph);
+    routePoint.time = location.timestamp;
     
     [_route addPointsObject:routePoint];
     

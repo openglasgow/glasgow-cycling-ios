@@ -24,7 +24,7 @@
 
 - (void)addLocation:(CLLocation *)location;
 - (void)completeRoute;
-- (NSArray *)points;
+- (NSOrderedSet *)points;
 - (RACSignal *)uploadRoute;
 
 @end
