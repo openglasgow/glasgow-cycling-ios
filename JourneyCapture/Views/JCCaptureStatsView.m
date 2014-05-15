@@ -8,7 +8,7 @@
 
 #import "JCCaptureStatsView.h"
 #import "JCCaptureViewModel.h"
-#import "JCRoutePointViewModel.h"
+#import "RoutePoint.h"
 
 @implementation JCCaptureStatsView
 
@@ -25,7 +25,7 @@
     UIFont *statsTitleFont = [UIFont systemFontOfSize:12];
     UIColor *statsTitleColor = [UIColor jc_lightBlueColor];
     UIFont *statsFont = [UIFont boldSystemFontOfSize:24];
-    UIColor *statsColor = [UIColor jc_blueColor];//[UIColor colorWithRed:127/255.0f green:106/255.0f blue:106/255.0f alpha:1.0];
+    UIColor *statsColor = [UIColor jc_blueColor];
     
     // Current speed
     _currentSpeedLabel = [UILabel new];
@@ -35,9 +35,8 @@
     _currentSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _currentSpeedLabel.text = @"0.0 mph";
     
-    [RACObserve(_viewModel, currentSpeed) subscribeNext:^(id speedMps) {
-        double currentSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
-        double currentSpeedMph = currentSpeedKph* 0.621371192f;
+    [RACObserve(_viewModel, currentSpeed) subscribeNext:^(id currentSpeedKph) {
+        double currentSpeedMph = [currentSpeedKph doubleValue] * 0.621371192f;
         NSString *currentSpeedText = [NSString stringWithFormat:@"%.01f mph", currentSpeedMph];
         _currentSpeedLabel.text = currentSpeedText;
     }];
@@ -59,9 +58,8 @@
     _averageSpeedLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _averageSpeedLabel.text = @"0.0 mph";
     
-    [RACObserve(_viewModel, averageSpeed) subscribeNext:^(id speedMps) {
-        double averageSpeedKph = ([speedMps doubleValue] * 60 * 60) / 1000;
-        double averageSpeedMph = averageSpeedKph* 0.621371192f;
+    [RACObserve(_viewModel, averageSpeed) subscribeNext:^(id avgSpeedKph) {
+        double averageSpeedMph = [avgSpeedKph doubleValue] * 0.621371192f;
         NSString *averageSpeedText = [NSString stringWithFormat:@"%.01f mph", averageSpeedMph];
         _averageSpeedLabel.text = averageSpeedText;
     }];
@@ -124,11 +122,10 @@
 
 - (void)updateTime
 {
-    JCRoutePointViewModel *firstPoint = [_viewModel.points firstObject];
+    RoutePoint *firstPoint = [_viewModel.points firstObject];
     NSTimeInterval totalSeconds = 0;
     if (firstPoint) {
-        CLLocation *firstLocation = [firstPoint location];
-        NSDate *startTime = [firstLocation timestamp];
+        NSDate *startTime = firstPoint.time;
         NSDate *now = [NSDate date];
         totalSeconds = [now timeIntervalSinceDate:startTime];
     }

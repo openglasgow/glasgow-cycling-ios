@@ -62,7 +62,7 @@
              [self setWeatherIconName:@"sad-face"];
              [self setWeatherIcon:[UIImage imageNamed:_weatherIconName]];
              
-             NSLog(@"User load failure");
+             NSLog(@"Weather load failure");
              NSLog(@"%@", error);
          }
      ];

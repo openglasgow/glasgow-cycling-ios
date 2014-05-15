@@ -77,7 +77,7 @@
     }];
 }
 
--(void)dealloc
+- (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -139,13 +139,8 @@
         [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
         [[JCLocationManager sharedManager] setDelegate:nil];
         
-        // Upload
-        [[_viewModel uploadRoute] subscribeError:^(NSError *error) {
-            NSLog(@"Upload failed");
-        } completed:^{
-            NSLog(@"Upload completed");
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
+        // Set route as completed
+        [_viewModel setCompleted];
     }
 }
 
@@ -171,17 +166,15 @@
             return;
         }
 
-        // Create point
-        JCRoutePointViewModel *point = [JCRoutePointViewModel new];
-        point.location = latestLocation;
-        [_viewModel addPoint:point];
+        // Add location to route
+        [_viewModel addLocation:latestLocation];
 
         // Update route line on mapview
         [_captureView updateRouteLine];
     }
 }
 
-#pragma mark - Notifications
+# pragma mark - Notifications
 
 - (void)scheduleWarningNotification
 {
@@ -208,7 +201,7 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
-#pragma mark - UIAlertViewDelgate
+# pragma mark - UIAlertViewDelgate
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

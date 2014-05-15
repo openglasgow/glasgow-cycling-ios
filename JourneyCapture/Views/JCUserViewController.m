@@ -7,22 +7,27 @@
 //
 
 #import "JCUserViewController.h"
-#import "JCUserViewModel.h"
-#import "JCWeatherView.h"
-
 #import "JCPathListViewController.h"
+#import "JCRouteCaptureViewController.h"
+
+#import "JCWeatherView.h"
+#import "JCMenuTableViewCell.h"
+#import "JCUserView.h"
+
+#import "JCUserViewModel.h"
 #import "JCUserJourneyListViewModel.h"
 #import "JCNearbyJourneyListViewModel.h"
 #import "JCWeatherViewModel.h"
-#import "JCRouteCaptureViewController.h"
-#import "JCMenuTableViewCell.h"
 
-#import "JCUserView.h"
-#import <QuartzCore/QuartzCore.h>
+#import "Route.h"
 
 #import "Flurry.h"
 #import <GBDeviceInfo/GBDeviceInfo.h>
 #import <GSKeychain/GSKeychain.h>
+#import "JCRouteManager.h"
+
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface JCUserViewController ()
 
@@ -57,23 +62,6 @@
     _userView.menuTableView.delegate = self;
     _userView.menuTableView.dataSource = self;
     [self.view addSubview:_userView];
-    
-    _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [self showCapture];
-        return [RACSignal empty];
-    }];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
-                                          initWithTarget:self
-                                          action:@selector(showCapture)];
-    tapGesture.cancelsTouchesInView = YES;
-    tapGesture.delaysTouchesEnded = NO;
-    [_userView.mapView addGestureRecognizer:tapGesture];
-
-    // Nav
-    [_viewModel.fullNameSignal subscribeNext:^(NSString *fullName) {
-        [self.navigationItem setTitle:fullName];
-    }];
 }
 
 - (void)viewWillLayoutSubviews
@@ -89,8 +77,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self.navigationItem setHidesBackButton:YES];
+    
+    // Capture
+    _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self showCapture];
+        return [RACSignal empty];
+    }];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
+                                          initWithTarget:self
+                                          action:@selector(showCapture)];
+    tapGesture.cancelsTouchesInView = YES;
+    tapGesture.delaysTouchesEnded = NO;
+    [_userView.mapView addGestureRecognizer:tapGesture];
+    
+    // Nav title
+    [_viewModel.fullNameSignal subscribeNext:^(NSString *fullName) {
+        [self.navigationItem setTitle:fullName];
+    }];
     
     // Set back button for pushed VCs to be titled "Me" instead of the user's name
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
@@ -110,10 +115,15 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [[JCLocationManager sharedManager] startUpdatingCoarse];
+    
     if (_updateOnAppear) {
         [self update];
         _updateOnAppear = NO;
     }
+    
+    // Check capture queue
+    [[JCRouteManager sharedManager] deleteIncompleteRoutes];
+    [[JCRouteManager sharedManager] uploadCompletedRoutes];
 }
 
 - (void)didReceiveMemoryWarning

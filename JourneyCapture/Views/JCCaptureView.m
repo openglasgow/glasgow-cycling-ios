@@ -9,8 +9,8 @@
 @import QuartzCore;
 #import "JCCaptureView.h"
 #import "JCCaptureViewModel.h"
-#import "JCRoutePointViewModel.h"
 #import "JCCaptureStatsView.h"
+#import "RoutePoint.h"
 
 #define MAX_GRAPH_POINTS 20
 
@@ -72,11 +72,13 @@
         return;
     }
 
-    JCRoutePointViewModel *point = _viewModel.points[numPoints-1];
-    CLLocationCoordinate2D coord = point.location.coordinate;
+    RoutePoint *point = _viewModel.points[numPoints-1];
+    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([point.lat doubleValue],
+                                                              [point.lng doubleValue]);
 
-    JCRoutePointViewModel *previousPoint = _viewModel.points[numPoints-2];
-    CLLocationCoordinate2D previousCoord = previousPoint.location.coordinate;
+    RoutePoint *previousPoint = _viewModel.points[numPoints-2];
+    CLLocationCoordinate2D previousCoord = CLLocationCoordinate2DMake([previousPoint.lat doubleValue],
+                                                                      [previousPoint.lng doubleValue]);
 
     MKMapPoint *pointsArray = malloc(sizeof(CLLocationCoordinate2D)*2);
     pointsArray[0]= MKMapPointForCoordinate(previousCoord);
@@ -157,7 +159,8 @@
 
 #pragma mark - JBLineChartViewDelegate
 
--(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
+-(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
+            atLineIndex:(NSUInteger)lineIndex
 {
     NSInteger index = horizontalIndex;
     if (_viewModel.points.count < MAX_GRAPH_POINTS) {
@@ -173,8 +176,8 @@
         index = _viewModel.points.count - MAX_GRAPH_POINTS + horizontalIndex;
     }
     
-    JCRoutePointViewModel *point = _viewModel.points[index];
-    CGFloat speed = point.location.speed;
+    RoutePoint *point = _viewModel.points[index];
+    CGFloat speed = [point.kph floatValue];
     if (!speed  || speed < 0) {
         speed = 0.0f;
     }

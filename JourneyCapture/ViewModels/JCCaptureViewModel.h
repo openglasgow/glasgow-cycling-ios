@@ -10,17 +10,23 @@
 #import "JCRoutePointViewModel.h"
 
 @class JCRoutePointViewModel;
+@class Route;
 
 @interface JCCaptureViewModel : RVMViewModel
 
-@property (strong, nonatomic) NSMutableArray *points;
+@property (strong, nonatomic) Route *route;
+
 @property (readwrite, nonatomic) double lastGeocodedKm;
 @property (readwrite, nonatomic) NSInteger routeId;
 @property (readwrite, nonatomic) CGFloat totalKm;
 @property (readwrite, nonatomic) CLLocationSpeed currentSpeed;
 @property (readwrite, nonatomic) CLLocationSpeed averageSpeed;
 
--(void)addPoint:(JCRoutePointViewModel *)point;
+- (instancetype)initWithModel:(Route *)routeModel;
+- (void)commonInit;
+- (void)addLocation:(CLLocation *)location;
+- (void)setCompleted;
+- (NSOrderedSet *)points;
 - (RACSignal *)uploadRoute;
 
 @end
