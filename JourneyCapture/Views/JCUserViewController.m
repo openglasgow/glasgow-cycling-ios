@@ -7,22 +7,26 @@
 //
 
 #import "JCUserViewController.h"
-#import "JCUserViewModel.h"
-#import "JCWeatherView.h"
-
 #import "JCPathListViewController.h"
+#import "JCRouteCaptureViewController.h"
+
+#import "JCWeatherView.h"
+#import "JCMenuTableViewCell.h"
+#import "JCUserView.h"
+
+#import "JCUserViewModel.h"
 #import "JCUserJourneyListViewModel.h"
 #import "JCNearbyJourneyListViewModel.h"
 #import "JCWeatherViewModel.h"
-#import "JCRouteCaptureViewController.h"
-#import "JCMenuTableViewCell.h"
 
-#import "JCUserView.h"
-#import <QuartzCore/QuartzCore.h>
+#import "Route.h"
 
 #import "Flurry.h"
 #import <GBDeviceInfo/GBDeviceInfo.h>
 #import <GSKeychain/GSKeychain.h>
+
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface JCUserViewController ()
 
@@ -110,10 +114,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [[JCLocationManager sharedManager] startUpdatingCoarse];
+    
     if (_updateOnAppear) {
         [self update];
         _updateOnAppear = NO;
     }
+    
+    // Check capture queue
+    [Route deleteIncomplete];
 }
 
 - (void)didReceiveMemoryWarning

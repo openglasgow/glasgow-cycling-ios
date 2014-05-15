@@ -21,7 +21,6 @@
         _lastGeocodedKm = 0;
         _totalKm = 0;
         
-//        _points = [NSMutableArray new];
         _route = [Route MR_createEntity];
         NSLog(@"Create route - %lu now in queue", (unsigned long)[Route MR_countOfEntities]);
     }
@@ -31,6 +30,11 @@
 - (instancetype)initWithModel:(Route *)routeModel
 {
     return self;
+}
+
+- (NSArray *)points
+{
+    return _route.points;
 }
 
 - (void)addLocation:(CLLocation *)location

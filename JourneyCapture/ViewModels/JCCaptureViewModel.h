@@ -16,7 +16,6 @@
 
 @property (strong, nonatomic) Route *route;
 
-@property (strong, nonatomic) NSMutableArray *points;
 @property (readwrite, nonatomic) double lastGeocodedKm;
 @property (readwrite, nonatomic) NSInteger routeId;
 @property (readwrite, nonatomic) CGFloat totalKm;
@@ -25,6 +24,7 @@
 
 - (void)addLocation:(CLLocation *)location;
 - (void)completeRoute;
+- (NSArray *)points;
 - (RACSignal *)uploadRoute;
 
 @end
