@@ -14,6 +14,11 @@
 		12477C7D1919196700CCF5E5 /* JCWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12477C7C1919196700CCF5E5 /* JCWeatherView.m */; };
 		124A6E9D192A318C009E24AC /* JCStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6E9C192A318C009E24AC /* JCStatsViewController.m */; };
 		124A6EA0192A39D4009E24AC /* JCUserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6E9F192A39D4009E24AC /* JCUserHeaderView.m */; };
+		124A6EA3192A4DE8009E24AC /* JCBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EA2192A4DE8009E24AC /* JCBarChartView.m */; };
+		124A6EA9192A4E2D009E24AC /* JCLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EA8192A4E2D009E24AC /* JCLineGraphView.m */; };
+		124A6EAC192A4E36009E24AC /* JCPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EAB192A4E36009E24AC /* JCPieChartView.m */; };
+		124A6EAF192A4EC4009E24AC /* JCGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EAE192A4EC4009E24AC /* JCGraphView.m */; };
+		124A6EB4192A525F009E24AC /* JCStatsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EB3192A525F009E24AC /* JCStatsViewModel.m */; };
 		125340FE1913A489008E1856 /* JCPathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 125340FD1913A489008E1856 /* JCPathCell.xib */; };
 		129BE686191BC3DE0021437F /* JCPathViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE685191BC3DE0021437F /* JCPathViewModel.m */; };
 		129BE689191BC5470021437F /* JCCaptureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE688191BC5470021437F /* JCCaptureViewModel.m */; };
@@ -104,6 +109,16 @@
 		124A6E9C192A318C009E24AC /* JCStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCStatsViewController.m; sourceTree = "<group>"; };
 		124A6E9E192A39D4009E24AC /* JCUserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUserHeaderView.h; sourceTree = "<group>"; };
 		124A6E9F192A39D4009E24AC /* JCUserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCUserHeaderView.m; sourceTree = "<group>"; };
+		124A6EA1192A4DE8009E24AC /* JCBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCBarChartView.h; sourceTree = "<group>"; };
+		124A6EA2192A4DE8009E24AC /* JCBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCBarChartView.m; sourceTree = "<group>"; };
+		124A6EA7192A4E2D009E24AC /* JCLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCLineGraphView.h; sourceTree = "<group>"; };
+		124A6EA8192A4E2D009E24AC /* JCLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCLineGraphView.m; sourceTree = "<group>"; };
+		124A6EAA192A4E36009E24AC /* JCPieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPieChartView.h; sourceTree = "<group>"; };
+		124A6EAB192A4E36009E24AC /* JCPieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPieChartView.m; sourceTree = "<group>"; };
+		124A6EAD192A4EC4009E24AC /* JCGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCGraphView.h; sourceTree = "<group>"; };
+		124A6EAE192A4EC4009E24AC /* JCGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCGraphView.m; sourceTree = "<group>"; };
+		124A6EB2192A525F009E24AC /* JCStatsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCStatsViewModel.h; sourceTree = "<group>"; };
+		124A6EB3192A525F009E24AC /* JCStatsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCStatsViewModel.m; sourceTree = "<group>"; };
 		125340FD1913A489008E1856 /* JCPathCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCPathCell.xib; sourceTree = "<group>"; };
 		129BE684191BC3DE0021437F /* JCPathViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPathViewModel.h; sourceTree = "<group>"; };
 		129BE685191BC3DE0021437F /* JCPathViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPathViewModel.m; sourceTree = "<group>"; };
@@ -265,6 +280,31 @@
 			children = (
 				124A6E9B192A318C009E24AC /* JCStatsViewController.h */,
 				124A6E9C192A318C009E24AC /* JCStatsViewController.m */,
+				124A6EB0192A4ECA009E24AC /* Graphs */,
+			);
+			name = Stats;
+			sourceTree = "<group>";
+		};
+		124A6EB0192A4ECA009E24AC /* Graphs */ = {
+			isa = PBXGroup;
+			children = (
+				124A6EAD192A4EC4009E24AC /* JCGraphView.h */,
+				124A6EAE192A4EC4009E24AC /* JCGraphView.m */,
+				124A6EA1192A4DE8009E24AC /* JCBarChartView.h */,
+				124A6EA2192A4DE8009E24AC /* JCBarChartView.m */,
+				124A6EA7192A4E2D009E24AC /* JCLineGraphView.h */,
+				124A6EA8192A4E2D009E24AC /* JCLineGraphView.m */,
+				124A6EAA192A4E36009E24AC /* JCPieChartView.h */,
+				124A6EAB192A4E36009E24AC /* JCPieChartView.m */,
+			);
+			name = Graphs;
+			sourceTree = "<group>";
+		};
+		124A6EB1192A523F009E24AC /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				124A6EB2192A525F009E24AC /* JCStatsViewModel.h */,
+				124A6EB3192A525F009E24AC /* JCStatsViewModel.m */,
 			);
 			name = Stats;
 			sourceTree = "<group>";
@@ -528,6 +568,7 @@
 				834663A518BE33360056F692 /* Signup */,
 				8303E2CF18C61C4100215760 /* Onboarding */,
 				8341420E18BF55A30020CF97 /* User */,
+				124A6EB1192A523F009E24AC /* Stats */,
 				12FBAC531920C41B00ADFF0F /* Journey List */,
 				12FBAC581920C57B00ADFF0F /* Route List */,
 				129BE68A191BC54C0021437F /* Route Capture */,
@@ -774,6 +815,7 @@
 			files = (
 				83F811E418C4C1470010B1CD /* JCAPIManager.m in Sources */,
 				124A6E9D192A318C009E24AC /* JCStatsViewController.m in Sources */,
+				124A6EAF192A4EC4009E24AC /* JCGraphView.m in Sources */,
 				83DC969D18D07FA400E66C26 /* JCNavViewController.m in Sources */,
 				129BE689191BC5470021437F /* JCCaptureViewModel.m in Sources */,
 				129BE686191BC3DE0021437F /* JCPathViewModel.m in Sources */,
@@ -805,10 +847,12 @@
 				12BEEA0B19129BDA00025B0E /* JCUserJourneyListViewModel.m in Sources */,
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				12C76B0F1912A22400B7F964 /* JCLoadingView.m in Sources */,
+				124A6EB4192A525F009E24AC /* JCStatsViewModel.m in Sources */,
 				12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */,
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */,
 				12477C7D1919196700CCF5E5 /* JCWeatherView.m in Sources */,
+				124A6EA3192A4DE8009E24AC /* JCBarChartView.m in Sources */,
 				12AF45EE191A72F7003F7524 /* JCJourneyViewModel.m in Sources */,
 				12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
@@ -825,6 +869,8 @@
 				83641C1918D2052700671A2A /* JCNotificationManager.m in Sources */,
 				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
 				83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */,
+				124A6EAC192A4E36009E24AC /* JCPieChartView.m in Sources */,
+				124A6EA9192A4E2D009E24AC /* JCLineGraphView.m in Sources */,
 				73ACC28D56500C1573EF74F1 /* JCPathListViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

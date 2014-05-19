@@ -49,6 +49,12 @@
     [self.view layoutSubviews];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setTitle:@"Stats"];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
