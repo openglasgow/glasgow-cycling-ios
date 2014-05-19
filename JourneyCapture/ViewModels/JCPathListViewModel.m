@@ -94,7 +94,7 @@
 
     NSString *endName;
     if (itemData[@"end_name"] != [NSNull null]) {
-        startName = itemData[@"end_name"];
+        endName = itemData[@"end_name"];
     }
 
     if (startName && endName) {
