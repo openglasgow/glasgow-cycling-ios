@@ -13,6 +13,6 @@
 @interface JCRouteManager : NSObject
 - (void)deleteIncompleteRoutes;
 - (void)uploadCompletedRoutes;
-- (RACSignal *)uploadRoute:(Route *)route;
+- (void)uploadRoute:(Route *)route;
 + (JCRouteManager *)sharedManager;
 @end

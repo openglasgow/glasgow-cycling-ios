@@ -44,7 +44,6 @@
 - (void)uploadRoute:(Route *)route
 {
     NSLog(@"Uploading user route");
-    JCAPIManager *manager = [JCAPIManager manager];
     
     NSMutableArray *pointsData = [[NSMutableArray alloc] init];
     for (RoutePoint *point in route.points) {
@@ -67,6 +66,7 @@
     }
     
     NSDictionary *routeData = @{ @"points" : pointsData };
+    JCAPIManager *manager = [JCAPIManager manager];
     [manager POST:@"/routes.json"
        parameters:routeData
           success:^(AFHTTPRequestOperation *operation, NSDictionary *routeResponse) {
