@@ -7,6 +7,8 @@
 //
 
 #import "JCStatsViewController.h"
+#import "JCUserHeaderView.h"
+#import "JCUserViewModel.h"
 
 @interface JCStatsViewController ()
 
@@ -14,11 +16,11 @@
 
 @implementation JCStatsViewController
 
-- (id)init
+-(id)initWithViewModel:(JCUserViewModel *)userViewModel
 {
     self = [super init];
     if (self) {
-        // Custom initialization
+        _userViewModel = userViewModel;
     }
     return self;
 }
@@ -30,20 +32,19 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-//    // User details
-//    _userView = [[JCUserView alloc] initWithViewModel:_viewModel];
-//    _userView.translatesAutoresizingMaskIntoConstraints = NO;
-//    _userView.menuTableView.delegate = self;
-//    _userView.menuTableView.dataSource = self;
-//    [self.view addSubview:_userView];
+    // User header
+    _headerView = [[JCUserHeaderView alloc] initWithViewModel:_userViewModel];
+    _headerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_headerView];
 }
 
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-//    
-//    [_userView autoRemoveConstraintsAffectingView];
-//    [_userView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    
+    [_headerView autoRemoveConstraintsAffectingView];
+    [_headerView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
+    [_headerView autoSetDimension:ALDimensionHeight toSize:213.0f];
     
     [self.view layoutSubviews];
 }
