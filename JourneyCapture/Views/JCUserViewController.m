@@ -79,6 +79,11 @@
     [super viewDidLoad];
     [self.navigationItem setHidesBackButton:YES];
     
+    UIImage *magnifyingGlass = [UIImage imageNamed:@"magnifying-glass.png"];
+    UIImageView *magnifyingGlassView =  [[UIImageView alloc] initWithImage:magnifyingGlass];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:magnifyingGlassView];
+    self.navigationItem.rightBarButtonItem = barButton;
+    
     // Capture
     _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [self showCapture];
