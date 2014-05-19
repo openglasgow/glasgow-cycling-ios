@@ -9,6 +9,7 @@
 #import "JCUserViewController.h"
 #import "JCPathListViewController.h"
 #import "JCRouteCaptureViewController.h"
+#import "JCSearchViewController.h"
 
 #import "JCWeatherView.h"
 #import "JCMenuTableViewCell.h"
@@ -80,9 +81,14 @@
     [self.navigationItem setHidesBackButton:YES];
     
     UIImage *magnifyingGlass = [UIImage imageNamed:@"magnifying-glass.png"];
-    UIImageView *magnifyingGlassView =  [[UIImageView alloc] initWithImage:magnifyingGlass];
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:magnifyingGlassView];
-    self.navigationItem.rightBarButtonItem = barButton;
+    _searchButton = [[UIBarButtonItem alloc] initWithImage:magnifyingGlass style:UIBarButtonItemStyleBordered target:nil action:nil];
+    self.navigationItem.rightBarButtonItem = _searchButton;
+    
+    // Search
+    _searchButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self showSearch];
+        return [RACSignal empty];
+    }];
     
     // Capture
     _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -150,8 +156,16 @@
 {
     [Flurry logEvent:@"Route capture tapped"];
     _updateOnAppear = YES;
-    JCRouteCaptureViewController *captureController = [[JCRouteCaptureViewController alloc] init];
+    JCRouteCaptureViewController *captureController = [JCRouteCaptureViewController new];
     [self.navigationController pushViewController:captureController animated:YES];
+}
+
+- (void)showSearch
+{
+    [Flurry logEvent:@"Search tapped"];
+    _updateOnAppear = YES;
+    JCSearchViewController *searchController = [JCSearchViewController new];
+    [self.navigationController pushViewController:searchController animated:YES];
 }
 
 #pragma mark - JCLocationManagerDelegate
