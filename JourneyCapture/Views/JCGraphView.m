@@ -7,25 +7,44 @@
 //
 
 #import "JCGraphView.h"
+#import "JBChartView.h"
 
 @implementation JCGraphView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithViewModel:(JCStatsViewModel *)statsViewModel;
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
-        // Initialization code
+        _viewModel = statsViewModel;
+        
+        _titleLabel = [UILabel new];
+        _titleLabel.text = @"Graph";
+        _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_titleLabel];
+        
+        _graphView = [JBChartView new];
+        _graphView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_graphView];
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)redraw
 {
-    // Drawing code
+    [_graphView reloadData];
 }
-*/
+
+# pragma mark - UIView
+
+- (void)layoutSubviews
+{
+    [_titleLabel autoRemoveConstraintsAffectingView];
+    [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(10, 0, 0, 0) excludingEdge:ALEdgeBottom];
+    
+    [_graphView autoRemoveConstraintsAffectingView];
+    [_graphView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [_graphView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_titleLabel withOffset:10];
+}
 
 @end
