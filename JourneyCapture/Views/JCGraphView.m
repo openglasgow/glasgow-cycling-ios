@@ -45,6 +45,8 @@
     [_graphView autoRemoveConstraintsAffectingView];
     [_graphView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
     [_graphView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_titleLabel withOffset:10];
+    
+    [super layoutSubviews];
 }
 
 @end
