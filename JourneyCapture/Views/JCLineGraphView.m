@@ -15,7 +15,6 @@
 {
     self = [super initWithViewModel:statsViewModel];
     if (self) {
-        // Initialization code
         JBLineChartView *lineChartView = [JBLineChartView new];
         lineChartView.delegate = self;
         lineChartView.dataSource = self;
@@ -28,7 +27,7 @@
     return self;
 }
 
-# pragma mark - JBLineChartViewDataSource
+#pragma mark - JBLineChartViewDataSource
 
 - (NSUInteger)numberOfLinesInLineChartView:(JBLineChartView *)lineChartView
 {
@@ -40,7 +39,7 @@
     return self.viewModel.periods.count;
 }
 
-# pragma mark - JBLineChartViewDelegate
+#pragma mark - JBLineChartViewDelegate
 
 -(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
             atLineIndex:(NSUInteger)lineIndex

@@ -16,7 +16,7 @@
 @dynamic completed;
 @dynamic points;
 
-# pragma mark - CoreDataGeneratedAccessors
+#pragma mark - CoreDataGeneratedAccessors
 
 // Work-around for ordered one-to-many CoreData bug
 - (void)addPointsObject:(RoutePoint *)value

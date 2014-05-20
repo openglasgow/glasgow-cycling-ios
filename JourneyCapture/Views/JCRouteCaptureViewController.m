@@ -175,7 +175,7 @@
     }
 }
 
-# pragma mark - Notifications
+#pragma mark - Notifications
 
 - (void)scheduleWarningNotification
 {
@@ -202,7 +202,7 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
-# pragma mark - UIAlertViewDelgate
+#pragma mark - UIAlertViewDelgate
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

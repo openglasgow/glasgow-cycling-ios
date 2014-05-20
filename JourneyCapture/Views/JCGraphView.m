@@ -37,7 +37,7 @@
     [_graphView reloadData];
 }
 
-# pragma mark - UIView
+#pragma mark - UIView
 
 - (void)layoutSubviews
 {
