@@ -42,7 +42,7 @@
     [super viewDidLoad];
     
     [self.navigationItem setTitle:@"Search"];
-    [_searchView.searchBar setPlaceholder:@"Search"];
+    [_searchView.searchBar setPlaceholder:@"Enter Destination"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
