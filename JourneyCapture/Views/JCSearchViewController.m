@@ -7,6 +7,8 @@
 //
 
 #import "JCSearchViewController.h"
+#import "JCLoadingView.h"
+#import "JCPathListViewModel.h"
 
 @interface JCSearchViewController ()
 
@@ -14,11 +16,11 @@
 
 @implementation JCSearchViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithViewModel:(JCPathListViewModel *)routesViewModel
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        self.viewModel = routesViewModel;
     }
     return self;
 }
@@ -27,14 +29,36 @@
 
 - (void)loadView
 {
+    _searchBar = [UISearchBar new];
+    _searchController = [[UISearchDisplayController alloc]
+                        initWithSearchBar:_searchBar contentsController:self];
+    _searchController.delegate = self;
+    _searchController.searchResultsDataSource = self;
+    _searchController.searchResultsDelegate = self;
+    
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor jc_mediumBlueColor]];
+    
+    // Loading indicator
+    _loadingView = [JCLoadingView new];
+    _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_loadingView];
+    _loadingView.loading = NO;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillLayoutSubviews
+{
+    if ([[self.view subviews] containsObject:_loadingView]) {
+        [_loadingView autoRemoveConstraintsAffectingView];
+        [_loadingView autoCenterInSuperview];
+        [_loadingView layoutSubviews];
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JCLoadingView.h"
+#import "JCPathListViewModel.h"
 
-@interface JCSearchViewController : UIViewController
+@interface JCSearchViewController : UITableViewController
+
+@property (strong, nonatomic) JCPathListViewModel *viewModel;
+@property (strong, nonatomic) JCLoadingView *loadingView;
+@property (strong, nonatomic) UITableView *routesTableView;
+@property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) UISearchDisplayController *searchController;
+
 
 @end
