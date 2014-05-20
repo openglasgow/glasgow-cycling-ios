@@ -48,7 +48,7 @@ CGFloat const kHeaderHeight = 213.0f;
     
     // TODO graph view paginated scrollview
     JCStatsViewModel *statsVM = [JCStatsViewModel new];
-    _graphView = [[JCLineGraphView alloc] initWithViewModel:statsVM];
+    _graphView = [[JCBarChartView alloc] initWithViewModel:statsVM];
     CGFloat screenHeight = [[UIScreen mainScreen] applicationFrame].size.height;
     CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
     CGFloat graphHeight = screenHeight - navHeight - kHeaderHeight - 40; // Space for graph title
@@ -86,6 +86,5 @@ CGFloat const kHeaderHeight = 213.0f;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

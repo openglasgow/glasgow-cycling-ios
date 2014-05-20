@@ -8,7 +8,8 @@
 
 @import UIKit;
 #import "JCGraphView.h"
+#import "JBBarChartView.h"
 
-@interface JCBarChartView : JCGraphView
+@interface JCBarChartView : JCGraphView <JBBarChartViewDelegate, JBBarChartViewDataSource>
 
 @end

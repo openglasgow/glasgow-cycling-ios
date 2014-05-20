@@ -7,25 +7,43 @@
 //
 
 #import "JCBarChartView.h"
+#import "JCStatsViewModel.h"
 
 @implementation JCBarChartView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithViewModel:(JCStatsViewModel *)statsViewModel
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithViewModel:statsViewModel];
     if (self) {
-        // Initialization code
+        JBBarChartView *barChartView = [JBBarChartView new];
+        barChartView.delegate = self;
+        barChartView.dataSource = self;
+        barChartView.translatesAutoresizingMaskIntoConstraints = NO;
+        barChartView.frame = CGRectMake(0, 0, 320, 400);
+        [self.graphView removeFromSuperview];
+        self.graphView = barChartView;
+        [self addSubview:self.graphView];
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+#pragma mark - JBBarChartViewDelegate
+
+- (UIColor *)barChartView:(JBBarChartView *)barChartView colorForBarViewAtIndex:(NSUInteger)index
 {
-    // Drawing code
+    return [UIColor jc_mediumBlueColor];
 }
-*/
+
+#pragma mark - JBBarChartViewDataSource
+
+-(NSUInteger)numberOfBarsInBarChartView:(JBBarChartView *)barChartView
+{
+    return self.viewModel.periods.count;
+}
+
+- (CGFloat)barChartView:(JBBarChartView *)barChartView heightForBarViewAtAtIndex:(NSUInteger)index
+{
+    return [self.viewModel.periods[index] floatValue];
+}
 
 @end
