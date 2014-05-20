@@ -9,5 +9,6 @@
 #import "RVMViewModel.h"
 
 @interface JCStatsViewModel : RVMViewModel
-
+@property (strong, nonatomic) NSArray *periods;
+@property (strong, nonatomic) NSString *title;
 @end

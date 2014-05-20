@@ -8,6 +8,7 @@
 
 #import "JCGraphView.h"
 #import "JBChartView.h"
+#import "JCStatsViewModel.h"
 
 @implementation JCGraphView
 
@@ -18,7 +19,7 @@
         _viewModel = statsViewModel;
         
         _titleLabel = [UILabel new];
-        _titleLabel.text = @"Graph";
+        _titleLabel.text = _viewModel.title;
         _titleLabel.textColor = [UIColor jc_darkGrayColor];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.textAlignment = NSTextAlignmentCenter;

@@ -10,4 +10,14 @@
 
 @implementation JCStatsViewModel
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _periods = @[@3.3, @2.3, @1.1, @4.5, @6.2];
+        _title = @"Distance";
+    }
+    return self;
+}
+
 @end

@@ -7,10 +7,15 @@
 //
 
 #import "JCStatsViewController.h"
+
 #import "JCUserViewModel.h"
+#import "JCStatsViewModel.h"
 
 #import "JCUserHeaderView.h"
 #import "JCGraphView.h"
+#import "JCBarChartView.h"
+#import "JCLineGraphView.h"
+#import "JCPieChartView.h"
 
 @interface JCStatsViewController ()
 
@@ -40,7 +45,8 @@
     [self.view addSubview:_headerView];
     
     // TODO graph view paginated scrollview
-    _graphView = [[JCGraphView alloc] initWithViewModel:nil];
+    JCStatsViewModel *statsVM = [JCStatsViewModel new];
+    _graphView = [[JCLineGraphView alloc] initWithViewModel:statsVM];
     _graphView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_graphView];
 }
