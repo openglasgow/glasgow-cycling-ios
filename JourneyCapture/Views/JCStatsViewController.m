@@ -21,6 +21,8 @@
 
 @end
 
+CGFloat const kHeaderHeight = 213.0f;
+
 @implementation JCStatsViewController
 
 -(id)initWithViewModel:(JCUserViewModel *)userViewModel
@@ -47,6 +49,13 @@
     // TODO graph view paginated scrollview
     JCStatsViewModel *statsVM = [JCStatsViewModel new];
     _graphView = [[JCLineGraphView alloc] initWithViewModel:statsVM];
+    CGFloat screenHeight = [[UIScreen mainScreen] applicationFrame].size.height;
+    CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
+    CGFloat graphHeight = screenHeight - navHeight - kHeaderHeight - 40; // Space for graph title
+    CGFloat graphWidth = 320;
+    _graphView.graphView.frame = CGRectMake(0, 0, graphWidth, graphHeight);
+    [_graphView reloadData];
+    
     _graphView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_graphView];
 }
@@ -57,7 +66,7 @@
     
     [_headerView autoRemoveConstraintsAffectingView];
     [_headerView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
-    [_headerView autoSetDimension:ALDimensionHeight toSize:213.0f];
+    [_headerView autoSetDimension:ALDimensionHeight toSize:kHeaderHeight];
     
     [_graphView autoRemoveConstraintsAffectingView];
     [_graphView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];

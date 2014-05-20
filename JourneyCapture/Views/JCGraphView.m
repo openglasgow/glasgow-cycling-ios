@@ -32,7 +32,7 @@
     return self;
 }
 
-- (void)redraw
+- (void)reloadData
 {
     [_graphView reloadData];
 }

@@ -8,7 +8,8 @@
 
 @import UIKit;
 #import "JCGraphView.h"
+#import "JBLineChartView.h"
 
-@interface JCLineGraphView : JCGraphView
+@interface JCLineGraphView : JCGraphView <JBLineChartViewDelegate, JBLineChartViewDataSource>
 
 @end

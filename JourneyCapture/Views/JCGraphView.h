@@ -15,5 +15,5 @@
 @property (strong, nonatomic) JBChartView *graphView;
 
 - (id)initWithViewModel:(JCStatsViewModel *)statsViewModel;
-- (void)redraw;
+- (void)reloadData;
 @end
