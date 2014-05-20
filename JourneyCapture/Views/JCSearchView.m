@@ -7,25 +7,42 @@
 //
 
 #import "JCSearchView.h"
+#import "UIImage+color.h"
+#import "JCLoadingView.h"
 
 @implementation JCSearchView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)init
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
-        // Initialization code
+        _searchBar = [UISearchBar new];
+        _searchBar.tintColor = [UIColor whiteColor];
+        _searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+        _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor jc_blueColor]];
+        [self addSubview:_searchBar];
+        
+        // Loading indicator
+        _loadingView = [JCLoadingView new];
+        _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+        _loadingView.loading = NO;
+        [self addSubview:_loadingView];
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+#pragma mark - UIView
+
+- (void)layoutSubviews
 {
-    // Drawing code
+    [_searchBar autoRemoveConstraintsAffectingView];
+    [_searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
+    
+    [_loadingView autoRemoveConstraintsAffectingView];
+    [_loadingView autoCenterInSuperview];
+    [_loadingView layoutSubviews];
+    
+    [super layoutSubviews];
 }
-*/
 
 @end

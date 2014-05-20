@@ -7,9 +7,8 @@
 //
 
 #import "JCSearchViewController.h"
-#import "JCLoadingView.h"
 #import "JCPathListViewModel.h"
-#import "UIImage+color.h"
+#import "JCSearchView.h"
 
 @interface JCSearchViewController ()
 
@@ -32,20 +31,10 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor jc_mediumBlueColor]];
-
-    _searchBar = [UISearchBar new];
-    _searchBar.tintColor = [UIColor whiteColor];
-    _searchBar.layer.borderWidth = 0;
-    _searchBar.layer.masksToBounds = YES;
-    _searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-    _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor jc_blueColor]];
-    [self.view addSubview:_searchBar];
     
-    // Loading indicator
-    _loadingView = [JCLoadingView new];
-    _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_loadingView];
-    _loadingView.loading = NO;
+    _searchView = [JCSearchView new];
+    _searchView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_searchView];
 }
 
 - (void)viewDidLoad
@@ -53,7 +42,7 @@
     [super viewDidLoad];
     
     [self.navigationItem setTitle:@"Search"];
-    [_searchBar setPlaceholder:@"Search"];
+    [_searchView.searchBar setPlaceholder:@"Search"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -63,12 +52,11 @@
 
 - (void)viewWillLayoutSubviews
 {
-    [_searchBar autoRemoveConstraintsAffectingView];
-    [_searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
-    
-    [_loadingView autoRemoveConstraintsAffectingView];
-    [_loadingView autoCenterInSuperview];
-    [_loadingView layoutSubviews];
+    [_searchView autoRemoveConstraintsAffectingView];
+    [_searchView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero
+                                           excludingEdge:ALEdgeTop];
+    [_searchView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    [_searchView layoutSubviews];
 }
 
 - (void)didReceiveMemoryWarning
