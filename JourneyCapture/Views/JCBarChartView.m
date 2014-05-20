@@ -21,6 +21,7 @@
         barChartView.translatesAutoresizingMaskIntoConstraints = NO;
         barChartView.frame = CGRectMake(0, 0, 320, 250);
         barChartView.minimumValue = 0;
+        barChartView.showsVerticalSelection = NO;
         [self.graphView removeFromSuperview];
         self.graphView = barChartView;
         [self addSubview:self.graphView];

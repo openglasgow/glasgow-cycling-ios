@@ -21,6 +21,8 @@
         lineChartView.translatesAutoresizingMaskIntoConstraints = NO;
         lineChartView.frame = CGRectMake(0, 0, 0, 0);
         lineChartView.minimumValue = 0;
+        lineChartView.showsLineSelection = NO;
+        lineChartView.showsVerticalSelection = NO;
         [self.graphView removeFromSuperview];
         self.graphView = lineChartView;
         [self addSubview:self.graphView];
