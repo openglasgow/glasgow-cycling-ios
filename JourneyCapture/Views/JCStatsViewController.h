@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) JCUserViewModel *userViewModel;
 @property (strong, nonatomic) JCUserHeaderView *headerView;
+@property (strong, nonatomic) UIView *graphView;
 
 - (id)initWithViewModel:(JCUserViewModel *)userViewModel;
 

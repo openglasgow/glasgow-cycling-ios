@@ -7,8 +7,10 @@
 //
 
 #import "JCStatsViewController.h"
-#import "JCUserHeaderView.h"
 #import "JCUserViewModel.h"
+
+#import "JCUserHeaderView.h"
+#import "JCGraphView.h"
 
 @interface JCStatsViewController ()
 
@@ -36,6 +38,11 @@
     _headerView = [[JCUserHeaderView alloc] initWithViewModel:_userViewModel];
     _headerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_headerView];
+    
+    // TODO graph view paginated scrollview
+    _graphView = [[JCGraphView alloc] initWithViewModel:nil];
+    _graphView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_graphView];
 }
 
 - (void)viewWillLayoutSubviews
@@ -45,6 +52,10 @@
     [_headerView autoRemoveConstraintsAffectingView];
     [_headerView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
     [_headerView autoSetDimension:ALDimensionHeight toSize:213.0f];
+    
+    [_graphView autoRemoveConstraintsAffectingView];
+    [_graphView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [_graphView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_headerView];
     
     [self.view layoutSubviews];
 }
