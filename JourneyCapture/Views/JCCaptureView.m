@@ -38,7 +38,7 @@
     [self addSubview:_mapView];
     
     // Stats
-    _graphView = [[JBLineChartView alloc] init];
+    _graphView = [JBLineChartView new];
     _graphView.delegate = self;
     _graphView.dataSource = self;
     _graphView.translatesAutoresizingMaskIntoConstraints = NO;
