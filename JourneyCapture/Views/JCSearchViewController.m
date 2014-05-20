@@ -9,6 +9,7 @@
 #import "JCSearchViewController.h"
 #import "JCLoadingView.h"
 #import "JCPathListViewModel.h"
+#import "UIImage+color.h"
 
 @interface JCSearchViewController ()
 
@@ -29,15 +30,16 @@
 
 - (void)loadView
 {
-    _searchBar = [UISearchBar new];
-    _searchController = [[UISearchDisplayController alloc]
-                        initWithSearchBar:_searchBar contentsController:self];
-    _searchController.delegate = self;
-    _searchController.searchResultsDataSource = self;
-    _searchController.searchResultsDelegate = self;
-    
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor jc_mediumBlueColor]];
+
+    _searchBar = [UISearchBar new];
+    _searchBar.tintColor = [UIColor whiteColor];
+    _searchBar.layer.borderWidth = 0;
+    _searchBar.layer.masksToBounds = YES;
+    _searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor jc_blueColor]];
+    [self.view addSubview:_searchBar];
     
     // Loading indicator
     _loadingView = [JCLoadingView new];
@@ -49,22 +51,49 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.navigationItem setTitle:@"Search"];
+    [_searchBar setPlaceholder:@"Search"];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillLayoutSubviews
 {
-    if ([[self.view subviews] containsObject:_loadingView]) {
-        [_loadingView autoRemoveConstraintsAffectingView];
-        [_loadingView autoCenterInSuperview];
-        [_loadingView layoutSubviews];
-    }
+    [_searchBar autoRemoveConstraintsAffectingView];
+    [_searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
+    
+    [_loadingView autoRemoveConstraintsAffectingView];
+    [_loadingView autoCenterInSuperview];
+    [_loadingView layoutSubviews];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *kCellID = @"CellIdentifier";
+    
+    // dequeue a cell from self's table view
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellID];
+    
+    cell.textLabel.text = @"pew";
+    
+    return cell;
 }
 
 @end
