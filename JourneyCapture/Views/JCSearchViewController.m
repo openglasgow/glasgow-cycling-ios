@@ -7,8 +7,9 @@
 //
 
 #import "JCSearchViewController.h"
-#import "JCPathListViewModel.h"
+#import "JCSearchJourneyListViewModel.h"
 #import "JCSearchView.h"
+#import "JCLoadingView.h"
 
 @interface JCSearchViewController ()
 
@@ -16,11 +17,11 @@
 
 @implementation JCSearchViewController
 
-- (id)initWithViewModel:(JCPathListViewModel *)routesViewModel
+- (id)initWithViewModel:(JCSearchJourneyListViewModel *)routesViewModel
 {
     self = [super init];
     if (self) {
-        self.viewModel = routesViewModel;
+        _viewModel = routesViewModel;
     }
     return self;
 }
@@ -43,6 +44,7 @@
     
     [self.navigationItem setTitle:@"Search"];
     [_searchView.searchBar setPlaceholder:@"Enter Destination"];
+    _searchView.searchBar.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -82,6 +84,35 @@
     cell.textLabel.text = @"pew";
     
     return cell;
+}
+
+- (void)searchTableList {
+    NSString *searchString = _searchView.searchBar.text;
+    
+    NSLog(@"%@", searchString);
+
+    
+    
+//    for (NSString *tempStr in contentList) {
+//        NSComparisonResult result = [tempStr compare:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+//        if (result == NSOrderedSame) {
+//            [filteredContentList addObject:tempStr];
+//        }
+    //}
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    _searchView.loadingView.loading = YES;
+
+    NSString *query = _searchView.searchBar.text;
+    [[_viewModel setDestWithAddressString:query] subscribeError:^(NSError *error) {
+        NSLog(@"Error");
+        _searchView.loadingView.infoLabel.text = @"Destination not found";
+    } completed:^{
+        [[_viewModel loadItems] subscribeNext:^(id x) {
+            NSLog(@"Got %d search results", _viewModel.items.count);
+        }];
+    }];
 }
 
 @end

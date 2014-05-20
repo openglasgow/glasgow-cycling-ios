@@ -30,6 +30,7 @@
 		12FBAC6119211BFB00ADFF0F /* JCRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC6019211BFB00ADFF0F /* JCRouteView.m */; };
 		6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED56192A1D5100570D32 /* JCSearchViewController.m */; };
 		6EBFED5A192A31FC00570D32 /* JCSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED59192A31FC00570D32 /* JCSearchView.m */; };
+		6EBFED63192B9F2100570D32 /* JCSearchJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED62192B9F2100570D32 /* JCSearchJourneyListViewModel.m */; };
 		73ACC28D56500C1573EF74F1 /* JCPathListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73ACCCC12D9D9FB10A105A7F /* JCPathListViewModel.m */; };
 		8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8303E2D118C61C5700215760 /* JCQuestionViewModel.m */; };
 		8303E2D518C61E2100215760 /* JCQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8303E2D418C61E2100215760 /* JCQuestionViewController.m */; };
@@ -134,6 +135,8 @@
 		6EBFED56192A1D5100570D32 /* JCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSearchViewController.m; sourceTree = "<group>"; };
 		6EBFED58192A31FC00570D32 /* JCSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchView.h; sourceTree = "<group>"; };
 		6EBFED59192A31FC00570D32 /* JCSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSearchView.m; sourceTree = "<group>"; };
+		6EBFED61192B9F2100570D32 /* JCSearchJourneyListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchJourneyListViewModel.h; sourceTree = "<group>"; };
+		6EBFED62192B9F2100570D32 /* JCSearchJourneyListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSearchJourneyListViewModel.m; sourceTree = "<group>"; };
 		73ACC7EA43C14FAF77264C52 /* JCPathListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPathListViewModel.h; sourceTree = "<group>"; };
 		73ACCCC12D9D9FB10A105A7F /* JCPathListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPathListViewModel.m; sourceTree = "<group>"; };
 		8303E2D018C61C5700215760 /* JCQuestionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionViewModel.h; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 				12BEEA0A19129BDA00025B0E /* JCUserJourneyListViewModel.m */,
 				12B660AB1922750800F3E9BF /* JCNearbyJourneyListViewModel.h */,
 				12B660AC1922750800F3E9BF /* JCNearbyJourneyListViewModel.m */,
+				6EBFED61192B9F2100570D32 /* JCSearchJourneyListViewModel.h */,
+				6EBFED62192B9F2100570D32 /* JCSearchJourneyListViewModel.m */,
 				12AF45EC191A72F7003F7524 /* JCJourneyViewModel.h */,
 				12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */,
 			);
@@ -811,6 +816,7 @@
 				83641C1918D2052700671A2A /* JCNotificationManager.m in Sources */,
 				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
 				83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */,
+				6EBFED63192B9F2100570D32 /* JCSearchJourneyListViewModel.m in Sources */,
 				73ACC28D56500C1573EF74F1 /* JCPathListViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
