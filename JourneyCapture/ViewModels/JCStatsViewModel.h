@@ -8,7 +8,10 @@
 
 #import "RVMViewModel.h"
 
+extern NSString *kStatsDistanceKey;
+
 @interface JCStatsViewModel : RVMViewModel
 @property (strong, nonatomic) NSArray *periods;
 @property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *displayKey;
 @end

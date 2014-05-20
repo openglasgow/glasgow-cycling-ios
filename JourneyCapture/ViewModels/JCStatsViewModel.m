@@ -10,14 +10,30 @@
 
 @implementation JCStatsViewModel
 
+NSString * kStatsDistanceKey = @"distance";
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _periods = @[@3.3, @2.3, @5.1, @4.5, @6.2, @3.3, @2.3, @5.1, @4.5, @6.2, @3.3, @2.3, @1.1, @4.5, @6.2, @3.3, @2.3, @1.1, @4.5, @6.2];
         _title = @"Distance";
+        _displayKey = kStatsDistanceKey;
+        [self loadStatsForDays:7];
     }
     return self;
+}
+
+- (void)loadStatsForDays:(NSInteger)numDays
+{
+    _periods = @[
+                 @{@"distance": @13.3},
+                 @{@"distance": @3.3},
+                 @{@"distance": @3.3},
+                 @{@"distance": @3.3},
+                 @{@"distance": @3.3},
+                 @{@"distance": @3.3},
+                 @{@"distance": @3.3},
+                 ];
 }
 
 @end
