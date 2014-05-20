@@ -8,6 +8,7 @@
 
 #import "JCSearchViewController.h"
 #import "JCSearchJourneyListViewModel.h"
+#import "JCPathViewModel.h"
 #import "JCSearchView.h"
 #import "JCLoadingView.h"
 
@@ -24,6 +25,16 @@
         _viewModel = routesViewModel;
     }
     return self;
+}
+
+- (void)setResultsVisible:(BOOL)visible
+{
+    [_searchView.resultsTableView setHidden:!visible];
+    [_searchView.loadingView setHidden:visible];
+    
+    if (visible) {
+        [_searchView.searchBar resignFirstResponder];
+    }
 }
 
 # pragma mark - UIViewController
@@ -43,8 +54,13 @@
     [super viewDidLoad];
     
     [self.navigationItem setTitle:@"Search"];
+    
+    [self setResultsVisible:NO];
+    
     [_searchView.searchBar setPlaceholder:@"Enter Destination"];
     _searchView.searchBar.delegate = self;
+    _searchView.resultsTableView.delegate = self;
+    _searchView.resultsTableView.dataSource = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -58,6 +74,7 @@
     [_searchView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero
                                            excludingEdge:ALEdgeTop];
     [_searchView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    
     [_searchView layoutSubviews];
 }
 
@@ -67,43 +84,37 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UITableView Delegate and Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _viewModel.items.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *kCellID = @"CellIdentifier";
     
     // dequeue a cell from self's table view
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellID];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
     
-    cell.textLabel.text = @"pew";
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:kCellID];
+    }
+    
+    JCPathViewModel *path = _viewModel.items[indexPath.row];
+    cell.textLabel.text = path.name;
     
     return cell;
 }
 
-- (void)searchTableList {
-    NSString *searchString = _searchView.searchBar.text;
-    
-    NSLog(@"%@", searchString);
-
-    
-    
-//    for (NSString *tempStr in contentList) {
-//        NSComparisonResult result = [tempStr compare:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
-//        if (result == NSOrderedSame) {
-//            [filteredContentList addObject:tempStr];
-//        }
-    //}
-}
+#pragma mark - UISearchBarDelegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     _searchView.loadingView.loading = YES;
-
+    
     NSString *query = _searchView.searchBar.text;
     [[_viewModel setDestWithAddressString:query] subscribeError:^(NSError *error) {
         NSLog(@"Error");
@@ -111,6 +122,8 @@
     } completed:^{
         [[_viewModel loadItems] subscribeNext:^(id x) {
             NSLog(@"Got %d search results", _viewModel.items.count);
+            [_searchView.resultsTableView reloadData];
+            [self setResultsVisible:YES];
         }];
     }];
 }

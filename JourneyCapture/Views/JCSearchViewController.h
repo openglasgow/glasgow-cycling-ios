@@ -10,13 +10,14 @@
 
 @class JCSearchJourneyListViewModel, JCSearchView;
 
-@interface JCSearchViewController : UITableViewController  <UISearchDisplayDelegate, UISearchBarDelegate>
+@interface JCSearchViewController : UIViewController  <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) JCSearchJourneyListViewModel *viewModel;
 @property (strong, nonatomic) JCSearchView *searchView;
-@property (strong, nonatomic) UITableView *routesTableView;
+@property (strong, nonatomic) UITableView *resultsTableView;
 @property (strong, nonatomic) UISearchDisplayController *searchController;
 
+- (void)setResultsVisible:(BOOL)visible;
 - (id)initWithViewModel:(JCSearchJourneyListViewModel *)routesViewModel;
 
 @end

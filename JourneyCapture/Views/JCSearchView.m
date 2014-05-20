@@ -27,6 +27,11 @@
         _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
         _loadingView.loading = NO;
         [self addSubview:_loadingView];
+        
+        // Results table
+        _resultsTableView = [UITableView new];
+        _resultsTableView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_resultsTableView];
     }
     return self;
 }
@@ -41,6 +46,11 @@
     [_loadingView autoRemoveConstraintsAffectingView];
     [_loadingView autoCenterInSuperview];
     [_loadingView layoutSubviews];
+    
+    [_resultsTableView autoRemoveConstraintsAffectingView];
+    [_resultsTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero
+                                                excludingEdge:ALEdgeTop];
+    [_resultsTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_searchBar];
     
     [super layoutSubviews];
 }

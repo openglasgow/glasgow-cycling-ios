@@ -12,4 +12,5 @@
 @interface JCSearchView : UIView
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) JCLoadingView *loadingView;
+@property (strong, nonatomic) UITableView *resultsTableView;
 @end
