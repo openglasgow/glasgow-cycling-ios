@@ -19,6 +19,7 @@
         
         _titleLabel = [UILabel new];
         _titleLabel.text = @"Graph";
+        _titleLabel.textColor = [UIColor jc_darkGrayColor];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleLabel];

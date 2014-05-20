@@ -13,4 +13,5 @@
 + (UIColor *)jc_mediumBlueColor;
 + (UIColor *)jc_lightBlueColor;
 + (UIColor *)jc_redColor;
++ (UIColor *)jc_darkGrayColor;
 @end

@@ -27,7 +27,12 @@
 
 + (UIColor *)jc_redColor
 {
-    return [UIColor colorWithRed:255/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
+    return [UIColor colorWithRed:255/255.0f green:26/255.0f blue:26/255.0f alpha:1.0f];
+}
+
++ (UIColor *)jc_darkGrayColor
+{
+    return [UIColor colorWithRed:88/255.0f green:77/255.0f blue:77/255.0f alpha:1.0f];
 }
 
 @end

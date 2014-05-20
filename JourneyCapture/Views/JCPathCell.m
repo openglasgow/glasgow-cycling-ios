@@ -38,7 +38,7 @@
     self->_viewModel = viewModel;
     
     UIColor *nameColor = [UIColor blackColor];
-    UIColor *secondaryColor = [UIColor colorWithRed:88/255.0f green:77/255.0f blue:77/255.0f alpha:1];
+    UIColor *secondaryColor = [UIColor jc_darkGrayColor];
     
     // Icon
     [[RACSignal combineLatest:@[RACObserve(self, viewModel.hasChildren),
