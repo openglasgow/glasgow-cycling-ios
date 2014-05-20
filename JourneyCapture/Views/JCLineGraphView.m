@@ -19,7 +19,8 @@
         lineChartView.delegate = self;
         lineChartView.dataSource = self;
         lineChartView.translatesAutoresizingMaskIntoConstraints = NO;
-        lineChartView.frame = CGRectMake(0, 0, 320, 400);
+        lineChartView.frame = CGRectMake(0, 0, 0, 0);
+        lineChartView.minimumValue = 0;
         [self.graphView removeFromSuperview];
         self.graphView = lineChartView;
         [self addSubview:self.graphView];
@@ -44,7 +45,7 @@
 -(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
             atLineIndex:(NSUInteger)lineIndex
 {
-    return [self.viewModel.periods[horizontalIndex] floatValue];
+    return [self.viewModel.periods[horizontalIndex][self.viewModel.displayKey] floatValue];
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex

@@ -48,10 +48,12 @@ CGFloat const kHeaderHeight = 213.0f;
     
     // TODO graph view paginated scrollview
     JCStatsViewModel *statsVM = [JCStatsViewModel new];
+    statsVM.title = @"Distance";
+    statsVM.displayKey = kStatsDistanceKey;
     _graphView = [[JCBarChartView alloc] initWithViewModel:statsVM];
     CGFloat screenHeight = [[UIScreen mainScreen] applicationFrame].size.height;
     CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
-    CGFloat graphHeight = screenHeight - navHeight - kHeaderHeight - 40; // Space for graph title
+    CGFloat graphHeight = screenHeight - navHeight - kHeaderHeight - 40 - 10; // Space for graph title
     CGFloat graphWidth = 320;
     _graphView.graphView.frame = CGRectMake(0, 0, graphWidth, graphHeight);
     [_graphView reloadData];

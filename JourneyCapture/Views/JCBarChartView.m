@@ -19,7 +19,8 @@
         barChartView.delegate = self;
         barChartView.dataSource = self;
         barChartView.translatesAutoresizingMaskIntoConstraints = NO;
-        barChartView.frame = CGRectMake(0, 0, 320, 400);
+        barChartView.frame = CGRectMake(0, 0, 320, 250);
+        barChartView.minimumValue = 0;
         [self.graphView removeFromSuperview];
         self.graphView = barChartView;
         [self addSubview:self.graphView];
@@ -43,7 +44,9 @@
 
 - (CGFloat)barChartView:(JBBarChartView *)barChartView heightForBarViewAtAtIndex:(NSUInteger)index
 {
-    return [self.viewModel.periods[index] floatValue];
+    NSDictionary *period = self.viewModel.periods[index];
+    CGFloat value = [period[self.viewModel.displayKey] floatValue];
+    return value;
 }
 
 @end
