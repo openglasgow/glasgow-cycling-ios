@@ -60,12 +60,14 @@
     [self.statsScrollView addSubview:lineGraphDistanceView];
     
     // Page control
-    _pageControl = [UIPageControl new];
+    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
     _pageControl.numberOfPages = _graphViews.count;
     _pageControl.currentPage = 0;
     _pageControl.pageIndicatorTintColor = [UIColor jc_lightBlueColor];
     _pageControl.currentPageIndicatorTintColor = [UIColor jc_blueColor];
+    _pageControl.userInteractionEnabled = YES;
+    [_pageControl addTarget:self action:@selector(pageChanged) forControlEvents:UIControlEventValueChanged];
     [self addSubview:_pageControl];
     
     return self;
@@ -106,6 +108,16 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     _pageControl.currentPage = floorf(_statsScrollView.contentOffset.x/320);
+}
+
+#pragma mark - UIPageControl
+
+- (void)pageChanged
+{
+    CGFloat xOffset = 320 * _pageControl.currentPage;
+    CGRect visibleRect = CGRectMake(xOffset, 0, 320, _statsScrollView.contentSize.height);
+    [_statsScrollView scrollRectToVisible:visibleRect
+                                 animated:YES];
 }
 
 @end

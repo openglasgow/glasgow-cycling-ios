@@ -17,5 +17,6 @@
 @property (strong, nonatomic) NSMutableArray *graphViews;
 
 - (id)initWithFrame:(CGRect)frame viewModel:(JCUsageViewModel *)usageViewModel;
+- (void)pageChanged;
 
 @end
