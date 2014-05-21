@@ -7,11 +7,11 @@
 //
 
 #import "JCLineGraphView.h"
-#import "JCStatsViewModel.h"
+#import "JCStatViewModel.h"
 
 @implementation JCLineGraphView
 
-- (id)initWithViewModel:(JCStatsViewModel *)statsViewModel
+- (id)initWithViewModel:(JCStatViewModel *)statsViewModel
 {
     self = [super initWithViewModel:statsViewModel];
     if (self) {
@@ -39,7 +39,7 @@
 
 - (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex
 {
-    return self.viewModel.periods.count;
+    return [self.viewModel countOfStats];
 }
 
 #pragma mark - JBLineChartViewDelegate
@@ -47,7 +47,7 @@
 -(CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex
             atLineIndex:(NSUInteger)lineIndex
 {
-    return [self.viewModel.periods[horizontalIndex][self.viewModel.displayKey] floatValue];
+    return [self.viewModel statValueAtIndex:horizontalIndex];
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex

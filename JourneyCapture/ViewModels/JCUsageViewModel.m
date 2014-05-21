@@ -1,14 +1,17 @@
 //
-//  JCStatsViewModel.m
+//  JCUsageViewModel.m
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 19/05/2014.
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
+//  Loads and stores an array (periods) of usage data.
+//
 
-#import "JCStatsViewModel.h"
+#import "JCUsageViewModel.h"
 
-@implementation JCStatsViewModel
+
+@implementation JCUsageViewModel
 
 NSString * kStatsDistanceKey = @"distance";
 
@@ -16,8 +19,6 @@ NSString * kStatsDistanceKey = @"distance";
 {
     self = [super init];
     if (self) {
-        _title = @"Distance";
-        _displayKey = kStatsDistanceKey;
         [self loadStatsForDays:7];
     }
     return self;

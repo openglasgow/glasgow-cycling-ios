@@ -8,11 +8,11 @@
 
 #import "JCGraphView.h"
 #import "JBChartView.h"
-#import "JCStatsViewModel.h"
+#import "JCStatViewModel.h"
 
 @implementation JCGraphView
 
-- (id)initWithViewModel:(JCStatsViewModel *)statsViewModel;
+- (id)initWithViewModel:(JCStatViewModel *)statsViewModel;
 {
     self = [super init];
     if (self) {
@@ -43,6 +43,7 @@
 {
     [_titleLabel autoRemoveConstraintsAffectingView];
     [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(10, 0, 0, 0) excludingEdge:ALEdgeBottom];
+    [_titleLabel autoSetDimension:ALDimensionWidth toSize:320];
     
     [_graphView autoRemoveConstraintsAffectingView];
     [_graphView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];

@@ -7,11 +7,11 @@
 //
 
 #import "JCBarChartView.h"
-#import "JCStatsViewModel.h"
+#import "JCStatViewModel.h"
 
 @implementation JCBarChartView
 
-- (id)initWithViewModel:(JCStatsViewModel *)statsViewModel
+- (id)initWithViewModel:(JCStatViewModel *)statsViewModel
 {
     self = [super initWithViewModel:statsViewModel];
     if (self) {
@@ -40,14 +40,12 @@
 
 -(NSUInteger)numberOfBarsInBarChartView:(JBBarChartView *)barChartView
 {
-    return self.viewModel.periods.count;
+    return [self.viewModel countOfStats];
 }
 
 - (CGFloat)barChartView:(JBBarChartView *)barChartView heightForBarViewAtAtIndex:(NSUInteger)index
 {
-    NSDictionary *period = self.viewModel.periods[index];
-    CGFloat value = [period[self.viewModel.displayKey] floatValue];
-    return value;
+    return [self.viewModel statValueAtIndex:index];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  JCStatsViewModel.h
+//  JCUsageViewModel.h
 //  JourneyCapture
 //
 //  Created by Chris Sloey on 19/05/2014.
@@ -10,8 +10,6 @@
 
 extern NSString *kStatsDistanceKey;
 
-@interface JCStatsViewModel : RVMViewModel
+@interface JCUsageViewModel : RVMViewModel
 @property (strong, nonatomic) NSArray *periods;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *displayKey;
 @end

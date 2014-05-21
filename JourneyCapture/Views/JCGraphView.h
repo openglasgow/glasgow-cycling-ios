@@ -7,13 +7,14 @@
 //
 
 @import UIKit;
-@class JCStatsViewModel, JBChartView;
+@class JCStatViewModel, JBChartView;
 
 @interface JCGraphView : UIView
-@property (strong, nonatomic) JCStatsViewModel *viewModel;
+@property (strong, nonatomic) JCStatViewModel *viewModel;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) JBChartView *graphView;
+@property (strong, nonatomic) NSString *displayKey;
 
-- (id)initWithViewModel:(JCStatsViewModel *)statsViewModel;
+- (id)initWithViewModel:(JCStatViewModel *)statViewModel;
 - (void)reloadData;
 @end
