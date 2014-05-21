@@ -22,7 +22,7 @@
         barChartView.translatesAutoresizingMaskIntoConstraints = NO;
         barChartView.frame = CGRectMake(0, 0, 320, 250);
         barChartView.minimumValue = 0;
-        barChartView.showsVerticalSelection = YES;
+        barChartView.showsVerticalSelection = NO;
         UIImage *footerImage = [UIImage imageNamed:@"week-axis"];
         JCGraphFooterView *axisView = [[JCGraphFooterView alloc] initWithFrame:CGRectMake(0, 0, 320, 37) image:footerImage];
         barChartView.footerView = axisView;
@@ -41,14 +41,21 @@
     return [UIColor jc_mediumBlueColor];
 }
 
-- (UIColor *)barSelectionColorForBarChartView:(JBBarChartView *)barChartView
+- (void)barChartView:(JBBarChartView *)barChartView didSelectBarAtIndex:(NSUInteger)index
 {
-    return [UIColor jc_darkGrayColor];
+    CGFloat distanceKm = [self.viewModel statValueAtIndex:index];
+    NSLog(@"Selected stat value: %f", distanceKm);
+    self.titleLabel.text = [NSString stringWithFormat:@"%.1f miles", distanceKm * 0.621371192f];
+}
+
+- (void)didUnselectBarChartView:(JBBarChartView *)barChartView
+{
+    self.titleLabel.text = self.viewModel.title;
 }
 
 #pragma mark - JBBarChartViewDataSource
 
--(NSUInteger)numberOfBarsInBarChartView:(JBBarChartView *)barChartView
+- (NSUInteger)numberOfBarsInBarChartView:(JBBarChartView *)barChartView
 {
     return [self.viewModel countOfStats];
 }
