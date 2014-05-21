@@ -38,8 +38,6 @@
     NSLog(@"Loading view");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.navigationController setDelegate:self];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     // Nav bar
     [[self navigationItem] setTitle:@"Sign Up"];
@@ -92,24 +90,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController *)navigationController
-      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if (viewController == navigationController.viewControllers[0]) {
-        // Back to welcome view
-        [navigationController setNavigationBarHidden:YES animated:NO];
-    }
 }
 
 @end
