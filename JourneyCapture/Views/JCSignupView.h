@@ -21,6 +21,7 @@
 @property (strong, nonatomic) JCTextField *firstNameField;
 @property (strong, nonatomic) JCTextField *lastNameField;
 @property (strong, nonatomic) UIButton *profilePictureButton;
+@property (strong, nonatomic) UIButton *signupButton;
 
 // Date picker
 @property (strong, nonatomic) JCTextField *dobField;
@@ -33,6 +34,13 @@
 @property (strong, nonatomic) UIButton *genderToolbarButton;
 @property (nonatomic, retain) UIToolbar *genderToolbar;
 @property (nonatomic, retain) UIPickerView *genderPicker;
+
+//labels
+@property (strong, nonatomic) UILabel *nameFieldLabel;
+@property (strong, nonatomic) UILabel *emailFieldLabel;
+@property (strong, nonatomic) UILabel *passwordFieldLabel;
+@property (strong, nonatomic) UILabel *genderFieldLabel;
+@property (strong, nonatomic) UILabel *dobFieldLabel;
 
 - (id)initWithViewModel:(JCSignupViewModel *)signupViewModel;
 
