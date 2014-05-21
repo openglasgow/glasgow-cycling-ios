@@ -12,4 +12,6 @@ extern NSString *kStatsDistanceKey;
 
 @interface JCUsageViewModel : RVMViewModel
 @property (strong, nonatomic) NSArray *periods;
+
+- (RACSignal *)loadStatsForDays:(NSInteger)numDays;
 @end

@@ -32,6 +32,7 @@ CGFloat const kHeaderHeight = 213.0f;
     self = [super init];
     if (self) {
         _userViewModel = userViewModel;
+        _usageViewModel = [JCUsageViewModel new];
     }
     return self;
 }
@@ -54,9 +55,8 @@ CGFloat const kHeaderHeight = 213.0f;
     CGFloat graphAreaHeight = screenHeight - navHeight - kHeaderHeight;
     CGFloat graphAreaWidth = 320;
     
-    JCUsageViewModel *usageVM = [JCUsageViewModel new];
     _graphScrollView = [[JCGraphScrollView alloc] initWithFrame:CGRectMake(0, 0, graphAreaWidth, graphAreaHeight)
-                                                      viewModel:usageVM];
+                                                      viewModel:_usageViewModel];
     _graphScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_graphScrollView];
     
@@ -81,6 +81,12 @@ CGFloat const kHeaderHeight = 213.0f;
 {
     [super viewDidLoad];
     [self setTitle:@"Stats"];
+    
+    [[_usageViewModel loadStatsForDays:7] subscribeError:^(NSError *error) {
+        NSLog(@"Couldn't load usage");
+    } completed:^{
+        NSLog(@"Got usage data");
+    }];
 }
 
 - (void)didReceiveMemoryWarning

@@ -24,17 +24,24 @@ NSString * kStatsDistanceKey = @"distance";
     return self;
 }
 
-- (void)loadStatsForDays:(NSInteger)numDays
+- (RACSignal *)loadStatsForDays:(NSInteger)numDays
 {
-    _periods = @[
-                 @{@"distance": @13.3},
-                 @{@"distance": @3.3},
-                 @{@"distance": @3.3},
-                 @{@"distance": @3.3},
-                 @{@"distance": @3.3},
-                 @{@"distance": @3.3},
-                 @{@"distance": @3.3},
-                 ];
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        self.periods = @[
+                     @{@"distance": @13.3},
+                     @{@"distance": @3.3},
+                     @{@"distance": @2.3},
+                     @{@"distance": @4.3},
+                     @{@"distance": @3.3},
+                     @{@"distance": @8.3},
+                     @{@"distance": @9.3},
+                     ];
+        [subscriber sendCompleted];
+        
+        return [RACDisposable disposableWithBlock:^{
+            
+        }];
+    }];
 }
 
 @end

@@ -70,6 +70,13 @@
     [_pageControl addTarget:self action:@selector(pageChanged) forControlEvents:UIControlEventValueChanged];
     [self addSubview:_pageControl];
     
+    // Reload graphs on data update
+    [RACObserve(self, viewModel.periods) subscribeNext:^(id x) {
+        for (JCGraphView *graph in _graphViews) {
+            [graph reloadData];
+        }
+    }];
+    
     return self;
 }
 

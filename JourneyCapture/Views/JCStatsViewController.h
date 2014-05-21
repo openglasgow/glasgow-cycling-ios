@@ -7,11 +7,12 @@
 //
 
 @import UIKit;
-@class JCUserViewModel, JCUserHeaderView, JCGraphScrollView;
+@class JCUserViewModel, JCUserHeaderView, JCGraphScrollView, JCUsageViewModel;
 
 @interface JCStatsViewController : UIViewController
 
 @property (strong, nonatomic) JCUserViewModel *userViewModel;
+@property (strong, nonatomic) JCUsageViewModel *usageViewModel;
 @property (strong, nonatomic) JCUserHeaderView *headerView;
 @property (strong, nonatomic) JCGraphScrollView *graphScrollView;
 
