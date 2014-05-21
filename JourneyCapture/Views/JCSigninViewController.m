@@ -8,6 +8,7 @@
 
 #import "JCSigninViewController.h"
 #import "JCSigninView.h"
+#import "JCSignupViewController.h"
 #import "JCSigninViewModel.h"
 #import "JCUserViewController.h"
 #import "Flurry.h"
@@ -37,16 +38,16 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     // Nav bar
-    [[self navigationItem] setTitle:@"Sign In"];
+    [[self navigationItem] setTitle:@"Welcome to Go Cycling"];
     [self.navigationController setDelegate:self];
 
     // Signin button
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign In"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:nil
-                                                                             action:nil];
-    RAC(self, navigationItem.rightBarButtonItem.enabled) = _viewModel.isValidDetails;
-    self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign In"
+//                                                                              style:UIBarButtonItemStylePlain
+//                                                                             target:nil
+//                                                                             action:nil];
+   // RAC(self, navigationItem.rightBarButtonItem.enabled) = _viewModel.isValidDetails;
+    self.signinView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         RACSignal *signinSignal = [_viewModel signin];
         [signinSignal subscribeNext:^(id x) {
             NSLog(@"Login::next");
@@ -65,6 +66,15 @@
     _signinView = [[JCSigninView alloc] initWithViewModel:_viewModel];
     _signinView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_signinView];
+    
+    _signinView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        NSLog(@"Signup tapped");
+        [Flurry logEvent:@"Signup button tapped"];
+        JCSignupViewController *signupController = [[JCSignupViewController alloc] init];
+        [self.navigationController pushViewController:signupController animated:YES];
+        return [RACSignal empty];
+    }];
+
 }
 
 - (void)viewWillLayoutSubviews

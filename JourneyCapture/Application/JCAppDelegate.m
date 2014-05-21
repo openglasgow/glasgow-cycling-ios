@@ -7,7 +7,7 @@
 //
 
 #import "JCAppDelegate.h"
-#import "JCWelcomeViewController.h"
+#import "JCSigninViewController.h"
 #import "JCNavViewController.h"
 #import "JCUserViewController.h"
 #import "JCAPIManager.h"
@@ -46,7 +46,7 @@
     if (loggedIn) {
         rootController = [[JCUserViewController alloc] init];
     } else {
-        rootController = [[JCWelcomeViewController alloc] init];
+        rootController = [[JCSigninViewController alloc] init];
     }
     JCNavViewController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
     [self.window setRootViewController:navController];

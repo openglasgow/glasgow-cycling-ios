@@ -62,8 +62,6 @@
 		83B3484F18C09EFF00D59FB9 /* JCPathCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3484E18C09EFF00D59FB9 /* JCPathCell.m */; };
 		83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */; };
 		83B5DECB18BFA3130032F7E1 /* JCPathListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DECA18BFA3130032F7E1 /* JCPathListViewController.m */; };
-		83BA022118BE3E8E00EE7787 /* JCWelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022018BE3E8E00EE7787 /* JCWelcomeView.m */; };
-		83BA022418BE3E9F00EE7787 /* JCWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022318BE3E9F00EE7787 /* JCWelcomeViewController.m */; };
 		83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022618BE474D00EE7787 /* JCSigninViewController.m */; };
 		83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022C18BE477700EE7787 /* JCSigninViewModel.m */; };
 		83BA023018BE482B00EE7787 /* JCSigninView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BA022F18BE482B00EE7787 /* JCSigninView.m */; };
@@ -189,10 +187,6 @@
 		83B3485B18C0BD1F00D59FB9 /* JCRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteViewController.m; sourceTree = "<group>"; };
 		83B5DEC918BFA3130032F7E1 /* JCPathListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPathListViewController.h; sourceTree = "<group>"; };
 		83B5DECA18BFA3130032F7E1 /* JCPathListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPathListViewController.m; sourceTree = "<group>"; };
-		83BA021F18BE3E8E00EE7787 /* JCWelcomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCWelcomeView.h; sourceTree = "<group>"; };
-		83BA022018BE3E8E00EE7787 /* JCWelcomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCWelcomeView.m; sourceTree = "<group>"; };
-		83BA022218BE3E9F00EE7787 /* JCWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCWelcomeViewController.h; sourceTree = "<group>"; };
-		83BA022318BE3E9F00EE7787 /* JCWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCWelcomeViewController.m; sourceTree = "<group>"; };
 		83BA022518BE474D00EE7787 /* JCSigninViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSigninViewController.h; sourceTree = "<group>"; };
 		83BA022618BE474D00EE7787 /* JCSigninViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSigninViewController.m; sourceTree = "<group>"; };
 		83BA022B18BE477700EE7787 /* JCSigninViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSigninViewModel.h; sourceTree = "<group>"; };
@@ -533,7 +527,6 @@
 			children = (
 				125340FC1913A412008E1856 /* Common */,
 				83DC969A18D07F3E00E66C26 /* Nav */,
-				83BA021D18BE3E6F00EE7787 /* Welcome */,
 				83BA021E18BE3E7300EE7787 /* Signin */,
 				834663A418BE332C0056F692 /* Signup */,
 				8303E2CE18C619E900215760 /* Onboarding */,
@@ -576,17 +569,6 @@
 				83BA022C18BE477700EE7787 /* JCSigninViewModel.m */,
 			);
 			name = Signin;
-			sourceTree = "<group>";
-		};
-		83BA021D18BE3E6F00EE7787 /* Welcome */ = {
-			isa = PBXGroup;
-			children = (
-				83BA021F18BE3E8E00EE7787 /* JCWelcomeView.h */,
-				83BA022018BE3E8E00EE7787 /* JCWelcomeView.m */,
-				83BA022218BE3E9F00EE7787 /* JCWelcomeViewController.h */,
-				83BA022318BE3E9F00EE7787 /* JCWelcomeViewController.m */,
-			);
-			name = Welcome;
 			sourceTree = "<group>";
 		};
 		83BA021E18BE3E7300EE7787 /* Signin */ = {
@@ -770,7 +752,6 @@
 				129BE689191BC5470021437F /* JCCaptureViewModel.m in Sources */,
 				129BE686191BC3DE0021437F /* JCPathViewModel.m in Sources */,
 				8303E2D518C61E2100215760 /* JCQuestionViewController.m in Sources */,
-				83BA022118BE3E8E00EE7787 /* JCWelcomeView.m in Sources */,
 				12F8E6FB190FFE3C00AA0216 /* JCScrollView.m in Sources */,
 				12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */,
 				12EF442F19237D1E00C392E9 /* User.m in Sources */,
@@ -779,7 +760,6 @@
 				83D98DD018C9D3AD00E72279 /* JCLocationManager.m in Sources */,
 				83501FDF18D0AC2D00CE7CFE /* UIImage+color.m in Sources */,
 				830C31CE18BCDF4800B7CC47 /* JCSignupViewController.m in Sources */,
-				83BA022418BE3E9F00EE7787 /* JCWelcomeViewController.m in Sources */,
 				83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */,
 				121A364E1924BA8500C3FB31 /* Route.m in Sources */,
 				837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */,

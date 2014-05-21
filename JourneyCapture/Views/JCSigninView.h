@@ -13,6 +13,10 @@
 @property (strong, nonatomic) JCSigninViewModel *viewModel;
 @property (strong, nonatomic) JCTextField *emailField;
 @property (strong, nonatomic) JCTextField *passwordField;
+@property (strong, nonatomic) UILabel *passwordFieldLabel;
+@property (strong, nonatomic) UILabel *emailFieldLabel;
+@property (strong, nonatomic) UIButton *signinButton;
+@property (strong, nonatomic) UIButton *signupButton;
 
 - (id)initWithViewModel:(JCSigninViewModel *)signinViewModel;
 @end
