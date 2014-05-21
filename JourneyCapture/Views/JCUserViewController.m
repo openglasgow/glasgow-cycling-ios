@@ -19,6 +19,7 @@
 #import "JCUserJourneyListViewModel.h"
 #import "JCNearbyJourneyListViewModel.h"
 #import "JCWeatherViewModel.h"
+#import "JCSearchJourneyListViewModel.h"
 
 #import "Route.h"
 
@@ -164,7 +165,9 @@
 {
     [Flurry logEvent:@"Search tapped"];
     _updateOnAppear = YES;
-    JCSearchViewController *searchController = [JCSearchViewController new];
+    JCSearchJourneyListViewModel *searchVM = [JCSearchJourneyListViewModel new];
+    JCSearchViewController *searchController = [[JCSearchViewController alloc]
+                                                initWithViewModel:searchVM];
     [self.navigationController pushViewController:searchController animated:YES];
 }
 
