@@ -18,11 +18,12 @@
 		124A6EA9192A4E2D009E24AC /* JCLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EA8192A4E2D009E24AC /* JCLineGraphView.m */; };
 		124A6EAC192A4E36009E24AC /* JCPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EAB192A4E36009E24AC /* JCPieChartView.m */; };
 		124A6EAF192A4EC4009E24AC /* JCGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EAE192A4EC4009E24AC /* JCGraphView.m */; };
-		124A6EB4192A525F009E24AC /* JCStatsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EB3192A525F009E24AC /* JCStatsViewModel.m */; };
+		124A6EB4192A525F009E24AC /* JCUsageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6EB3192A525F009E24AC /* JCUsageViewModel.m */; };
 		125340FE1913A489008E1856 /* JCPathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 125340FD1913A489008E1856 /* JCPathCell.xib */; };
 		129BE686191BC3DE0021437F /* JCPathViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE685191BC3DE0021437F /* JCPathViewModel.m */; };
 		129BE689191BC5470021437F /* JCCaptureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE688191BC5470021437F /* JCCaptureViewModel.m */; };
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
+		12AABA36192C9D51005DE6AC /* JCStatViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AABA35192C9D51005DE6AC /* JCStatViewModel.m */; };
 		12AF45EE191A72F7003F7524 /* JCJourneyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */; };
 		12B660AD1922750800F3E9BF /* JCNearbyJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B660AC1922750800F3E9BF /* JCNearbyJourneyListViewModel.m */; };
 		12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BCB75119114AA500629192 /* JCCaptureStatsView.m */; };
@@ -117,8 +118,8 @@
 		124A6EAB192A4E36009E24AC /* JCPieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPieChartView.m; sourceTree = "<group>"; };
 		124A6EAD192A4EC4009E24AC /* JCGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCGraphView.h; sourceTree = "<group>"; };
 		124A6EAE192A4EC4009E24AC /* JCGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCGraphView.m; sourceTree = "<group>"; };
-		124A6EB2192A525F009E24AC /* JCStatsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCStatsViewModel.h; sourceTree = "<group>"; };
-		124A6EB3192A525F009E24AC /* JCStatsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCStatsViewModel.m; sourceTree = "<group>"; };
+		124A6EB2192A525F009E24AC /* JCUsageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUsageViewModel.h; sourceTree = "<group>"; };
+		124A6EB3192A525F009E24AC /* JCUsageViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCUsageViewModel.m; sourceTree = "<group>"; };
 		125340FD1913A489008E1856 /* JCPathCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCPathCell.xib; sourceTree = "<group>"; };
 		129BE684191BC3DE0021437F /* JCPathViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPathViewModel.h; sourceTree = "<group>"; };
 		129BE685191BC3DE0021437F /* JCPathViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPathViewModel.m; sourceTree = "<group>"; };
@@ -126,6 +127,8 @@
 		129BE688191BC5470021437F /* JCCaptureViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCaptureViewModel.m; sourceTree = "<group>"; };
 		12A9C26B190FAB8C004BB4B5 /* UIColor+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Application.h"; sourceTree = "<group>"; };
 		12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Application.m"; sourceTree = "<group>"; };
+		12AABA34192C9D51005DE6AC /* JCStatViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCStatViewModel.h; sourceTree = "<group>"; };
+		12AABA35192C9D51005DE6AC /* JCStatViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCStatViewModel.m; sourceTree = "<group>"; };
 		12AF45EC191A72F7003F7524 /* JCJourneyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJourneyViewModel.h; sourceTree = "<group>"; };
 		12AF45ED191A72F7003F7524 /* JCJourneyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJourneyViewModel.m; sourceTree = "<group>"; };
 		12B660AB1922750800F3E9BF /* JCNearbyJourneyListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCNearbyJourneyListViewModel.h; sourceTree = "<group>"; };
@@ -303,8 +306,10 @@
 		124A6EB1192A523F009E24AC /* Stats */ = {
 			isa = PBXGroup;
 			children = (
-				124A6EB2192A525F009E24AC /* JCStatsViewModel.h */,
-				124A6EB3192A525F009E24AC /* JCStatsViewModel.m */,
+				124A6EB2192A525F009E24AC /* JCUsageViewModel.h */,
+				124A6EB3192A525F009E24AC /* JCUsageViewModel.m */,
+				12AABA34192C9D51005DE6AC /* JCStatViewModel.h */,
+				12AABA35192C9D51005DE6AC /* JCStatViewModel.m */,
 			);
 			name = Stats;
 			sourceTree = "<group>";
@@ -847,7 +852,7 @@
 				12BEEA0B19129BDA00025B0E /* JCUserJourneyListViewModel.m in Sources */,
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				12C76B0F1912A22400B7F964 /* JCLoadingView.m in Sources */,
-				124A6EB4192A525F009E24AC /* JCStatsViewModel.m in Sources */,
+				124A6EB4192A525F009E24AC /* JCUsageViewModel.m in Sources */,
 				12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */,
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */,
@@ -865,6 +870,7 @@
 				83D98DD418C9DB2F00E72279 /* JCRouteCaptureViewController.m in Sources */,
 				8341421218BF55B70020CF97 /* JCUserViewController.m in Sources */,
 				12B660AD1922750800F3E9BF /* JCNearbyJourneyListViewModel.m in Sources */,
+				12AABA36192C9D51005DE6AC /* JCStatViewModel.m in Sources */,
 				12EF44381923BDEB00C392E9 /* RoutePoint.m in Sources */,
 				83641C1918D2052700671A2A /* JCNotificationManager.m in Sources */,
 				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
