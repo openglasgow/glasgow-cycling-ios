@@ -33,7 +33,8 @@
 
 -(void)loadView
 {
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    CGRect frame = [[UIScreen mainScreen] applicationFrame];
+    self.view = [[UIView alloc] initWithFrame:frame];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
@@ -63,8 +64,10 @@
     }];
     
     // Signin form
-    _signinView = [[JCSigninView alloc] initWithViewModel:_viewModel];
+    _signinView = [[JCSigninView alloc] initWithFrame:frame viewModel:_viewModel];
     _signinView.translatesAutoresizingMaskIntoConstraints = NO;
+    _signinView.emailField.delegate = self;
+    _signinView.passwordField.delegate = self;
     [self.view addSubview:_signinView];
     
     _signinView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -114,6 +117,15 @@
         // Back to welcome view - smooth changing from nav bar to no nav bar
         [navigationController setNavigationBarHidden:YES animated:NO];
     }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    CGFloat offset = 213;
+    CGPoint scrollPoint = CGPointMake(0.0, offset);
+    [_signinView.contentView setContentOffset:scrollPoint animated:YES];
 }
 
 @end

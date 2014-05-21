@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "JCLoadingView.h"
+#import <TPKeyboardAvoiding/TPKeyboardAvoidingScrollView.h>
 
 @class JCSigninViewModel, JCTextField;
 
 @interface JCSigninView : UIView
+
+@property (strong, nonatomic) UIScrollView *contentView;
 
 //Form, labels and buttons
 @property (strong, nonatomic) JCSigninViewModel *viewModel;
@@ -26,5 +29,5 @@
 @property (strong, nonatomic) UIView *profileBackgroundView;
 @property (strong, nonatomic) JCLoadingView *loadingView;
 
-- (id)initWithViewModel:(JCSigninViewModel *)signinViewModel;
+- (id)initWithFrame:(CGRect)frame viewModel:(JCSigninViewModel *)signinViewModel;
 @end
