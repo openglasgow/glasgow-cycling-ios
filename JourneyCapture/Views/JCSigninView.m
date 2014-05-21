@@ -20,7 +20,17 @@
     }
     
     _viewModel = signinViewModel;
-
+    
+    //Blue bit
+    _profileBackgroundView = [UIView new];
+    [_profileBackgroundView setBackgroundColor:[UIColor jc_blueColor]];
+    _profileBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_profileBackgroundView];
+    
+    _loadingView = [JCLoadingView new];
+    _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_profileBackgroundView addSubview:_loadingView];
+    
     // Email
     _emailFieldLabel = [UILabel new];
     _emailFieldLabel.text = @"Email Address";
@@ -80,11 +90,21 @@
 {
     int padding = 15;
     int labelPadding = 2;
-
+    
+    [_profileBackgroundView autoRemoveConstraintsAffectingView];
+    [_profileBackgroundView autoSetDimension:ALDimensionHeight toSize:213.0f];
+    [_profileBackgroundView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:0];
+    [_profileBackgroundView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:0];
+    [_profileBackgroundView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:0];
+    
+    [_loadingView autoRemoveConstraintsAffectingView];
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_profileBackgroundView withOffset:150];
+    [_loadingView autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    
     [_emailFieldLabel autoRemoveConstraintsAffectingView];
     [_emailFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_emailFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:padding];
-    [_emailFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding];
+    [_emailFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileBackgroundView withOffset:padding];
 
     [_emailField autoRemoveConstraintsAffectingView];
     [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];

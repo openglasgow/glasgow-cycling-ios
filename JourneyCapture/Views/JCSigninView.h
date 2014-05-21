@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JCLoadingView.h"
+
 @class JCSigninViewModel, JCTextField;
 
 @interface JCSigninView : UIView
+
+//Form, labels and buttons
 @property (strong, nonatomic) JCSigninViewModel *viewModel;
 @property (strong, nonatomic) JCTextField *emailField;
 @property (strong, nonatomic) JCTextField *passwordField;
@@ -17,6 +21,10 @@
 @property (strong, nonatomic) UILabel *emailFieldLabel;
 @property (strong, nonatomic) UIButton *signinButton;
 @property (strong, nonatomic) UIButton *signupButton;
+
+//Blue bit at the top
+@property (strong, nonatomic) UIView *profileBackgroundView;
+@property (strong, nonatomic) JCLoadingView *loadingView;
 
 - (id)initWithViewModel:(JCSigninViewModel *)signinViewModel;
 @end
