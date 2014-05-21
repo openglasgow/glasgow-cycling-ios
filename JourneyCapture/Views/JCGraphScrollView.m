@@ -60,7 +60,7 @@
     [self.statsScrollView addSubview:lineGraphDistanceView];
     
     // Page control
-    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 320, 1000)];
     _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
     _pageControl.numberOfPages = _graphViews.count;
     _pageControl.currentPage = 0;
@@ -80,7 +80,7 @@
     [_pageControl autoRemoveConstraintsAffectingView];
     [_pageControl autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
     [_pageControl autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_pageControl autoSetDimension:ALDimensionHeight toSize:20];
+    [_pageControl autoSetDimensionsToSize:CGSizeMake(20 * _graphViews.count, 20)];
     
     [_statsScrollView autoRemoveConstraintsAffectingView];
     [_statsScrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
