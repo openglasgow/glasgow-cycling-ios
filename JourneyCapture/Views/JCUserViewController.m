@@ -10,7 +10,7 @@
 #import "JCPathListViewController.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCSearchViewController.h"
-#import "JCWelcomeViewController.h"
+#import "JCSigninViewController.h"
 
 #import "JCWeatherView.h"
 #import "JCMenuTableViewCell.h"
@@ -214,7 +214,7 @@
         [self.navigationController pushViewController:routesVC animated:YES];
     } else {
         [[GSKeychain systemKeychain] removeAllSecrets];
-        JCWelcomeViewController *welcomeVC = [[JCWelcomeViewController alloc] init];
+        JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
         [self.navigationController setViewControllers:@[welcomeVC] animated:NO];
     }
     
