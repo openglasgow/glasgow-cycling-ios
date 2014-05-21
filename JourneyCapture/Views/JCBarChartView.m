@@ -8,6 +8,7 @@
 
 #import "JCBarChartView.h"
 #import "JCStatViewModel.h"
+#import "JCGraphFooterView.h"
 
 @implementation JCBarChartView
 
@@ -21,10 +22,14 @@
         barChartView.translatesAutoresizingMaskIntoConstraints = NO;
         barChartView.frame = CGRectMake(0, 0, 320, 250);
         barChartView.minimumValue = 0;
-        barChartView.showsVerticalSelection = NO;
+        barChartView.showsVerticalSelection = YES;
+        UIImage *footerImage = [UIImage imageNamed:@"week-axis"];
+        JCGraphFooterView *axisView = [[JCGraphFooterView alloc] initWithFrame:CGRectMake(0, 0, 320, 37) image:footerImage];
+        barChartView.footerView = axisView;
         [self.graphView removeFromSuperview];
         self.graphView = barChartView;
         [self addSubview:self.graphView];
+        
     }
     return self;
 }
@@ -34,6 +39,11 @@
 - (UIColor *)barChartView:(JBBarChartView *)barChartView colorForBarViewAtIndex:(NSUInteger)index
 {
     return [UIColor jc_mediumBlueColor];
+}
+
+- (UIColor *)barSelectionColorForBarChartView:(JBBarChartView *)barChartView
+{
+    return [UIColor jc_darkGrayColor];
 }
 
 #pragma mark - JBBarChartViewDataSource

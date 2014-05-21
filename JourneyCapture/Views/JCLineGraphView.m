@@ -8,6 +8,7 @@
 
 #import "JCLineGraphView.h"
 #import "JCStatViewModel.h"
+#import "JCGraphFooterView.h"
 
 @implementation JCLineGraphView
 
@@ -19,10 +20,13 @@
         lineChartView.delegate = self;
         lineChartView.dataSource = self;
         lineChartView.translatesAutoresizingMaskIntoConstraints = NO;
-        lineChartView.frame = CGRectMake(0, 0, 0, 0);
+        lineChartView.frame = CGRectMake(0, 0, 320, 250);
         lineChartView.minimumValue = 0;
         lineChartView.showsLineSelection = NO;
         lineChartView.showsVerticalSelection = NO;
+        UIImage *footerImage = [UIImage imageNamed:@"week-axis"];
+        JCGraphFooterView *axisView = [[JCGraphFooterView alloc] initWithFrame:CGRectMake(0, 0, 320, 37) image:footerImage];
+        lineChartView.footerView = axisView;
         [self.graphView removeFromSuperview];
         self.graphView = lineChartView;
         [self addSubview:self.graphView];
