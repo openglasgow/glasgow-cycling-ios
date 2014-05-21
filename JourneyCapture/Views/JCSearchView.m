@@ -17,7 +17,6 @@
     self = [super init];
     if (self) {
         _searchBar = [UISearchBar new];
-        _searchBar.tintColor = [UIColor whiteColor];
         _searchBar.translatesAutoresizingMaskIntoConstraints = NO;
         _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor jc_blueColor]];
         [self addSubview:_searchBar];

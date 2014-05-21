@@ -11,6 +11,11 @@
 #import "JCPathViewModel.h"
 #import "JCSearchView.h"
 #import "JCLoadingView.h"
+#import "JCPathCell.h"
+#import "JCRouteViewController.h"
+#import "JCRouteViewModel.h"
+#import "Flurry.h"
+#import "JCPathListViewController.h"
 
 @interface JCSearchViewController ()
 
@@ -94,36 +99,84 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *kCellID = @"CellIdentifier";
-    
-    // dequeue a cell from self's table view
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:kCellID];
+    if (indexPath.row < _viewModel.items.count) {
+        // Route
+        static NSString *CellIdentifier = @"routeCell";
+        
+        JCPathCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"JCPathCell" owner:self options:nil];
+            cell = [topLevelObjects objectAtIndex:0];
+            cell.viewModel = self.viewModel.items[indexPath.row];
+        }
+        [cell setViewModel:self.viewModel.items[indexPath.row]];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        return cell;
+    } else {
+        // Loading indicator cell
+        UITableViewCell *cell = [[UITableViewCell alloc]
+                                 initWithStyle:UITableViewCellStyleDefault
+                                 reuseIdentifier:nil];
+        
+        UIActivityIndicatorView *activityIndicator =
+        [[UIActivityIndicatorView alloc]
+         initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.center = cell.center;
+        [cell addSubview:activityIndicator];
+        
+        [activityIndicator startAnimating];
+        
+        return cell;
     }
-    
-    JCPathViewModel *path = _viewModel.items[indexPath.row];
-    cell.textLabel.text = path.name;
-    
-    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    JCPathViewModel *pathVM = self.viewModel.items[indexPath.row];
+    if (pathVM.hasChildren) {
+        // Load children items
+        JCPathListViewModel *childVM = [pathVM newChild];
+        JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:childVM];
+        [self.navigationController pushViewController:routesVC animated:YES];
+    } else {
+        // Load overview
+        JCRouteViewModel *routeVM = (JCRouteViewModel *)pathVM;
+        JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
+        [self.navigationController pushViewController:routeController animated:YES];
+        [Flurry logEvent:@"Route selected" withParameters:@{
+                                                            @"index": @(indexPath.row),
+                                                            @"total_routes": @(self.viewModel.items.count),
+                                                            @"average_rating": @(pathVM.averageRating.floatValue)
+                                                            }];
+    }
 }
 
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     _searchView.loadingView.loading = YES;
+    [self setResultsVisible:NO];
     
     NSString *query = _searchView.searchBar.text;
     [[_viewModel setDestWithAddressString:query] subscribeError:^(NSError *error) {
         NSLog(@"Error");
+        _searchView.loadingView.loading = NO;
         _searchView.loadingView.infoLabel.text = @"Destination not found";
     } completed:^{
-        [[_viewModel loadItems] subscribeNext:^(id x) {
+        [[_viewModel loadItems] subscribeCompleted:^{
             NSLog(@"Got %d search results", _viewModel.items.count);
-            [_searchView.resultsTableView reloadData];
-            [self setResultsVisible:YES];
+            if (_viewModel.items.count == 0){
+                _searchView.loadingView.loading = NO;
+                _searchView.loadingView.infoLabel.text = _viewModel.noItemsError;
+            } else {
+                [_searchView.resultsTableView reloadData];
+                [self setResultsVisible:YES];
+            }
         }];
     }];
 }

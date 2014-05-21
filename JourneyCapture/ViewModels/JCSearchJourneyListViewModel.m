@@ -17,8 +17,8 @@
         return self;
     }
     
-    self.title = @"Nearby Routes";
-    self.noItemsError = @"No nearby routes found";
+    self.title = @"Search";
+    self.noItemsError = @"No routes found";
     
     return self;
 }
