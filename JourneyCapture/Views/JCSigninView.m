@@ -51,7 +51,9 @@
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, email) = _emailField.rac_textSignal;
     [_contentView addSubview:_emailField];
-    RACChannelTo(_viewModel, emailError) = RACChannelTo(_emailField, error);
+    [RACObserve(self, viewModel.emailError) subscribeNext:^(id x) {
+        _emailField.error = _viewModel.emailError.length > 0;
+    }];
 
     // Password
     _passwordFieldLabel = [UILabel new];
@@ -66,7 +68,9 @@
     _passwordField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, password) = _passwordField.rac_textSignal;
     [_contentView addSubview:_passwordField];
-    RACChannelTo(_viewModel, passwordError) = RACChannelTo(_passwordField, error);
+    [RACObserve(self, viewModel.passwordError) subscribeNext:^(id x) {
+        _passwordField.error = _viewModel.passwordError.length > 0;
+    }];
     
     _signinButton = [UIButton new];
     _signinButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -119,7 +123,6 @@
     [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_emailField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailFieldLabel withOffset:labelPadding];
-    [_emailField layoutError];
     
     [_passwordFieldLabel autoRemoveConstraintsAffectingView];
     [_passwordFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
@@ -130,7 +133,6 @@
     [_passwordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_passwordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordFieldLabel withOffset:labelPadding];
     [_passwordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_passwordField layoutError];
 
     [_signinButton autoRemoveConstraintsAffectingView];
     [_signinButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];

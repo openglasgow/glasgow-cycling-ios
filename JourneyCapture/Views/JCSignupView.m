@@ -208,37 +208,31 @@
     [_emailField autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding];
     [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
-    [_emailField layoutError];
 
     [_passwordField autoRemoveConstraintsAffectingView];
     [_passwordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_passwordField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
     [_passwordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailField withOffset:padding];
-    [_passwordField layoutError];
 
     [_firstNameField autoRemoveConstraintsAffectingView];
     [_firstNameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_firstNameField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:-padding/2];
     [_firstNameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
-    [_firstNameField layoutError];
 
     [_lastNameField autoRemoveConstraintsAffectingView];
     [_lastNameField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
     [_lastNameField autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:padding/2];
     [_lastNameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
-    [_lastNameField layoutError];
 
     [_dobField autoRemoveConstraintsAffectingView];
     [_dobField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_dobField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:-padding/2];
     [_dobField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_lastNameField withOffset:padding];
-    [_dobField layoutError];
 
     [_genderField autoRemoveConstraintsAffectingView];
     [_genderField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
     [_genderField autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:padding/2];
     [_genderField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_lastNameField withOffset:padding];
-    [_genderField layoutError];
 
     [super layoutSubviews];
 }

@@ -71,13 +71,18 @@
     [super viewDidLoad];
     
     // Sign in
+    @weakify(self);
     _signinView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         _signinView.loadingView.loading = YES;
+        @strongify(self);
+        [self dismissKeyboard];
         [[_viewModel signin] subscribeNext:^(id x) {
             NSLog(@"Login::next");
         } error:^(NSError *error) {
             NSLog(@"Login::error");
             _signinView.loadingView.loading = NO;
+            _signinView.loadingView.infoLabel.text = @"Problem Signing in?";
+
         } completed:^{
             NSLog(@"Login::completed");
             [Flurry logEvent:@"User signin success"];
