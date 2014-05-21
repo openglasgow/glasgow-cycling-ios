@@ -42,7 +42,7 @@
 - (void)layoutSubviews
 {
     [_titleLabel autoRemoveConstraintsAffectingView];
-    [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(10, 0, 0, 0) excludingEdge:ALEdgeBottom];
+    [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
     [_titleLabel autoSetDimension:ALDimensionWidth toSize:320];
     
     [_graphView autoRemoveConstraintsAffectingView];

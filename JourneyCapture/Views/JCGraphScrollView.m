@@ -31,9 +31,8 @@
     _statsScrollView.pagingEnabled = YES;
     _statsScrollView.showsVerticalScrollIndicator = NO;
     _statsScrollView.showsHorizontalScrollIndicator = NO;
-    
-    _statsScrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height);
-    
+    _statsScrollView.delegate = self;
+    _statsScrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height - 20); // Space for pagecontrol
     [self addSubview:_statsScrollView];
     
     // Stat VMs
@@ -41,7 +40,7 @@
                                                                   displayKey:kStatsDistanceKey
                                                                        title:@"Distance"];
     
-    CGFloat graphHeight = frame.size.height - 40; // 40 is space for graph title
+    CGFloat graphHeight = frame.size.height - 50; // - space for elements above graph
     _graphViews = [NSMutableArray new];
 
     // Bar Chart Distance
@@ -60,6 +59,15 @@
     [_graphViews addObject:lineGraphDistanceView];
     [self.statsScrollView addSubview:lineGraphDistanceView];
     
+    // Page control
+    _pageControl = [UIPageControl new];
+    _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    _pageControl.numberOfPages = _graphViews.count;
+    _pageControl.currentPage = 0;
+    _pageControl.pageIndicatorTintColor = [UIColor jc_lightBlueColor];
+    _pageControl.currentPageIndicatorTintColor = [UIColor jc_blueColor];
+    [self addSubview:_pageControl];
+    
     return self;
 }
 
@@ -67,8 +75,14 @@
 
 - (void)layoutSubviews
 {
+    [_pageControl autoRemoveConstraintsAffectingView];
+    [_pageControl autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
+    [_pageControl autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    [_pageControl autoSetDimension:ALDimensionHeight toSize:20];
+    
     [_statsScrollView autoRemoveConstraintsAffectingView];
-    [_statsScrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    [_statsScrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [_statsScrollView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_pageControl];
     
     for (int i = 0; i < _graphViews.count; i++) {
         CGFloat leftOffset = i * 320;
@@ -84,8 +98,14 @@
             [graphView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_statsScrollView];
         }
     }
-    
+
     [super layoutSubviews];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    _pageControl.currentPage = floorf(_statsScrollView.contentOffset.x/320);
 }
 
 @end
