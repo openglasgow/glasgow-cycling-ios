@@ -15,4 +15,6 @@
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
 @property (strong, nonatomic) JCSignupView *signupView;
 
+- (id)initWithViewModel:(JCSignupViewModel *)signupViewModel;
+
 @end

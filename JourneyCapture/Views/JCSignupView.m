@@ -104,12 +104,13 @@
     _emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_emailField];
-    NSString *email = _viewModel.email;
-    RAC(_viewModel, email) = _emailField.rac_textSignal;
-    [_emailField setText:email];
-
+    [[_emailField.rac_textSignal skip:1] subscribeNext:^(id x) {
+        _viewModel.email = _emailField.text;
+    }];
+    
     // Validation and errors
     [_viewModel.emailValid subscribeNext:^(id emailValid) {
+        NSLog(@"%@ == email, valid: %@", _viewModel.email, emailValid);
         _emailField.valid = [emailValid boolValue];
     }];
     [RACObserve(_viewModel, emailError) subscribeNext:^(id x) {

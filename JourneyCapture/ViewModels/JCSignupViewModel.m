@@ -30,7 +30,6 @@
         NSCharacterSet *emailSet = [NSCharacterSet characterSetWithCharactersInString:@"@"];
         return @(emailValue.length >= 5 &&
         [emailValue rangeOfCharacterFromSet:emailSet].location != NSNotFound);
-
     }];
 
     self.passwordValid = [RACObserve(self, password) map:^(NSString *emailValue) {
@@ -111,7 +110,9 @@
                   if (errorData && errorData[@"errors"]) {
                       NSDictionary *fieldErrors = errorData[@"errors"];
                       if (fieldErrors[@"email"]) {
-                          self.emailError = [NSString stringWithFormat:@"Email %@", fieldErrors[@"email"][0]];
+                          NSArray *emailErrors = fieldErrors[@"email"];
+                          NSString *errorMessage = emailErrors[0];
+                          self.emailError = [NSString stringWithFormat:@"Email %@", errorMessage];
                       } else {
                           self.emailError = nil;
                       }

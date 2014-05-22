@@ -22,6 +22,7 @@
         _errorBorderColor = [UIColor redColor];
         _error = NO;
         [RACObserve(self, valid) subscribeNext:^(id validVal) {
+            NSLog(@"Text: %@", self.text);
             if (self.text.length == 0) {
                 // Don't highlight empty fields are invalid
                 validVal = @YES;

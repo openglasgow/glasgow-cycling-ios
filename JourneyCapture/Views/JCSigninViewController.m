@@ -10,6 +10,7 @@
 #import "JCSigninView.h"
 #import "JCSignupViewController.h"
 #import "JCSigninViewModel.h"
+#import "JCSignupViewModel.h"
 #import "JCUserViewController.h"
 #import "Flurry.h"
 #import "JCTextField.h"
@@ -96,7 +97,9 @@
     _signinView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Signup tapped");
         [Flurry logEvent:@"Signup button tapped"];
-        JCSignupViewController *signupController = [[JCSignupViewController alloc] init];
+        JCSignupViewModel *signupVM = [JCSignupViewModel new];
+        [signupVM setEmail:_viewModel.email];
+        JCSignupViewController *signupController = [[JCSignupViewController alloc] initWithViewModel:signupVM];
         [self.navigationController pushViewController:signupController animated:YES];
         return [RACSignal empty];
     }];

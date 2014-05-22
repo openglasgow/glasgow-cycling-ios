@@ -9,6 +9,7 @@
 #import "JCSignupViewController.h"
 #import "JCSignupViewModel.h"
 #import "JCSignupView.h"
+#import "JCTextField.h"
 
 #import "JCQuestionViewController.h"
 #import "JCQuestionViewModel.h"
@@ -21,11 +22,11 @@
 
 @implementation JCSignupViewController
 
-- (id)init
+- (id)initWithViewModel:(JCSignupViewModel *)signupViewModel
 {
     self = [super init];
     if (self) {
-        _viewModel = [[JCSignupViewModel alloc] init];
+        _viewModel = signupViewModel;
         NSLog(@"Init signup controller");
     }
     return self;
@@ -41,29 +42,6 @@
 
     // Nav bar
     [[self navigationItem] setTitle:@"Sign Up"];
-
-    // Sign up button
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Up"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:nil
-                                                                             action:nil];
-    RAC(self, navigationItem.rightBarButtonItem.enabled) = _viewModel.isValidDetails;
-    self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        RACSignal *signupSignal = [_viewModel signup];
-        [signupSignal subscribeNext:^(id x) {
-            NSLog(@"Signup::next");
-        } error:^(NSError *error) {
-            NSLog(@"Signup::error");
-        } completed:^{
-            NSLog(@"Signup::completed");
-            [Flurry logEvent:@"User signup success"];
-            JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
-            JCQuestionViewController *questionVC = [[JCQuestionViewController alloc] initWithViewModel:questionList
-                                                                                         questionIndex:0];
-            [self.navigationController pushViewController:questionVC animated:YES];
-        }];
-        return [RACSignal empty];
-    }];
     
     // Form
     _signupView = [[JCSignupView alloc] initWithViewModel:_viewModel];
@@ -85,6 +63,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [RACObserve(self, viewModel.email) subscribeNext:^(id x) {
+         _signupView.emailField.text = _viewModel.email;
+    }];
+    
+    // Sign up button
+    _signupView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        RACSignal *signupSignal = [_viewModel signup];
+        [signupSignal subscribeNext:^(id x) {
+            NSLog(@"Signup::next");
+        } error:^(NSError *error) {
+            NSLog(@"Signup::error");
+        } completed:^{
+            NSLog(@"Signup::completed");
+            [Flurry logEvent:@"User signup success"];
+            JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
+            JCQuestionViewController *questionVC = [[JCQuestionViewController alloc] initWithViewModel:questionList
+                                                                                         questionIndex:0];
+            [self.navigationController pushViewController:questionVC animated:YES];
+        }];
+        return [RACSignal empty];
+    }];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
