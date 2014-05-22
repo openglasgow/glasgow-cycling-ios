@@ -40,16 +40,12 @@
                                                                   displayKey:kStatsDistanceKey
                                                                        title:@"Distance"];
     
+    JCStatViewModel *routesStatVM = [[JCStatViewModel alloc] initWithUsage:_viewModel
+                                                                displayKey:kStatsRoutesCompletedKey
+                                                                     title:@"Routes Completed"];
+    
     CGFloat graphHeight = frame.size.height - 50; // - space for elements above graph
     _graphViews = [NSMutableArray new];
-
-    // Bar Chart Distance
-    JCBarChartView *barChartDistanceView = [[JCBarChartView alloc] initWithViewModel:distanceStatVM];
-    barChartDistanceView.graphView.frame = CGRectMake(0, 0, frame.size.width, graphHeight);
-    [barChartDistanceView reloadData];
-    barChartDistanceView.translatesAutoresizingMaskIntoConstraints = NO;
-    [_graphViews addObject:barChartDistanceView];
-    [self.statsScrollView addSubview:barChartDistanceView];
     
     // Line Graph Distance
     JCLineGraphView *lineGraphDistanceView = [[JCLineGraphView alloc] initWithViewModel:distanceStatVM];
@@ -58,6 +54,14 @@
     lineGraphDistanceView.translatesAutoresizingMaskIntoConstraints = NO;
     [_graphViews addObject:lineGraphDistanceView];
     [self.statsScrollView addSubview:lineGraphDistanceView];
+    
+    // Bar Chart Routes Completed
+    JCBarChartView *barChartDistanceView = [[JCBarChartView alloc] initWithViewModel:routesStatVM];
+    barChartDistanceView.graphView.frame = CGRectMake(0, 0, frame.size.width, graphHeight);
+    [barChartDistanceView reloadData];
+    barChartDistanceView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_graphViews addObject:barChartDistanceView];
+    [self.statsScrollView addSubview:barChartDistanceView];
     
     // Page control
     _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 320, 1000)];

@@ -14,6 +14,7 @@
 @implementation JCUsageViewModel
 
 NSString * kStatsDistanceKey = @"distance";
+NSString * kStatsRoutesCompletedKey = @"routes_completed";
 
 - (instancetype)init
 {

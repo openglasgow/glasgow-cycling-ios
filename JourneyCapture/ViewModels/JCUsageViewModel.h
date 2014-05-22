@@ -9,6 +9,7 @@
 #import "RVMViewModel.h"
 
 extern NSString *kStatsDistanceKey;
+extern NSString * kStatsRoutesCompletedKey;
 
 @interface JCUsageViewModel : RVMViewModel
 @property (strong, nonatomic) NSArray *periods;
