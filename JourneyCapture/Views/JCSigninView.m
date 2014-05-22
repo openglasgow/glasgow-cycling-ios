@@ -34,6 +34,7 @@
     
     _loadingView = [JCLoadingView new];
     _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+    _loadingView.infoLabel.text = @"Making Glasgow a Cycling city";
     [_profileBackgroundView addSubview:_loadingView];
     
     // Email

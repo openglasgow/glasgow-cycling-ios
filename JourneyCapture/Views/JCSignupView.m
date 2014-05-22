@@ -234,15 +234,17 @@
     [_contentView addSubview:_signupButton];
     
     //blue bit at the bottom
-    _blueView = [UIView new];
-    [_blueView setBackgroundColor:[UIColor jc_blueColor]];
-    _blueView.translatesAutoresizingMaskIntoConstraints = NO;
-    [_contentView addSubview:_blueView];
+    _bottomArea = [UIView new];
+    [_bottomArea setBackgroundColor:[UIColor whiteColor]];
+    _bottomArea.translatesAutoresizingMaskIntoConstraints = NO;
+    [_contentView addSubview:_bottomArea];
     
     _loadingView = [JCLoadingView new];
+    _loadingView.setBikerBlue;
     _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
-    _loadingView.infoLabel.text = @"Help make Glasgow a cycling city";
-    [_blueView addSubview:_loadingView];
+    _loadingView.infoLabel.text = @"";
+    
+    [_bottomArea addSubview:_loadingView];
 
     return self;
 }
@@ -315,16 +317,15 @@
     [_signupButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_genderField withOffset:padding];
     [_signupButton autoSetDimension:ALDimensionWidth toSize:320 - (2*padding)];
     
-    [_blueView autoSetDimension:ALDimensionHeight toSize:250.0f];
-    [_blueView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:0];
-    [_blueView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:0];
-    [_blueView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_signupButton withOffset:padding];
-    [_blueView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_contentView withOffset:padding];
+    [_bottomArea autoSetDimension:ALDimensionHeight toSize:250.0f];
+    [_bottomArea autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:0];
+    [_bottomArea autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:0];
+    [_bottomArea autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_signupButton withOffset:padding];
+    [_bottomArea autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_contentView];
     
     [_loadingView autoRemoveConstraintsAffectingView];
-    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_blueView withOffset:150];
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomArea withOffset:150];
     [_loadingView autoAlignAxisToSuperviewAxis:ALAxisVertical];
-
 
     [super layoutSubviews];
 }

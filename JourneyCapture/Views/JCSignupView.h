@@ -46,7 +46,7 @@
 @property (strong, nonatomic) UILabel *dobFieldLabel;
 
 @property (strong, nonatomic) JCLoadingView *loadingView;
-@property (strong, nonatomic) UIView *blueView;
+@property (strong, nonatomic) UIView *bottomArea;
 
 - (id)initWithViewModel:(JCSignupViewModel *)signupViewModel;
 

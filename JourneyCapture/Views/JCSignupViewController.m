@@ -71,10 +71,12 @@
     // Sign up button
     _signupView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         RACSignal *signupSignal = [_viewModel signup];
+        _signupView.loadingView.loading = YES;
         [signupSignal subscribeNext:^(id x) {
             NSLog(@"Signup::next");
         } error:^(NSError *error) {
             NSLog(@"Signup::error");
+            _signupView.loadingView.loading = NO;
         } completed:^{
             NSLog(@"Signup::completed");
             [Flurry logEvent:@"User signup success"];
