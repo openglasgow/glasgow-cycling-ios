@@ -42,6 +42,8 @@
     _graphView.delegate = self;
     _graphView.dataSource = self;
     _graphView.translatesAutoresizingMaskIntoConstraints = NO;
+    _graphView.showsLineSelection = NO;
+    _graphView.showsVerticalSelection = NO;
     _graphView.frame = CGRectMake(0, 240, 320, 40);
     [self addSubview:_graphView];
     [_graphView reloadData];
