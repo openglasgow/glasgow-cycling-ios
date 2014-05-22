@@ -43,9 +43,7 @@
 
 - (void)barChartView:(JBBarChartView *)barChartView didSelectBarAtIndex:(NSUInteger)index
 {
-    CGFloat distanceKm = [self.viewModel statValueAtIndex:index];
-    NSLog(@"Selected stat value: %f", distanceKm);
-    self.titleLabel.text = [NSString stringWithFormat:@"%.1f miles", distanceKm * 0.621371192f];
+    self.titleLabel.text = [self.viewModel statDisplayStringForIndex:index];
 }
 
 - (void)didUnselectBarChartView:(JBBarChartView *)barChartView

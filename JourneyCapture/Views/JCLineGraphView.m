@@ -48,9 +48,7 @@
 
 - (void)lineChartView:(JBLineChartView *)lineChartView didSelectLineAtIndex:(NSUInteger)lineIndex horizontalIndex:(NSUInteger)horizontalIndex
 {
-    CGFloat distanceKm = [self.viewModel statValueAtIndex:horizontalIndex];
-    NSLog(@"Selected stat value: %f", distanceKm);
-    self.titleLabel.text = [NSString stringWithFormat:@"%.1f miles", distanceKm * 0.621371192f];
+    self.titleLabel.text = [self.viewModel statDisplayStringForIndex:horizontalIndex];
 }
 
 - (void)didUnselectLineInLineChartView:(JBLineChartView *)lineChartView

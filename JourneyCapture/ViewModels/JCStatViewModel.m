@@ -41,4 +41,29 @@
     return [stat floatValue];
 }
 
+- (NSString *)statDisplayStringForIndex:(NSUInteger)index
+{
+    CGFloat value = [self statValueAtIndex:index];
+    if (kStatsDistanceKey == _displayKey) {
+        CGFloat distanceMiles = value * 0.621371192f;
+        NSString *distDescription;
+        if (round(distanceMiles) == 1) {
+            distDescription = @"mile";
+        } else {
+            distDescription = @"miles";
+        }
+        return [NSString stringWithFormat:@"%.1f %@", distanceMiles, distDescription];
+    } else if (kStatsRoutesCompletedKey == _displayKey) {
+        NSString *routeDescription;
+        if (value == 1) {
+            routeDescription = @"route";
+        } else {
+            routeDescription = @"routes";
+        }
+        return [NSString stringWithFormat:@"%.0f %@", value, routeDescription];
+    }
+    
+    return [NSString stringWithFormat:@"%f", value];
+}
+
 @end

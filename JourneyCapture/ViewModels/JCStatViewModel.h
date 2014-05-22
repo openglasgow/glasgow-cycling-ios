@@ -20,5 +20,6 @@
                    displayKey:(NSString *)displayKey title:(NSString *)title;
 - (NSInteger)countOfStats;
 - (CGFloat)statValueAtIndex:(NSUInteger)index;
+- (NSString *)statDisplayStringForIndex:(NSUInteger)index;
 
 @end
