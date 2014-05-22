@@ -43,12 +43,13 @@
 
 - (void)barChartView:(JBBarChartView *)barChartView didSelectBarAtIndex:(NSUInteger)index
 {
-    self.titleLabel.text = [self.viewModel statDisplayStringForIndex:index];
-}
+    NSString *value = [self.viewModel statDisplayStringForIndex:index];
+    NSString *day = [self.viewModel dayForIndex:index];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@: %@", day, value];}
 
 - (void)didUnselectBarChartView:(JBBarChartView *)barChartView
 {
-    self.titleLabel.text = self.viewModel.title;
+    [self resetText];
 }
 
 #pragma mark - JBBarChartViewDataSource

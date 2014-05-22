@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-@class JCStatViewModel, JBChartView, JCGraphFooterView;
+@class JCStatViewModel, JBChartView, JCGraphFooterView, JCGraphView;
 
 @interface JCGraphView : UIView
 @property (strong, nonatomic) JCStatViewModel *viewModel;
@@ -18,4 +18,5 @@
 
 - (id)initWithViewModel:(JCStatViewModel *)statViewModel;
 - (void)reloadData;
+- (void)resetText;
 @end

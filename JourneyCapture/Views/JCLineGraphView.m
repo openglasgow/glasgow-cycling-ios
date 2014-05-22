@@ -48,12 +48,14 @@
 
 - (void)lineChartView:(JBLineChartView *)lineChartView didSelectLineAtIndex:(NSUInteger)lineIndex horizontalIndex:(NSUInteger)horizontalIndex
 {
-    self.titleLabel.text = [self.viewModel statDisplayStringForIndex:horizontalIndex];
+    NSString *value = [self.viewModel statDisplayStringForIndex:horizontalIndex];
+    NSString *day = [self.viewModel dayForIndex:horizontalIndex];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@: %@", day, value];
 }
 
 - (void)didUnselectLineInLineChartView:(JBLineChartView *)lineChartView
 {
-    self.titleLabel.text = self.viewModel.title;
+    [self resetText];
 }
 
 #pragma mark - JBLineChartViewDelegate

@@ -19,10 +19,10 @@
         _viewModel = statsViewModel;
         
         _titleLabel = [UILabel new];
-        _titleLabel.text = _viewModel.title;
         _titleLabel.textColor = [UIColor jc_darkGrayColor];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.text = _viewModel.title;
         [self addSubview:_titleLabel];
         
         _graphView = [JBChartView new];
@@ -37,10 +37,15 @@
     [_graphView reloadData];
 }
 
+- (void)resetText
+{
+    _titleLabel.text = _viewModel.title;
+}
+
 #pragma mark - UIView
 
 - (void)layoutSubviews
-{
+{    
     [_titleLabel autoRemoveConstraintsAffectingView];
     [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
     [_titleLabel autoSetDimension:ALDimensionWidth toSize:320];

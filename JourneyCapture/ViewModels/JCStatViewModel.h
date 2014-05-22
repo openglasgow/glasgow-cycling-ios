@@ -19,6 +19,7 @@
 - (instancetype)initWithUsage:(JCUsageViewModel *)usageViewModel
                    displayKey:(NSString *)displayKey title:(NSString *)title;
 - (NSInteger)countOfStats;
+- (NSString *)dayForIndex:(NSUInteger )index;
 - (CGFloat)statValueAtIndex:(NSUInteger)index;
 - (NSString *)statDisplayStringForIndex:(NSUInteger)index;
 

@@ -87,7 +87,7 @@
 #pragma mark - UIView
 
 - (void)layoutSubviews
-{
+{    
     [_pageControl autoRemoveConstraintsAffectingView];
     [_pageControl autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
     [_pageControl autoAlignAxisToSuperviewAxis:ALAxisVertical];

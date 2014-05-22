@@ -24,6 +24,23 @@ PODS:
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK
   - FlurrySDK/FlurrySDK (4.4.0)
+  - FormatterKit (1.4.3):
+    - FormatterKit/AddressFormatter
+    - FormatterKit/ArrayFormatter
+    - FormatterKit/ColorFormatter
+    - FormatterKit/LocationFormatter
+    - FormatterKit/OrdinalNumberFormatter
+    - FormatterKit/TimeIntervalFormatter
+    - FormatterKit/UnitOfInformationFormatter
+    - FormatterKit/URLRequestFormatter
+  - FormatterKit/AddressFormatter (1.4.3)
+  - FormatterKit/ArrayFormatter (1.4.3)
+  - FormatterKit/ColorFormatter (1.4.3)
+  - FormatterKit/LocationFormatter (1.4.3)
+  - FormatterKit/OrdinalNumberFormatter (1.4.3)
+  - FormatterKit/TimeIntervalFormatter (1.4.3)
+  - FormatterKit/UnitOfInformationFormatter (1.4.3)
+  - FormatterKit/URLRequestFormatter (1.4.3)
   - GBDeviceInfo (2.2.6)
   - GSKeychain (1.0.0)
   - HockeySDK (3.5.5)
@@ -86,6 +103,7 @@ DEPENDENCIES:
   - EDStarRating (~> 1.1)
   - FDTake (~> 0.1.1)
   - FlurrySDK (~> 4.3)
+  - FormatterKit
   - GBDeviceInfo (~> 2.2)
   - GSKeychain (~> 1.0)
   - HockeySDK (~> 3.5)
@@ -100,22 +118,23 @@ DEPENDENCIES:
   - UIView+AutoLayout (~> 1.3.0)
 
 SPEC CHECKSUMS:
-  AFNetworking: 01aa7c3aa9a200b94943e54072a4373f14b3d219
-  CRToast: a220a2c67dce6e263a4e7bd80a711e1bf19699d0
-  EDStarRating: 4954b62647884e7b2d37c4720d4a1f758b5a3435
-  FDTake: f9fe37ec6143fc645447e961cee96b59c0ab7ca4
-  FlurrySDK: 2cd8f2ce2383ca152c5d96fa34cb9ef29706feda
-  GBDeviceInfo: f593a4cf40d67017a63c92f64f29073e4ca24596
-  GSKeychain: 59439fa4bb05d21f2cbd4b67e7133c2572cc8dc4
-  HockeySDK: 350ef1cf18d2fc9a13801ad077c307cece8c6c64
-  InAppSettingsKit: 00c2f5a36fc30cc60e0ec03be6d52e9546401487
-  JazzHands: 9069a8ec67495c8ace35238dad19fdeaa58716cf
-  JBChartView: 3f979441a6a41e50b7c4b98f91b256bf33625c2d
-  libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
-  MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
-  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
-  ReactiveViewModel: f636ab3e06b5e69664b69c883fcdb457ab5cb0cb
-  UIView+AutoLayout: 43373a18797954fd8ee3b1423af364f1b80a2af8
+  AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
+  CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
+  EDStarRating: c7b87f9866be0ea29bb054964023b8eb3f18286c
+  FDTake: faef4e46909f879a65589a15e19e2bb00d2857e1
+  FlurrySDK: abaedafc350afa41b004236b67ae14f7d3748b68
+  FormatterKit: f744aa7928003eba8317d6fd6998414fbc78f7a5
+  GBDeviceInfo: 129ba768aa64c431c9919b97b98b55524d77a8e0
+  GSKeychain: 97f00f30c5a46825e8395e17de59900e7e94c13e
+  HockeySDK: f9af97c2f5df4eb6ca6d2a9c408f2ff498edd608
+  InAppSettingsKit: 853cdc9fcc76b87a4694f8d2b930e116463b5a29
+  JazzHands: 6f1c9547e646c46dc2745a1d5280bfcab43adadc
+  JBChartView: 666486d81dd16fa0cfac7bc32b4b70d6c52e7162
+  libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
+  MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  ReactiveCocoa: 2066583826c17dde8e90c41e489f682048cc57c9
+  ReactiveViewModel: 78387196df2e7535bb2776c41df15dbb17300f8a
+  UIView+AutoLayout: dc24ec6114498617510af759148a05b957af1b38
 
 COCOAPODS: 0.32.1

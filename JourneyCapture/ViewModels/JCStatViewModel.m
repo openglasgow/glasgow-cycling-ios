@@ -10,6 +10,7 @@
 
 #import "JCStatViewModel.h"
 #import "JCUsageViewModel.h"
+#import <FormatterKit/TTTTimeIntervalFormatter.h>
 
 @implementation JCStatViewModel
 
@@ -39,6 +40,26 @@
     
     NSNumber *stat = period[_displayKey];
     return [stat floatValue];
+}
+
+- (NSString *)dayForIndex:(NSUInteger )index
+{
+    NSDictionary *period = _stats.periods[index];
+    if (!period) {
+        return @"";
+    }
+    
+    NSTimeInterval timestamp = [period[@"time"] integerValue];
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval timeAgo = now - timestamp;
+    
+    if (timeAgo < (24 * 60 * 60)) {
+        return @"today";
+    }
+    
+    TTTTimeIntervalFormatter *timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
+    [timeIntervalFormatter setUsesIdiomaticDeicticExpressions:YES];
+    return [timeIntervalFormatter stringForTimeInterval:-timeAgo]; // "yesterday"
 }
 
 - (NSString *)statDisplayStringForIndex:(NSUInteger)index

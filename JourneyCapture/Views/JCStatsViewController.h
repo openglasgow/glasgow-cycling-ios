@@ -14,6 +14,7 @@
 @property (strong, nonatomic) JCUserViewModel *userViewModel;
 @property (strong, nonatomic) JCUsageViewModel *usageViewModel;
 @property (strong, nonatomic) JCUserHeaderView *headerView;
+@property (strong, nonatomic) UILabel *hintLabel;
 @property (strong, nonatomic) JCGraphScrollView *graphScrollView;
 
 - (id)initWithViewModel:(JCUserViewModel *)userViewModel;
