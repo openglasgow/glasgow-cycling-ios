@@ -97,16 +97,12 @@
 
 - (void)layoutSubviews
 {
-    [_mapView autoRemoveConstraintsAffectingView];
-    [_mapView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
-    [_mapView autoSetDimension:ALDimensionHeight toSize:230];
-    
     [_captureButton autoRemoveConstraintsAffectingView];
     [_captureButton autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(15, 15, 15, 15) excludingEdge:ALEdgeTop];
     [_captureButton autoSetDimension:ALDimensionHeight toSize:42.5f];
     
     [_graphView autoRemoveConstraintsAffectingView];
-    [_graphView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView withOffset:10];
+    [_graphView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_statsView withOffset:-10];
     [_graphView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
     [_graphView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     [_graphView autoSetDimension:ALDimensionHeight toSize:40];
@@ -116,6 +112,11 @@
     [_statsView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_captureButton];
     [_statsView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
     [_statsView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
+    [_statsView autoSetDimension:ALDimensionHeight toSize:120];
+    
+    [_mapView autoRemoveConstraintsAffectingView];
+    [_mapView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
+    [_mapView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_graphView withOffset:-10];
     
     [super layoutSubviews];
 }
