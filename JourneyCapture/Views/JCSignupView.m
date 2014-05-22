@@ -362,14 +362,14 @@
     
     CGFloat offset = 100;
     CGPoint scrollPoint = CGPointMake(0.0, offset);
-//    [_contentView setContentOffset:scrollPoint animated:YES];
+    [_contentView setContentOffset:scrollPoint animated:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     CGFloat offset = 0;
     CGPoint scrollPoint = CGPointMake(0.0, offset);
-//    [_contentView setContentOffset:scrollPoint animated:YES];
+    [_contentView setContentOffset:scrollPoint animated:YES];
 }
 
 #pragma mark - FDTakeControllerDelegate
