@@ -47,7 +47,7 @@
     if (kStatsDistanceKey == _displayKey) {
         CGFloat distanceMiles = value * 0.621371192f;
         NSString *distDescription;
-        if (round(distanceMiles) == 1) {
+        if (distanceMiles >= 0.95 && distanceMiles < 1.05) {
             distDescription = @"mile";
         } else {
             distDescription = @"miles";
