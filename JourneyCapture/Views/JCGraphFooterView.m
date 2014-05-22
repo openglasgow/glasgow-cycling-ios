@@ -15,7 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _axisImageView = [[UIImageView alloc] initWithImage:image];
-        _axisImageView.frame = CGRectMake(15, 17, frame.size.width - 30, frame.size.height - 23);
+        _axisImageView.frame = CGRectMake(0, 17, frame.size.width, frame.size.height - 23);
         [self addSubview:_axisImageView];
     }
     return self;
