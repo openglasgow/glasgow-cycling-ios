@@ -40,13 +40,6 @@
 
     // Nav bar
     [[self navigationItem] setTitle:@"Welcome to Go Cycling"];
-
-    // Signin button
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign In"
-//                                                                              style:UIBarButtonItemStylePlain
-//                                                                             target:nil
-//                                                                             action:nil];
-   // RAC(self, navigationItem.rightBarButtonItem.enabled) = _viewModel.isValidDetails;
     
     // Signin form
     _signinView = [[JCSigninView alloc] initWithFrame:frame viewModel:_viewModel];
@@ -83,7 +76,6 @@
             NSLog(@"Login::error");
             _signinView.loadingView.loading = NO;
             _signinView.loadingView.infoLabel.text = @"Problem Signing in?";
-
         } completed:^{
             NSLog(@"Login::completed");
             [Flurry logEvent:@"User signin success"];

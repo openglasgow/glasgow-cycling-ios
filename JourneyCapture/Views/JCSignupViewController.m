@@ -41,7 +41,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
     // Nav bar
-    [[self navigationItem] setTitle:@"Sign Up"];
+    [[self navigationItem] setTitle:@"Join the city"];
     
     // Form
     _signupView = [[JCSignupView alloc] initWithViewModel:_viewModel];
@@ -86,6 +86,11 @@
         return [RACSignal empty];
     }];
 
+    // Keyboard
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -97,6 +102,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dismissKeyboard
+{
+    [_signupView.passwordField resignFirstResponder];
+    [_signupView.dobField resignFirstResponder];
+    [_signupView.genderField resignFirstResponder];
+
+    CGPoint scrollPoint = CGPointMake(0.0, 0.0);
+    [_signupView.contentView setContentOffset:scrollPoint animated:YES];
 }
 
 @end

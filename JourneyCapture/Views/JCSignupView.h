@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FDTake/FDTakeController.h>
+#import "JCLoadingView.h"
 @class JCSignupViewModel, JCTextField;
 
 @interface JCSignupView : UIView <UIPickerViewDataSource, UIPickerViewDelegate,
@@ -43,6 +44,9 @@
 @property (strong, nonatomic) UILabel *passwordFieldLabel;
 @property (strong, nonatomic) UILabel *genderFieldLabel;
 @property (strong, nonatomic) UILabel *dobFieldLabel;
+
+@property (strong, nonatomic) JCLoadingView *loadingView;
+@property (strong, nonatomic) UIView *blueView;
 
 - (id)initWithViewModel:(JCSignupViewModel *)signupViewModel;
 

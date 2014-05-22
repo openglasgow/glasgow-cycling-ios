@@ -110,7 +110,6 @@
     
     // Validation and errors
     [_viewModel.emailValid subscribeNext:^(id emailValid) {
-        NSLog(@"%@ == email, valid: %@", _viewModel.email, emailValid);
         _emailField.valid = [emailValid boolValue];
     }];
     [RACObserve(_viewModel, emailError) subscribeNext:^(id x) {
@@ -130,6 +129,7 @@
     _passwordField.placeholder = @"New Password";
     _passwordField.font = labelFont;
     _passwordField.translatesAutoresizingMaskIntoConstraints = NO;
+    _passwordField.delegate = self;
     RAC(_viewModel, password) = _passwordField.rac_textSignal;
     [_contentView addSubview:_passwordField];
 
@@ -183,6 +183,7 @@
     _dobField.placeholder = @"Date of Birth";
     _dobField.font = labelFont;
     _dobField.translatesAutoresizingMaskIntoConstraints = NO;
+    _dobField.delegate = self;
     RAC(_viewModel, dob) = _dobField.rac_textSignal;
     _dobField.inputView = _dobPicker;
     _dobField.inputAccessoryView = _dobToolbar;
@@ -216,7 +217,7 @@
     RACChannelTo(_viewModel, gender) = RACChannelTo(_genderField, text);
     _genderField.inputView = _genderPicker;
     _genderField.inputAccessoryView = _genderToolbar;
-    [_genderField setDelegate:self];
+    _genderField.delegate = self;
     [_contentView addSubview:_genderField];
 
     [_viewModel.genderValid subscribeNext:^(id genderValid) {
@@ -231,6 +232,17 @@
     _signupButton.layer.masksToBounds = YES;
     _signupButton.layer.cornerRadius = 4.0f;
     [_contentView addSubview:_signupButton];
+    
+    //blue bit at the bottom
+    _blueView = [UIView new];
+    [_blueView setBackgroundColor:[UIColor jc_blueColor]];
+    _blueView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_contentView addSubview:_blueView];
+    
+    _loadingView = [JCLoadingView new];
+    _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+    _loadingView.infoLabel.text = @"Help make Glasgow a cycling city";
+    [_blueView addSubview:_loadingView];
 
     return self;
 }
@@ -249,7 +261,6 @@
 
     int labelPadding = 3;
     int padding = 10;
-    int textFieldHeight = 31;
     int picSize = 100;
     
     [_profilePictureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_emailFieldLabel withOffset:-padding];
@@ -303,6 +314,17 @@
     [_signupButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_signupButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_genderField withOffset:padding];
     [_signupButton autoSetDimension:ALDimensionWidth toSize:320 - (2*padding)];
+    
+    [_blueView autoSetDimension:ALDimensionHeight toSize:250.0f];
+    [_blueView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:0];
+    [_blueView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:0];
+    [_blueView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_signupButton withOffset:padding];
+    [_blueView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_contentView withOffset:padding];
+    
+    [_loadingView autoRemoveConstraintsAffectingView];
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_blueView withOffset:150];
+    [_loadingView autoAlignAxisToSuperviewAxis:ALAxisVertical];
+
 
     [super layoutSubviews];
 }
@@ -336,6 +358,17 @@
     if (textField.text.length == 0) {
         [self pickerView:_genderPicker didSelectRow:0 inComponent:0];
     }
+    
+    CGFloat offset = 100;
+    CGPoint scrollPoint = CGPointMake(0.0, offset);
+//    [_contentView setContentOffset:scrollPoint animated:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    CGFloat offset = 0;
+    CGPoint scrollPoint = CGPointMake(0.0, offset);
+//    [_contentView setContentOffset:scrollPoint animated:YES];
 }
 
 #pragma mark - FDTakeControllerDelegate
