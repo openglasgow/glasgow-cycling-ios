@@ -103,7 +103,7 @@ DEPENDENCIES:
   - EDStarRating (~> 1.1)
   - FDTake (~> 0.1.1)
   - FlurrySDK (~> 4.3)
-  - FormatterKit
+  - FormatterKit (~> 1.4.3)
   - GBDeviceInfo (~> 2.2)
   - GSKeychain (~> 1.0)
   - HockeySDK (~> 3.5)

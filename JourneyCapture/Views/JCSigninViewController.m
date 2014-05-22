@@ -8,7 +8,9 @@
 
 #import "JCSigninViewController.h"
 #import "JCSigninView.h"
+#import "JCSignupViewController.h"
 #import "JCSigninViewModel.h"
+#import "JCSignupViewModel.h"
 #import "JCUserViewController.h"
 #import "Flurry.h"
 #import "JCTextField.h"
@@ -32,38 +34,18 @@
 
 -(void)loadView
 {
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    CGRect frame = [[UIScreen mainScreen] applicationFrame];
+    self.view = [[UIView alloc] initWithFrame:frame];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     // Nav bar
-    [[self navigationItem] setTitle:@"Sign In"];
-    [self.navigationController setDelegate:self];
-
-    // Signin button
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign In"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:nil
-                                                                             action:nil];
-    RAC(self, navigationItem.rightBarButtonItem.enabled) = _viewModel.isValidDetails;
-    self.navigationItem.rightBarButtonItem.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        RACSignal *signinSignal = [_viewModel signin];
-        [signinSignal subscribeNext:^(id x) {
-            NSLog(@"Login::next");
-        } error:^(NSError *error) {
-            NSLog(@"Login::error");
-        } completed:^{
-            NSLog(@"Login::completed");
-            [Flurry logEvent:@"User signin success"];
-            JCUserViewController *userController = [[JCUserViewController alloc] init];
-            [self.navigationController pushViewController:userController animated:YES];
-        }];
-        return [RACSignal empty];
-    }];
+    [[self navigationItem] setTitle:@"Welcome to Go Cycling"];
     
     // Signin form
-    _signinView = [[JCSigninView alloc] initWithViewModel:_viewModel];
+    _signinView = [[JCSigninView alloc] initWithFrame:frame viewModel:_viewModel];
     _signinView.translatesAutoresizingMaskIntoConstraints = NO;
+    _signinView.emailField.delegate = self;
+    _signinView.passwordField.delegate = self;
     [self.view addSubview:_signinView];
 }
 
@@ -81,12 +63,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    
+    // Sign in
+    @weakify(self);
+    _signinView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        _signinView.loadingView.loading = YES;
+        @strongify(self);
+        [self dismissKeyboard];
+        [[_viewModel signin] subscribeNext:^(id x) {
+            NSLog(@"Login::next");
+        } error:^(NSError *error) {
+            NSLog(@"Login::error");
+            _signinView.loadingView.loading = NO;
+            _signinView.loadingView.infoLabel.text = @"Problem Signing in?";
+        } completed:^{
+            NSLog(@"Login::completed");
+            [Flurry logEvent:@"User signin success"];
+            JCUserViewController *userController = [[JCUserViewController alloc] init];
+            [self.navigationController pushViewController:userController animated:YES];
+        }];
+        return [RACSignal empty];
+    }];
+    
+    // Sign up
+    _signinView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        NSLog(@"Signup tapped");
+        [Flurry logEvent:@"Signup button tapped"];
+        JCSignupViewModel *signupVM = [JCSignupViewModel new];
+        [signupVM setEmail:_viewModel.email];
+        JCSignupViewController *signupController = [[JCSignupViewController alloc] initWithViewModel:signupVM];
+        [self.navigationController pushViewController:signupController animated:YES];
+        return [RACSignal empty];
+    }];
+    
+    // Keyboard
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,15 +109,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController *)navigationController
-      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)dismissKeyboard
 {
-    if (viewController == navigationController.viewControllers[0]) {
-        // Back to welcome view - smooth changing from nav bar to no nav bar
-        [navigationController setNavigationBarHidden:YES animated:NO];
-    }
+    [_signinView.emailField resignFirstResponder];
+    [_signinView.passwordField resignFirstResponder];
+    
+    CGPoint scrollPoint = CGPointMake(0.0, 0.0);
+    [_signinView.contentView setContentOffset:scrollPoint animated:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    CGFloat offset = 213;
+    CGPoint scrollPoint = CGPointMake(0.0, offset);
+    [_signinView.contentView setContentOffset:scrollPoint animated:YES];
 }
 
 @end

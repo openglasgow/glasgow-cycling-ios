@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FDTake/FDTakeController.h>
+#import "JCLoadingView.h"
 @class JCSignupViewModel, JCTextField;
 
 @interface JCSignupView : UIView <UIPickerViewDataSource, UIPickerViewDelegate,
@@ -15,12 +16,15 @@
 
 @property (strong, nonatomic) FDTakeController *takeController;
 
+@property (strong, nonatomic) UIScrollView *contentView;
+
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
 @property (strong, nonatomic) JCTextField *emailField;
 @property (strong, nonatomic) JCTextField *passwordField;
 @property (strong, nonatomic) JCTextField *firstNameField;
 @property (strong, nonatomic) JCTextField *lastNameField;
 @property (strong, nonatomic) UIButton *profilePictureButton;
+@property (strong, nonatomic) UIButton *signupButton;
 
 // Date picker
 @property (strong, nonatomic) JCTextField *dobField;
@@ -33,6 +37,16 @@
 @property (strong, nonatomic) UIButton *genderToolbarButton;
 @property (nonatomic, retain) UIToolbar *genderToolbar;
 @property (nonatomic, retain) UIPickerView *genderPicker;
+
+//labels
+@property (strong, nonatomic) UILabel *nameFieldLabel;
+@property (strong, nonatomic) UILabel *emailFieldLabel;
+@property (strong, nonatomic) UILabel *passwordFieldLabel;
+@property (strong, nonatomic) UILabel *genderFieldLabel;
+@property (strong, nonatomic) UILabel *dobFieldLabel;
+
+@property (strong, nonatomic) JCLoadingView *loadingView;
+@property (strong, nonatomic) UIView *bottomArea;
 
 - (id)initWithViewModel:(JCSignupViewModel *)signupViewModel;
 

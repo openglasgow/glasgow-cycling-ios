@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class JCSigninViewModel, JCSigninView;
 
-@interface JCSigninViewController : UIViewController <UINavigationControllerDelegate>
+@interface JCSigninViewController : UIViewController <UITextFieldDelegate>
 @property (strong, nonatomic) JCSigninViewModel *viewModel;
 @property (strong, nonatomic) JCSigninView *signinView;
 @end

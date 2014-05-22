@@ -9,7 +9,8 @@
 #import "JCAPIManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import <GSKeychain/GSKeychain.h>
-#import "JCWelcomeViewController.h"
+#import "JCSigninViewController.h"
+
 #import "JCNavViewController.h"
 #import "JCNotificationManager.h"
 #import "Flurry.h"
@@ -83,7 +84,7 @@
         [Flurry logEvent:@"Unauthorized Request"];
         [[GSKeychain systemKeychain] removeAllSecrets];
         if (self.navController) {
-            JCWelcomeViewController *welcomeVC = [[JCWelcomeViewController alloc] init];
+            JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
             [self.navController setViewControllers:@[welcomeVC] animated:NO];
             [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
                                                           subtitle:@"Your user details are invalid"

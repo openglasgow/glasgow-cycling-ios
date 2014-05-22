@@ -35,8 +35,8 @@
     return [UIColor colorWithRed:88/255.0f green:77/255.0f blue:77/255.0f alpha:1.0f];
 }
 
-+ (UIColor *)jc_greenColor
++ (UIColor *)jc_buttonGreenColor
 {
-    return [UIColor colorWithRed:(0x7E / 255.0) green:(0xD3 / 255.0) blue:(0x21 / 255.0) alpha:1.0];
+    return [UIColor colorWithRed:(126/255.0f) green:(211/255.0f) blue:(33/255.0f) alpha:1.0];
 }
 @end
