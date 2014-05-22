@@ -29,7 +29,6 @@
         [self.graphView removeFromSuperview];
         self.graphView = barChartView;
         [self addSubview:self.graphView];
-        
     }
     return self;
 }

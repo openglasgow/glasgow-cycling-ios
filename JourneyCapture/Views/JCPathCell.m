@@ -76,6 +76,7 @@
     [_ratingView setDisplayMode:EDStarRatingDisplayFull];
     _ratingView.starImage = [UIImage imageNamed:@"star"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"filled-star"];
+    _ratingView.userInteractionEnabled = NO;
     
     [RACChannelTo(self, viewModel.averageRating) subscribeNext:^(id rating) {
         _ratingView.rating = [rating floatValue];
