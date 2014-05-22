@@ -15,6 +15,9 @@
 #import "Flurry.h"
 #import "UIImage+color.h"
 
+#import "JCQuestionViewController.h"
+#import "JCQuestionListViewModel.h"
+
 @implementation JCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -48,6 +51,10 @@
     } else {
         rootController = [[JCSigninViewController alloc] init];
     }
+    
+    JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
+    rootController = [[JCQuestionViewController alloc] initWithViewModel:questionList
+                                                                                 questionIndex:0];    
     JCNavViewController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
     [self.window setRootViewController:navController];
     

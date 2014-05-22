@@ -7,9 +7,10 @@
 //
 
 #import "JCQuestionViewController.h"
+#import "JCUserViewController.h"
 #import "JCQuestionListViewModel.h"
 #import "JCQuestionViewModel.h"
-#import "JCUserViewController.h"
+#import "JCQuestionView.h"
 #import "Flurry.h"
 
 @interface JCQuestionViewController ()
@@ -37,35 +38,22 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
-    // Question
-    _questionLabel = [[UILabel alloc] init];
-    _questionLabel.text = _questionModel.question;
-    _questionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_questionLabel];
-
-    // Answers
-    _answersTable = [[UITableView alloc] init];
-    _answersTable.delegate = self;
-    _answersTable.dataSource = self;
-    _answersTable.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_answersTable];
+    JCQuestionViewModel *questionVM = _viewModel.questions[_questionIndex];
+    _questionView = [[JCQuestionView alloc] initWithViewModel:questionVM];
+    _questionView.translatesAutoresizingMaskIntoConstraints = NO;
+    _questionView.answersTable.delegate = self;
+    _questionView.answersTable.dataSource = self;
+    [self.view addSubview:_questionView];
 }
 
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
 
-    [_questionLabel autoRemoveConstraintsAffectingView];
-    [_questionLabel autoPinToTopLayoutGuideOfViewController:self withInset:15];
-    [_questionLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:15];
-    [_questionLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-15];
-
-    [_answersTable autoRemoveConstraintsAffectingView];
-    [_answersTable autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_questionLabel withOffset:15];
-    [_answersTable autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view];
-    [_answersTable autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view];
-    [_answersTable autoSetDimension:ALDimensionHeight toSize:_questionModel.answers.count * 34.0];
-
+    [_questionView autoRemoveConstraintsAffectingView];
+    [_questionView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    [_questionView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    
     [self.view layoutSubviews];
 }
 
