@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "JCLoadingView.h"
-#import <TPKeyboardAvoiding/TPKeyboardAvoidingScrollView.h>
 
 @class JCSigninViewModel, JCTextField;
 
