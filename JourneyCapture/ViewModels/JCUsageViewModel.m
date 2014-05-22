@@ -9,7 +9,7 @@
 //
 
 #import "JCUsageViewModel.h"
-
+#import "JCAPIManager.h"
 
 @implementation JCUsageViewModel
 
@@ -26,21 +26,30 @@ NSString * kStatsDistanceKey = @"distance";
 
 - (RACSignal *)loadStatsForDays:(NSInteger)numDays
 {
+    @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        self.periods = @[
-                     @{@"distance": @13.3},
-                     @{@"distance": @3.3},
-                     @{@"distance": @2.3},
-                     @{@"distance": @4.3},
-                     @{@"distance": @3.3},
-                     @{@"distance": @8.3},
-                     @{@"distance": @9.3},
-                     ];
-        [subscriber sendCompleted];
+        NSDictionary *statsParams = @{@"num_days": @(numDays)};
+        JCAPIManager *manager = [JCAPIManager manager];
+        AFHTTPRequestOperation *op = [manager GET:@"/stats/days.json" parameters:statsParams
+            success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+                // Loaded user details
+                NSLog(@"Stays load success: %ld days", (long)numDays);
+                NSLog(@"%@", responseObject);
+                
+                @strongify(self);
+                self.periods = responseObject[@"days"];
+                [subscriber sendCompleted];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Stats load failure");
+                NSLog(@"%@", error);
+                [subscriber sendError:error];
+            }
+        ];
         
         return [RACDisposable disposableWithBlock:^{
-            
+            [op cancel];
         }];
+
     }];
 }
 
