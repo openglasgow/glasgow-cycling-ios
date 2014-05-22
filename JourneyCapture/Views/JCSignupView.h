@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) FDTakeController *takeController;
 
+@property (strong, nonatomic) UIScrollView *contentView;
+
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
 @property (strong, nonatomic) JCTextField *emailField;
 @property (strong, nonatomic) JCTextField *passwordField;

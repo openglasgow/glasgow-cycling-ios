@@ -22,7 +22,14 @@
     }
 
     _viewModel = signupViewModel;
+    
+    UIFont *labelFont = [UIFont systemFontOfSize:14];
 
+    // Content scroll view
+    _contentView = [UIScrollView new];
+    _contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview: _contentView];
+    
     //Setting up dob DatePicker for dobField use
     _dobPicker = [UIDatePicker new];
     _dobPicker.datePickerMode = UIDatePickerModeDate;
@@ -70,7 +77,7 @@
             [_profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
         }
     }];
-    [self addSubview:_profilePictureButton];
+    [_contentView addSubview:_profilePictureButton];
 
     _profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [Flurry logEvent:@"Signup profile picture selected"];
@@ -84,57 +91,69 @@
     // Email
     _emailFieldLabel = [UILabel new];
     _emailFieldLabel.text = @"Email Address";
+    _emailFieldLabel.font = labelFont;
     _emailFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_emailFieldLabel];
+    [_contentView addSubview:_emailFieldLabel];
     
     _emailField = [JCTextField new];
     _emailField.userInteractionEnabled = YES;
     _emailField.borderStyle = UITextBorderStyleRoundedRect;
     _emailField.placeholder = @"Your email";
+    _emailField.font = labelFont;
     _emailField.keyboardType = UIKeyboardTypeEmailAddress;
     _emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
+    [_contentView addSubview:_emailField];
+    NSString *email = _viewModel.email;
     RAC(_viewModel, email) = _emailField.rac_textSignal;
-    [self addSubview:_emailField];
+    [_emailField setText:email];
 
     // Validation and errors
     [_viewModel.emailValid subscribeNext:^(id emailValid) {
         _emailField.valid = [emailValid boolValue];
     }];
-    RACChannelTo(_viewModel, emailError) = RACChannelTo(_emailField, error);
+    [RACObserve(_viewModel, emailError) subscribeNext:^(id x) {
+        _emailField.error = _viewModel.emailError.length > 0;
+    }];
 
     // Password
     _passwordFieldLabel = [UILabel new];
     _passwordFieldLabel.text = @"Password";
+    _passwordFieldLabel.font = labelFont;
     _passwordFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_passwordFieldLabel];
+    [_contentView addSubview:_passwordFieldLabel];
     
     _passwordField = [JCTextField new];
     _passwordField.borderStyle = UITextBorderStyleRoundedRect;
     _passwordField.secureTextEntry = YES;
     _passwordField.placeholder = @"New Password";
+    _passwordField.font = labelFont;
     _passwordField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, password) = _passwordField.rac_textSignal;
-    [self addSubview:_passwordField];
+    [_contentView addSubview:_passwordField];
 
     // Validation and errors
     [_viewModel.passwordValid subscribeNext:^(id passwordValid) {
         _passwordField.valid = [passwordValid boolValue];
     }];
-    RACChannelTo(_viewModel, passwordError) = RACChannelTo(_passwordField, error);
+    [RACObserve(_viewModel, passwordError) subscribeNext:^(id x) {
+        _passwordField.error = _viewModel.passwordError.length > 0;
+    }];
 
     // First name
     _nameFieldLabel = [UILabel new];
     _nameFieldLabel.text = @"Name";
+    _nameFieldLabel.font = labelFont;
     _nameFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_nameFieldLabel];
+    [_contentView addSubview:_nameFieldLabel];
     
     _firstNameField = [JCTextField new];
     _firstNameField.borderStyle = UITextBorderStyleRoundedRect;
     _firstNameField.placeholder = @"First Name";
+    _firstNameField.font = labelFont;
     _firstNameField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, firstName) = _firstNameField.rac_textSignal;
-    [self addSubview:_firstNameField];
+    [_contentView addSubview:_firstNameField];
     [_viewModel.firstNameValid subscribeNext:^(id firstNameValid) {
         _firstNameField.valid = [firstNameValid boolValue];
     }];
@@ -143,9 +162,10 @@
     _lastNameField = [JCTextField new];
     _lastNameField.borderStyle = UITextBorderStyleRoundedRect;
     _lastNameField.placeholder = @"Last Name";
+    _lastNameField.font = labelFont;
     _lastNameField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, lastName) = _lastNameField.rac_textSignal;
-    [self addSubview:_lastNameField];
+    [_contentView addSubview:_lastNameField];
     [_viewModel.lastNameValid subscribeNext:^(id lastNameValid) {
         _lastNameField.valid = [lastNameValid boolValue];
     }];
@@ -153,17 +173,19 @@
     // DOB
     _dobFieldLabel = [UILabel new];
     _dobFieldLabel.text = @"Date Of Birth";
+    _dobFieldLabel.font = labelFont;
     _dobFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_dobFieldLabel];
+    [_contentView addSubview:_dobFieldLabel];
     
     _dobField = [JCTextField new];
     _dobField.borderStyle = UITextBorderStyleRoundedRect;
     _dobField.placeholder = @"Date of Birth";
+    _dobField.font = labelFont;
     _dobField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, dob) = _dobField.rac_textSignal;
     _dobField.inputView = _dobPicker;
     _dobField.inputAccessoryView = _dobToolbar;
-    [self addSubview:_dobField];
+    [_contentView addSubview:_dobField];
 
     [_viewModel.dobValid subscribeNext:^(id dobValid) {
         _dobField.valid = [dobValid boolValue];
@@ -181,18 +203,20 @@
     // Gender
     _genderFieldLabel = [UILabel new];
     _genderFieldLabel.text = @"Gender";
+    _genderFieldLabel.font = labelFont;
     _genderFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_genderFieldLabel];
+    [_contentView addSubview:_genderFieldLabel];
     
     _genderField = [JCTextField new];
     _genderField.borderStyle = UITextBorderStyleRoundedRect;
     _genderField.placeholder = @"Gender";
+    _genderField.font = labelFont;
     _genderField.translatesAutoresizingMaskIntoConstraints = NO;
     RACChannelTo(_viewModel, gender) = RACChannelTo(_genderField, text);
     _genderField.inputView = _genderPicker;
     _genderField.inputAccessoryView = _genderToolbar;
     [_genderField setDelegate:self];
-    [self addSubview:_genderField];
+    [_contentView addSubview:_genderField];
 
     [_viewModel.genderValid subscribeNext:^(id genderValid) {
         _genderField.valid = [genderValid boolValue];
@@ -205,7 +229,7 @@
     [_signupButton setTitle:@"Sign Up" forState:UIControlStateNormal];
     _signupButton.layer.masksToBounds = YES;
     _signupButton.layer.cornerRadius = 4.0f;
-    [self addSubview:_signupButton];
+    [_contentView addSubview:_signupButton];
 
     return self;
 }
@@ -214,11 +238,11 @@
 
 - (void)layoutSubviews
 {
-    [_dobToolbarButton autoRemoveConstraintsAffectingView];
+    [_contentView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    
     [_dobToolbarButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_dobToolbar withOffset:-12];
     [_dobToolbarButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_dobToolbar];
 
-    [_genderToolbarButton autoRemoveConstraintsAffectingView];
     [_genderToolbarButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_genderToolbar withOffset:-12];
     [_genderToolbarButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_genderToolbar];
 
@@ -226,70 +250,58 @@
     int padding = 10;
     int textFieldHeight = 31;
     int picSize = 100;
-    int verticalPicPadding = ((2*textFieldHeight) + padding - picSize) / 4;
-    [_profilePictureButton autoRemoveConstraintsAffectingView];
-    [_profilePictureButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding + verticalPicPadding];
-    [_profilePictureButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
+    
+    [_profilePictureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_emailFieldLabel withOffset:-padding];
+    [_profilePictureButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_profilePictureButton autoSetDimensionsToSize:CGSizeMake(picSize, picSize)];
 
-    [_nameFieldLabel autoRemoveConstraintsAffectingView];
-    [_nameFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding];
-    [_nameFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_nameFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_contentView withOffset:padding];
+    [_nameFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     
-    [_firstNameField autoRemoveConstraintsAffectingView];
     [_firstNameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_nameFieldLabel withOffset:labelPadding];
-    [_firstNameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_firstNameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_firstNameField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
 
-    [_lastNameField autoRemoveConstraintsAffectingView];
-    [_lastNameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_lastNameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_lastNameField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
     [_lastNameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_firstNameField withOffset:padding];
 
-    [_emailFieldLabel autoRemoveConstraintsAffectingView];
-    [_emailFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_emailFieldLabel autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:-padding/2];
+    [_emailFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_emailFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_lastNameField];
     [_emailFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_lastNameField withOffset:padding];
 
-    [_emailField autoRemoveConstraintsAffectingView];
-    [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
+    [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_emailField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailFieldLabel withOffset:labelPadding];
     
-    [_passwordFieldLabel autoRemoveConstraintsAffectingView];
-    [_passwordFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_passwordFieldLabel autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:padding/2];
+    [_passwordFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_passwordFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_passwordField];
     [_passwordFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailField withOffset:padding];
 
-    [_passwordField autoRemoveConstraintsAffectingView];
-    [_passwordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_passwordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
+    [_passwordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_passwordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_passwordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordFieldLabel withOffset:labelPadding];
     
-    [_dobFieldLabel autoRemoveConstraintsAffectingView];
-    [_dobFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_dobFieldLabel autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:-padding/2];
+    [_dobFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_dobFieldLabel autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:-padding/2];
     [_dobFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
 
-    [_dobField autoRemoveConstraintsAffectingView];
-    [_dobField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_dobField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:-padding/2];
+    [_dobField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_dobField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:-padding/2];
     [_dobField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_dobFieldLabel withOffset:labelPadding];
     
-    [_genderFieldLabel autoRemoveConstraintsAffectingView];
-    [_genderFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
-    [_genderFieldLabel autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:padding/2];
+    [_genderFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_genderFieldLabel autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:padding/2];
     [_genderFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
 
-    [_genderField autoRemoveConstraintsAffectingView];
-    [_genderField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
-    [_genderField autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:self withOffset:padding/2];
+    [_genderField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_genderField autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:padding/2];
     [_genderField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_genderFieldLabel withOffset:labelPadding];
     
-    [_signupButton autoRemoveConstraintsAffectingView];
-    [_signupButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
-    [_signupButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
+    [_signupButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_signupButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_signupButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_genderField withOffset:padding];
+    [_signupButton autoSetDimension:ALDimensionWidth toSize:320 - (2*padding)];
 
     [super layoutSubviews];
 }
