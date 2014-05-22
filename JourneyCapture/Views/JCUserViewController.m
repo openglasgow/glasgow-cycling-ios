@@ -10,10 +10,12 @@
 #import "JCPathListViewController.h"
 #import "JCRouteCaptureViewController.h"
 #import "JCSearchViewController.h"
+#import "JCStatsViewController.h"
 
 #import "JCWeatherView.h"
 #import "JCMenuTableViewCell.h"
 #import "JCUserView.h"
+#import "JCUserHeaderView.h"
 
 #import "JCUserViewModel.h"
 #import "JCUserJourneyListViewModel.h"
@@ -81,15 +83,23 @@
     [super viewDidLoad];
     [self.navigationItem setHidesBackButton:YES];
     
+    // Search
     UIImage *magnifyingGlass = [UIImage imageNamed:@"magnifying-glass.png"];
     _searchButton = [[UIBarButtonItem alloc] initWithImage:magnifyingGlass style:UIBarButtonItemStyleBordered target:nil action:nil];
     self.navigationItem.rightBarButtonItem = _searchButton;
     
-    // Search
     _searchButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [self showSearch];
         return [RACSignal empty];
     }];
+    
+    // Stats
+    UITapGestureRecognizer *statsTapGesture = [[UITapGestureRecognizer alloc]
+                                          initWithTarget:self
+                                          action:@selector(showStats)];
+    statsTapGesture.cancelsTouchesInView = YES;
+    statsTapGesture.delaysTouchesEnded = NO;
+    [_userView.headerView addGestureRecognizer:statsTapGesture];
     
     // Capture
     _userView.captureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -97,12 +107,12 @@
         return [RACSignal empty];
     }];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
-                                          initWithTarget:self
-                                          action:@selector(showCapture)];
-    tapGesture.cancelsTouchesInView = YES;
-    tapGesture.delaysTouchesEnded = NO;
-    [_userView.mapView addGestureRecognizer:tapGesture];
+    UITapGestureRecognizer *captureTapGesture = [[UITapGestureRecognizer alloc]
+                                                 initWithTarget:self
+                                                 action:@selector(showCapture)];
+    captureTapGesture.cancelsTouchesInView = YES;
+    captureTapGesture.delaysTouchesEnded = NO;
+    [_userView.mapView addGestureRecognizer:captureTapGesture];
     
     // Nav title
     [_viewModel.fullNameSignal subscribeNext:^(NSString *fullName) {
@@ -151,6 +161,13 @@
     } completed:^{
         NSLog(@"User details loaded");
     }];
+}
+
+- (void)showStats
+{
+    [Flurry logEvent:@"Stats tapped"];
+    JCStatsViewController *statsController = [[JCStatsViewController alloc] initWithViewModel:_viewModel];
+    [self.navigationController pushViewController:statsController animated:YES];
 }
 
 - (void)showCapture

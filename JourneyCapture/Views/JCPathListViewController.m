@@ -92,7 +92,7 @@ static NSInteger const kLoadingCellTag = 1;
     [super viewWillLayoutSubviews];
 }
 
-# pragma mark - UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -109,7 +109,7 @@ static NSInteger const kLoadingCellTag = 1;
     }
 }
 
-# pragma mark - UITableViewDelegate
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView
   willDisplayCell:(UITableViewCell *)cell

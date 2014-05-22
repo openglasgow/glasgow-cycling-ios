@@ -8,11 +8,14 @@
 
 @import QuartzCore;
 
-#import "JCUserView.h"
 #import "JCUserViewModel.h"
+#import "JCWeatherViewModel.h"
+
+#import "JCUserView.h"
+#import "JCUserHeaderView.h"
 #import "JCScrollView.h"
 #import "JCWeatherView.h"
-#import "JCWeatherViewModel.h"
+
 
 @implementation JCUserView
 
@@ -39,53 +42,13 @@
     _pulldownView.backgroundColor = [UIColor jc_lightBlueColor];
     [_scrollView addSubview:_pulldownView];
 
-    // Profile
-    _profileBackgroundView = [UIView new];
-    _profileBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
-    _profileBackgroundView.backgroundColor = [UIColor jc_blueColor];
-    [_scrollView addSubview:_profileBackgroundView];
+
     
-    _profileImageView = [UIImageView new];
-    _profileImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    RACChannelTo(_profileImageView, image) = RACChannelTo(_viewModel, profilePic);
-
-    // Mask profile pic
-    _profileImageView.layer.masksToBounds = YES;
-    _profileImageView.layer.cornerRadius = 56.0f;
-    _profileImageView.layer.borderWidth = 4.0f;
-    _profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    [_scrollView addSubview:_profileImageView];
+    // TODO header
+    _headerView = [[JCUserHeaderView alloc] initWithViewModel:_viewModel];
+    _headerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_scrollView addSubview:_headerView];
     
-    // Profile stats
-    UIFont *statsFont = [UIFont fontWithName:@"Helvetica Neue" size:12.0];
-
-    // Monthly time
-    _timeThisMonthLabel = [UILabel new];
-    _timeThisMonthLabel.textColor = [UIColor whiteColor];
-    _timeThisMonthLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_timeThisMonthLabel setFont:statsFont];
-    RACChannelTerminal *secondsLabelChannel = RACChannelTo(self, timeThisMonthLabel.text);
-    RACChannelTerminal *secondsModelChannell = RACChannelTo(self, viewModel.secondsThisMonth);
-    [[secondsModelChannell map:^(NSNumber *secondsThisMonth){
-        int seconds = [secondsThisMonth intValue];
-        int hours = seconds / 3600;
-        int minutes = (seconds - (hours * 3600)) / 60;
-        return [NSString stringWithFormat:@"%d:%02d hours this month", hours, minutes];
-    }] subscribe:secondsLabelChannel];
-    [_scrollView addSubview:_timeThisMonthLabel];
-
-    // Monthly distance
-    _distanceThisMonthLabel = [UILabel new];
-    _distanceThisMonthLabel.textColor = [UIColor whiteColor];
-    _distanceThisMonthLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_distanceThisMonthLabel setFont:statsFont];
-    RACChannelTerminal *distanceLabelChannel = RACChannelTo(self, distanceThisMonthLabel.text);
-    RACChannelTerminal *distanceModelChannel = RACChannelTo(self, viewModel.kmThisMonth);
-    [[distanceModelChannel map:^(NSNumber *kmThisMonth){
-        return [NSString stringWithFormat:@"%.02f km this month", [kmThisMonth doubleValue]];
-    }] subscribe:distanceLabelChannel];
-    [_scrollView addSubview:_distanceThisMonthLabel];
-
     // Capture area
     _mapView = [MKMapView new];
     _mapView.zoomEnabled = NO;
@@ -130,29 +93,16 @@
     [_pulldownView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView withOffset:-1000.0f];
     [_pulldownView autoSetDimension:ALDimensionHeight toSize:1000.0f];
     
-    // Profile
-    [_profileBackgroundView autoRemoveConstraintsAffectingView];
-    [_profileBackgroundView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
-    [_profileBackgroundView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView];
-    [_profileBackgroundView autoSetDimension:ALDimensionHeight toSize:213.0f];
-    [_profileBackgroundView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-    
-    [_profileImageView autoRemoveConstraintsAffectingView];
-    [_profileImageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView withOffset:28];
-    [_profileImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_profileImageView autoSetDimensionsToSize:CGSizeMake(112, 112)];
-    
-    [_distanceThisMonthLabel autoRemoveConstraintsAffectingView];
-    [_distanceThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileImageView withOffset:5];
-    [_distanceThisMonthLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
-
-    [_timeThisMonthLabel autoRemoveConstraintsAffectingView];
-    [_timeThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_distanceThisMonthLabel withOffset:5];
-    [_timeThisMonthLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    // User Header
+    [_headerView autoRemoveConstraintsAffectingView];
+    [_headerView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
+    [_headerView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView];
+    [_headerView autoSetDimension:ALDimensionHeight toSize:213.0f];
+    [_headerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     
     // Capture
     [_mapView autoRemoveConstraintsAffectingView];
-    [_mapView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileBackgroundView];
+    [_mapView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_headerView];
     [_mapView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
     [_mapView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
     [_mapView autoSetDimension:ALDimensionHeight toSize:128];

@@ -95,7 +95,7 @@
     [_mapView setVisibleMapRect:paddedZoomRect animated:YES];
 }
 
-# pragma mark - UIView
+#pragma mark - UIView
 
 - (void)layoutSubviews
 {
@@ -129,7 +129,7 @@
     [super layoutSubviews];
 }
 
-# pragma mark - MKMapVIew
+#pragma mark - MKMapVIew
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {

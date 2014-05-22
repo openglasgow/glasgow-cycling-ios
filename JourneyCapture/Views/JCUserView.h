@@ -9,7 +9,7 @@
 @import UIKit;
 @import MapKit;
 
-@class JCUserViewModel, JCWeatherView;
+@class JCUserViewModel, JCUserHeaderView, JCWeatherView;
 
 @interface JCUserView : UIView
 @property (strong, nonatomic) JCUserViewModel *viewModel;
@@ -20,10 +20,7 @@
 @property (strong, nonatomic) JCWeatherView *pulldownView;
 
 // Profile area
-@property (strong, nonatomic) UIView *profileBackgroundView;
-@property (strong, nonatomic) UIImageView *profileImageView;
-@property (strong, nonatomic) UILabel *distanceThisMonthLabel;
-@property (strong, nonatomic) UILabel *timeThisMonthLabel;
+@property (strong, nonatomic) JCUserHeaderView *headerView;
 
 // Capture area
 @property (strong, nonatomic) MKMapView *mapView;
