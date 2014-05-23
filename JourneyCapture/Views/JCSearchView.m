@@ -43,7 +43,8 @@
     [_searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
     
     [_loadingView autoRemoveConstraintsAffectingView];
-    [_loadingView autoCenterInSuperview];
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_searchBar withOffset:150];
+    [_loadingView autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
     [_loadingView layoutSubviews];
     
     [_resultsTableView autoRemoveConstraintsAffectingView];
