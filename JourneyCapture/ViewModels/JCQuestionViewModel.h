@@ -13,4 +13,5 @@
 @property(strong, nonatomic) NSString *question;
 @property(strong, nonatomic) NSArray *answers;
 @property(strong, nonatomic) NSNumber *selectedAnswerIndex;
+@property(strong, nonatomic) NSString *information;
 @end

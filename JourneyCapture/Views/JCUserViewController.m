@@ -11,6 +11,7 @@
 #import "JCRouteCaptureViewController.h"
 #import "JCSearchViewController.h"
 #import "JCStatsViewController.h"
+#import "JCSigninViewController.h"
 
 #import "JCWeatherView.h"
 #import "JCMenuTableViewCell.h"
@@ -29,6 +30,7 @@
 #import <GBDeviceInfo/GBDeviceInfo.h>
 #import <GSKeychain/GSKeychain.h>
 #import "JCRouteManager.h"
+#import "JCAPIManager.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -227,6 +229,10 @@
         JCNearbyJourneyListViewModel *nearbyRoutesVM = [JCNearbyJourneyListViewModel new];
         JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:nearbyRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
+    } else {
+        [[GSKeychain systemKeychain] removeAllSecrets];
+        JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
+        [self.navigationController setViewControllers:@[welcomeVC] animated:NO];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

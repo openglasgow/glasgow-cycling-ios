@@ -17,4 +17,7 @@
 @property (strong, nonatomic) UIImageView *frontWheel;
 
 @property (strong, nonatomic) UILabel *infoLabel;
+
+- (void) setBikerBlue;
+
 @end

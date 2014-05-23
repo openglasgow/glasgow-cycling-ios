@@ -11,35 +11,34 @@
 #import "Flurry.h"
 
 @implementation JCTextField
-@synthesize valid, invalidView, correctBorderColor, correctBorderWidth,
-                correctCornerRadius, errorBorderColor, error;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.correctBorderColor = [UIColor colorWithCGColor:self.layer.borderColor];
-        self.correctCornerRadius = self.layer.cornerRadius;
-        self.correctBorderWidth = self.layer.borderWidth;
-        self.errorBorderColor = [UIColor redColor];
+        _correctBorderColor = [UIColor colorWithCGColor:self.layer.borderColor];
+        _correctCornerRadius = self.layer.cornerRadius;
+        _correctBorderWidth = self.layer.borderWidth;
+        _errorBorderColor = [UIColor redColor];
+        _error = NO;
         [RACObserve(self, valid) subscribeNext:^(id validVal) {
             if (self.text.length == 0) {
                 // Don't highlight empty fields are invalid
                 validVal = @YES;
             }
 
-            if ([validVal boolValue] && invalidView) {
+            if ([validVal boolValue] && _invalidView) {
                 [self hideInvalid];
             } else if (![validVal boolValue]){
                 [self showInvalid];
             }
         }];
 
-        [RACObserve(self, error) subscribeNext:^(id errorVal) {
-            if (self.error.length == 0) {
-                [self hideError];
-            } else {
+        [RACObserve(self, error) subscribeNext:^(id error) {
+            if (_error) {
                 [self showError];
+            } else {
+                [self hideError];
             }
         }];
     }
@@ -48,49 +47,31 @@
 
 - (void)showError
 {
-    NSMutableDictionary *errorAnalytics = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.error, @"error", nil];
-    if (!self.secureTextEntry) {
-        errorAnalytics[@"text"] = self.text;
-    }
-    [Flurry logEvent:@"Text Field Error" withParameters:errorAnalytics];
+    [Flurry logEvent:@"Text Field Error"];
 
     [self hideInvalid];
     [self hideError]; // Remove previous errors
     self.layer.borderWidth = 1.5f;
-    self.layer.borderColor = self.errorBorderColor.CGColor;
+    self.layer.borderColor = _errorBorderColor.CGColor;
     self.layer.cornerRadius = 5.0f;
-
-    self.errorLabel = [[UILabel alloc] init];
-    self.errorLabel.text = self.error;
-    self.errorLabel.textColor = self.errorBorderColor;
-    self.errorLabel.textAlignment = NSTextAlignmentRight;
-    self.errorLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:10.0f];
-    [self.superview addSubview:self.errorLabel];
-
-    self.errorLabel.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 - (void)hideError
 {
-    self.layer.borderColor = self.correctBorderColor.CGColor;
-    self.layer.borderWidth = self.correctBorderWidth;
-    self.layer.cornerRadius = self.correctCornerRadius;
-
-    if (self.errorLabel) {
-        [self.errorLabel removeFromSuperview];
-        self.errorLabel = nil;
-    }
+    self.layer.borderColor = _correctBorderColor.CGColor;
+    self.layer.borderWidth = _correctBorderWidth;
+    self.layer.cornerRadius = _correctCornerRadius;
 }
 
 - (void)showInvalid
 {
-    if (self.invalidView) {
+    if (_invalidView) {
         return;
     }
     // Data is invalid, show an invalid view if it doesn't exist
-    self.invalidView = [[UIView alloc]
+    _invalidView = [[UIView alloc]
                         initWithFrame:CGRectMake(0,0,4,self.frame.size.height)];
-    self.invalidView.backgroundColor = [UIColor redColor];
+    _invalidView.backgroundColor = [UIColor redColor];
 
     // Round the top and bottom left corners by creating a rounded mask which
     // is too wide to mask the right-side corners
@@ -100,27 +81,17 @@
     maskLayer.cornerRadius = radius;
     maskLayer.backgroundColor = [UIColor blackColor].CGColor;
     maskLayer.frame = maskFrame;
-    self.invalidView.layer.mask = maskLayer;
+    _invalidView.layer.mask = maskLayer;
 
-    [self addSubview:self.invalidView];
+    [self addSubview:_invalidView];
 }
 
 - (void)hideInvalid
 {
-    if (self.invalidView) {
-        [invalidView removeFromSuperview];
-        self.invalidView = nil;
+    if (_invalidView) {
+        [_invalidView removeFromSuperview];
+        _invalidView = nil;
     }
-}
-
-- (void)layoutError
-{
-    [self.errorLabel autoRemoveConstraintsAffectingView];
-    [self.errorLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self];
-    [self.errorLabel autoSetDimension:ALDimensionHeight toSize:10];
-    [self.errorLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:-10];
-    [self.errorLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:self.layer.cornerRadius];
-    [self.errorLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-self.layer.cornerRadius];
 }
 
 @end

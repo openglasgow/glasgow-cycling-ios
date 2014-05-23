@@ -117,4 +117,14 @@
     [super layoutSubviews];
 }
 
+- (void)setBikerBlue
+{
+    UIImage *frameImage = [UIImage imageNamed:@"bike_rider_blue"];
+    UIImage *wheelImage = [UIImage imageNamed:@"wheel-blue"];
+    
+    _bikeFrame.image = frameImage;
+    _frontWheel.image = wheelImage;
+    _backWheel.image = wheelImage;
+}
+
 @end

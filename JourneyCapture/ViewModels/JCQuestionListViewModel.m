@@ -21,17 +21,20 @@
         JCQuestionViewModel *vm = [[JCQuestionViewModel alloc] init];
         [vm setQuestion:@"How often will you use this app?"];
         [vm setAnswers:@[@"Once a week", @"Twice a week", @"3-5 times a week", @"Daily"]];
-        [vm setTitle:@"Weekly Usage"];
+        [vm setTitle:@"Your Weekly Usage"];
+        [vm setInformation:@"This will help us build a picture of how active the city is"];
 
         JCQuestionViewModel *vm2 = [[JCQuestionViewModel alloc] init];
         [vm2 setQuestion:@"What kind of cycling will you be doing?"];
-        [vm2 setAnswers:@[@"Commuting", @"Leisure", @"Family excursion", @"Offroad", @"Other"]];
-        [vm2 setTitle:@"Usage Type"];
+        [vm2 setAnswers:@[@"Commuting", @"Leisure", @"Family journeys", @"Offroad", @"Other"]];
+        [vm2 setTitle:@"Why Do You Cycle"];
+        [vm2 setInformation:@"There are many reasons to cycle each with their own needs and requirements"];
 
         JCQuestionViewModel *vm3 = [[JCQuestionViewModel alloc] init];
         [vm3 setQuestion:@"Why will you be using this app?"];
         [vm3 setAnswers:@[@"Community improvement", @"Health", @"Social", @"Exploration"]];
-        [vm3 setTitle:@"Usage Reason"];
+        [vm3 setTitle:@"Motivation For Cycling"];
+        [vm3 setInformation:@"Letting us know your motivation can help us encourge others to join in"];
 
         [self setQuestions:@[vm, vm2, vm3]];
     }

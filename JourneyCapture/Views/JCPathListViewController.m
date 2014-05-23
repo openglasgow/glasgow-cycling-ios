@@ -44,6 +44,7 @@ static NSInteger const kLoadingCellTag = 1;
     _loadingView = [JCLoadingView new];
     _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_loadingView];
+    _loadingView.infoLabel.numberOfLines = 3;
     _loadingView.loading = YES;
     
     // Routes table
