@@ -102,14 +102,14 @@
     [_contentView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
     
     int padding = 15;
-    int labelPadding = 2;
+    int labelPadding = 1;
     
     [_profileBackgroundView autoSetDimension:ALDimensionWidth toSize:self.frame.size.width];
     [_profileBackgroundView autoSetDimension:ALDimensionHeight toSize:180.0f];
     [_profileBackgroundView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:0];
     [_profileBackgroundView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:0];
     [_profileBackgroundView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_contentView withOffset:0];
-    [_profileBackgroundView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_emailFieldLabel withOffset:-10];
+    [_profileBackgroundView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_emailFieldLabel withOffset:-padding];
     
     [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_profileBackgroundView withOffset:120];
     [_loadingView autoAlignAxisToSuperviewAxis:ALAxisVertical];
