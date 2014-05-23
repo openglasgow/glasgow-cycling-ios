@@ -13,6 +13,7 @@
 @interface JCQuestionView : UIView
 
 @property (strong, nonatomic) JCQuestionViewModel *viewModel;
+@property (strong, nonatomic) UIScrollView *contentView;
 
 @property (strong, nonatomic) UILabel *questionLabel;
 @property (strong, nonatomic) UITableView *answersTable;

@@ -21,10 +21,15 @@
     
     [self setBackgroundColor:[UIColor whiteColor]];
     
+    // Content scroll view
+    _contentView = [UIScrollView new];
+    _contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview: _contentView];
+    
     _informationArea = [UIView new];
     _informationArea.backgroundColor = [UIColor jc_blueColor];
     _informationArea.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_informationArea];
+    [_contentView addSubview:_informationArea];
 
     _informationLabel = [UILabel new];
     _informationLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -44,13 +49,13 @@
     _questionLabel.text = _viewModel.question;
     _questionLabel.numberOfLines = 4;
     _questionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_questionLabel];
+    [_contentView addSubview:_questionLabel];
     
     // Answers
     _answersTable = [[UITableView alloc] init];
     _answersTable.translatesAutoresizingMaskIntoConstraints = NO;
     _answersTable.scrollEnabled = NO;
-    [self addSubview:_answersTable];
+    [_contentView addSubview:_answersTable];
     
     // Skip
     _skipButton = [UIButton new];
@@ -60,7 +65,7 @@
     [_skipButton setTintColor:[UIColor whiteColor]];
     _skipButton.layer.masksToBounds = YES;
     _skipButton.layer.cornerRadius = 4.0f;
-    [self addSubview:_skipButton];
+    [_contentView addSubview:_skipButton];
     
     return self;
 }
@@ -69,10 +74,12 @@
 
 - (void)layoutSubviews
 {
+    [_contentView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    
     [_informationArea autoRemoveConstraintsAffectingView];
-    [_informationArea autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
-    [_informationArea autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
-    [_informationArea autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
+    [_informationArea autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_contentView];
+    [_informationArea autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView];
+    [_informationArea autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView];
     [_informationArea autoSetDimension:ALDimensionHeight toSize:213];
 
     [_informationImage autoRemoveConstraintsAffectingView];
@@ -87,21 +94,23 @@
     
     [_questionLabel autoRemoveConstraintsAffectingView];
     [_questionLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_informationArea withOffset:15];
-    [_questionLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:15];
-    [_questionLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-15];
+    [_questionLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:15];
+    [_questionLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-15];
     [_questionLabel autoSetDimension:ALDimensionHeight toSize:44];
     
     [_answersTable autoRemoveConstraintsAffectingView];
     [_answersTable autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_questionLabel withOffset:15];
-    [_answersTable autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
-    [_answersTable autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
+    [_answersTable autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView];
+    [_answersTable autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView];
     [_answersTable autoSetDimension:ALDimensionHeight toSize:_viewModel.answers.count * 34.0];
     
     [_skipButton autoRemoveConstraintsAffectingView];
     [_skipButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_answersTable withOffset:15];
-    [_skipButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:10];
-    [_skipButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-10];
-    
+    [_skipButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:10];
+    [_skipButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-10];
+    [_skipButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_contentView withOffset:-10];
+    [_skipButton autoSetDimension:ALDimensionWidth toSize:300];
+
     [super layoutSubviews];
 }
 
