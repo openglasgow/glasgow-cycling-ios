@@ -28,7 +28,7 @@
 
     _informationLabel = [UILabel new];
     _informationLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _informationLabel.text = @"Providing this information will help empower the cycling community of Glasgow";
+    _informationLabel.text = _viewModel.information;
     _informationLabel.numberOfLines = 4;
     _informationLabel.textAlignment = NSTextAlignmentCenter;
     _informationLabel.textColor = [UIColor whiteColor];
