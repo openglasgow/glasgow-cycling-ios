@@ -39,6 +39,7 @@
 		12FBAC5B1920C58E00ADFF0F /* JCRouteListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC5A1920C58E00ADFF0F /* JCRouteListViewModel.m */; };
 		12FBAC6119211BFB00ADFF0F /* JCRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC6019211BFB00ADFF0F /* JCRouteView.m */; };
 		6E101EAD192E2AE10046E096 /* JCQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E101EAC192E2AE10046E096 /* JCQuestionView.m */; };
+		6E101EB7192F87F60046E096 /* JCSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E101EB6192F87F60046E096 /* JCSettingsView.m */; };
 		6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED56192A1D5100570D32 /* JCSearchViewController.m */; };
 		6EBFED5A192A31FC00570D32 /* JCSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED59192A31FC00570D32 /* JCSearchView.m */; };
 		6EBFED63192B9F2100570D32 /* JCSearchJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED62192B9F2100570D32 /* JCSearchJourneyListViewModel.m */; };
@@ -162,6 +163,8 @@
 		12FBAC6019211BFB00ADFF0F /* JCRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteView.m; sourceTree = "<group>"; };
 		6E101EAB192E2AE10046E096 /* JCQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionView.h; sourceTree = "<group>"; };
 		6E101EAC192E2AE10046E096 /* JCQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionView.m; sourceTree = "<group>"; };
+		6E101EB5192F87F60046E096 /* JCSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsView.h; sourceTree = "<group>"; };
+		6E101EB6192F87F60046E096 /* JCSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSettingsView.m; sourceTree = "<group>"; };
 		6EBFED55192A1D5100570D32 /* JCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchViewController.h; sourceTree = "<group>"; };
 		6EBFED56192A1D5100570D32 /* JCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSearchViewController.m; sourceTree = "<group>"; };
 		6EBFED58192A31FC00570D32 /* JCSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchView.h; sourceTree = "<group>"; };
@@ -371,6 +374,15 @@
 				83BD285D18CA04C50042F1E3 /* JCRouteViewModel.m */,
 			);
 			name = "Route List";
+			sourceTree = "<group>";
+		};
+		6E101EB8192F87F90046E096 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6E101EB5192F87F60046E096 /* JCSettingsView.h */,
+				6E101EB6192F87F60046E096 /* JCSettingsView.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		6EBFED54192A1C8C00570D32 /* Search */ = {
@@ -614,6 +626,7 @@
 				124A6E9A192A3165009E24AC /* Stats */,
 				83B5DEC418BFA1F10032F7E1 /* Journey/Route Lists */,
 				83B3485618C0BCD100D59FB9 /* Route View */,
+				6E101EB8192F87F90046E096 /* Settings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -843,7 +856,6 @@
 				83501FDF18D0AC2D00CE7CFE /* UIImage+color.m in Sources */,
 				830C31CE18BCDF4800B7CC47 /* JCSignupViewController.m in Sources */,
 				124A6EA0192A39D4009E24AC /* JCUserHeaderView.m in Sources */,
-				83BA022418BE3E9F00EE7787 /* JCWelcomeViewController.m in Sources */,
 				83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */,
 				121A364E1924BA8500C3FB31 /* Route.m in Sources */,
 				837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */,
@@ -862,6 +874,7 @@
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				12C76B0F1912A22400B7F964 /* JCLoadingView.m in Sources */,
 				124A6EB4192A525F009E24AC /* JCUsageViewModel.m in Sources */,
+				6E101EB7192F87F60046E096 /* JCSettingsView.m in Sources */,
 				12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */,
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */,

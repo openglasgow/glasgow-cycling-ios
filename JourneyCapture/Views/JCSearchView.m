@@ -25,6 +25,8 @@
         _loadingView = [JCLoadingView new];
         _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
         _loadingView.loading = NO;
+        _loadingView.infoLabel.text = @"Where we going? Enter the destination above";
+        _loadingView.infoLabel.numberOfLines = 3;
         [self addSubview:_loadingView];
         
         // Results table
