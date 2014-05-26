@@ -39,6 +39,9 @@
 		12FBAC5B1920C58E00ADFF0F /* JCRouteListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC5A1920C58E00ADFF0F /* JCRouteListViewModel.m */; };
 		12FBAC6119211BFB00ADFF0F /* JCRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC6019211BFB00ADFF0F /* JCRouteView.m */; };
 		6E101EAD192E2AE10046E096 /* JCQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E101EAC192E2AE10046E096 /* JCQuestionView.m */; };
+		6E6701AE19333D3500C6E02A /* JCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */; };
+		6E6701B219333D6600C6E02A /* JCSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B119333D6600C6E02A /* JCSettingsView.m */; };
+		6E6701B5193344AC00C6E02A /* JCSettingsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */; };
 		6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED56192A1D5100570D32 /* JCSearchViewController.m */; };
 		6EBFED5A192A31FC00570D32 /* JCSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED59192A31FC00570D32 /* JCSearchView.m */; };
 		6EBFED63192B9F2100570D32 /* JCSearchJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED62192B9F2100570D32 /* JCSearchJourneyListViewModel.m */; };
@@ -162,6 +165,12 @@
 		12FBAC6019211BFB00ADFF0F /* JCRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteView.m; sourceTree = "<group>"; };
 		6E101EAB192E2AE10046E096 /* JCQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionView.h; sourceTree = "<group>"; };
 		6E101EAC192E2AE10046E096 /* JCQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionView.m; sourceTree = "<group>"; };
+		6E6701AC19333D3500C6E02A /* JCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsViewController.h; sourceTree = "<group>"; };
+		6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSettingsViewController.m; sourceTree = "<group>"; };
+		6E6701B019333D6600C6E02A /* JCSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsView.h; sourceTree = "<group>"; };
+		6E6701B119333D6600C6E02A /* JCSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSettingsView.m; sourceTree = "<group>"; };
+		6E6701B3193344AC00C6E02A /* JCSettingsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsViewModel.h; sourceTree = "<group>"; };
+		6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSettingsViewModel.m; sourceTree = "<group>"; };
 		6EBFED55192A1D5100570D32 /* JCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchViewController.h; sourceTree = "<group>"; };
 		6EBFED56192A1D5100570D32 /* JCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSearchViewController.m; sourceTree = "<group>"; };
 		6EBFED58192A31FC00570D32 /* JCSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchView.h; sourceTree = "<group>"; };
@@ -371,6 +380,26 @@
 				83BD285D18CA04C50042F1E3 /* JCRouteViewModel.m */,
 			);
 			name = "Route List";
+			sourceTree = "<group>";
+		};
+		6E6701AF19333D3F00C6E02A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6E6701AC19333D3500C6E02A /* JCSettingsViewController.h */,
+				6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */,
+				6E6701B019333D6600C6E02A /* JCSettingsView.h */,
+				6E6701B119333D6600C6E02A /* JCSettingsView.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		6E6701B6193344B000C6E02A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6E6701B3193344AC00C6E02A /* JCSettingsViewModel.h */,
+				6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		6EBFED54192A1C8C00570D32 /* Search */ = {
@@ -596,6 +625,7 @@
 				12FBAC531920C41B00ADFF0F /* Journey List */,
 				12FBAC581920C57B00ADFF0F /* Route List */,
 				129BE68A191BC54C0021437F /* Route Capture */,
+				6E6701B6193344B000C6E02A /* Settings */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -603,6 +633,7 @@
 		838C16D918BCBBEB0053BFB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6E6701AF19333D3F00C6E02A /* Settings */,
 				125340FC1913A412008E1856 /* Common */,
 				83DC969A18D07F3E00E66C26 /* Nav */,
 				83BA021E18BE3E7300EE7787 /* Signin */,
@@ -836,6 +867,7 @@
 				8303E2D518C61E2100215760 /* JCQuestionViewController.m in Sources */,
 				12F8E6FB190FFE3C00AA0216 /* JCScrollView.m in Sources */,
 				12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */,
+				6E6701B219333D6600C6E02A /* JCSettingsView.m in Sources */,
 				12EF442F19237D1E00C392E9 /* User.m in Sources */,
 				83501FE218D0BA5800CE7CFE /* JCTextField.m in Sources */,
 				121A36511924C86F00C3FB31 /* JCRouteManager.m in Sources */,
@@ -843,7 +875,7 @@
 				83501FDF18D0AC2D00CE7CFE /* UIImage+color.m in Sources */,
 				830C31CE18BCDF4800B7CC47 /* JCSignupViewController.m in Sources */,
 				124A6EA0192A39D4009E24AC /* JCUserHeaderView.m in Sources */,
-				83BA022418BE3E9F00EE7787 /* JCWelcomeViewController.m in Sources */,
+				6E6701AE19333D3500C6E02A /* JCSettingsViewController.m in Sources */,
 				83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */,
 				121A364E1924BA8500C3FB31 /* Route.m in Sources */,
 				837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */,
@@ -868,6 +900,7 @@
 				12477C7D1919196700CCF5E5 /* JCWeatherView.m in Sources */,
 				124A6EA3192A4DE8009E24AC /* JCBarChartView.m in Sources */,
 				6E101EAD192E2AE10046E096 /* JCQuestionView.m in Sources */,
+				6E6701B5193344AC00C6E02A /* JCSettingsViewModel.m in Sources */,
 				12AF45EE191A72F7003F7524 /* JCJourneyViewModel.m in Sources */,
 				12BCB75219114AA500629192 /* JCCaptureStatsView.m in Sources */,
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
