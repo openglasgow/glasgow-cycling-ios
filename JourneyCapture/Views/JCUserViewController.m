@@ -12,6 +12,7 @@
 #import "JCSearchViewController.h"
 #import "JCStatsViewController.h"
 #import "JCSigninViewController.h"
+#import "JCCycleMapViewController.h"
 
 #import "JCWeatherView.h"
 #import "JCMenuTableViewCell.h"
@@ -230,14 +231,15 @@
         [self.navigationController pushViewController:routesVC animated:YES];
     } else if (indexPath.row == 1) {
         // Nearby Routes
-        [Flurry logEvent:@"My routes tapped"];
+        [Flurry logEvent:@"Nearby routes tapped"];
         JCNearbyJourneyListViewModel *nearbyRoutesVM = [JCNearbyJourneyListViewModel new];
         JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:nearbyRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     } else {
-        [[GSKeychain systemKeychain] removeAllSecrets];
-        JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
-        [self.navigationController setViewControllers:@[welcomeVC] animated:NO];
+        // Cycle Map
+        [Flurry logEvent:@"Cycle map tapped"];
+        JCCycleMapViewController *cycleVC = [JCCycleMapViewController new];
+        [self.navigationController pushViewController:cycleVC animated:YES];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
