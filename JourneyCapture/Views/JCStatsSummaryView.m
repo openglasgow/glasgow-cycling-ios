@@ -43,7 +43,13 @@
     [RACObserve(self, viewModel.overall) subscribeNext:^(NSDictionary *overall) {
         if(overall[@"distance"]) {
             CGFloat distanceMiles = [overall[@"distance"] floatValue] * 0.621371192f;
-            _distanceLabel.text = [NSString stringWithFormat:@"%.1f miles", distanceMiles];
+            NSString *distanceDescription;
+            if (distanceMiles >= 0.95 || distanceMiles < 1.05) {
+                distanceDescription = @"mile";
+            } else {
+                distanceDescription = @"miles";
+            }
+            _distanceLabel.text = [NSString stringWithFormat:@"%.1f %@", distanceMiles, distanceDescription];
         }
     }];
     [self addSubview:_distanceLabel];
@@ -64,7 +70,13 @@
     [RACObserve(self, viewModel.overall) subscribeNext:^(NSDictionary *overall) {
         if(overall[@"routes_completed"]) {
             NSUInteger numRoutes = [overall[@"routes_completed"] intValue];
-            _routesCompletedLabel.text = [NSString stringWithFormat:@"%lu miles", (unsigned long)numRoutes];
+            NSString *routeDescription;
+            if (numRoutes == 1) {
+                routeDescription = @"route";
+            } else {
+                routeDescription = @"routes";
+            }
+            _routesCompletedLabel.text = [NSString stringWithFormat:@"%lu %@", (unsigned long)numRoutes, routeDescription];
         }
     }];
     [self addSubview:_routesCompletedLabel];
