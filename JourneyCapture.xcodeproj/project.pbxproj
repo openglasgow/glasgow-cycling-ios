@@ -22,6 +22,8 @@
 		125340FE1913A489008E1856 /* JCPathCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 125340FD1913A489008E1856 /* JCPathCell.xib */; };
 		125D7EC9193392B400187A17 /* JCCycleMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D7EC8193392B400187A17 /* JCCycleMapViewController.m */; };
 		125D7ECC193392C700187A17 /* JCCycleMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D7ECB193392C700187A17 /* JCCycleMapView.m */; };
+		125D7ED0193394DB00187A17 /* JCCycleMapViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D7ECF193394DB00187A17 /* JCCycleMapViewModel.m */; };
+		125D7ED319339AD200187A17 /* JCCycleMapLocationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D7ED219339AD200187A17 /* JCCycleMapLocationViewModel.m */; };
 		129BE686191BC3DE0021437F /* JCPathViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE685191BC3DE0021437F /* JCPathViewModel.m */; };
 		129BE689191BC5470021437F /* JCCaptureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE688191BC5470021437F /* JCCaptureViewModel.m */; };
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
@@ -131,6 +133,10 @@
 		125D7EC8193392B400187A17 /* JCCycleMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCycleMapViewController.m; sourceTree = "<group>"; };
 		125D7ECA193392C700187A17 /* JCCycleMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCycleMapView.h; sourceTree = "<group>"; };
 		125D7ECB193392C700187A17 /* JCCycleMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCycleMapView.m; sourceTree = "<group>"; };
+		125D7ECE193394DB00187A17 /* JCCycleMapViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCycleMapViewModel.h; sourceTree = "<group>"; };
+		125D7ECF193394DB00187A17 /* JCCycleMapViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCycleMapViewModel.m; sourceTree = "<group>"; };
+		125D7ED119339AD200187A17 /* JCCycleMapLocationViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCycleMapLocationViewModel.h; sourceTree = "<group>"; };
+		125D7ED219339AD200187A17 /* JCCycleMapLocationViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCycleMapLocationViewModel.m; sourceTree = "<group>"; };
 		129BE684191BC3DE0021437F /* JCPathViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPathViewModel.h; sourceTree = "<group>"; };
 		129BE685191BC3DE0021437F /* JCPathViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPathViewModel.m; sourceTree = "<group>"; };
 		129BE687191BC5470021437F /* JCCaptureViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureViewModel.h; sourceTree = "<group>"; };
@@ -354,6 +360,17 @@
 				125D7EC8193392B400187A17 /* JCCycleMapViewController.m */,
 				125D7ECA193392C700187A17 /* JCCycleMapView.h */,
 				125D7ECB193392C700187A17 /* JCCycleMapView.m */,
+			);
+			name = "Cycle Map";
+			sourceTree = "<group>";
+		};
+		125D7ECD193394C500187A17 /* Cycle Map */ = {
+			isa = PBXGroup;
+			children = (
+				125D7ECE193394DB00187A17 /* JCCycleMapViewModel.h */,
+				125D7ECF193394DB00187A17 /* JCCycleMapViewModel.m */,
+				125D7ED119339AD200187A17 /* JCCycleMapLocationViewModel.h */,
+				125D7ED219339AD200187A17 /* JCCycleMapLocationViewModel.m */,
 			);
 			name = "Cycle Map";
 			sourceTree = "<group>";
@@ -618,6 +635,7 @@
 				12FBAC531920C41B00ADFF0F /* Journey List */,
 				12FBAC581920C57B00ADFF0F /* Route List */,
 				129BE68A191BC54C0021437F /* Route Capture */,
+				125D7ECD193394C500187A17 /* Cycle Map */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -868,6 +886,7 @@
 				830C31CE18BCDF4800B7CC47 /* JCSignupViewController.m in Sources */,
 				124A6EA0192A39D4009E24AC /* JCUserHeaderView.m in Sources */,
 				83560C4F18BCE146004CE63C /* JCSignupViewModel.m in Sources */,
+				125D7ED319339AD200187A17 /* JCCycleMapLocationViewModel.m in Sources */,
 				121A364E1924BA8500C3FB31 /* Route.m in Sources */,
 				12DCCF30192F4DBE0016B061 /* JCStatsSummaryView.m in Sources */,
 				837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */,
@@ -881,6 +900,7 @@
 				12FBAC5B1920C58E00ADFF0F /* JCRouteListViewModel.m in Sources */,
 				83B5DECB18BFA3130032F7E1 /* JCPathListViewController.m in Sources */,
 				83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */,
+				125D7ED0193394DB00187A17 /* JCCycleMapViewModel.m in Sources */,
 				83519E7318CDC42800DA1E70 /* UIImage+Compression.m in Sources */,
 				83BD285E18CA04C50042F1E3 /* JCRouteViewModel.m in Sources */,
 				12BEEA0B19129BDA00025B0E /* JCUserJourneyListViewModel.m in Sources */,
