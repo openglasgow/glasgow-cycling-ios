@@ -24,4 +24,7 @@
 @property (nonatomic, strong) RACSignal *firstNameValid;
 @property (nonatomic, strong) RACSignal *lastNameValid;
 @property (nonatomic, strong) RACSignal *genderValid;
+
+- (RACSignal *)submit;
+
 @end

@@ -54,7 +54,7 @@ emailError, isValidDetails;
     return self;
 }
 
-- (RACSignal *)signup
+- (RACSignal *)submit
 {
     JCAPIManager *manager = [JCAPIManager manager];
     
@@ -72,21 +72,13 @@ emailError, isValidDetails;
     
     // Submit signup
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        NSDictionary *signupParams = [NSDictionary dictionaryWithObject:userData forKey:@"user"];
-        AFHTTPRequestOperation *op = [manager POST:@"/settings.json"
-                                        parameters:signupParams
+//        NSDictionary *settingsParams = [NSDictionary dictionaryWithObject:userData forKey:@"user"];
+        AFHTTPRequestOperation *op = [manager PUT:@"/details.json"
+                                        parameters:userData
                                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                // Registered, store user token
-                                               NSLog(@"Register success");
+                                               NSLog(@"Settings update success");
                                                NSLog(@"%@", responseObject);
-                                               NSString *userToken = responseObject[@"user_token"];
-                                               if (userToken) {
-                                                   [[GSKeychain systemKeychain] setSecret:userToken forKey:@"user_token"];
-                                                   [[GSKeychain systemKeychain] setSecret:self.email forKey:@"user_email"];
-                                                   [subscriber sendCompleted];
-                                               } else if (responseObject[@"errors"]) {
-                                                   [subscriber sendNext:responseObject[@"errors"]];
-                                               }
                                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                NSLog(@"Signin failure");
                                                NSLog(@"%@", error);

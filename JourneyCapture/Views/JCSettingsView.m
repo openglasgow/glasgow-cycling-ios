@@ -215,12 +215,12 @@
     [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_emailField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailFieldLabel withOffset:labelPadding];
     
-    [_genderFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_genderFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_genderFieldLabel autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:padding/2];
     [_genderFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailField withOffset:padding];
     
-    [_genderField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_genderField autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:padding/2];
+    [_genderField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_genderField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:_contentView];
     [_genderField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_genderFieldLabel withOffset:labelPadding];
     
     [_submitButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
@@ -261,26 +261,6 @@
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [_genderField setText:_viewModel.genders[row]];
-}
-
-#pragma mark - UITextFieldDelegate
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    if (textField.text.length == 0) {
-        [self pickerView:_genderPicker didSelectRow:0 inComponent:0];
-    }
-    
-    CGFloat offset = 100;
-    CGPoint scrollPoint = CGPointMake(0.0, offset);
-    [_contentView setContentOffset:scrollPoint animated:YES];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    CGFloat offset = 0;
-    CGPoint scrollPoint = CGPointMake(0.0, offset);
-    [_contentView setContentOffset:scrollPoint animated:YES];
 }
 
 #pragma mark - FDTakeControllerDelegate

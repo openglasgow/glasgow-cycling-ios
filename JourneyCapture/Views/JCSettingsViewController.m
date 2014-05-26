@@ -7,9 +7,10 @@
 //
 
 #import "JCSettingsViewController.h"
-#import "JCSettingsViewController.h"
+#import "JCUserViewController.h"
 #import "JCSettingsViewModel.h"
 #import "JCSettingsView.h"
+#import "Flurry.h"
 
 @interface JCSettingsViewController ()
 
@@ -65,26 +66,27 @@
 {
     [super viewDidLoad];
     
-    // Keyboard
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(dismissKeyboard)];
-    
-    [self.view addGestureRecognizer:tap];
+    // Sign in
+    @weakify(self);
+    _settingsView.submitButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
+        [[_viewModel submit] subscribeNext:^(id x) {
+            NSLog(@"Login::next");
+        } error:^(NSError *error) {
+            NSLog(@"Login::error");
+        } completed:^{
+            NSLog(@"Login::completed");
+            [Flurry logEvent:@"User signin success"];
+            JCUserViewController *userController = [[JCUserViewController alloc] init];
+            [self.navigationController pushViewController:userController animated:YES];
+        }];
+        return [RACSignal empty];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 }
-
-//- (void)dismissKeyboard
-//{
-//    [_signupView.passwordField resignFirstResponder];
-//    [_signupView.dobField resignFirstResponder];
-//    [_signupView.genderField resignFirstResponder];
-//    
-//    CGPoint scrollPoint = CGPointMake(0.0, 0.0);
-//    [_signupView.contentView setContentOffset:scrollPoint animated:YES];
-//}
 
 @end
