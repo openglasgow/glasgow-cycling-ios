@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-@class JCUserViewModel, JCUserHeaderView, JCGraphScrollView, JCUsageViewModel;
+@class JCUserViewModel, JCUserHeaderView, JCGraphScrollView, JCUsageViewModel, JCLoadingView;
 
 @interface JCStatsViewController : UIViewController
 
@@ -16,6 +16,7 @@
 @property (strong, nonatomic) JCUserHeaderView *headerView;
 @property (strong, nonatomic) UILabel *hintLabel;
 @property (strong, nonatomic) JCGraphScrollView *graphScrollView;
+@property (strong, nonatomic) JCLoadingView *loadingView;
 
 - (id)initWithViewModel:(JCUserViewModel *)userViewModel;
 

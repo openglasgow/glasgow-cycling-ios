@@ -113,7 +113,7 @@
     [_infoLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
     [_infoLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     [_infoLabel autoSetDimension:ALDimensionWidth toSize:160];
-//
+
     [super layoutSubviews];
 }
 
@@ -125,6 +125,8 @@
     _bikeFrame.image = frameImage;
     _frontWheel.image = wheelImage;
     _backWheel.image = wheelImage;
+    
+    _infoLabel.textColor = [UIColor jc_blueColor];
 }
 
 @end

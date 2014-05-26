@@ -18,6 +18,7 @@
 #import "JCLineGraphView.h"
 #import "JCPieChartView.h"
 #import "JCGraphScrollView.h"
+#import "JCLoadingView.h"
 
 @interface JCStatsViewController ()
 
@@ -68,6 +69,13 @@ CGFloat const kHeaderHeight = 213.0f;
                                                       viewModel:_usageViewModel];
     _graphScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_graphScrollView];
+    _graphScrollView.hidden = YES;
+    
+    // Loading indicator
+    _loadingView = [JCLoadingView new];
+    _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_loadingView setBikerBlue];
+    [self.view addSubview:_loadingView];
     
 }
 
@@ -88,6 +96,9 @@ CGFloat const kHeaderHeight = 213.0f;
     [_graphScrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
     [_graphScrollView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_headerView];
     
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_graphScrollView withOffset:150];
+    [_loadingView autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
+    
     [self.view layoutSubviews];
 }
 
@@ -96,10 +107,19 @@ CGFloat const kHeaderHeight = 213.0f;
     [super viewDidLoad];
     [self setTitle:@"Stats"];
     
+    _loadingView.loading = YES;
+    _loadingView.infoLabel.text = @"Loading Stats";
     [[_usageViewModel loadStatsForDays:7] subscribeError:^(NSError *error) {
         NSLog(@"Couldn't load usage");
+        _loadingView.loading = NO;
+        _loadingView.hidden = NO;
+        _loadingView.infoLabel.text = @"Error loading stats";
+        _graphScrollView.hidden = YES;
     } completed:^{
         NSLog(@"Got usage data");
+        _loadingView.loading = NO;
+        _loadingView.hidden = YES;
+        _graphScrollView.hidden = NO;
     }];
 }
 
