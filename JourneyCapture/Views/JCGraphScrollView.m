@@ -7,10 +7,11 @@
 //
 
 #import "JCGraphScrollView.h"
-#import "JCStatViewModel.h"
+#import "JCStatsSummaryView.h"
 #import "JCGraphView.h"
 #import "JCBarChartView.h"
 #import "JCLineGraphView.h"
+#import "JCStatViewModel.h"
 
 @implementation JCGraphScrollView
 
@@ -24,7 +25,8 @@
     }
     
     _viewModel = usageViewModel;
-    
+    _graphViews = [NSMutableArray new];
+
     // Scroll Area
     _statsScrollView = [UIScrollView new];
     _statsScrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -44,8 +46,13 @@
                                                                 displayKey:kStatsRoutesCompletedKey
                                                                      title:@"Routes Completed"];
     
+    // Summary view
+    JCStatsSummaryView *summaryView = [JCStatsSummaryView new];
+    summaryView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_graphViews addObject:summaryView];
+    [_statsScrollView addSubview:summaryView];
+    
     CGFloat graphHeight = frame.size.height - 50; // - space for elements above graph
-    _graphViews = [NSMutableArray new];
     
     // Line Graph Distance
     JCLineGraphView *lineGraphDistanceView = [[JCLineGraphView alloc] initWithViewModel:distanceStatVM];
@@ -53,7 +60,7 @@
     [lineGraphDistanceView reloadData];
     lineGraphDistanceView.translatesAutoresizingMaskIntoConstraints = NO;
     [_graphViews addObject:lineGraphDistanceView];
-    [self.statsScrollView addSubview:lineGraphDistanceView];
+    [_statsScrollView addSubview:lineGraphDistanceView];
     
     // Bar Chart Routes Completed
     JCBarChartView *barChartDistanceView = [[JCBarChartView alloc] initWithViewModel:routesStatVM];
@@ -61,7 +68,7 @@
     [barChartDistanceView reloadData];
     barChartDistanceView.translatesAutoresizingMaskIntoConstraints = NO;
     [_graphViews addObject:barChartDistanceView];
-    [self.statsScrollView addSubview:barChartDistanceView];
+    [_statsScrollView addSubview:barChartDistanceView];
     
     // Page control
     _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 320, 1000)];
@@ -77,7 +84,9 @@
     // Reload graphs on data update
     [RACObserve(self, viewModel.periods) subscribeNext:^(id x) {
         for (JCGraphView *graph in _graphViews) {
-            [graph reloadData];
+            if ([graph isKindOfClass:[JCGraphView class]]) {
+                [graph reloadData];
+            }
         }
     }];
     
