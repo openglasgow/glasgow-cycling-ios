@@ -7,17 +7,20 @@
 //
 
 #import "JCStatsSummaryView.h"
+#import "JCUsageViewModel.h"
 
 @implementation JCStatsSummaryView
 
 #pragma mark - Lifecycle
 
-- (id)init
+- (id)initWithViewModel:(JCUsageViewModel *)usageViewModel
 {
     self = [super init];
     if (!self) {
         return self;
     }
+    
+    _viewModel = usageViewModel;
     
     UIFont *statsTitleFont = [UIFont systemFontOfSize:15];
     UIColor *statsTitleColor = [UIColor jc_lightBlueColor];
@@ -36,7 +39,13 @@
     _distanceLabel.textColor = statsColor;
     _distanceLabel.textAlignment = NSTextAlignmentCenter;
     _distanceLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _distanceLabel.text = @"10 miles";
+    _distanceLabel.text = @"? miles";
+    [RACObserve(self, viewModel.overall) subscribeNext:^(NSDictionary *overall) {
+        if(overall[@"distance"]) {
+            CGFloat distanceMiles = [overall[@"distance"] floatValue] * 0.621371192f;
+            _distanceLabel.text = [NSString stringWithFormat:@"%.1f miles", distanceMiles];
+        }
+    }];
     [self addSubview:_distanceLabel];
     
     _routesCompletedTitleLabel = [UILabel new];
@@ -51,7 +60,13 @@
     _routesCompletedLabel.textColor = statsColor;
     _routesCompletedLabel.textAlignment = NSTextAlignmentCenter;
     _routesCompletedLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _routesCompletedLabel.text = @"3 routes";
+    _routesCompletedLabel.text = @"? routes";
+    [RACObserve(self, viewModel.overall) subscribeNext:^(NSDictionary *overall) {
+        if(overall[@"routes_completed"]) {
+            NSUInteger numRoutes = [overall[@"routes_completed"] intValue];
+            _routesCompletedLabel.text = [NSString stringWithFormat:@"%lu miles", (unsigned long)numRoutes];
+        }
+    }];
     [self addSubview:_routesCompletedLabel];
 
     return self;

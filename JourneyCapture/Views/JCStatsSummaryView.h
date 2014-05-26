@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JCUsageViewModel;
 
 @interface JCStatsSummaryView : UIView
 
+@property (strong, nonatomic) JCUsageViewModel *viewModel;
 @property (strong, nonatomic) UILabel *distanceTitleLabel;
 @property (strong, nonatomic) UILabel *distanceLabel;
 @property (strong, nonatomic) UILabel *routesCompletedTitleLabel;
 @property (strong, nonatomic) UILabel *routesCompletedLabel;
+
+- (id)initWithViewModel:(JCUsageViewModel *)usageViewModel;
 
 @end

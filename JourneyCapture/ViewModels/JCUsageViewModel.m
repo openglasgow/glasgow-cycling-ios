@@ -39,6 +39,7 @@ NSString * kStatsRoutesCompletedKey = @"routes_completed";
                 
                 @strongify(self);
                 self.periods = responseObject[@"days"];
+                self.overall = responseObject[@"overall"];
                 [subscriber sendCompleted];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Stats load failure");

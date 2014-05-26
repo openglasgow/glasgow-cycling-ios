@@ -47,7 +47,7 @@
                                                                      title:@"Routes Completed"];
     
     // Summary view
-    JCStatsSummaryView *summaryView = [JCStatsSummaryView new];
+    JCStatsSummaryView *summaryView = [[JCStatsSummaryView alloc] initWithViewModel:_viewModel];
     summaryView.translatesAutoresizingMaskIntoConstraints = NO;
     [_graphViews addObject:summaryView];
     [_statsScrollView addSubview:summaryView];
