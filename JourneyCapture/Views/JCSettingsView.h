@@ -41,4 +41,6 @@ UITextFieldDelegate, FDTakeDelegate>
 @property (strong, nonatomic) UIButton *passwordButton;
 @property (strong, nonatomic) UIButton *logoutButton;
 
+- (id)initWithViewModel:(JCSettingsViewModel *)settingsViewModel;
+
 @end

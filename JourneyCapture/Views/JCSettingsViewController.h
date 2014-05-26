@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class JCSettingsViewModel, JCSettingsView;
+
 @interface JCSettingsViewController : UIViewController
+
+@property (strong, nonatomic) JCSettingsViewModel *viewModel;
+@property (strong, nonatomic) JCSettingsView *settingsView;
+
+- (id)initWithViewModel:(JCSettingsViewModel *)settingsViewModel;
 
 @end

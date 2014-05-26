@@ -7,6 +7,9 @@
 //
 
 #import "JCSettingsViewController.h"
+#import "JCSettingsViewController.h"
+#import "JCSettingsViewModel.h"
+#import "JCSettingsView.h"
 
 @interface JCSettingsViewController ()
 
@@ -14,19 +17,14 @@
 
 @implementation JCSettingsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithViewModel:(JCSettingsViewModel *)settingsViewModel
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        _viewModel = settingsViewModel;
+        NSLog(@"Init settings controller");
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,15 +33,58 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UIViewController
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)loadView
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSLog(@"Loading view");
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    // Nav bar
+    [[self navigationItem] setTitle:@"Update Profile"];
+    
+    // Form
+    _settingsView = [[JCSettingsView alloc] initWithViewModel:_viewModel];
+    _settingsView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_settingsView];
 }
-*/
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    [_settingsView autoRemoveConstraintsAffectingView];
+    [_settingsView autoPinToTopLayoutGuideOfViewController:self withInset:0];
+    [_settingsView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+    
+    [self.view layoutSubviews];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Keyboard
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+//- (void)dismissKeyboard
+//{
+//    [_signupView.passwordField resignFirstResponder];
+//    [_signupView.dobField resignFirstResponder];
+//    [_signupView.genderField resignFirstResponder];
+//    
+//    CGPoint scrollPoint = CGPointMake(0.0, 0.0);
+//    [_signupView.contentView setContentOffset:scrollPoint animated:YES];
+//}
 
 @end
