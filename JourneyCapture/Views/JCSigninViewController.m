@@ -75,7 +75,7 @@
         } error:^(NSError *error) {
             NSLog(@"Login::error");
             _signinView.loadingView.loading = NO;
-            _signinView.loadingView.infoLabel.text = @"Problem Signing in?";
+            _signinView.loadingView.infoLabel.text = @"Problem Signing In";
         } completed:^{
             NSLog(@"Login::completed");
             [Flurry logEvent:@"User signin success"];
@@ -122,7 +122,7 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    CGFloat offset = 213;
+    CGFloat offset = 180;
     CGPoint scrollPoint = CGPointMake(0.0, offset);
     [_signinView.contentView setContentOffset:scrollPoint animated:YES];
 }

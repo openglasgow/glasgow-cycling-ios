@@ -15,6 +15,7 @@
 @property (strong, nonatomic) JCUserViewModel *viewModel;
 @property (strong, nonatomic) JCUserView *userView;
 @property (strong, nonatomic) UIBarButtonItem *searchButton;
+@property (strong, nonatomic) UIBarButtonItem *settingsButton;
 @property (readwrite, nonatomic) BOOL updateOnAppear;
 
 - (void)update;

@@ -95,6 +95,11 @@
         return [RACSignal empty];
     }];
     
+    // Settings
+    UIImage *settingsCog = [UIImage imageNamed:@"cog-icon.png"];
+    _settingsButton = [[UIBarButtonItem alloc] initWithImage:settingsCog style:UIBarButtonItemStyleBordered target:nil action:nil];
+    self.navigationItem.leftBarButtonItem = _settingsButton;
+    
     // Stats
     UITapGestureRecognizer *statsTapGesture = [[UITapGestureRecognizer alloc]
                                           initWithTarget:self

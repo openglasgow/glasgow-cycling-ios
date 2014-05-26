@@ -102,48 +102,41 @@
     [_contentView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
     
     int padding = 15;
-    int labelPadding = 2;
+    int labelPadding = 1;
     
-    [_profileBackgroundView autoRemoveConstraintsAffectingView];
-    [_profileBackgroundView autoSetDimension:ALDimensionHeight toSize:213.0f];
     [_profileBackgroundView autoSetDimension:ALDimensionWidth toSize:self.frame.size.width];
+    [_profileBackgroundView autoSetDimension:ALDimensionHeight toSize:180.0f];
     [_profileBackgroundView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:0];
     [_profileBackgroundView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:0];
     [_profileBackgroundView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_contentView withOffset:0];
+    [_profileBackgroundView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_emailFieldLabel withOffset:-padding];
     
-    [_loadingView autoRemoveConstraintsAffectingView];
-    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_profileBackgroundView withOffset:150];
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_profileBackgroundView withOffset:125];
     [_loadingView autoAlignAxisToSuperviewAxis:ALAxisVertical];
     
-    [_emailFieldLabel autoRemoveConstraintsAffectingView];
     [_emailFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_emailFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:padding];
-    [_emailFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_profileBackgroundView withOffset:padding];
+    [_emailFieldLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_emailField withOffset:-labelPadding];
 
-    [_emailField autoRemoveConstraintsAffectingView];
     [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_emailField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailFieldLabel withOffset:labelPadding];
-    
-    [_passwordFieldLabel autoRemoveConstraintsAffectingView];
+    [_emailField autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_passwordFieldLabel withOffset:-padding];
+
     [_passwordFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_passwordFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_passwordFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailField withOffset:padding];
+    [_passwordFieldLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_passwordField withOffset:-labelPadding];
 
-    [_passwordField autoRemoveConstraintsAffectingView];
     [_passwordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_passwordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordFieldLabel withOffset:labelPadding];
     [_passwordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_passwordField autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_signinButton withOffset:-padding];
 
-    [_signinButton autoRemoveConstraintsAffectingView];
     [_signinButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_signinButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_signinButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
+    [_signinButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_signupButton withOffset:-padding];
     
-    [_signupButton autoRemoveConstraintsAffectingView];
     [_signupButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_signupButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_signupButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_signinButton withOffset:padding];
+    [_signupButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_contentView withOffset:-padding];
     
     [super layoutSubviews];
 }
