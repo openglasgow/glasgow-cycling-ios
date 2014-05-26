@@ -7,10 +7,12 @@
 //
 
 #import "JCSettingsViewController.h"
+#import "JCSigninViewController.h"
 #import "JCUserViewController.h"
 #import "JCSettingsViewModel.h"
 #import "JCSettingsView.h"
 #import "Flurry.h"
+#import <GSKeychain/GSKeychain.h>
 
 @interface JCSettingsViewController ()
 
@@ -80,6 +82,15 @@
             JCUserViewController *userController = [[JCUserViewController alloc] init];
             [self.navigationController pushViewController:userController animated:YES];
         }];
+        return [RACSignal empty];
+    }];
+    
+    _settingsView.logoutButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
+        [[GSKeychain systemKeychain] removeAllSecrets];
+        JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
+        [self.navigationController setViewControllers:@[welcomeVC] animated:NO];
+        
         return [RACSignal empty];
     }];
 }
