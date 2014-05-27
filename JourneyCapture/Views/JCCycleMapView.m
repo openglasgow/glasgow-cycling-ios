@@ -10,6 +10,7 @@
 #import "JCCycleMapViewModel.h"
 #import "JCCycleMapLocationViewModel.h"
 #import "JCCycleMapAnnotation.h"
+#import "JCLocationManager.h"
 
 @implementation JCCycleMapView
 
@@ -41,6 +42,8 @@
 
 - (void)updateMap
 {
+    // Add annotations
+    [_mapView removeAnnotations:_mapView.annotations];
     for (JCCycleMapLocationViewModel *location in _viewModel.locations) {
         JCCycleMapAnnotation *annotation = [JCCycleMapAnnotation new];
         annotation.viewModel = location;
@@ -48,6 +51,11 @@
         annotation.coordinate = location.coordinate;
         [_mapView addAnnotation:annotation];
     }
+    
+    // Zoom to user region
+    CLLocationCoordinate2D userLoc = [[JCLocationManager sharedManager] currentLocation].coordinate;
+    MKMapRect zoomRect = MKMapRectMake(userLoc.latitude - 0, userLoc.longitude - 0, 10, 10);
+    [_mapView setVisibleMapRect:zoomRect animated:YES];
 }
 
 @end

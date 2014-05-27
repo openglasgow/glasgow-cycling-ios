@@ -27,6 +27,5 @@
 - (void)addLocation:(CLLocation *)location;
 - (void)setCompleted;
 - (NSOrderedSet *)points;
-- (RACSignal *)uploadRoute;
 
 @end

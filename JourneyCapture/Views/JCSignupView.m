@@ -240,7 +240,7 @@
     [_contentView addSubview:_bottomArea];
     
     _loadingView = [JCLoadingView new];
-    _loadingView.setBikerBlue;
+    [_loadingView setBikerBlue];
     _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
     _loadingView.infoLabel.text = @"";
     

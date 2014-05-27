@@ -18,7 +18,7 @@
     NSPredicate *incompletePredicate = [NSPredicate predicateWithFormat:@"completed = %@", @NO];
     NSArray *incompleteRoutes = [Route MR_findAllWithPredicate:incompletePredicate];
     if (incompleteRoutes.count > 0) {
-        NSLog(@"Deleting %lu incomplete route(s)", incompleteRoutes.count);
+        NSLog(@"Deleting %lu incomplete route(s)", (unsigned long)incompleteRoutes.count);
         for (Route *incomplete in incompleteRoutes) {
             [incomplete MR_deleteEntity];
         }
@@ -34,7 +34,7 @@
     NSPredicate *completePredicate = [NSPredicate predicateWithFormat:@"completed = %@", @YES];
     NSArray *completeRoutes = [Route MR_findAllWithPredicate:completePredicate];
     if (completeRoutes.count > 0) {
-        NSLog(@"Uploading %lu completed routes", completeRoutes.count);
+        NSLog(@"Uploading %lu completed routes", (unsigned long)completeRoutes.count);
         for (Route *completeRoute in completeRoutes) {
             [self uploadRoute:completeRoute];
         }
