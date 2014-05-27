@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import <MapKit/MapKit.h>
+@import MapKit;
+@class JCCycleMapViewModel;
 
-@interface JCCycleMapView : MKMapView
-
+@interface JCCycleMapView : UIView
+@property (strong, nonatomic) JCCycleMapViewModel *viewModel;
+@property (strong, nonatomic) MKMapView *mapView;
+- (id)initWithViewModel:(JCCycleMapViewModel *)mapViewModel;
 @end

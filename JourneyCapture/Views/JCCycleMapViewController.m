@@ -8,6 +8,7 @@
 
 #import "JCCycleMapViewController.h"
 #import "JCCycleMapView.h"
+#import "JCCycleMapViewModel.h"
 
 @interface JCCycleMapViewController ()
 
@@ -17,11 +18,11 @@
 
 #pragma mark - Lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        _viewModel = [JCCycleMapViewModel new];
     }
     return self;
 }
@@ -31,7 +32,7 @@
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    _cycleMapView = [JCCycleMapView new];
+    _cycleMapView = [[JCCycleMapView alloc] initWithViewModel:_viewModel];
     _cycleMapView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_cycleMapView];
 }

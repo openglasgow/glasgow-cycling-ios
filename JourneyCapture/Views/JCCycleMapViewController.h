@@ -7,8 +7,9 @@
 //
 
 @import UIKit;
-@class JCCycleMapView;
+@class JCCycleMapView, JCCycleMapViewModel;
 
 @interface JCCycleMapViewController : UIViewController
+@property (strong, nonatomic) JCCycleMapViewModel *viewModel;
 @property (strong, nonatomic) JCCycleMapView *cycleMapView;
 @end

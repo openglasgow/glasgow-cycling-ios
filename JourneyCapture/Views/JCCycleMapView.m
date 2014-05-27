@@ -7,16 +7,32 @@
 //
 
 #import "JCCycleMapView.h"
+#import "JCCycleMapViewModel.h"
 
 @implementation JCCycleMapView
 
-- (id)initWithFrame:(CGRect)frame
+#pragma mark - Lifecycle
+
+- (id)initWithViewModel:(JCCycleMapViewModel *)mapViewModel
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    self = [super init];
+    if (!self) {
+        return self;
     }
+    
+    _viewModel = mapViewModel;
+    
+    _mapView = [MKMapView new];
+    _mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_mapView];
+    
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [_mapView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+    [super layoutSubviews];
 }
 
 @end
