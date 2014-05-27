@@ -27,6 +27,7 @@
     
     _mapView = [MKMapView new];
     _mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    _mapView.showsUserLocation = YES;
     [self addSubview:_mapView];
     
     return self;
@@ -54,7 +55,9 @@
     
     // Zoom to user region
     CLLocationCoordinate2D userLoc = [[JCLocationManager sharedManager] currentLocation].coordinate;
-    MKMapRect zoomRect = MKMapRectMake(userLoc.latitude - 0, userLoc.longitude - 0, 10, 10);
+    MKMapPoint point = MKMapPointForCoordinate(userLoc);
+    MKMapRect zoomRect = MKMapRectMake(point.x - 4000, point.y - 4000,
+                                       15000, 15000);
     [_mapView setVisibleMapRect:zoomRect animated:YES];
 }
 

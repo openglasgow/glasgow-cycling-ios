@@ -169,7 +169,7 @@
         _searchView.loadingView.infoLabel.text = @"Destination not found";
     } completed:^{
         [[_viewModel loadItems] subscribeCompleted:^{
-            NSLog(@"Got %d search results", _viewModel.items.count);
+            NSLog(@"Got %lu search results", (unsigned long)_viewModel.items.count);
             if (_viewModel.items.count == 0){
                 _searchView.loadingView.loading = NO;
                 _searchView.loadingView.infoLabel.text = _viewModel.noItemsError;
