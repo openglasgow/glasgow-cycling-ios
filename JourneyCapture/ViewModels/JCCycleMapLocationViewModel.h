@@ -11,4 +11,6 @@
 
 @interface JCCycleMapLocationViewModel : RVMViewModel
 @property (readwrite, nonatomic) CLLocationCoordinate2D coordinate;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) UIImage *image;
 @end

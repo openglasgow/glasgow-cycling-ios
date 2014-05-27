@@ -8,7 +8,9 @@
 
 #import "JCCycleMapViewController.h"
 #import "JCCycleMapView.h"
+#import "JCCycleMapAnnotation.h"
 #import "JCCycleMapViewModel.h"
+#import "JCCycleMapLocationViewModel.h"
 
 @interface JCCycleMapViewController ()
 
@@ -50,13 +52,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self setTitle:@"Glasgow Cycle Map"];
+    
+    _cycleMapView.mapView.delegate = self;
+    [[_viewModel load] subscribeError:^(NSError *error) {
+        NSLog(@"Couldn't load cycle map data");
+    } completed:^{
+        NSLog(@"Loaded cycle map data");
+        [_cycleMapView updateMap];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    // this part is boilerplate code used to create or reuse a pin annotation
+    static NSString *viewId = @"MKPinAnnotationView";
+    MKAnnotationView *annotationView = (MKAnnotationView*)
+    [_cycleMapView.mapView dequeueReusableAnnotationViewWithIdentifier:viewId];
+    if (annotationView == nil) {
+        annotationView = [[MKAnnotationView alloc]
+                           initWithAnnotation:annotation reuseIdentifier:viewId];
+    }
+    // set your custom image
+    annotationView.image = ((JCCycleMapAnnotation *) annotation).viewModel.image;
+    annotationView.layer.masksToBounds = YES;
+    annotationView.layer.cornerRadius = 18.5f;
+    return annotationView;
 }
 
 @end

@@ -24,7 +24,7 @@
                         [UIImage imageNamed:@"nearby-routes-icon"],
                         [UIImage imageNamed:@"cycling-map-icon"]
                         ];
-    
+
     if (!_user) {
         if ([User MR_countOfEntities] == 0) {
             _user = [User MR_createEntity];
@@ -36,7 +36,7 @@
             [self loadFromUser:_user];
         }
     }
-    
+
     return self;
 }
 

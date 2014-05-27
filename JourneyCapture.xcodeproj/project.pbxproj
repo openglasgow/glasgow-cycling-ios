@@ -10,6 +10,7 @@
 		121A364E1924BA8500C3FB31 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 121A364D1924BA8500C3FB31 /* Route.m */; };
 		121A36511924C86F00C3FB31 /* JCRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 121A36501924C86F00C3FB31 /* JCRouteManager.m */; };
 		121A36541924F41100C3FB31 /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 121A36531924F41100C3FB31 /* Weather.m */; };
+		121E1FF7193497090057599E /* JCCycleMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 121E1FF6193497090057599E /* JCCycleMapAnnotation.m */; };
 		12477C7A1919160C00CCF5E5 /* JCWeatherViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12477C791919160C00CCF5E5 /* JCWeatherViewModel.m */; };
 		12477C7D1919196700CCF5E5 /* JCWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12477C7C1919196700CCF5E5 /* JCWeatherView.m */; };
 		124A6E9D192A318C009E24AC /* JCStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 124A6E9C192A318C009E24AC /* JCStatsViewController.m */; };
@@ -110,6 +111,8 @@
 		121A36501924C86F00C3FB31 /* JCRouteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteManager.m; sourceTree = "<group>"; };
 		121A36521924F41100C3FB31 /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
 		121A36531924F41100C3FB31 /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
+		121E1FF5193497090057599E /* JCCycleMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCycleMapAnnotation.h; sourceTree = "<group>"; };
+		121E1FF6193497090057599E /* JCCycleMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCycleMapAnnotation.m; sourceTree = "<group>"; };
 		12477C781919160C00CCF5E5 /* JCWeatherViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCWeatherViewModel.h; sourceTree = "<group>"; };
 		12477C791919160C00CCF5E5 /* JCWeatherViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCWeatherViewModel.m; sourceTree = "<group>"; };
 		12477C7B1919196700CCF5E5 /* JCWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCWeatherView.h; sourceTree = "<group>"; };
@@ -360,6 +363,8 @@
 				125D7EC8193392B400187A17 /* JCCycleMapViewController.m */,
 				125D7ECA193392C700187A17 /* JCCycleMapView.h */,
 				125D7ECB193392C700187A17 /* JCCycleMapView.m */,
+				121E1FF5193497090057599E /* JCCycleMapAnnotation.h */,
+				121E1FF6193497090057599E /* JCCycleMapAnnotation.m */,
 			);
 			name = "Cycle Map";
 			sourceTree = "<group>";
@@ -918,6 +923,7 @@
 				831EDB5A18BCBB33001468E4 /* JCAppDelegate.m in Sources */,
 				83B3484F18C09EFF00D59FB9 /* JCPathCell.m in Sources */,
 				83B3485C18C0BD1F00D59FB9 /* JCRouteViewController.m in Sources */,
+				121E1FF7193497090057599E /* JCCycleMapAnnotation.m in Sources */,
 				121A36541924F41100C3FB31 /* Weather.m in Sources */,
 				83BA022718BE474D00EE7787 /* JCSigninViewController.m in Sources */,
 				83F811E118C49E860010B1CD /* JCJourneyModel.xcdatamodeld in Sources */,

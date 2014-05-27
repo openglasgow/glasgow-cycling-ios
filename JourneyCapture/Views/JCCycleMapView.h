@@ -13,4 +13,5 @@
 @property (strong, nonatomic) JCCycleMapViewModel *viewModel;
 @property (strong, nonatomic) MKMapView *mapView;
 - (id)initWithViewModel:(JCCycleMapViewModel *)mapViewModel;
+- (void)updateMap;
 @end

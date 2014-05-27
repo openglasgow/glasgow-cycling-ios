@@ -29,6 +29,8 @@
         self.locations = @[
                             [JCCycleMapLocationViewModel new]
                            ];
+        
+        [subscriber sendCompleted];
 //        JCAPIManager *manager = [JCAPIManager manager];
 //        AFHTTPRequestOperation *op = [manager GET:@"/stats/days.json" parameters:statsParams
 //                                          success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {

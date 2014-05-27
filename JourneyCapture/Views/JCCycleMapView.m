@@ -8,6 +8,8 @@
 
 #import "JCCycleMapView.h"
 #import "JCCycleMapViewModel.h"
+#import "JCCycleMapLocationViewModel.h"
+#import "JCCycleMapAnnotation.h"
 
 @implementation JCCycleMapView
 
@@ -33,6 +35,19 @@
 {
     [_mapView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
     [super layoutSubviews];
+}
+
+#pragma mark - JCCycleMapView
+
+- (void)updateMap
+{
+    for (JCCycleMapLocationViewModel *location in _viewModel.locations) {
+        JCCycleMapAnnotation *annotation = [JCCycleMapAnnotation new];
+        annotation.viewModel = location;
+        annotation.title = location.name;
+        annotation.coordinate = location.coordinate;
+        [_mapView addAnnotation:annotation];
+    }
 }
 
 @end

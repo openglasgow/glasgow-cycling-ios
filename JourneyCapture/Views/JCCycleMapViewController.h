@@ -7,9 +7,10 @@
 //
 
 @import UIKit;
+@import MapKit;
 @class JCCycleMapView, JCCycleMapViewModel;
 
-@interface JCCycleMapViewController : UIViewController
+@interface JCCycleMapViewController : UIViewController <MKMapViewDelegate>
 @property (strong, nonatomic) JCCycleMapViewModel *viewModel;
 @property (strong, nonatomic) JCCycleMapView *cycleMapView;
 @end
