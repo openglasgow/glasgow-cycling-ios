@@ -10,12 +10,9 @@
 #import "JCAPIManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "UIImage+Compression.h"
+#import "User.h"
 
 @implementation JCSettingsViewModel
-@synthesize email, firstName, lastName, gender, genders, profilePicture,
-emailValid, firstNameValid, lastNameValid, genderValid,
-emailError, isValidDetails;
-
 
 - (id)init
 {
@@ -24,28 +21,31 @@ emailError, isValidDetails;
         return nil;
     }
     
-    self.genders = @[@"Undisclosed", @"Male", @"Female"];
+    _user = [User MR_findFirst];
+    [self loadFromUser:_user];
     
-    self.emailValid = [RACObserve(self, email) map:^(NSString *emailValue) {
+    _genders = @[@"Undisclosed", @"Male", @"Female"];
+    
+    _emailValid = [RACObserve(self, email) map:^(NSString *emailValue) {
         NSCharacterSet *emailSet = [NSCharacterSet characterSetWithCharactersInString:@"@"];
         return @(emailValue.length >= 5 &&
         [emailValue rangeOfCharacterFromSet:emailSet].location != NSNotFound);
     }];
     
-    self.firstNameValid = [RACObserve(self, gender) map:^(NSString *firstNameValue) {
+    _firstNameValid = [RACObserve(self, gender) map:^(NSString *firstNameValue) {
         return @(firstNameValue.length > 0);
     }];
     
-    self.lastNameValid = [RACObserve(self, gender) map:^(NSString *lastNameValue) {
+    _lastNameValid = [RACObserve(self, gender) map:^(NSString *lastNameValue) {
         return @(lastNameValue.length > 0);
     }];
     
-    self.genderValid = [RACObserve(self, gender) map:^(NSString *genderValue) {
+    _genderValid = [RACObserve(self, gender) map:^(NSString *genderValue) {
         return @(genderValue.length > 0);
     }];
     
     
-    self.isValidDetails = [RACSignal combineLatest:@[ self.emailValid, self.firstNameValid, self.lastNameValid, self.genderValid ]
+    _isValidDetails = [RACSignal combineLatest:@[ self.emailValid, self.firstNameValid, self.lastNameValid, self.genderValid ]
                                             reduce:^id(id eValid, id pValid, id fValid, id lValid, id dValid, id gValid){
                                                 return @([eValid boolValue] && [pValid boolValue] && [fValid boolValue]
                                                 && [lValid boolValue] && [dValid boolValue] && [gValid boolValue]);
@@ -59,7 +59,7 @@ emailError, isValidDetails;
     JCAPIManager *manager = [JCAPIManager manager];
     
     // Profile pic
-    NSData *imageData = [self.profilePicture compressToSize:250];
+    NSData *imageData = [_profilePicture compressToSize:250];
     NSString *imageEncoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
     // Submit signup
@@ -68,9 +68,9 @@ emailError, isValidDetails;
         // User data
         @strongify(self);
         NSDictionary *userData = @{
-                                   @"first_name": self.firstName,
-                                   @"last_name": self.lastName,
-                                   @"gender": self.gender
+                                   @"first_name": _firstName,
+                                   @"last_name": _lastName,
+                                   @"gender": _gender
                                    };
         // TODO imageEncoded. email.
 
@@ -90,9 +90,9 @@ emailError, isValidDetails;
                                                    if (fieldErrors[@"email"]) {
                                                        NSArray *emailErrors = fieldErrors[@"email"];
                                                        NSString *errorMessage = emailErrors[0];
-                                                       self.emailError = [NSString stringWithFormat:@"Email %@", errorMessage];
+                                                       _emailError = [NSString stringWithFormat:@"Email %@", errorMessage];
                                                    } else {
-                                                       self.emailError = nil;
+                                                       _emailError = nil;
                                                    }
                                                }
                                                [subscriber sendError:error];
@@ -103,6 +103,22 @@ emailError, isValidDetails;
             [op cancel];
         }];
     }];
+}
+
+
+-(void)loadFromUser:(User *)userModel
+{
+    _user = userModel;
+    [self setFirstName:_user.firstName];
+    [self setLastName:_user.lastName];
+    [self setGender:_user.gender];
+    [self setEmail:_user.email];
+    //    NSData *picData = _user.image;
+    //    if (picData) {
+    //        [self setProfilePic:[UIImage imageWithData:picData]];
+    //    } else {
+    //        [self setProfilePic:[UIImage imageNamed:@"profile-pic"]];
+    //    }
 }
 
 @end

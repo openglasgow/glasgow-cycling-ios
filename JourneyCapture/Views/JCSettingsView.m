@@ -79,7 +79,7 @@
     _emailField = [JCTextField new];
     _emailField.userInteractionEnabled = YES;
     _emailField.borderStyle = UITextBorderStyleRoundedRect;
-    _emailField.placeholder = @"Your email";
+    _emailField.text = _viewModel.email;
     _emailField.font = labelFont;
     _emailField.keyboardType = UIKeyboardTypeEmailAddress;
     _emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -106,7 +106,7 @@
     
     _firstNameField = [JCTextField new];
     _firstNameField.borderStyle = UITextBorderStyleRoundedRect;
-    _firstNameField.placeholder = @"First Name";
+    _firstNameField.text = _viewModel.firstName;
     _firstNameField.font = labelFont;
     _firstNameField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, firstName) = _firstNameField.rac_textSignal;
@@ -118,7 +118,7 @@
     // Last name
     _lastNameField = [JCTextField new];
     _lastNameField.borderStyle = UITextBorderStyleRoundedRect;
-    _lastNameField.placeholder = @"Last Name";
+    _lastNameField.text = _viewModel.lastName;
     _lastNameField.font = labelFont;
     _lastNameField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, lastName) = _lastNameField.rac_textSignal;
@@ -136,7 +136,7 @@
     
     _genderField = [JCTextField new];
     _genderField.borderStyle = UITextBorderStyleRoundedRect;
-    _genderField.placeholder = @"Gender";
+    _genderField.text = _viewModel.gender;
     _genderField.font = labelFont;
     _genderField.translatesAutoresizingMaskIntoConstraints = NO;
     RACChannelTo(_viewModel, gender) = RACChannelTo(_genderField, text);

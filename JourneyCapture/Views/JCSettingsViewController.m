@@ -13,6 +13,7 @@
 #import "JCSettingsView.h"
 #import "Flurry.h"
 #import <GSKeychain/GSKeychain.h>
+#import "User.h"
 
 @interface JCSettingsViewController ()
 

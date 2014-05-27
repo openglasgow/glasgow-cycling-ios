@@ -7,6 +7,7 @@
 //
 
 #import "RVMViewModel.h"
+@class User;
 
 @interface JCSettingsViewModel : RVMViewModel
 
@@ -24,6 +25,8 @@
 @property (nonatomic, strong) RACSignal *firstNameValid;
 @property (nonatomic, strong) RACSignal *lastNameValid;
 @property (nonatomic, strong) RACSignal *genderValid;
+
+@property (strong, nonatomic) User *user;
 
 - (RACSignal *)submit;
 
