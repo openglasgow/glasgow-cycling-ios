@@ -62,17 +62,18 @@ emailError, isValidDetails;
     NSData *imageData = [self.profilePicture compressToSize:250];
     NSString *imageEncoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
-    // User data
-    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
-                              self.firstName, @"first_name",
-                              self.lastName, @"last_name",
-                              self.gender, @"gender",
-                              imageEncoded, @"profile_picture",
-                              nil];
-    
     // Submit signup
+    @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-//        NSDictionary *settingsParams = [NSDictionary dictionaryWithObject:userData forKey:@"user"];
+        // User data
+        @strongify(self);
+        NSDictionary *userData = @{
+                                   @"first_name": self.firstName,
+                                   @"last_name": self.lastName,
+                                   @"gender": self.gender
+                                   };
+        // TODO imageEncoded. email.
+
         AFHTTPRequestOperation *op = [manager PUT:@"/details.json"
                                         parameters:userData
                                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
