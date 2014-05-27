@@ -59,7 +59,7 @@
     JCAPIManager *manager = [JCAPIManager manager];
     
     // Profile pic
-    NSData *imageData = [_profilePicture compressToSize:250];
+    NSData *imageData = [_profilePic compressToSize:250];
     NSString *imageEncoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
     // Submit signup
@@ -112,12 +112,12 @@
     [self setLastName:_user.lastName];
     [self setGender:_user.gender];
     [self setEmail:_user.email];
-    //    NSData *picData = _user.image;
-    //    if (picData) {
-    //        [self setProfilePic:[UIImage imageWithData:picData]];
-    //    } else {
-    //        [self setProfilePic:[UIImage imageNamed:@"profile-pic"]];
-    //    }
+    NSData *picData = _user.image;
+        if (picData) {
+            [self setProfilePic:[UIImage imageWithData:picData]];
+        } else {
+           [self setProfilePic:[UIImage imageNamed:@"profile-pic"]];
+        }
 }
 
 @end

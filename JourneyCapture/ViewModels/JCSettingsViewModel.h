@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *gender;
-@property (nonatomic, strong) UIImage *profilePicture;
+@property (nonatomic, strong) UIImage *profilePic;
 
 @property (nonatomic, strong) NSArray *genders;
 @property (nonatomic, strong) RACSignal *isValidDetails;

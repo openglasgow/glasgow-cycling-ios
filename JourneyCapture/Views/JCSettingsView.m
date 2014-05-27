@@ -50,10 +50,12 @@
     _profilePictureButton = [UIButton new];
     _profilePictureButton.translatesAutoresizingMaskIntoConstraints = NO;
     _profilePictureButton.tintColor = self.tintColor;
-    _profilePictureButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _profilePictureButton.layer.masksToBounds = YES;
+    _profilePictureButton.layer.cornerRadius = 50.0f;
+    _profilePictureButton.backgroundColor = [UIColor jc_blueColor];
     UIImage *defaultImage = [UIImage imageNamed:@"profile-pic-placeholder"];
     [_profilePictureButton setBackgroundImage:defaultImage forState:UIControlStateNormal];
-    [RACChannelTo(_viewModel, profilePicture) subscribeNext:^(id image) {
+    [RACChannelTo(_viewModel, profilePic) subscribeNext:^(id image) {
         if (image) {
             [_profilePictureButton setBackgroundImage:image forState:UIControlStateNormal];
         }
@@ -265,7 +267,7 @@
 
 - (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info
 {
-    _viewModel.profilePicture = photo;
+    _viewModel.profilePic = photo;
 }
 
 
