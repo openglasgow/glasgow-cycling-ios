@@ -8,7 +8,6 @@
 
 #import "JCSettingsViewController.h"
 #import "JCSigninViewController.h"
-#import "JCUserViewController.h"
 #import "JCSettingsViewModel.h"
 #import "JCSettingsView.h"
 #import "Flurry.h"
@@ -73,15 +72,12 @@
     @weakify(self);
     _settingsView.submitButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        [[_viewModel submit] subscribeNext:^(id x) {
-            NSLog(@"Login::next");
-        } error:^(NSError *error) {
+        [[_viewModel submit] subscribeError:^(NSError *error) {
             NSLog(@"Login::error");
         } completed:^{
             NSLog(@"Login::completed");
-            [Flurry logEvent:@"User signin success"];
-            JCUserViewController *userController = [[JCUserViewController alloc] init];
-            [self.navigationController pushViewController:userController animated:YES];
+            [Flurry logEvent:@"User settings change success"];
+            [self.navigationController popViewControllerAnimated:YES];
         }];
         return [RACSignal empty];
     }];

@@ -63,10 +63,8 @@
     NSString *imageEncoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
     // Submit signup
-    @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         // User data
-        @strongify(self);
         NSDictionary *userData = @{
                                    @"first_name": _firstName,
                                    @"last_name": _lastName,
@@ -80,6 +78,7 @@
                                                // Registered, store user token
                                                NSLog(@"Settings update success");
                                                NSLog(@"%@", responseObject);
+                                               [subscriber sendCompleted];
                                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                NSLog(@"Signin failure");
                                                NSLog(@"%@", error);
