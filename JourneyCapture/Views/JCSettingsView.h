@@ -31,7 +31,7 @@ UITextFieldDelegate, FDTakeDelegate>
 @property (nonatomic, retain) UIToolbar *genderToolbar;
 @property (nonatomic, retain) UIPickerView *genderPicker;
 
-//labels
+// labels
 @property (strong, nonatomic) UILabel *nameFieldLabel;
 @property (strong, nonatomic) UILabel *emailFieldLabel;
 @property (strong, nonatomic) UILabel *passwordFieldLabel;

@@ -42,6 +42,8 @@
 		6E6701AE19333D3500C6E02A /* JCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */; };
 		6E6701B219333D6600C6E02A /* JCSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B119333D6600C6E02A /* JCSettingsView.m */; };
 		6E6701B5193344AC00C6E02A /* JCSettingsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */; };
+		6E6701B91934BAB300C6E02A /* JCPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B81934BAB300C6E02A /* JCPasswordView.m */; };
+		6E6701BC1934BF9400C6E02A /* JCPasswordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701BB1934BF9400C6E02A /* JCPasswordViewModel.m */; };
 		6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED56192A1D5100570D32 /* JCSearchViewController.m */; };
 		6EBFED5A192A31FC00570D32 /* JCSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED59192A31FC00570D32 /* JCSearchView.m */; };
 		6EBFED63192B9F2100570D32 /* JCSearchJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED62192B9F2100570D32 /* JCSearchJourneyListViewModel.m */; };
@@ -171,6 +173,10 @@
 		6E6701B119333D6600C6E02A /* JCSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSettingsView.m; sourceTree = "<group>"; };
 		6E6701B3193344AC00C6E02A /* JCSettingsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsViewModel.h; sourceTree = "<group>"; };
 		6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSettingsViewModel.m; sourceTree = "<group>"; };
+		6E6701B71934BAB300C6E02A /* JCPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPasswordView.h; sourceTree = "<group>"; };
+		6E6701B81934BAB300C6E02A /* JCPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPasswordView.m; sourceTree = "<group>"; };
+		6E6701BA1934BF9400C6E02A /* JCPasswordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPasswordViewModel.h; sourceTree = "<group>"; };
+		6E6701BB1934BF9400C6E02A /* JCPasswordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPasswordViewModel.m; sourceTree = "<group>"; };
 		6EBFED55192A1D5100570D32 /* JCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchViewController.h; sourceTree = "<group>"; };
 		6EBFED56192A1D5100570D32 /* JCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSearchViewController.m; sourceTree = "<group>"; };
 		6EBFED58192A31FC00570D32 /* JCSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchView.h; sourceTree = "<group>"; };
@@ -389,6 +395,8 @@
 				6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */,
 				6E6701B019333D6600C6E02A /* JCSettingsView.h */,
 				6E6701B119333D6600C6E02A /* JCSettingsView.m */,
+				6E6701B71934BAB300C6E02A /* JCPasswordView.h */,
+				6E6701B81934BAB300C6E02A /* JCPasswordView.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -398,6 +406,8 @@
 			children = (
 				6E6701B3193344AC00C6E02A /* JCSettingsViewModel.h */,
 				6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */,
+				6E6701BA1934BF9400C6E02A /* JCPasswordViewModel.h */,
+				6E6701BB1934BF9400C6E02A /* JCPasswordViewModel.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -888,6 +898,7 @@
 				12FBAC5B1920C58E00ADFF0F /* JCRouteListViewModel.m in Sources */,
 				83B5DECB18BFA3130032F7E1 /* JCPathListViewController.m in Sources */,
 				83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */,
+				6E6701BC1934BF9400C6E02A /* JCPasswordViewModel.m in Sources */,
 				83519E7318CDC42800DA1E70 /* UIImage+Compression.m in Sources */,
 				83BD285E18CA04C50042F1E3 /* JCRouteViewModel.m in Sources */,
 				12BEEA0B19129BDA00025B0E /* JCUserJourneyListViewModel.m in Sources */,
@@ -917,6 +928,7 @@
 				12EF44381923BDEB00C392E9 /* RoutePoint.m in Sources */,
 				83641C1918D2052700671A2A /* JCNotificationManager.m in Sources */,
 				8303E2D818C62C2300215760 /* JCQuestionListViewModel.m in Sources */,
+				6E6701B91934BAB300C6E02A /* JCPasswordView.m in Sources */,
 				83BD286118CA06640042F1E3 /* JCRoutePointViewModel.m in Sources */,
 				6EBFED63192B9F2100570D32 /* JCSearchJourneyListViewModel.m in Sources */,
 				124A6EAC192A4E36009E24AC /* JCPieChartView.m in Sources */,
