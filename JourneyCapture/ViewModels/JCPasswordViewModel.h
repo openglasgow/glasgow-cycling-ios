@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *oldPassword;
-@property (nonatomic, strong) NSString *newPassword;
+@property (nonatomic, strong) NSString *updatedPassword;
 @property (nonatomic, strong) NSString *confirmPassword;
 
 @property (strong, nonatomic) User *user;

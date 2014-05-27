@@ -40,29 +40,29 @@
     _oldPasswordField.keyboardType = UIKeyboardTypeEmailAddress;
     _oldPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _oldPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
-    [_contentView addSubview:_emailField];
-    [[_emailField.rac_textSignal skip:1] subscribeNext:^(id x) {
-        _viewModel._oldPassword = _oldPasswordField.text;
-    }];
+    [_contentView addSubview:_oldPasswordField];
+//    [[_oldPasswordField.rac_textSignal skip:1] subscribeNext:^(id x) {
+//        _viewModel._oldPassword = _oldPasswordField.text;
+//    }];
     
     // New Password
-    _newPasswordLabel = [UILabel new];
-    _newPasswordLabel.text = @"New Password";
-    _newPasswordLabel.font = labelFont;
-    _newPasswordLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_contentView addSubview:_newPasswordLabel];
+    _updatedPasswordLabel = [UILabel new];
+    _updatedPasswordLabel.text = @"New Password";
+    _updatedPasswordLabel.font = labelFont;
+    _updatedPasswordLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [_contentView addSubview:_updatedPasswordLabel];
     
-    _newPasswordField = [JCTextField new];
-    _newPasswordField.userInteractionEnabled = YES;
-    _newPasswordField.borderStyle = UITextBorderStyleRoundedRect;
-    _newPasswordField.font = labelFont;
-    _newPasswordField.keyboardType = UIKeyboardTypeEmailAddress;
-    _newPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    _newPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
-    [_contentView addSubview:_emailField];
-    [[_emailField.rac_textSignal skip:1] subscribeNext:^(id x) {
-        _viewModel._newPasswordField = _newPasswordField.text;
-    }];
+    _updatedPasswordField = [JCTextField new];
+    _updatedPasswordField.userInteractionEnabled = YES;
+    _updatedPasswordField.borderStyle = UITextBorderStyleRoundedRect;
+    _updatedPasswordField.font = labelFont;
+    _updatedPasswordField.keyboardType = UIKeyboardTypeEmailAddress;
+    _updatedPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _updatedPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
+    [_contentView addSubview:_updatedPasswordField];
+//    [[_newPasswordField.rac_textSignal skip:1] subscribeNext:^(id x) {
+//        _viewModel._newPasswordField = _newPasswordField.text;
+//    }];
     
     // Confirm Password
     _confirmPasswordLabel = [UILabel new];
@@ -78,10 +78,10 @@
     _confirmPasswordField.keyboardType = UIKeyboardTypeEmailAddress;
     _confirmPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _confirmPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
-    [_contentView addSubview:_emailField];
-    [[_emailField.rac_textSignal skip:1] subscribeNext:^(id x) {
-        _viewModel._confirmPasswordField = _confirmPasswordField.text;
-    }];
+    [_contentView addSubview:_confirmPasswordField];
+//    [[_confirmPasswordField.rac_textSignal skip:1] subscribeNext:^(id x) {
+//        _viewModel._confirmPasswordField = _confirmPasswordField.text;
+//    }];
     
     _submitButton = [UIButton new];
     _submitButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -96,7 +96,7 @@
     _resetButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_resetButton setTintColor:[UIColor whiteColor]];
     [_resetButton setBackgroundColor:[UIColor jc_redColor]];
-    [_resetButton setTitle:@"Save Settings" forState:UIControlStateNormal];
+    [_resetButton setTitle:@"Reset Password" forState:UIControlStateNormal];
     _resetButton.layer.masksToBounds = YES;
     _resetButton.layer.cornerRadius = 4.0f;
     [_contentView addSubview:_resetButton];
@@ -121,17 +121,17 @@
     [_oldPasswordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_oldPasswordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_oldPasswordLabel withOffset:labelPadding];
     
-    [_newPasswordLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_newPasswordLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_newPasswordLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_oldPasswordField withOffset:padding];
+    [_updatedPasswordLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_updatedPasswordLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_updatedPasswordLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_oldPasswordField withOffset:padding];
     
-    [_newPasswordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_newPasswordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_newPasswordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_newPasswordLabel withOffset:labelPadding];
+    [_updatedPasswordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_updatedPasswordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_updatedPasswordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_updatedPasswordLabel withOffset:labelPadding];
     
     [_confirmPasswordLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_confirmPasswordLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_confirmPasswordLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_oldPasswordField withOffset:padding];
+    [_confirmPasswordLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_updatedPasswordField withOffset:padding];
     
     [_confirmPasswordField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_confirmPasswordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
@@ -144,7 +144,8 @@
     [_resetButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_resetButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_resetButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_submitButton withOffset:padding];
-    
+    [_resetButton autoSetDimension:ALDimensionWidth toSize:320 - (2*padding)];
+
     [super layoutSubviews];
 }
 

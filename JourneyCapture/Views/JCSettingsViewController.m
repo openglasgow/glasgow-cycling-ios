@@ -7,9 +7,10 @@
 //
 
 #import "JCSettingsViewController.h"
-#import "JCSigninViewController.h"
 #import "JCSettingsViewModel.h"
 #import "JCSettingsView.h"
+#import "JCSigninViewController.h"
+#import "JCPasswordViewController.h"
 #import "Flurry.h"
 #import <GSKeychain/GSKeychain.h>
 #import "User.h"
@@ -79,6 +80,15 @@
             [Flurry logEvent:@"User settings change success"];
             [self.navigationController popViewControllerAnimated:YES];
         }];
+        return [RACSignal empty];
+    }];
+    
+    _settingsView.passwordButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
+        [[GSKeychain systemKeychain] removeAllSecrets];
+        JCPasswordViewController *passwordVC = [[JCPasswordViewController alloc] init];
+        [self.navigationController pushViewController:passwordVC animated:YES];
+        
         return [RACSignal empty];
     }];
     

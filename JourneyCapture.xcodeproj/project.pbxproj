@@ -44,6 +44,7 @@
 		6E6701B5193344AC00C6E02A /* JCSettingsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */; };
 		6E6701B91934BAB300C6E02A /* JCPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B81934BAB300C6E02A /* JCPasswordView.m */; };
 		6E6701BC1934BF9400C6E02A /* JCPasswordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701BB1934BF9400C6E02A /* JCPasswordViewModel.m */; };
+		6E6701BF1934D6C600C6E02A /* JCPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701BE1934D6C600C6E02A /* JCPasswordViewController.m */; };
 		6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED56192A1D5100570D32 /* JCSearchViewController.m */; };
 		6EBFED5A192A31FC00570D32 /* JCSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED59192A31FC00570D32 /* JCSearchView.m */; };
 		6EBFED63192B9F2100570D32 /* JCSearchJourneyListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBFED62192B9F2100570D32 /* JCSearchJourneyListViewModel.m */; };
@@ -177,6 +178,8 @@
 		6E6701B81934BAB300C6E02A /* JCPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPasswordView.m; sourceTree = "<group>"; };
 		6E6701BA1934BF9400C6E02A /* JCPasswordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPasswordViewModel.h; sourceTree = "<group>"; };
 		6E6701BB1934BF9400C6E02A /* JCPasswordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPasswordViewModel.m; sourceTree = "<group>"; };
+		6E6701BD1934D6C600C6E02A /* JCPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPasswordViewController.h; sourceTree = "<group>"; };
+		6E6701BE1934D6C600C6E02A /* JCPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPasswordViewController.m; sourceTree = "<group>"; };
 		6EBFED55192A1D5100570D32 /* JCSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchViewController.h; sourceTree = "<group>"; };
 		6EBFED56192A1D5100570D32 /* JCSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSearchViewController.m; sourceTree = "<group>"; };
 		6EBFED58192A31FC00570D32 /* JCSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSearchView.h; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				6E6701B119333D6600C6E02A /* JCSettingsView.m */,
 				6E6701B71934BAB300C6E02A /* JCPasswordView.h */,
 				6E6701B81934BAB300C6E02A /* JCPasswordView.m */,
+				6E6701BD1934D6C600C6E02A /* JCPasswordViewController.h */,
+				6E6701BE1934D6C600C6E02A /* JCPasswordViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -897,6 +902,7 @@
 				12477C7A1919160C00CCF5E5 /* JCWeatherViewModel.m in Sources */,
 				12FBAC5B1920C58E00ADFF0F /* JCRouteListViewModel.m in Sources */,
 				83B5DECB18BFA3130032F7E1 /* JCPathListViewController.m in Sources */,
+				6E6701BF1934D6C600C6E02A /* JCPasswordViewController.m in Sources */,
 				83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */,
 				6E6701BC1934BF9400C6E02A /* JCPasswordViewModel.m in Sources */,
 				83519E7318CDC42800DA1E70 /* UIImage+Compression.m in Sources */,
