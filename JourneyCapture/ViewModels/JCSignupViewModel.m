@@ -81,7 +81,7 @@
                               self.firstName, @"first_name",
                               self.lastName, @"last_name",
                               formattedDob, @"dob",
-                              self.gender, @"gender",
+                              self.gender.lowercaseString, @"gender",
                               imageEncoded, @"profile_picture",
                               nil];
 
