@@ -50,6 +50,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setTitle:@"Glasgow Cycle Map"];
 }
 
 - (void)didReceiveMemoryWarning
