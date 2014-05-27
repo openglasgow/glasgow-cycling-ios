@@ -57,7 +57,7 @@
     CLLocationCoordinate2D userLoc = [[JCLocationManager sharedManager] currentLocation].coordinate;
     MKMapPoint point = MKMapPointForCoordinate(userLoc);
     MKMapRect zoomRect = MKMapRectMake(point.x - 4000, point.y - 4000,
-                                       15000, 15000);
+                                       8000, 8000);
     [_mapView setVisibleMapRect:zoomRect animated:YES];
 }
 

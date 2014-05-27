@@ -32,12 +32,15 @@
               for (NSDictionary *location in locations) {
                   double lat = [location[@"lat"] doubleValue];
                   double lng = [location[@"long"] doubleValue];
-                  NSString *name = location[@"name"];
                   NSString *type = location[@"type"];
                   
                   JCCycleMapLocationViewModel *locationVM = [[JCCycleMapLocationViewModel alloc] init];
                   locationVM.coordinate = CLLocationCoordinate2DMake(lat, lng);
-                  locationVM.name = name;
+                  if (location[@"name"] != [NSNull null]) {
+                      locationVM.name = location[@"name"];
+                  } else {
+                      locationVM.name = type;
+                  }
                   locationVM.image = [UIImage imageNamed:[NSString stringWithFormat:@"map-pin-%@", type]];
                   [_locations addObject:locationVM];
               }
