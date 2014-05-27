@@ -9,14 +9,5 @@
 #import "JCCycleMapLocationViewModel.h"
 
 @implementation JCCycleMapLocationViewModel
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _coordinate = CLLocationCoordinate2DMake(55.4, -4.29);
-        _name = @"Cycle Rack";
-        _image = [UIImage imageNamed:@"map-pin-lock"];
-    }
-    return self;
-}
+
 @end

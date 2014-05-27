@@ -9,6 +9,6 @@
 #import "RVMViewModel.h"
 
 @interface JCCycleMapViewModel : RVMViewModel
-@property (strong, nonatomic) NSArray *locations;
+@property (strong, nonatomic) NSMutableArray *locations;
 - (RACSignal *)load;
 @end
