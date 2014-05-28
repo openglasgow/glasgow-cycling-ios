@@ -10,11 +10,23 @@
 #import <GSKeychain/GSKeychain.h>
 #import "JCSigninViewController.h"
 #import "JCNotificationManager.h"
+#import "User.h"
+#import "Route.h"
+#import "RoutePoint.h"
 
 @implementation JCUserManager
 
 - (void)logout {
+    // Remove auth details
     [[GSKeychain systemKeychain] removeAllSecrets];
+    
+    // Remove user cache
+    [User MR_truncateAll];
+    [Route MR_truncateAll];
+    [RoutePoint MR_truncateAll];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    
+    // Show login screen and a logout notification
     if (_navVC) {
         JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
         [_navVC setViewControllers:@[welcomeVC] animated:NO];
