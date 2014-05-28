@@ -12,6 +12,7 @@
 
 @interface JCPasswordView : UIView
 
+@property (strong, nonatomic) UILabel *infoLabel;
 @property (strong, nonatomic) UILabel *oldPasswordLabel;
 @property (strong, nonatomic) UILabel *updatedPasswordLabel;
 @property (strong, nonatomic) UILabel *confirmPasswordLabel;

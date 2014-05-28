@@ -25,6 +25,14 @@
     _contentView = [UIScrollView new];
     _contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview: _contentView];
+
+    // old Password
+    _infoLabel = [UILabel new];
+    _infoLabel.text = @"Passwords must be at least 8 characters long";
+    _infoLabel.font = labelFont;
+    _infoLabel.textColor = [UIColor jc_blueColor];
+    _infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [_contentView addSubview:_infoLabel];
     
     // old Password
     _oldPasswordLabel = [UILabel new];
@@ -149,9 +157,14 @@
     [_confirmPasswordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_confirmPasswordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_confirmPasswordLabel withOffset:labelPadding];
     
+    
+    [_infoLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_infoLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_infoLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_confirmPasswordField withOffset:padding];
+    
     [_submitButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_submitButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_submitButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_confirmPasswordField withOffset:padding];
+    [_submitButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_infoLabel withOffset:padding];
     
     [_resetButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_resetButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
