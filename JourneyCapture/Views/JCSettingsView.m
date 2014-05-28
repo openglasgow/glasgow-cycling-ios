@@ -232,11 +232,11 @@
 
     [_passwordButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_passwordButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_passwordButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_submitButton withOffset:padding];
+    [_passwordButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_submitButton withOffset:2*padding];
     
     [_logoutButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_logoutButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_logoutButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordButton withOffset:padding];
+    [_logoutButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordButton withOffset:2*padding];
     
     [super layoutSubviews];
 }
