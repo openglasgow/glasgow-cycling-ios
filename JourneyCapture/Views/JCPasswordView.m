@@ -40,10 +40,12 @@
     _oldPasswordField.keyboardType = UIKeyboardTypeEmailAddress;
     _oldPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _oldPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
+    _oldPasswordField.secureTextEntry = YES;
+    RAC(self, viewModel.oldPassword) = _oldPasswordField.rac_textSignal;
     [_contentView addSubview:_oldPasswordField];
-//    [[_oldPasswordField.rac_textSignal skip:1] subscribeNext:^(id x) {
-//        _viewModel._oldPassword = _oldPasswordField.text;
-//    }];
+    [RACObserve(self, viewModel.unauthorizedError) subscribeNext:^(id x) {
+        _oldPasswordField.error = _viewModel.unauthorizedError.length > 0;
+    }];
     
     // New Password
     _updatedPasswordLabel = [UILabel new];
@@ -59,10 +61,15 @@
     _updatedPasswordField.keyboardType = UIKeyboardTypeEmailAddress;
     _updatedPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _updatedPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
+    _updatedPasswordField.secureTextEntry = YES;
+    RAC(self, viewModel.updatedPassword) = _updatedPasswordField.rac_textSignal;
     [_contentView addSubview:_updatedPasswordField];
-//    [[_newPasswordField.rac_textSignal skip:1] subscribeNext:^(id x) {
-//        _viewModel._newPasswordField = _newPasswordField.text;
-//    }];
+    [_viewModel.passwordValid subscribeNext:^(id passwordValid) {
+        _updatedPasswordField.valid = [passwordValid boolValue];
+    }];
+    [RACObserve(self, viewModel.invalidPasswordError) subscribeNext:^(id x) {
+        _updatedPasswordField.error = _viewModel.invalidPasswordError.length > 0;
+    }];
     
     // Confirm Password
     _confirmPasswordLabel = [UILabel new];
@@ -78,10 +85,15 @@
     _confirmPasswordField.keyboardType = UIKeyboardTypeEmailAddress;
     _confirmPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _confirmPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
+    _confirmPasswordField.secureTextEntry = YES;
     [_contentView addSubview:_confirmPasswordField];
-//    [[_confirmPasswordField.rac_textSignal skip:1] subscribeNext:^(id x) {
-//        _viewModel._confirmPasswordField = _confirmPasswordField.text;
-//    }];
+    RAC(self, viewModel.confirmPassword) = _confirmPasswordField.rac_textSignal;
+    [_viewModel.passwordValid subscribeNext:^(id passwordValid) {
+        _confirmPasswordField.valid = [passwordValid boolValue];
+    }];
+    [RACObserve(self, viewModel.invalidPasswordError) subscribeNext:^(id x) {
+        _confirmPasswordField.error = _viewModel.invalidPasswordError.length > 0;
+    }];
     
     _submitButton = [UIButton new];
     _submitButton.translatesAutoresizingMaskIntoConstraints = NO;

@@ -8,6 +8,7 @@
 
 #import "JCSettingsViewController.h"
 #import "JCSettingsViewModel.h"
+#import "JCPasswordViewModel.h"
 #import "JCSettingsView.h"
 #import "JCSigninViewController.h"
 #import "JCPasswordViewController.h"
@@ -85,8 +86,8 @@
     
     _settingsView.passwordButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        [[GSKeychain systemKeychain] removeAllSecrets];
-        JCPasswordViewController *passwordVC = [[JCPasswordViewController alloc] init];
+        JCPasswordViewModel *passwordVM = [JCPasswordViewModel new];
+        JCPasswordViewController *passwordVC = [[JCPasswordViewController alloc] initWithViewModel:passwordVM];
         [self.navigationController pushViewController:passwordVC animated:YES];
         
         return [RACSignal empty];

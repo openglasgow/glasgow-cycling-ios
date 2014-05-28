@@ -8,6 +8,7 @@
 
 #import "JCPasswordViewController.h"
 #import "JCPasswordView.h"
+#import "Flurry.h"
 
 @interface JCPasswordViewController ()
 
@@ -63,37 +64,31 @@
 {
     [super viewDidLoad];
     
-//    // Sign in
-//    @weakify(self);
-//    _settingsView.submitButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-//        @strongify(self);
-//        [[_viewModel submit] subscribeError:^(NSError *error) {
-//            NSLog(@"Login::error");
-//        } completed:^{
-//            NSLog(@"Login::completed");
-//            [Flurry logEvent:@"User settings change success"];
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }];
-//        return [RACSignal empty];
-//    }];
-//    
-//    _settingsView.passwordButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-//        @strongify(self);
-//        [[GSKeychain systemKeychain] removeAllSecrets];
-//        JCPasswordViewController *passwordVC = [[JCPasswordViewController alloc] init];
-//        [self.navigationController setViewControllers:@[passwordVC] animated:NO];
-//        
-//        return [RACSignal empty];
-//    }];
-//    
-//    _settingsView.logoutButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-//        @strongify(self);
-//        [[GSKeychain systemKeychain] removeAllSecrets];
-//        JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
-//        [self.navigationController setViewControllers:@[welcomeVC] animated:NO];
-//    
-//        return [RACSignal empty];
-//    }];
+    // Sign in
+    @weakify(self);
+    _passwordView.submitButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
+        [[_viewModel submit] subscribeError:^(NSError *error) {
+            NSLog(@"Login::error");
+        } completed:^{
+            NSLog(@"Login::completed");
+            [Flurry logEvent:@"User password change success"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        return [RACSignal empty];
+    }];
+    
+    _passwordView.resetButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
+        [[_viewModel reset] subscribeError:^(NSError *error) {
+            NSLog(@"Login::error");
+        } completed:^{
+            NSLog(@"Login::completed");
+            [Flurry logEvent:@"User password change success"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        return [RACSignal empty];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated

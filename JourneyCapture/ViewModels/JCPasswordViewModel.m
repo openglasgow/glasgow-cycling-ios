@@ -20,7 +20,15 @@
     }
     
     _user = [User MR_findFirst];
-    [self loadEmailFromUser:_user];
+    [self setEmail:_user.email];
+    
+    self.passwordValid = [RACSignal combineLatest:@[ RACObserve(self, updatedPassword),
+                                                     RACObserve(self, confirmPassword)]
+                      reduce:^id(NSString *updatedPassword, NSString *confirmPassword){
+                          return @(updatedPassword.length == 0 ||
+                                   confirmPassword.length == 0 ||
+                                  [updatedPassword isEqualToString:confirmPassword]);
+                      }];
     
     return self;
   
@@ -31,16 +39,16 @@
     JCAPIManager *manager = [JCAPIManager manager];
     
     // Submit signup
+    @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         // User data
         NSDictionary *passwordData = @{
                                    @"old_password": _oldPassword,
-                                   @"new_password": _updatedPassword,
-                                   @"confirm_password": _confirmPassword
+                                   @"new_password": _updatedPassword
                                    };
         // TODO imageEncoded. email.
         
-        AFHTTPRequestOperation *op = [manager PUT:@"/details.json"
+        AFHTTPRequestOperation *op = [manager POST:@"/reset_password.json"
                                        parameters:passwordData
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                               // Registered, store user token
@@ -51,12 +59,13 @@
                                               NSLog(@"Password failure");
                                               NSLog(@"%@", error);
                                               NSLog(@"Response: %@", [operation responseObject]);
-                                              NSDictionary *errorData = [operation responseObject];
-                                              if (errorData && errorData[@"errors"]) {
-                                                  NSDictionary *fieldErrors = errorData[@"errors"];
-                                                  if (fieldErrors[@"email"]) {
-                                                      NSArray *emailErrors = fieldErrors[@"email"];
-                                                  }
+                                              @strongify(self);
+                                              if (operation.response.statusCode == 401) {
+                                                  self.unauthorizedError = @"Incorrect password";
+                                                  self.invalidPasswordError = @"";
+                                              } else {
+                                                  self.invalidPasswordError = @"New password is invalid";
+                                                  self.unauthorizedError = @"";
                                               }
                                               [subscriber sendError:error];
                                           }
@@ -68,10 +77,37 @@
     }];
 }
 
-
--(void)loadEmailFromUser:(User *)userModel
+- (RACSignal *)reset
 {
-    _user = userModel;
-    [self setEmail:_user.email];
+    JCAPIManager *manager = [JCAPIManager manager];
+    
+    // Submit signup
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        // User data
+        NSDictionary *passwordData = @{
+                                       @"email": _email,
+                                       };
+        // TODO imageEncoded. email.
+        
+        AFHTTPRequestOperation *op = [manager POST:@"/forgot_password.json"
+                                       parameters:passwordData
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                              // Registered, store user token
+                                              NSLog(@"Password update success");
+                                              NSLog(@"%@", responseObject);
+                                              [subscriber sendCompleted];
+                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              NSLog(@"Password failure");
+                                              NSLog(@"%@", error);
+                                              NSLog(@"Response: %@", [operation responseObject]);
+                                              [subscriber sendError:error];
+                                          }
+                                      ];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [op cancel];
+        }];
+    }];
 }
+
 @end

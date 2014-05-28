@@ -398,10 +398,10 @@
 				6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */,
 				6E6701B019333D6600C6E02A /* JCSettingsView.h */,
 				6E6701B119333D6600C6E02A /* JCSettingsView.m */,
-				6E6701B71934BAB300C6E02A /* JCPasswordView.h */,
-				6E6701B81934BAB300C6E02A /* JCPasswordView.m */,
 				6E6701BD1934D6C600C6E02A /* JCPasswordViewController.h */,
 				6E6701BE1934D6C600C6E02A /* JCPasswordViewController.m */,
+				6E6701B71934BAB300C6E02A /* JCPasswordView.h */,
+				6E6701B81934BAB300C6E02A /* JCPasswordView.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";

@@ -96,8 +96,11 @@
 
 -(void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error callback:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
-    BOOL isSignin = [operation.request.URL.lastPathComponent rangeOfString:@"signin.json"].location != NSNotFound;
-    if (operation.response.statusCode == 401 && !isSignin) {
+    BOOL isSignin = [operation.request.URL.lastPathComponent
+                                    rangeOfString:@"signin.json"].location != NSNotFound;
+    BOOL isChangePassword = [operation.request.URL.lastPathComponent
+                                    rangeOfString:@"reset_password.json"].location != NSNotFound;;
+    if (operation.response.statusCode == 401 && !isSignin && !isChangePassword) {
         // Unauthorized, logout
         [Flurry logEvent:@"Unauthorized Request"];
         [[GSKeychain systemKeychain] removeAllSecrets];
