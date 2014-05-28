@@ -18,5 +18,6 @@
 @property (strong, nonatomic) JCQuestionView *questionView;
 @property (readwrite, nonatomic) NSInteger questionIndex;
 
+- (void)loadNext;
 - (id)initWithViewModel:(JCQuestionListViewModel *)onboardingViewModel questionIndex:(NSInteger)index;
 @end

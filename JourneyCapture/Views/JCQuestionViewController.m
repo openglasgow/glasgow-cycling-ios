@@ -61,14 +61,43 @@
 {
     [super viewDidLoad];
     [self.navigationItem setTitle:_questionModel.title];
+    
     if (_questionIndex == 0) {
         [self.navigationItem setHidesBackButton:YES];
     }
+    
+    _questionView.skipButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [_questionModel setSelectedAnswerIndex:@(-1)];
+        [self loadNext];
+        return [RACSignal empty];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadNext
+{
+    if (_questionIndex < _viewModel.questions.count-1) {
+        JCQuestionViewController *nextQuestionVC = [[JCQuestionViewController alloc]
+                                                    initWithViewModel:_viewModel
+                                                    questionIndex:(_questionIndex + 1)];
+        [self.navigationController pushViewController:nextQuestionVC animated:YES];
+    } else {
+        [Flurry endTimedEvent:@"User responses started" withParameters:nil];
+        
+        [[_viewModel submitResponses] subscribeNext:^(id x) {
+            NSLog(@"Responses::next");
+        } error:^(NSError *error) {
+            NSLog(@"Responses::error");
+        } completed:^{
+            NSLog(@"Responses::completed");
+            JCUserViewController *userController = [[JCUserViewController alloc] init];
+            [self.navigationController pushViewController:userController animated:YES];
+        }];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -82,24 +111,7 @@
 {
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
     [_questionModel setSelectedAnswerIndex:@(indexPath.row)];
-    if (_questionIndex < _viewModel.questions.count-1) {
-        JCQuestionViewController *nextQuestionVC = [[JCQuestionViewController alloc]
-                                                    initWithViewModel:_viewModel
-                                                    questionIndex:(_questionIndex + 1)];
-        [self.navigationController pushViewController:nextQuestionVC animated:YES];
-    } else {
-        [Flurry endTimedEvent:@"User responses started" withParameters:nil];
-
-        [[_viewModel submitResponses] subscribeNext:^(id x) {
-            NSLog(@"Responses::next");
-        } error:^(NSError *error) {
-            NSLog(@"Responses::error");
-        } completed:^{
-            NSLog(@"Responses::completed");
-            JCUserViewController *userController = [[JCUserViewController alloc] init];
-            [self.navigationController pushViewController:userController animated:YES];
-        }];
-    }
+    [self loadNext];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath

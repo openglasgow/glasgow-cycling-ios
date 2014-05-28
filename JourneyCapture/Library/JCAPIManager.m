@@ -7,6 +7,7 @@
 //
 
 #import "JCAPIManager.h"
+#import "JCUserManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "JCSigninViewController.h"
@@ -82,15 +83,7 @@
     if (operation.response.statusCode == 401 && !isSignin) {
         // Unauthorized, logout
         [Flurry logEvent:@"Unauthorized Request"];
-        [[GSKeychain systemKeychain] removeAllSecrets];
-        if (self.navController) {
-            JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
-            [self.navController setViewControllers:@[welcomeVC] animated:NO];
-            [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
-                                                          subtitle:@"Your user details are invalid"
-                                                              icon:[UIImage imageNamed:@"confused-icon"]];
-
-        }
+        [[JCUserManager sharedManager] logout];
     } else if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1004) {
         // Couldn't connect to server
         [Flurry logEvent:@"Connection Error"];

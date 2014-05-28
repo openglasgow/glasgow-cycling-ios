@@ -11,6 +11,7 @@
 #import "JCNavViewController.h"
 #import "JCUserViewController.h"
 #import "JCAPIManager.h"
+#import "JCUserManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "Flurry.h"
 #import "UIImage+color.h"
@@ -50,6 +51,7 @@
     }
     
     JCNavViewController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
+    [JCUserManager sharedManager].navVC = navController;
     [self.window setRootViewController:navController];
     
     // Nav Bar customisation

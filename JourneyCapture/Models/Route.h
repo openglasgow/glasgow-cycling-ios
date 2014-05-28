@@ -16,7 +16,6 @@
 @property (nonatomic, retain) NSNumber * completed;
 @property (nonatomic, retain) NSOrderedSet *points;
 
-+ (void)deleteIncomplete;
 @end
 
 @interface Route (CoreDataGeneratedAccessors)
