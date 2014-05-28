@@ -54,6 +54,8 @@
     _user = userModel;
     [self setFirstName:_user.firstName];
     [self setLastName:_user.lastName];
+    [self setGender:_user.gender];
+    [self setEmail:_user.email];
     [self setSecondsThisMonth:_user.monthSeconds];
     [self setKmThisMonth:_user.monthKm];
     [self setRoutesThisMonth:_user.monthRoutes];
@@ -91,6 +93,8 @@
                                               
                                               _user.firstName = responseObject[@"first_name"];
                                               _user.lastName = responseObject[@"last_name"];
+                                              _user.gender = responseObject[@"gender"];
+                                              _user.email = responseObject[@"email"];
                                               
                                               NSDictionary *stats = responseObject[@"month"];
                                               _user.monthSeconds = stats[@"seconds"];

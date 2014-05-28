@@ -77,10 +77,31 @@
     }
 }
 
+- (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
+    NSString *userToken = [[GSKeychain systemKeychain] secretForKey:@"user_token"];
+    NSString *userEmail = [[GSKeychain systemKeychain] secretForKey:@"user_email"];
+    if (userToken && userEmail) {
+        NSMutableDictionary *authParams = [parameters mutableCopy];
+        authParams[@"user_token"] = userToken;
+        authParams[@"user_email"] = userEmail;
+        return [super PUT:URLString parameters:authParams success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
+    } else {
+        return [super PUT:URLString parameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self operation:operation error:error callback:failure];
+        }];
+    }
+}
+
 -(void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error callback:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
-    BOOL isSignin = [operation.request.URL.lastPathComponent rangeOfString:@"signin.json"].location != NSNotFound;
-    if (operation.response.statusCode == 401 && !isSignin) {
+    BOOL isSignin = [operation.request.URL.lastPathComponent
+                                    rangeOfString:@"signin.json"].location != NSNotFound;
+    BOOL isChangePassword = [operation.request.URL.lastPathComponent
+                                    rangeOfString:@"reset_password.json"].location != NSNotFound;;
+    if (operation.response.statusCode == 401 && !isSignin && !isChangePassword) {
         // Unauthorized, logout
         [Flurry logEvent:@"Unauthorized Request"];
         [[JCUserManager sharedManager] logout];

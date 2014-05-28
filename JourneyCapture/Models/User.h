@@ -14,6 +14,8 @@
 
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * gender;
+@property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSNumber * monthRoutes;
 @property (nonatomic, retain) NSNumber * monthKm;
 @property (nonatomic, retain) NSNumber * monthSeconds;

@@ -13,6 +13,7 @@
 #import "JCStatsViewController.h"
 #import "JCSigninViewController.h"
 #import "JCCycleMapViewController.h"
+#import "JCSettingsViewController.h"
 
 #import "JCWeatherView.h"
 #import "JCMenuTableViewCell.h"
@@ -24,6 +25,7 @@
 #import "JCNearbyJourneyListViewModel.h"
 #import "JCWeatherViewModel.h"
 #import "JCSearchJourneyListViewModel.h"
+#import "JCSettingsViewModel.h"
 
 #import "Route.h"
 
@@ -101,6 +103,10 @@
     _settingsButton = [[UIBarButtonItem alloc] initWithImage:settingsCog style:UIBarButtonItemStyleBordered target:nil action:nil];
     self.navigationItem.leftBarButtonItem = _settingsButton;
     
+    _settingsButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self showSettings];
+        return [RACSignal empty];
+    }];
     // Stats
     UITapGestureRecognizer *statsTapGesture = [[UITapGestureRecognizer alloc]
                                           initWithTarget:self
@@ -194,6 +200,16 @@
     JCSearchViewController *searchController = [[JCSearchViewController alloc]
                                                 initWithViewModel:searchVM];
     [self.navigationController pushViewController:searchController animated:YES];
+}
+
+- (void)showSettings
+{
+    [Flurry logEvent:@"Settings tapped"];
+    _updateOnAppear = YES;
+    JCSettingsViewModel *settingsVM = [JCSettingsViewModel new];
+    JCSettingsViewController *settingsController = [[JCSettingsViewController alloc]
+                                                initWithViewModel:settingsVM];
+    [self.navigationController pushViewController:settingsController animated:YES];
 }
 
 #pragma mark - JCLocationManagerDelegate

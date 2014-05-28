@@ -13,6 +13,8 @@
 
 @dynamic firstName;
 @dynamic lastName;
+@dynamic gender;
+@dynamic email;
 @dynamic monthRoutes;
 @dynamic monthKm;
 @dynamic monthSeconds;
