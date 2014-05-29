@@ -16,4 +16,6 @@
 @property (nonatomic, strong) RACSignal *isValidDetails;
 @property (nonatomic, strong) RACSignal *emailValid;
 
+- (RACSignal *)reset;
+
 @end
