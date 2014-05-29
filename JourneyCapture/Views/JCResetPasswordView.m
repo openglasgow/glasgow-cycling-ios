@@ -30,7 +30,7 @@
     _emailField = [JCTextField new];
     _emailField.userInteractionEnabled = YES;
     _emailField.borderStyle = UITextBorderStyleRoundedRect;
-    _emailField.placeholder = @"Reset Password";
+    _emailField.placeholder = @"Registered Email";
     _emailField.keyboardType = UIKeyboardTypeEmailAddress;
     _emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
@@ -44,7 +44,7 @@
     _resetButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_resetButton setTintColor:[UIColor whiteColor]];
     [_resetButton setBackgroundColor:[UIColor jc_blueColor]];
-    [_resetButton setTitle:@"Sign Up" forState:UIControlStateNormal];
+    [_resetButton setTitle:@"Reset Password" forState:UIControlStateNormal];
     _resetButton.layer.masksToBounds = YES;
     _resetButton.layer.cornerRadius = 4.0f;
     [self addSubview:_resetButton];
