@@ -12,12 +12,14 @@
 @interface JCSettingsViewModel : RVMViewModel
 
 @property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *emailError;
-
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *gender;
 @property (nonatomic, strong) UIImage *profilePic;
+
+@property (nonatomic, strong) NSString *emailError;
+@property (nonatomic, strong) NSString *firstNameError;
+@property (nonatomic, strong) NSString *lastNameError;
 
 @property (nonatomic, strong) NSArray *genders;
 @property (nonatomic, strong) RACSignal *isValidDetails;

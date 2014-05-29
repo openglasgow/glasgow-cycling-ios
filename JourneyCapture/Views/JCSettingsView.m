@@ -98,6 +98,9 @@
     [RACObserve(_viewModel, emailError) subscribeNext:^(id x) {
         _emailField.error = _viewModel.emailError.length > 0;
     }];
+    [RACObserve(self, viewModel.emailError) subscribeNext:^(NSString *error) {
+        _emailField.error = error.length > 0;
+    }];
     
     // First name
     _nameFieldLabel = [UILabel new];
@@ -113,8 +116,8 @@
     _firstNameField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, firstName) = _firstNameField.rac_textSignal;
     [_contentView addSubview:_firstNameField];
-    [_viewModel.firstNameValid subscribeNext:^(id firstNameValid) {
-        _firstNameField.valid = [firstNameValid boolValue];
+    [RACObserve(self, viewModel.firstNameError) subscribeNext:^(NSString *error) {
+        _firstNameField.error = error.length > 0;
     }];
     
     // Last name
@@ -125,8 +128,8 @@
     _lastNameField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, lastName) = _lastNameField.rac_textSignal;
     [_contentView addSubview:_lastNameField];
-    [_viewModel.lastNameValid subscribeNext:^(id lastNameValid) {
-        _lastNameField.valid = [lastNameValid boolValue];
+    [RACObserve(self, viewModel.lastNameError) subscribeNext:^(NSString *error) {
+        _lastNameField.error = error.length > 0;
     }];
     
     // Gender
