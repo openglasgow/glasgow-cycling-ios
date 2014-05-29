@@ -46,6 +46,9 @@
 		12FBAC5B1920C58E00ADFF0F /* JCRouteListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC5A1920C58E00ADFF0F /* JCRouteListViewModel.m */; };
 		12FBAC6119211BFB00ADFF0F /* JCRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC6019211BFB00ADFF0F /* JCRouteView.m */; };
 		6E101EAD192E2AE10046E096 /* JCQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E101EAC192E2AE10046E096 /* JCQuestionView.m */; };
+		6E15B11F19374B1E00459B8D /* JCResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E15B11E19374B1E00459B8D /* JCResetPasswordViewController.m */; };
+		6E15B12219374B3500459B8D /* JCResetPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E15B12119374B3500459B8D /* JCResetPasswordView.m */; };
+		6E15B12519374CED00459B8D /* JCResetPasswordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E15B12419374CED00459B8D /* JCResetPasswordViewModel.m */; };
 		6E6701AE19333D3500C6E02A /* JCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */; };
 		6E6701B219333D6600C6E02A /* JCSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B119333D6600C6E02A /* JCSettingsView.m */; };
 		6E6701B5193344AC00C6E02A /* JCSettingsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */; };
@@ -189,6 +192,12 @@
 		12FBAC6019211BFB00ADFF0F /* JCRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteView.m; sourceTree = "<group>"; };
 		6E101EAB192E2AE10046E096 /* JCQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionView.h; sourceTree = "<group>"; };
 		6E101EAC192E2AE10046E096 /* JCQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionView.m; sourceTree = "<group>"; };
+		6E15B11D19374B1E00459B8D /* JCResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCResetPasswordViewController.h; sourceTree = "<group>"; };
+		6E15B11E19374B1E00459B8D /* JCResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCResetPasswordViewController.m; sourceTree = "<group>"; };
+		6E15B12019374B3500459B8D /* JCResetPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCResetPasswordView.h; sourceTree = "<group>"; };
+		6E15B12119374B3500459B8D /* JCResetPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCResetPasswordView.m; sourceTree = "<group>"; };
+		6E15B12319374CED00459B8D /* JCResetPasswordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCResetPasswordViewModel.h; sourceTree = "<group>"; };
+		6E15B12419374CED00459B8D /* JCResetPasswordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCResetPasswordViewModel.m; sourceTree = "<group>"; };
 		6E6701AC19333D3500C6E02A /* JCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsViewController.h; sourceTree = "<group>"; };
 		6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSettingsViewController.m; sourceTree = "<group>"; };
 		6E6701B019333D6600C6E02A /* JCSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsView.h; sourceTree = "<group>"; };
@@ -743,6 +752,8 @@
 			children = (
 				83BA022B18BE477700EE7787 /* JCSigninViewModel.h */,
 				83BA022C18BE477700EE7787 /* JCSigninViewModel.m */,
+				6E15B12319374CED00459B8D /* JCResetPasswordViewModel.h */,
+				6E15B12419374CED00459B8D /* JCResetPasswordViewModel.m */,
 			);
 			name = Signin;
 			sourceTree = "<group>";
@@ -754,6 +765,10 @@
 				83BA022F18BE482B00EE7787 /* JCSigninView.m */,
 				83BA022518BE474D00EE7787 /* JCSigninViewController.h */,
 				83BA022618BE474D00EE7787 /* JCSigninViewController.m */,
+				6E15B11D19374B1E00459B8D /* JCResetPasswordViewController.h */,
+				6E15B11E19374B1E00459B8D /* JCResetPasswordViewController.m */,
+				6E15B12019374B3500459B8D /* JCResetPasswordView.h */,
+				6E15B12119374B3500459B8D /* JCResetPasswordView.m */,
 			);
 			name = Signin;
 			sourceTree = "<group>";
@@ -947,6 +962,7 @@
 				125D7ED319339AD200187A17 /* JCCycleMapLocationViewModel.m in Sources */,
 				121A364E1924BA8500C3FB31 /* Route.m in Sources */,
 				12DCCF30192F4DBE0016B061 /* JCStatsSummaryView.m in Sources */,
+				6E15B11F19374B1E00459B8D /* JCResetPasswordViewController.m in Sources */,
 				837B15A618BDF31F000EEFAB /* JCSignupView.m in Sources */,
 				12FBAC6119211BFB00ADFF0F /* JCRouteView.m in Sources */,
 				12AABA3F192CE508005DE6AC /* JCGraphFooterView.m in Sources */,
@@ -958,6 +974,7 @@
 				12FBAC5B1920C58E00ADFF0F /* JCRouteListViewModel.m in Sources */,
 				83B5DECB18BFA3130032F7E1 /* JCPathListViewController.m in Sources */,
 				6E6701BF1934D6C600C6E02A /* JCPasswordViewController.m in Sources */,
+				6E15B12219374B3500459B8D /* JCResetPasswordView.m in Sources */,
 				83BA022D18BE477700EE7787 /* JCSigninViewModel.m in Sources */,
 				125D7ED0193394DB00187A17 /* JCCycleMapViewModel.m in Sources */,
 				6E6701BC1934BF9400C6E02A /* JCPasswordViewModel.m in Sources */,
@@ -998,6 +1015,7 @@
 				124A6EAC192A4E36009E24AC /* JCPieChartView.m in Sources */,
 				124A6EA9192A4E2D009E24AC /* JCLineGraphView.m in Sources */,
 				73ACC28D56500C1573EF74F1 /* JCPathListViewModel.m in Sources */,
+				6E15B12519374CED00459B8D /* JCResetPasswordViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,6 +23,7 @@
 @property (strong, nonatomic) UILabel *emailFieldLabel;
 @property (strong, nonatomic) UIButton *signinButton;
 @property (strong, nonatomic) UIButton *signupButton;
+@property (strong, nonatomic) UIButton *resetButton;
 
 //Blue bit at the top
 @property (strong, nonatomic) UIView *profileBackgroundView;

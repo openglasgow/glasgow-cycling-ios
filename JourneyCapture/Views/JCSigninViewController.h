@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JCSigninViewModel, JCSigninView;
+@class JCSigninViewModel, JCSigninView, JCResetPasswordView;
 
 @interface JCSigninViewController : UIViewController <UITextFieldDelegate>
 @property (strong, nonatomic) JCSigninViewModel *viewModel;
 @property (strong, nonatomic) JCSigninView *signinView;
+@property (strong, nonatomic) JCResetPasswordView *resetView;
+
 @end
