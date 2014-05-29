@@ -8,10 +8,13 @@
 
 #import "JCSigninViewController.h"
 #import "JCSigninView.h"
+#import "JCResetPasswordView.h"
 #import "JCSignupViewController.h"
 #import "JCSigninViewModel.h"
 #import "JCSignupViewModel.h"
+#import "JCResetPasswordViewModel.h"
 #import "JCUserViewController.h"
+#import "JCResetPasswordViewController.h"
 #import "Flurry.h"
 #import "JCTextField.h"
 
@@ -93,6 +96,16 @@
         [signupVM setEmail:_viewModel.email];
         JCSignupViewController *signupController = [[JCSignupViewController alloc] initWithViewModel:signupVM];
         [self.navigationController pushViewController:signupController animated:YES];
+        return [RACSignal empty];
+    }];
+    
+    // Reset
+    _signinView.resetButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        NSLog(@"Reset password tapped");
+        [Flurry logEvent:@"Reset password button tapped"];
+        JCResetPasswordViewModel *resetVM = [JCResetPasswordViewModel new];
+        JCResetPasswordViewController *resetController = [[JCResetPasswordViewController alloc] initWithViewModel:resetVM];
+        [self.navigationController pushViewController:resetController animated:YES];
         return [RACSignal empty];
     }];
     

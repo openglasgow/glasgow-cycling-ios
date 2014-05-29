@@ -90,6 +90,13 @@
     _signupButton.layer.masksToBounds = YES;
     _signupButton.layer.cornerRadius = 4.0f;
     [_contentView addSubview:_signupButton];
+    
+    _resetButton = [UIButton new];
+    _resetButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_resetButton setTitleColor:[UIColor jc_lightBlueColor] forState:UIControlStateNormal];
+    [_resetButton setTitle:@"Reset Password" forState:UIControlStateNormal];
+    _resetButton.layer.masksToBounds = YES;
+    [_contentView addSubview:_resetButton];
 
     return self;
 }
@@ -136,7 +143,11 @@
     
     [_signupButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_signupButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_signupButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_contentView withOffset:-padding];
+    [_signupButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_resetButton withOffset:-padding];
+    
+    [_resetButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_resetButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_resetButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_contentView withOffset:-(padding*2)];
     
     [super layoutSubviews];
 }
