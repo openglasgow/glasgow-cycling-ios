@@ -30,11 +30,20 @@
     self.requestSerializer = [AFJSONRequestSerializer serializer];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    
+    // Pin self-signed SSL cert
+    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"server" ofType:@"cer"];
+    NSData *certData = [NSData dataWithContentsOfFile:cerPath];
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];
+    [securityPolicy setAllowInvalidCertificates:YES];
+    [securityPolicy setPinnedCertificates:@[certData]];
+    self.securityPolicy = securityPolicy;
 
     return self;
 }
 
 #pragma mark - Authenticated Requests
+
 - (AFHTTPRequestOperation *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
     NSString *userToken = [[GSKeychain systemKeychain] secretForKey:@"user_token"];

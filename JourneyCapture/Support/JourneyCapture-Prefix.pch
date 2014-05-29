@@ -28,5 +28,5 @@
 #if TARGET_IPHONE_SIMULATOR
 static NSString *const API_URI = @"http://0.0.0.0:3000/";
 #else
-static NSString *const API_URI = @"http://188.226.184.33/";
+static NSString *const API_URI = @"https://activetravel.cloudapp.net/";
 #endif

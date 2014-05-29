@@ -25,6 +25,7 @@
 		125D7ECC193392C700187A17 /* JCCycleMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D7ECB193392C700187A17 /* JCCycleMapView.m */; };
 		125D7ED0193394DB00187A17 /* JCCycleMapViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D7ECF193394DB00187A17 /* JCCycleMapViewModel.m */; };
 		125D7ED319339AD200187A17 /* JCCycleMapLocationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D7ED219339AD200187A17 /* JCCycleMapLocationViewModel.m */; };
+		127E78271937737F00341DB1 /* server.cer in Resources */ = {isa = PBXBuildFile; fileRef = 127E78261937737F00341DB1 /* server.cer */; };
 		129BE686191BC3DE0021437F /* JCPathViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE685191BC3DE0021437F /* JCPathViewModel.m */; };
 		129BE689191BC5470021437F /* JCCaptureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE688191BC5470021437F /* JCCaptureViewModel.m */; };
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
@@ -147,6 +148,7 @@
 		125D7ECF193394DB00187A17 /* JCCycleMapViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCycleMapViewModel.m; sourceTree = "<group>"; };
 		125D7ED119339AD200187A17 /* JCCycleMapLocationViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCycleMapLocationViewModel.h; sourceTree = "<group>"; };
 		125D7ED219339AD200187A17 /* JCCycleMapLocationViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCycleMapLocationViewModel.m; sourceTree = "<group>"; };
+		127E78261937737F00341DB1 /* server.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = server.cer; sourceTree = "<group>"; };
 		129BE684191BC3DE0021437F /* JCPathViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCPathViewModel.h; sourceTree = "<group>"; };
 		129BE685191BC3DE0021437F /* JCPathViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPathViewModel.m; sourceTree = "<group>"; };
 		129BE687191BC5470021437F /* JCCaptureViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureViewModel.h; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 				831EDB5218BCBB33001468E4 /* InfoPlist.strings */,
 				831EDB5518BCBB33001468E4 /* main.m */,
 				831EDB5718BCBB33001468E4 /* JourneyCapture-Prefix.pch */,
+				127E78261937737F00341DB1 /* server.cer */,
 				83DC969818D0762800E66C26 /* Settings.bundle */,
 			);
 			path = Support;
@@ -710,7 +713,6 @@
 				124A6E9A192A3165009E24AC /* Stats */,
 				83B5DEC418BFA1F10032F7E1 /* Journey/Route Lists */,
 				83B3485618C0BCD100D59FB9 /* Route View */,
-				6E101EB8192F87F90046E096 /* Settings */,
 				125D7EC619338FBD00187A17 /* Cycle Map */,
 			);
 			path = Views;
@@ -872,6 +874,7 @@
 				83DC969918D0762800E66C26 /* Settings.bundle in Resources */,
 				12F8E6F5190FEFC900AA0216 /* JCMenuCell.xib in Resources */,
 				831EDB5C18BCBB34001468E4 /* Images.xcassets in Resources */,
+				127E78271937737F00341DB1 /* server.cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,7 +971,6 @@
 				8341421818BF55E80020CF97 /* JCUserViewModel.m in Sources */,
 				12C76B0F1912A22400B7F964 /* JCLoadingView.m in Sources */,
 				124A6EB4192A525F009E24AC /* JCUsageViewModel.m in Sources */,
-				6E101EB7192F87F60046E096 /* JCSettingsView.m in Sources */,
 				12F8E6F8190FF0FB00AA0216 /* JCMenuTableViewCell.m in Sources */,
 				8303E2D218C61C5700215760 /* JCQuestionViewModel.m in Sources */,
 				6EBFED57192A1D5100570D32 /* JCSearchViewController.m in Sources */,
