@@ -11,7 +11,7 @@
 
 @class JCSettingsViewModel, JCSettingsView;
 
-@interface JCSettingsViewController : UIViewController
+@interface JCSettingsViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) JCSettingsViewModel *viewModel;
 @property (strong, nonatomic) JCSettingsView *settingsView;

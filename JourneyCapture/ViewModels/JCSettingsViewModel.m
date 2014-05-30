@@ -125,11 +125,11 @@
     [self setGender:_user.gender];
     [self setEmail:_user.email];
     NSData *picData = _user.image;
-        if (picData) {
-            [self setProfilePic:[UIImage imageWithData:picData]];
-        } else {
-           [self setProfilePic:[UIImage imageNamed:@"profile-pic"]];
-        }
+    if (picData) {
+        [self setProfilePic:[UIImage imageWithData:picData]];
+    } else {
+       [self setProfilePic:[UIImage imageNamed:@"profile-pic"]];
+    }
 }
 
 @end
