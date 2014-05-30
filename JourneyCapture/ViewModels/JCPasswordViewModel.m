@@ -77,37 +77,4 @@
     }];
 }
 
-- (RACSignal *)reset
-{
-    JCAPIManager *manager = [JCAPIManager manager];
-    
-    // Submit signup
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        // User data
-        NSDictionary *passwordData = @{
-                                       @"email": _email,
-                                       };
-        // TODO imageEncoded. email.
-        
-        AFHTTPRequestOperation *op = [manager POST:@"/forgot_password.json"
-                                       parameters:passwordData
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                              // Registered, store user token
-                                              NSLog(@"Password update success");
-                                              NSLog(@"%@", responseObject);
-                                              [subscriber sendCompleted];
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                              NSLog(@"Password failure");
-                                              NSLog(@"%@", error);
-                                              NSLog(@"Response: %@", [operation responseObject]);
-                                              [subscriber sendError:error];
-                                          }
-                                      ];
-        
-        return [RACDisposable disposableWithBlock:^{
-            [op cancel];
-        }];
-    }];
-}
-
 @end

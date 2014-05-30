@@ -77,18 +77,6 @@
         }];
         return [RACSignal empty];
     }];
-    
-    _passwordView.resetButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        @strongify(self);
-        [[_viewModel reset] subscribeError:^(NSError *error) {
-            NSLog(@"Login::error");
-        } completed:^{
-            NSLog(@"Login::completed");
-            [Flurry logEvent:@"User password change success"];
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        return [RACSignal empty];
-    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated

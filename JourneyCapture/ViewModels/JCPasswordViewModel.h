@@ -22,6 +22,5 @@
 @property (strong, nonatomic) User *user;
 
 - (RACSignal *)submit;
-- (RACSignal *)reset;
 
 @end

@@ -11,8 +11,6 @@
 
 @implementation JCResetPasswordViewModel
 
-@synthesize email, emailError;
-
 - (id)init
 {
     self = [super init];
@@ -39,13 +37,13 @@
 {
     NSLog(@"Reset Password");
     JCAPIManager *manager = [JCAPIManager manager];
-    NSDictionary *signinParams = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",
-                                  nil];
-    NSDictionary *userParams = [NSDictionary dictionaryWithObject:signinParams forKey:@"user"];
+    NSDictionary *passwordData = @{
+                                   @"email": _email,
+                                   };
     
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager GET:@"/forgot_password.json"
-                                       parameters:userParams
+        AFHTTPRequestOperation *op = [manager POST:@"/forgot_password.json"
+                                       parameters:passwordData
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                               // Registered, store user token
                                               NSLog(@"Password Reset sent");

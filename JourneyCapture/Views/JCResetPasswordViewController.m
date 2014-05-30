@@ -65,6 +65,11 @@
     // reset button
     _resetView.resetButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Password reset pressed");
+        [[_viewModel reset] subscribeError:^(NSError *error) {
+            NSLog(@"Couldn't reset");
+        } completed:^{
+            NSLog(@"Reset password email sent");
+        }];
         return [RACSignal empty];
     }];
 }
