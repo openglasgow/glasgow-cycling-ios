@@ -112,15 +112,6 @@
     _submitButton.layer.cornerRadius = 4.0f;
     [_contentView addSubview:_submitButton];
     
-    _resetButton = [UIButton new];
-    _resetButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [_resetButton setTintColor:[UIColor whiteColor]];
-    [_resetButton setBackgroundColor:[UIColor jc_redColor]];
-    [_resetButton setTitle:@"Reset Password" forState:UIControlStateNormal];
-    _resetButton.layer.masksToBounds = YES;
-    _resetButton.layer.cornerRadius = 4.0f;
-    [_contentView addSubview:_resetButton];
-    
     return self;
 }
 
@@ -165,11 +156,6 @@
     [_submitButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_submitButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_submitButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_infoLabel withOffset:padding];
-    
-    [_resetButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_resetButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
-    [_resetButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_submitButton withOffset:padding];
-    [_resetButton autoSetDimension:ALDimensionWidth toSize:320 - (2*padding)];
 
     [super layoutSubviews];
 }

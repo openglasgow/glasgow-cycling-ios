@@ -20,7 +20,6 @@
 @property (strong, nonatomic) JCTextField *updatedPasswordField;
 @property (strong, nonatomic) JCTextField *confirmPasswordField;
 @property (strong, nonatomic) UIButton *submitButton;
-@property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) UIScrollView *contentView;
 @property (strong, nonatomic) JCPasswordViewModel *viewModel;
 
