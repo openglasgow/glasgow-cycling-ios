@@ -59,7 +59,8 @@
     
     // Profile pic
     NSData *imageData = [_profilePic compressToSize:250];
-    NSString *imageEncoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *compressedJpegImage = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *base64ImageString = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", compressedJpegImage];
     
     // Submit signup
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
@@ -67,9 +68,10 @@
         NSDictionary *userData = @{
                                    @"first_name": _firstName,
                                    @"last_name": _lastName,
-                                   @"gender": _gender
+                                   @"gender": _gender,
+                                   @"profile_pic": base64ImageString
                                    };
-        // TODO imageEncoded. email.
+        // TODO email.
 
         AFHTTPRequestOperation *op = [manager PUT:@"/details.json"
                                         parameters:userData

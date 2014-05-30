@@ -79,16 +79,6 @@
                                               NSLog(@"User load success");
                                               NSLog(@"%@", responseObject);
                                               
-                                              // Store in VM
-//                                              [self setFirstName:responseObject[@"first_name"]];
-//                                              [self setLastName:responseObject[@"last_name"]];
-//
-//                                              NSDictionary *stats = responseObject[@"month"];
-//                                              [self setSecondsThisMonth:stats[@"seconds"]];
-//                                              [self setKmThisMonth:stats[@"km"]];
-//                                              [self setRoutesThisMonth:stats[@"total"]];
-//
-//
                                               // Update model
                                               
                                               _user.firstName = responseObject[@"first_name"];

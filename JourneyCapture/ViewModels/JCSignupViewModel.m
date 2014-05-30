@@ -73,7 +73,8 @@
 
     // Profile pic
     NSData *imageData = [self.profilePicture compressToSize:250];
-    NSString *imageEncoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *compressedJpegImage = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *base64ImageString = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", compressedJpegImage];
 
     // User data
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
@@ -82,7 +83,7 @@
                               self.lastName, @"last_name",
                               formattedDob, @"dob",
                               self.gender.lowercaseString, @"gender",
-                              imageEncoded, @"profile_picture",
+                              base64ImageString, @"profile_picture",
                               nil];
 
     // Submit signup
