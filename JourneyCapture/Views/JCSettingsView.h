@@ -34,7 +34,6 @@ UITextFieldDelegate, FDTakeDelegate>
 // labels
 @property (strong, nonatomic) UILabel *nameFieldLabel;
 @property (strong, nonatomic) UILabel *emailFieldLabel;
-@property (strong, nonatomic) UILabel *passwordFieldLabel;
 @property (strong, nonatomic) UILabel *genderFieldLabel;
 
 @property (strong, nonatomic) UIButton *submitButton;

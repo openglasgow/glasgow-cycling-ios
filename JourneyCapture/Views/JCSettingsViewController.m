@@ -101,11 +101,24 @@
         
         return [RACSignal empty];
     }];
+    
+    // Keyboard
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)dismissKeyboard
+{
+    [_settingsView.emailField resignFirstResponder];
+    [_settingsView.firstNameField resignFirstResponder];
+    [_settingsView.lastNameField resignFirstResponder];
 }
 
 @end
