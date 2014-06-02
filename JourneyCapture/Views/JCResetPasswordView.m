@@ -20,10 +20,13 @@
     }
     
     _viewModel = resetPasswordViewModel;
+    UIFont *labelFont = [UIFont systemFontOfSize:14];
     
     // Email
     _emailFieldLabel = [UILabel new];
     _emailFieldLabel.text = @"Email Address";
+    _emailFieldLabel.font = labelFont;
+    _emailFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _emailFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_emailFieldLabel];
     
@@ -49,6 +52,15 @@
     _resetButton.layer.cornerRadius = 4.0f;
     [self addSubview:_resetButton];
     
+    _instructionsLabel = [UILabel new];
+    _instructionsLabel.text = @"Enter your email address to be sent password reset instructions";
+    _instructionsLabel.numberOfLines = 2;
+    _instructionsLabel.textColor = [UIColor jc_darkGrayColor];
+    _instructionsLabel.textAlignment = NSTextAlignmentCenter;
+    _instructionsLabel.font = [UIFont systemFontOfSize:13.0f];
+    _instructionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_instructionsLabel];
+    
     return self;
 }
 
@@ -71,6 +83,10 @@
     [_resetButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_resetButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
     [_resetButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailField withOffset:padding];
+    
+    [_instructionsLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_resetButton withOffset:padding];
+    [_instructionsLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_instructionsLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
     
     [super layoutSubviews];
 }

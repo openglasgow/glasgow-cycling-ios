@@ -16,6 +16,8 @@
 @property (strong, nonatomic) UILabel *emailFieldLabel;
 @property (strong, nonatomic) JCTextField *emailField;
 @property (strong, nonatomic) UIButton *resetButton;
+@property (strong, nonatomic) UILabel *instructionsLabel;
+@property (strong, nonatomic) UILabel *errorLabel;
 
 - (id)initWithViewModel:(JCResetPasswordViewModel *)resetPasswordViewModel;
 
