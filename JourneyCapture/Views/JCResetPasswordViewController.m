@@ -67,14 +67,17 @@
     _resetView.resetButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"Password reset pressed");
         _resetView.resetButton.enabled = NO;
-//        [[_viewModel reset] subscribeError:^(NSError *error) {
-//            _resetView.resetButton.enabled = YES;
-//            NSLog(@"Couldn't reset");
-//        } completed:^{
-//            NSLog(@"Reset password email sent");
+        [[_viewModel reset] subscribeError:^(NSError *error) {
+            _resetView.resetButton.enabled = YES;
+            [_resetView setErrorHidden:NO];
+            [_resetView layoutIfNeeded];
+            NSLog(@"Couldn't reset");
+        } completed:^{
+            NSLog(@"Reset password email sent");
+            [_resetView setErrorHidden:YES];
             [self.navigationController popViewControllerAnimated:YES];
             [[JCNotificationManager manager] displayInfoWithTitle:@"Instructions Sent" subtitle:@"Password reset instructions have been emailed to you" icon:[UIImage imageNamed:@"information-icon"]];
-//        }];
+        }];
         return [RACSignal empty];
     }];
 }

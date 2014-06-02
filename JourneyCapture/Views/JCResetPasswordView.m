@@ -61,20 +61,50 @@
     _instructionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_instructionsLabel];
     
+    _errorLabel = [UILabel new];
+    _errorLabel.text = @"This email is not registered";
+    _errorLabel.textColor = [UIColor jc_redColor];
+    _errorLabel.textAlignment = NSTextAlignmentCenter;
+    _errorLabel.font = [UIFont systemFontOfSize:14.0f];
+    _errorLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_errorLabel];
+    
     return self;
+}
+
+- (void)setErrorHidden:(BOOL)hidden
+{
+    NSUInteger height;
+    if (hidden) {
+        height = 0;
+    } else {
+        height = 22;
+    }
+    [self layoutIfNeeded];
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         _errorLabelHeightConstraint.constant = height;
+                         [self layoutIfNeeded];
+                     }];
 }
 
 #pragma mark - UIView
 
 - (void)layoutSubviews
 {
-    
     int labelPadding = 3;
     int padding = 10;
     
+    [_errorLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding];
+    [_errorLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
+    [_errorLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];
+    if (!_errorLabelHeightConstraint) {
+        _errorLabelHeightConstraint = [_errorLabel autoSetDimension:ALDimensionHeight toSize:0];
+    }
+    
     [_emailFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_emailFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
-    [_emailFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:padding];
+    [_emailFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_errorLabel withOffset:padding];
     
     [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:padding];
     [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-padding];

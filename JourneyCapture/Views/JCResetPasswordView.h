@@ -18,7 +18,9 @@
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) UILabel *instructionsLabel;
 @property (strong, nonatomic) UILabel *errorLabel;
+@property (strong, nonatomic) NSLayoutConstraint * errorLabelHeightConstraint;
 
+- (void)setErrorHidden:(BOOL)hidden;
 - (id)initWithViewModel:(JCResetPasswordViewModel *)resetPasswordViewModel;
 
 @end
