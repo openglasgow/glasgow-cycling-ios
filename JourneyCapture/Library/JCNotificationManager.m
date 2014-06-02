@@ -27,10 +27,7 @@
                               kCRToastSubtitleFontKey : [UIFont fontWithName:@"Helvetica Neue"
                                                                         size:12.0],
                               kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
-                              kCRToastBackgroundColorKey : [UIColor colorWithRed:(231/255.0)
-                                                                           green:(32./255.0)
-                                                                            blue:(73.0/255.0)
-                                                                           alpha:1.0],
+                              kCRToastBackgroundColorKey : [UIColor jc_redColor],
                               kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
                               kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
                               kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
@@ -64,7 +61,7 @@
                                                                         size:12.0],
                               kCRToastSubtitleTextColorKey : [UIColor whiteColor],
                               kCRToastSubtitleTextAlignmentKey : @(NSTextAlignmentLeft),
-                              kCRToastBackgroundColorKey : [UIColor colorWithRed:69/255.0 green:87/255.0 blue:199/255.0 alpha:1.0],
+                              kCRToastBackgroundColorKey : [UIColor jc_blueColor],
                               kCRToastAnimationInTypeKey : @(CRToastAnimationTypeGravity),
                               kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeGravity),
                               kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),

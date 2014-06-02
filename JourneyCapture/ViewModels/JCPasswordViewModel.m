@@ -46,7 +46,6 @@
                                    @"old_password": _oldPassword,
                                    @"new_password": _updatedPassword
                                    };
-        // TODO imageEncoded. email.
         
         AFHTTPRequestOperation *op = [manager POST:@"/reset_password.json"
                                        parameters:passwordData

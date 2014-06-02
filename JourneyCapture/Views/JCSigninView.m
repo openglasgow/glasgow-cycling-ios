@@ -20,13 +20,14 @@
     }
     
     _viewModel = signinViewModel;
+    UIFont *labelFont = [UIFont systemFontOfSize:14];
     
     // Content scroll view
     _contentView = [UIScrollView new];
     _contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview: _contentView];
     
-    //Blue bit
+    // Blue-backed top area
     _profileBackgroundView = [UIView new];
     [_profileBackgroundView setBackgroundColor:[UIColor jc_blueColor]];
     _profileBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -34,12 +35,14 @@
     
     _loadingView = [JCLoadingView new];
     _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
-    _loadingView.infoLabel.text = @"Making Glasgow a Cycling city";
+    _loadingView.infoLabel.text = @"Making Glasgow a Cycling City";
     [_profileBackgroundView addSubview:_loadingView];
     
     // Email
     _emailFieldLabel = [UILabel new];
     _emailFieldLabel.text = @"Email Address";
+    _emailFieldLabel.font = labelFont;
+    _emailFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _emailFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_emailFieldLabel];
 
@@ -59,6 +62,8 @@
     // Password
     _passwordFieldLabel = [UILabel new];
     _passwordFieldLabel.text = @"Password";
+    _passwordFieldLabel.font = labelFont;
+    _passwordFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _passwordFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_passwordFieldLabel];
     

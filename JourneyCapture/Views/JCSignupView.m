@@ -92,6 +92,7 @@
     _emailFieldLabel = [UILabel new];
     _emailFieldLabel.text = @"Email Address";
     _emailFieldLabel.font = labelFont;
+    _emailFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _emailFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_emailFieldLabel];
     
@@ -120,6 +121,7 @@
     _passwordFieldLabel = [UILabel new];
     _passwordFieldLabel.text = @"Password";
     _passwordFieldLabel.font = labelFont;
+    _passwordFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _passwordFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_passwordFieldLabel];
     
@@ -145,6 +147,7 @@
     _nameFieldLabel = [UILabel new];
     _nameFieldLabel.text = @"Name";
     _nameFieldLabel.font = labelFont;
+    _nameFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _nameFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_nameFieldLabel];
     
@@ -173,8 +176,9 @@
 
     // DOB
     _dobFieldLabel = [UILabel new];
-    _dobFieldLabel.text = @"Date Of Birth";
+    _dobFieldLabel.text = @"Date of Birth";
     _dobFieldLabel.font = labelFont;
+    _dobFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _dobFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_dobFieldLabel];
     
@@ -206,6 +210,7 @@
     _genderFieldLabel = [UILabel new];
     _genderFieldLabel.text = @"Gender";
     _genderFieldLabel.font = labelFont;
+    _genderFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _genderFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_genderFieldLabel];
     
