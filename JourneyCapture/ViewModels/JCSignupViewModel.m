@@ -71,20 +71,22 @@
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *formattedDob = [formatter stringFromDate:self.dob];
 
-    // Profile pic
-    NSData *imageData = [self.profilePicture compressToSize:250];
-    NSString *compressedJpegImage = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    NSString *base64ImageString = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", compressedJpegImage];
-
     // User data
-    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
+    NSMutableDictionary *userData = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
                               self.password, @"password",
                               self.firstName, @"first_name",
                               self.lastName, @"last_name",
                               formattedDob, @"dob",
                               self.gender.lowercaseString, @"gender",
-                              base64ImageString, @"profile_picture",
                               nil];
+    
+    // Profile pic
+    if (self.profilePicture) {
+        NSData *imageData = [self.profilePicture compressToSize:250];
+        NSString *compressedJpegImage = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        NSString *base64ImageString = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", compressedJpegImage];
+        userData[@"profile_picture"] = base64ImageString;
+    }
 
     // Submit signup
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
