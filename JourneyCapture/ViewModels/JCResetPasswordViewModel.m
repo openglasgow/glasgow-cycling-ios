@@ -48,6 +48,7 @@
                                               // Registered, store user token
                                               NSLog(@"Password Reset sent");
                                               NSLog(@"%@", responseObject);
+                                              [subscriber sendCompleted];
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                               NSLog(@"Password reset failure");
                                               NSLog(@"%@", error);
