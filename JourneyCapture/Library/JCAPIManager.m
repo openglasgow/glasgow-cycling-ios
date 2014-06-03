@@ -119,7 +119,7 @@
         [Flurry logEvent:@"Connection Error"];
         [[JCNotificationManager manager] displayErrorWithTitle:@"Connection Error"
                                                       subtitle:@"There was a problem connecting to the server"
-                                                          icon:[UIImage imageNamed:@"connection-icon"]];
+                                                          icon:[UIImage imageNamed:@"connection-error-icon"]];
     }
 
     failure(operation, error);

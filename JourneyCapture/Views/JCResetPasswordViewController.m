@@ -76,7 +76,7 @@
             NSLog(@"Reset password email sent");
             [_resetView setErrorHidden:YES];
             [self.navigationController popViewControllerAnimated:YES];
-            [[JCNotificationManager manager] displayInfoWithTitle:@"Instructions Sent" subtitle:@"Password reset instructions have been emailed to you" icon:[UIImage imageNamed:@"information-icon"]];
+            [[JCNotificationManager manager] displayInfoWithTitle:@"Instructions Sent" subtitle:@"Password reset instructions have been emailed to you" icon:[UIImage imageNamed:@"mail-sent-icon"]];
         }];
         return [RACSignal empty];
     }];

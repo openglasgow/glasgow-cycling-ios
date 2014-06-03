@@ -32,7 +32,7 @@
         [_navVC setViewControllers:@[welcomeVC] animated:NO];
         [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
                                                       subtitle:@"Your user details are invalid"
-                                                          icon:[UIImage imageNamed:@"confused-icon"]];
+                                                          icon:[UIImage imageNamed:@"logged-out-icon"]];
         
     }
 }
