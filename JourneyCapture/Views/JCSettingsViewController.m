@@ -13,7 +13,7 @@
 #import "JCSigninViewController.h"
 #import "JCPasswordViewController.h"
 #import "Flurry.h"
-#import <GSKeychain/GSKeychain.h>
+#import "JCUserManager.h"
 #import "User.h"
 
 @interface JCSettingsViewController ()
@@ -94,11 +94,7 @@
     }];
     
     _settingsView.logoutButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        @strongify(self);
-        [[GSKeychain systemKeychain] removeAllSecrets];
-        JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
-        [self.navigationController setViewControllers:@[welcomeVC] animated:NO];
-        
+        [[JCUserManager sharedManager] logout];
         return [RACSignal empty];
     }];
     

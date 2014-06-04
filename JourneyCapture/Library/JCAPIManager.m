@@ -11,7 +11,6 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "JCSigninViewController.h"
-
 #import "JCNavViewController.h"
 #import "JCNotificationManager.h"
 #import "Flurry.h"
@@ -27,6 +26,7 @@
         return nil;
     }
 
+    self.shouldUseCredentialStorage = NO;
     self.requestSerializer = [AFJSONRequestSerializer serializer];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -113,6 +113,9 @@
     if (operation.response.statusCode == 401 && !isSignin && !isChangePassword) {
         // Unauthorized, logout
         [Flurry logEvent:@"Unauthorized Request"];
+        [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
+                                                      subtitle:@"Your user details are invalid"
+                                                          icon:[UIImage imageNamed:@"logged-out-icon"]];
         [[JCUserManager sharedManager] logout];
     } else if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1004) {
         // Couldn't connect to server

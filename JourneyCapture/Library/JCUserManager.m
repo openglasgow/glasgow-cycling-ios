@@ -9,7 +9,7 @@
 #import "JCUserManager.h"
 #import <GSKeychain/GSKeychain.h>
 #import "JCSigninViewController.h"
-#import "JCNotificationManager.h"
+#import "JCAPIManager.h"
 #import "User.h"
 #import "Route.h"
 #import "RoutePoint.h"
@@ -19,6 +19,12 @@
 - (void)logout {
     // Remove auth details
     [[GSKeychain systemKeychain] removeAllSecrets];
+    
+    // Remove any cookies for the API
+    NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:API_URI]];
+    for (NSHTTPCookie* cookie in cookies) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
     
     // Remove user cache
     [User MR_truncateAll];
@@ -30,10 +36,6 @@
     if (_navVC) {
         JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
         [_navVC setViewControllers:@[welcomeVC] animated:NO];
-        [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
-                                                      subtitle:@"Your user details are invalid"
-                                                          icon:[UIImage imageNamed:@"logged-out-icon"]];
-        
     }
 }
 
