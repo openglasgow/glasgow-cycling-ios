@@ -378,6 +378,7 @@
         } else if (textField == _yobField) {
             [_yobPicker selectRow:90 inComponent:0 animated:NO];
             [self pickerView:_yobPicker didSelectRow:90 inComponent:0];
+            _viewModel.yearOfBirth = [_viewModel.birthYears[90] intValue];
         }
     }
     
