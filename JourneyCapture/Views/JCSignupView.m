@@ -208,11 +208,11 @@
     [_genderToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
     _genderToolbarButton.translatesAutoresizingMaskIntoConstraints = NO;
     
-    _genderField.inputView = _genderPicker;
-    _genderField.inputAccessoryView = _genderToolbar;
-    
     _genderToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
     [_genderToolbar addSubview:_genderToolbarButton];
+    
+    _genderField.inputView = _genderPicker;
+    _genderField.inputAccessoryView = _genderToolbar;
     
     _genderToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [_genderField resignFirstResponder];
