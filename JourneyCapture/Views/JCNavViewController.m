@@ -24,7 +24,7 @@
                 // Show not reachable notification
                 [[JCNotificationManager manager] displayErrorWithTitle:@"Network Error"
                                                               subtitle:@"There is an issue with either your connection or the server"
-                                                                  icon:[UIImage imageNamed:@"connection-icon"]];
+                                                                  icon:[UIImage imageNamed:@"connection-error-icon"]];
             }
         }];
         [[AFNetworkReachabilityManager sharedManager] startMonitoring];
