@@ -53,6 +53,7 @@
     _emailField.keyboardType = UIKeyboardTypeEmailAddress;
     _emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
+    _emailField.returnKeyType = UIReturnKeyNext;
     RAC(_viewModel, email) = _emailField.rac_textSignal;
     [_contentView addSubview:_emailField];
     [RACObserve(self, viewModel.emailError) subscribeNext:^(id x) {
@@ -72,6 +73,7 @@
     _passwordField.secureTextEntry = YES;
     _passwordField.placeholder = @"Your Password";
     _passwordField.translatesAutoresizingMaskIntoConstraints = NO;
+    _passwordField.returnKeyType = UIReturnKeyGo;
     RAC(_viewModel, password) = _passwordField.rac_textSignal;
     [_contentView addSubview:_passwordField];
     [RACObserve(self, viewModel.passwordError) subscribeNext:^(id x) {

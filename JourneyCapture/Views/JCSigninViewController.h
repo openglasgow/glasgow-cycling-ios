@@ -14,4 +14,6 @@
 @property (strong, nonatomic) JCSigninView *signinView;
 @property (strong, nonatomic) JCResetPasswordView *resetView;
 
+- (RACSignal *)signin;
+
 @end

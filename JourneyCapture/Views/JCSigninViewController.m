@@ -33,9 +33,29 @@
     return self;
 }
 
+#pragma mark - JCSigninViewController
+- (RACSignal *)signin
+{
+    _signinView.loadingView.loading = YES;
+    [self dismissKeyboard];
+    [[_viewModel signin] subscribeNext:^(id x) {
+        NSLog(@"Login::next");
+    } error:^(NSError *error) {
+        NSLog(@"Login::error");
+        _signinView.loadingView.loading = NO;
+        _signinView.loadingView.infoLabel.text = @"Problem Signing In";
+    } completed:^{
+        NSLog(@"Login::completed");
+        [Flurry logEvent:@"User signin success"];
+        JCUserViewController *userController = [[JCUserViewController alloc] init];
+        [self.navigationController pushViewController:userController animated:YES];
+    }];
+    return [RACSignal empty];
+}
+
 #pragma mark - UIViewController
 
--(void)loadView
+- (void)loadView
 {
     CGRect frame = [[UIScreen mainScreen] applicationFrame];
     self.view = [[UIView alloc] initWithFrame:frame];
@@ -70,26 +90,12 @@
     // Sign in
     @weakify(self);
     _signinView.signinButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        _signinView.loadingView.loading = YES;
-        @strongify(self);
-        [self dismissKeyboard];
-        [[_viewModel signin] subscribeNext:^(id x) {
-            NSLog(@"Login::next");
-        } error:^(NSError *error) {
-            NSLog(@"Login::error");
-            _signinView.loadingView.loading = NO;
-            _signinView.loadingView.infoLabel.text = @"Problem Signing In";
-        } completed:^{
-            NSLog(@"Login::completed");
-            [Flurry logEvent:@"User signin success"];
-            JCUserViewController *userController = [[JCUserViewController alloc] init];
-            [self.navigationController pushViewController:userController animated:YES];
-        }];
-        return [RACSignal empty];
+        return [self signin];
     }];
     
     // Sign up
     _signinView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
         NSLog(@"Signup tapped");
         [Flurry logEvent:@"Signup button tapped"];
         JCSignupViewModel *signupVM = [JCSignupViewModel new];
@@ -101,6 +107,7 @@
     
     // Reset
     _signinView.resetButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
         NSLog(@"Reset password tapped");
         [Flurry logEvent:@"Reset password button tapped"];
         JCResetPasswordViewModel *resetVM = [JCResetPasswordViewModel new];
@@ -137,6 +144,16 @@
     CGFloat offset = 180;
     CGPoint scrollPoint = CGPointMake(0.0, offset);
     [_signinView.contentView setContentOffset:scrollPoint animated:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == _signinView.emailField) {
+        [_signinView.passwordField becomeFirstResponder];
+    } else {
+        [self signin];
+    }
+    return YES;
 }
 
 @end
