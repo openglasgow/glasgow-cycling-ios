@@ -19,6 +19,8 @@
 
 @implementation JCResetPasswordViewController
 
+#pragma mark - Lifecycle
+
 - (id)initWithViewModel:(JCResetPasswordViewModel *)resetPasswordViewModel
 {
     self = [super init];
@@ -59,25 +61,15 @@
 {
     [super viewDidLoad];
     
+    _resetView.emailField.delegate = self;
+    
     [RACObserve(self, viewModel.email) subscribeNext:^(id x) {
         _resetView.emailField.text = _viewModel.email;
     }];
     
     // reset button
     _resetView.resetButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        NSLog(@"Password reset pressed");
-        _resetView.resetButton.enabled = NO;
-        [[_viewModel reset] subscribeError:^(NSError *error) {
-            _resetView.resetButton.enabled = YES;
-            [_resetView setErrorHidden:NO];
-            [_resetView layoutIfNeeded];
-            NSLog(@"Couldn't reset");
-        } completed:^{
-            NSLog(@"Reset password email sent");
-            [_resetView setErrorHidden:YES];
-            [self.navigationController popViewControllerAnimated:YES];
-            [[JCNotificationManager manager] displayInfoWithTitle:@"Instructions Sent" subtitle:@"Password reset instructions have been emailed to you" icon:[UIImage imageNamed:@"mail-sent-icon"]];
-        }];
+        [self resetPassword];
         return [RACSignal empty];
     }];
 }
@@ -86,6 +78,32 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - JCResetPasswordViewController
+
+- (void)resetPassword
+{
+    NSLog(@"Password reset pressed");
+    _resetView.resetButton.enabled = NO;
+    [[_viewModel reset] subscribeError:^(NSError *error) {
+        _resetView.resetButton.enabled = YES;
+        [_resetView setErrorHidden:NO];
+        [_resetView layoutIfNeeded];
+        NSLog(@"Couldn't reset");
+    } completed:^{
+        NSLog(@"Reset password email sent");
+        [_resetView setErrorHidden:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+        [[JCNotificationManager manager] displayInfoWithTitle:@"Instructions Sent" subtitle:@"Password reset instructions have been emailed to you" icon:[UIImage imageNamed:@"mail-sent-icon"]];
+    }];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self resetPassword];
+    return YES;
 }
 
 @end

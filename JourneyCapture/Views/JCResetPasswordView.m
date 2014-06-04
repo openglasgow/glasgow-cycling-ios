@@ -35,6 +35,7 @@
     _emailField.borderStyle = UITextBorderStyleRoundedRect;
     _emailField.placeholder = @"Registered Email";
     _emailField.keyboardType = UIKeyboardTypeEmailAddress;
+    _emailField.returnKeyType = UIReturnKeySend;
     _emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
     RAC(_viewModel, email) = _emailField.rac_textSignal;

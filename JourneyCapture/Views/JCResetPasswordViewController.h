@@ -10,11 +10,12 @@
 
 @class JCResetPasswordViewModel, JCResetPasswordView;
 
-@interface JCResetPasswordViewController : UIViewController
+@interface JCResetPasswordViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) JCResetPasswordViewModel *viewModel;
 @property (strong, nonatomic) JCResetPasswordView *resetView;
 
 - (id)initWithViewModel:(JCResetPasswordViewModel *)resetPasswordViewModel;
+- (void)resetPassword;
 
 @end

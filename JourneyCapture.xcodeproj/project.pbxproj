@@ -768,10 +768,10 @@
 				83BA022F18BE482B00EE7787 /* JCSigninView.m */,
 				83BA022518BE474D00EE7787 /* JCSigninViewController.h */,
 				83BA022618BE474D00EE7787 /* JCSigninViewController.m */,
-				6E15B11D19374B1E00459B8D /* JCResetPasswordViewController.h */,
-				6E15B11E19374B1E00459B8D /* JCResetPasswordViewController.m */,
 				6E15B12019374B3500459B8D /* JCResetPasswordView.h */,
 				6E15B12119374B3500459B8D /* JCResetPasswordView.m */,
+				6E15B11D19374B1E00459B8D /* JCResetPasswordViewController.h */,
+				6E15B11E19374B1E00459B8D /* JCResetPasswordViewController.m */,
 			);
 			name = Signin;
 			sourceTree = "<group>";
