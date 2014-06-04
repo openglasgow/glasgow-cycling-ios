@@ -44,15 +44,6 @@
     }];
     [_contentView addSubview:_profilePictureButton];
 
-    _profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [Flurry logEvent:@"Signup profile picture selected"];
-        _takeController = [[FDTakeController alloc] init];
-        [_takeController setDelegate:self];
-        _takeController.allowsEditingPhoto = YES;
-        [_takeController takePhotoOrChooseFromLibrary];
-        return [RACSignal empty];
-    }];
-
     // Email
     _emailFieldLabel = [UILabel new];
     _emailFieldLabel.text = @"Email Address";
@@ -393,13 +384,5 @@
     CGPoint scrollPoint = CGPointMake(0.0, offset);
     [_contentView setContentOffset:scrollPoint animated:YES];
 }
-
-#pragma mark - FDTakeControllerDelegate
-
-- (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info
-{
-    _viewModel.profilePicture = photo;
-}
-
 
 @end

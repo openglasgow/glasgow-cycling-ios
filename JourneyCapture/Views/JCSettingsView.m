@@ -62,15 +62,6 @@
     }];
     [_contentView addSubview:_profilePictureButton];
     
-    _profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [Flurry logEvent:@"Signup profile picture selected"];
-        _takeController = [[FDTakeController alloc] init];
-        [_takeController setDelegate:self];
-        _takeController.allowsEditingPhoto = YES;
-        [_takeController takePhotoOrChooseFromLibrary];
-        return [RACSignal empty];
-    }];
-    
     // Email
     _emailFieldLabel = [UILabel new];
     _emailFieldLabel.text = @"Email Address";
@@ -264,13 +255,6 @@
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [_genderField setText:_viewModel.genders[row]];
-}
-
-#pragma mark - FDTakeControllerDelegate
-
-- (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info
-{
-    _viewModel.profilePic = photo;
 }
 
 

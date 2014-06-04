@@ -70,6 +70,21 @@
 {
     [super viewDidLoad];
     
+    // Profile pic select
+    _takeController = [FDTakeController new];
+    _takeController.delegate = self;
+    _takeController.allowsEditingPhoto = YES;
+    UIImagePickerController *imagePicker = _takeController.imagePicker;
+    [imagePicker.navigationBar setBarTintColor:[UIColor jc_blueColor]];
+    [imagePicker.navigationBar setTranslucent:NO];
+    imagePicker.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+                                                                                forKey:NSForegroundColorAttributeName];
+    _settingsView.profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [Flurry logEvent:@"Signup profile picture selected"];
+        [_takeController takePhotoOrChooseFromLibrary];
+        return [RACSignal empty];
+    }];
+    
     // Sign in
     @weakify(self);
     _settingsView.submitButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -106,6 +121,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+#pragma mark - FDTakeControllerDelegate
+
+- (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info
+{
+    _viewModel.profilePic = photo;
 }
 
 @end

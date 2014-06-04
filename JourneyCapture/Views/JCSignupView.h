@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FDTake/FDTakeController.h>
 #import "JCLoadingView.h"
 @class JCSignupViewModel, JCTextField;
 
 @interface JCSignupView : UIView <UIPickerViewDataSource, UIPickerViewDelegate,
-                                            UITextFieldDelegate, FDTakeDelegate>
-
-@property (strong, nonatomic) FDTakeController *takeController;
+                                            UITextFieldDelegate>
 
 @property (strong, nonatomic) UIScrollView *contentView;
 

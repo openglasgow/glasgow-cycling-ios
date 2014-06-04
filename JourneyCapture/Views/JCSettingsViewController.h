@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import <FDTake/FDTakeController.h>
 
 @class JCSettingsViewModel, JCSettingsView;
 
-@interface JCSettingsViewController : UIViewController <UITextFieldDelegate>
+@interface JCSettingsViewController : UIViewController <UITextFieldDelegate, FDTakeDelegate>
 
 @property (strong, nonatomic) JCSettingsViewModel *viewModel;
 @property (strong, nonatomic) JCSettingsView *settingsView;
+@property (strong, nonatomic) FDTakeController *takeController;
 
 - (id)initWithViewModel:(JCSettingsViewModel *)settingsViewModel;
 

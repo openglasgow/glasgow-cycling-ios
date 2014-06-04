@@ -87,8 +87,25 @@
         }];
         return [RACSignal empty];
     }];
+    
+    // Profile pic selection
+    _takeController = [FDTakeController new];
+    _takeController.delegate = self;
+    _takeController.allowsEditingPhoto = YES;
+    UIImagePickerController *imagePicker = _takeController.imagePicker;
+    [imagePicker.navigationBar setBarTintColor:[UIColor jc_blueColor]];
+    [imagePicker.navigationBar setTranslucent:NO];
+    imagePicker.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+                                                                                forKey:NSForegroundColorAttributeName];
+    
+    _signupView.profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [Flurry logEvent:@"Signup profile picture selected"];
+        [_takeController takePhotoOrChooseFromLibrary];
+        return [RACSignal empty];
+    }];
 
-    // Keyboard
+
+    // Keyboard dismissing
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(dismissKeyboard)];
     
@@ -112,6 +129,13 @@
 
     CGPoint scrollPoint = CGPointMake(0.0, 0.0);
     [_signupView.contentView setContentOffset:scrollPoint animated:YES];
+}
+
+#pragma mark - FDTakeControllerDelegate
+
+- (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info
+{
+    _viewModel.profilePicture = photo;
 }
 
 @end

@@ -6,14 +6,16 @@
 //  Copyright (c) 2014 FCD. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+#import <FDTake/FDTakeController.h>
 
 @class JCSignupViewModel, JCSignupView;
 
-@interface JCSignupViewController : UIViewController
+@interface JCSignupViewController : UIViewController <FDTakeDelegate>
 
 @property (strong, nonatomic) JCSignupViewModel *viewModel;
 @property (strong, nonatomic) JCSignupView *signupView;
+@property (strong, nonatomic) FDTakeController *takeController;
 
 - (id)initWithViewModel:(JCSignupViewModel *)signupViewModel;
 

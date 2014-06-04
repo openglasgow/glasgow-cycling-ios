@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FDTake/FDTakeController.h>
 #import "JCTextField.h"
 #import "JCSettingsViewModel.h"
 
 @interface JCSettingsView : UIView  <UIPickerViewDataSource, UIPickerViewDelegate,
-UITextFieldDelegate, FDTakeDelegate>
-
-@property (strong, nonatomic) FDTakeController *takeController;
+                            UITextFieldDelegate>
 
 @property (strong, nonatomic) UIScrollView *contentView;
 
