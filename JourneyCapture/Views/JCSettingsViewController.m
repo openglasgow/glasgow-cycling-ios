@@ -103,22 +103,13 @@
     }];
     
     // Keyboard
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(dismissKeyboard)];
-    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:_settingsView action:@selector(endEditing:)];
     [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-}
-
-- (void)dismissKeyboard
-{
-    [_settingsView.emailField resignFirstResponder];
-    [_settingsView.firstNameField resignFirstResponder];
-    [_settingsView.lastNameField resignFirstResponder];
 }
 
 @end

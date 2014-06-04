@@ -124,8 +124,7 @@
 
 - (void)dismissKeyboard
 {
-    [_signinView.emailField resignFirstResponder];
-    [_signinView.passwordField resignFirstResponder];
+    [_signinView endEditing:YES];
     
     CGPoint scrollPoint = CGPointMake(0.0, 0.0);
     [_signinView.contentView setContentOffset:scrollPoint animated:YES];
