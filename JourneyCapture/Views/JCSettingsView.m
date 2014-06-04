@@ -131,6 +131,7 @@
     [_contentView addSubview:_genderFieldLabel];
     
     _genderField = [JCTextField new];
+    _genderField.pasteDisabled = YES;
     _genderField.borderStyle = UITextBorderStyleRoundedRect;
     _genderField.text = _viewModel.gender;
     _genderField.font = labelFont;

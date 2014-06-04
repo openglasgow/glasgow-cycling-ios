@@ -139,6 +139,7 @@
     [_contentView addSubview:_yobFieldLabel];
     
     _yobField = [JCTextField new];
+    _yobField.pasteDisabled = YES;
     _yobField.borderStyle = UITextBorderStyleRoundedRect;
     _yobField.placeholder = @"Year of Birth";
     _yobField.font = labelFont;
@@ -184,6 +185,7 @@
     [_contentView addSubview:_genderFieldLabel];
     
     _genderField = [JCTextField new];
+    _genderField.pasteDisabled = YES;
     _genderField.borderStyle = UITextBorderStyleRoundedRect;
     _genderField.placeholder = @"Gender";
     _genderField.font = labelFont;

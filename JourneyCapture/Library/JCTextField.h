@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface JCTextField : UITextField
+@property (readwrite, nonatomic) BOOL _pasteDisabled;
 @property (readwrite, nonatomic) BOOL valid;
 @property (readwrite, nonatomic) BOOL error;
 @property (strong, nonatomic) UIView *invalidView;
@@ -17,6 +18,8 @@
 @property (readwrite, nonatomic) float correctBorderWidth;
 @property (readwrite, nonatomic) float correctCornerRadius;
 @property (strong, nonatomic) UIColor *errorBorderColor;
+
+@property (readwrite, nonatomic) BOOL pasteDisabled;
 
 -(void)showError;
 -(void)hideError;

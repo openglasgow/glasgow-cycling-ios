@@ -12,9 +12,12 @@
 
 @implementation JCTextField
 
+#pragma mark - Lifecycle
+
 - (id)init
 {
     self = [super init];
+    _pasteDisabled = NO;
     if (self) {
         _correctBorderColor = [UIColor colorWithCGColor:self.layer.borderColor];
         _correctCornerRadius = self.layer.cornerRadius;
@@ -44,6 +47,8 @@
     }
     return self;
 }
+
+#pragma mark - JCTextField
 
 - (void)showError
 {
@@ -92,6 +97,16 @@
         [_invalidView removeFromSuperview];
         _invalidView = nil;
     }
+}
+
+#pragma mark - UITextField
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    if (_pasteDisabled && action == @selector(paste:)) {
+        return NO;
+    }
+    return [super canPerformAction:action withSender:sender];
 }
 
 @end
