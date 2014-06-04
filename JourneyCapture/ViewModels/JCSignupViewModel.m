@@ -12,10 +12,6 @@
 #import "UIImage+Compression.h"
 
 @implementation JCSignupViewModel
-@synthesize email, password, firstName, lastName, dob, gender, genders, profilePicture,
-            emailValid, passwordValid, firstNameValid, lastNameValid, genderValid, dobValid,
-            emailError, passwordError,
-            isValidDetails;
 
 - (id)init
 {
@@ -24,36 +20,47 @@
         return nil;
     }
 
-    self.genders = @[@"Undisclosed", @"Male", @"Female"];
-
-    self.emailValid = [RACObserve(self, email) map:^(NSString *emailValue) {
+    _genders = @[@"Undisclosed", @"Male", @"Female"];
+    
+    // Possible birth years
+    NSDateFormatter* formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"yyyy"];
+    NSUInteger currentYear  = [[formatter stringFromDate:[NSDate date]] intValue];
+    NSMutableArray *years = [NSMutableArray new];
+    for (int i = 1900; i <= currentYear; i++) {
+        [years addObject:[NSString stringWithFormat:@"%d",i]];
+    }
+    _birthYears = [years copy];
+    
+    // Validations
+    _emailValid = [RACObserve(self, email) map:^(NSString *emailValue) {
         NSCharacterSet *emailSet = [NSCharacterSet characterSetWithCharactersInString:@"@"];
         return @(emailValue.length >= 5 &&
         [emailValue rangeOfCharacterFromSet:emailSet].location != NSNotFound);
     }];
 
-    self.passwordValid = [RACObserve(self, password) map:^(NSString *emailValue) {
+    _passwordValid = [RACObserve(self, password) map:^(NSString *emailValue) {
         return @(emailValue.length >= 8);
     }];
 
-    self.firstNameValid = [RACObserve(self, gender) map:^(NSString *firstNameValue) {
+    _firstNameValid = [RACObserve(self, gender) map:^(NSString *firstNameValue) {
         return @(firstNameValue.length > 0);
     }];
 
-    self.lastNameValid = [RACObserve(self, gender) map:^(NSString *lastNameValue) {
+    _lastNameValid = [RACObserve(self, gender) map:^(NSString *lastNameValue) {
         return @(lastNameValue.length > 0);
     }];
 
-    self.genderValid = [RACObserve(self, gender) map:^(NSString *genderValue) {
+    _genderValid = [RACObserve(self, gender) map:^(NSString *genderValue) {
         return @(genderValue.length > 0);
     }];
 
-    self.dobValid = [RACObserve(self, dob) map:^(NSString *dobValue) {
-        return @(dobValue != nil);
+    _yobValid = [RACObserve(self, yearOfBirth) map:^(NSNumber *year) {
+        return @([year intValue] > 1900);
     }];
 
-    self.isValidDetails = [RACSignal combineLatest:@[ self.emailValid, self.passwordValid, self.firstNameValid, self.lastNameValid,
-                                                      self.dobValid, self.genderValid ]
+    _isValidDetails = [RACSignal combineLatest:@[ _emailValid, _passwordValid, _firstNameValid, _lastNameValid,
+                                                      _yobValid, _genderValid ]
                                             reduce:^id(id eValid, id pValid, id fValid, id lValid, id dValid, id gValid){
                                                 return @([eValid boolValue] && [pValid boolValue] && [fValid boolValue]
                                                     && [lValid boolValue] && [dValid boolValue] && [gValid boolValue]);
@@ -66,23 +73,18 @@
 {
     JCAPIManager *manager = [JCAPIManager manager];
 
-    // DOB
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *formattedDob = [formatter stringFromDate:self.dob];
-
     // User data
-    NSMutableDictionary *userData = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.email, @"email",
-                              self.password, @"password",
-                              self.firstName, @"first_name",
-                              self.lastName, @"last_name",
-                              formattedDob, @"dob",
-                              self.gender.lowercaseString, @"gender",
+    NSMutableDictionary *userData = [NSMutableDictionary dictionaryWithObjectsAndKeys:_email, @"email",
+                              _password, @"password",
+                              _firstName, @"first_name",
+                              _lastName, @"last_name",
+                              @(_yearOfBirth), @"year_of_birth",
+                              _gender.lowercaseString, @"gender",
                               nil];
     
     // Profile pic
-    if (self.profilePicture) {
-        NSData *imageData = [self.profilePicture compressToSize:250];
+    if (_profilePicture) {
+        NSData *imageData = [_profilePicture compressToSize:250];
         NSString *compressedJpegImage = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
         NSString *base64ImageString = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", compressedJpegImage];
         userData[@"profile_picture"] = base64ImageString;
@@ -100,7 +102,7 @@
                   NSString *userToken = responseObject[@"user_token"];
                   if (userToken) {
                       [[GSKeychain systemKeychain] setSecret:userToken forKey:@"user_token"];
-                      [[GSKeychain systemKeychain] setSecret:self.email forKey:@"user_email"];
+                      [[GSKeychain systemKeychain] setSecret:_email forKey:@"user_email"];
                       [subscriber sendCompleted];
                   } else if (responseObject[@"errors"]) {
                       [subscriber sendNext:responseObject[@"errors"]];

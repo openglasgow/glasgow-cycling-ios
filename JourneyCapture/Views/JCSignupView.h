@@ -26,11 +26,11 @@
 @property (strong, nonatomic) UIButton *profilePictureButton;
 @property (strong, nonatomic) UIButton *signupButton;
 
-// Date picker
-@property (strong, nonatomic) JCTextField *dobField;
-@property (strong, nonatomic) UIButton *dobToolbarButton;
-@property (nonatomic, retain) UIToolbar *dobToolbar;
-@property (nonatomic, retain) UIDatePicker *dobPicker;
+// Year of birth picker
+@property (strong, nonatomic) JCTextField *yobField;
+@property (strong, nonatomic) UIButton *yobToolbarButton;
+@property (nonatomic, retain) UIToolbar *yobToolbar;
+@property (nonatomic, retain) UIPickerView *yobPicker;
 
 // Gender Picker
 @property (strong, nonatomic) JCTextField *genderField;
@@ -43,7 +43,7 @@
 @property (strong, nonatomic) UILabel *emailFieldLabel;
 @property (strong, nonatomic) UILabel *passwordFieldLabel;
 @property (strong, nonatomic) UILabel *genderFieldLabel;
-@property (strong, nonatomic) UILabel *dobFieldLabel;
+@property (strong, nonatomic) UILabel *yobFieldLabel;
 
 @property (strong, nonatomic) JCLoadingView *loadingView;
 @property (strong, nonatomic) UIView *bottomArea;

@@ -109,7 +109,7 @@
 - (void)dismissKeyboard
 {
     [_signupView.passwordField resignFirstResponder];
-    [_signupView.dobField resignFirstResponder];
+    [_signupView.yobField resignFirstResponder];
     [_signupView.genderField resignFirstResponder];
 
     CGPoint scrollPoint = CGPointMake(0.0, 0.0);

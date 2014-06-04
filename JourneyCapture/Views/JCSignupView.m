@@ -29,41 +29,6 @@
     _contentView = [UIScrollView new];
     _contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview: _contentView];
-    
-    //Setting up dob DatePicker for dobField use
-    _dobPicker = [UIDatePicker new];
-    _dobPicker.datePickerMode = UIDatePickerModeDate;
-
-    _dobToolbarButton = [UIButton new];
-    [_dobToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
-    [_dobToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    _dobToolbarButton.translatesAutoresizingMaskIntoConstraints = NO;
-
-    _dobToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [_dobToolbar addSubview:_dobToolbarButton];
-
-    _dobToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [_dobField resignFirstResponder];
-        return [RACSignal empty];
-    }];
-
-    //Setting up gender UIPickerView for genderField
-    _genderPicker = [UIPickerView new];
-    [_genderPicker setDataSource:self];
-    [_genderPicker setDelegate:self];
-
-    _genderToolbarButton = [UIButton new];
-    [_genderToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
-    [_genderToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
-    _genderToolbarButton.translatesAutoresizingMaskIntoConstraints = NO;
-
-    _genderToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
-    [_genderToolbar addSubview:_genderToolbarButton];
-
-    _genderToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [_genderField resignFirstResponder];
-        return [RACSignal empty];
-    }];
 
     // Profile picture
     _profilePictureButton = [UIButton new];
@@ -174,36 +139,49 @@
         _lastNameField.valid = [lastNameValid boolValue];
     }];
 
-    // DOB
-    _dobFieldLabel = [UILabel new];
-    _dobFieldLabel.text = @"Date of Birth";
-    _dobFieldLabel.font = labelFont;
-    _dobFieldLabel.textColor = [UIColor jc_darkGrayColor];
-    _dobFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_contentView addSubview:_dobFieldLabel];
+    // Year of Birth
+    _yobFieldLabel = [UILabel new];
+    _yobFieldLabel.text = @"Year of Birth";
+    _yobFieldLabel.font = labelFont;
+    _yobFieldLabel.textColor = [UIColor jc_darkGrayColor];
+    _yobFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [_contentView addSubview:_yobFieldLabel];
     
-    _dobField = [JCTextField new];
-    _dobField.borderStyle = UITextBorderStyleRoundedRect;
-    _dobField.placeholder = @"Date of Birth";
-    _dobField.font = labelFont;
-    _dobField.translatesAutoresizingMaskIntoConstraints = NO;
-    _dobField.delegate = self;
-    RAC(_viewModel, dob) = _dobField.rac_textSignal;
-    _dobField.inputView = _dobPicker;
-    _dobField.inputAccessoryView = _dobToolbar;
-    [_contentView addSubview:_dobField];
-
-    [_viewModel.dobValid subscribeNext:^(id dobValid) {
-        _dobField.valid = [dobValid boolValue];
+    _yobField = [JCTextField new];
+    _yobField.borderStyle = UITextBorderStyleRoundedRect;
+    _yobField.placeholder = @"Year of Birth";
+    _yobField.font = labelFont;
+    _yobField.translatesAutoresizingMaskIntoConstraints = NO;
+    _yobField.delegate = self;
+    [_yobField.rac_textSignal subscribeNext:^(NSString *text) {
+        NSUInteger year = [text intValue];
+        _viewModel.yearOfBirth = year;
     }];
+    [_contentView addSubview:_yobField];
 
-    RACChannelTerminal *dobChannel = [_dobPicker rac_newDateChannelWithNilValue:nil];
-    [dobChannel subscribeNext:^(id dob) {
-        [_viewModel setDob:dob]; //TODO viewmodel => nsdate
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd/MM/yyyy"];
-        NSString *formattedDob = [formatter stringFromDate:dob];
-        [_dobField setText:formattedDob];
+    [_viewModel.yobValid subscribeNext:^(id dobValid) {
+        _yobField.valid = [dobValid boolValue];
+    }];
+    
+    // Year of birth picker
+    _yobPicker = [UIPickerView new];
+    _yobPicker.delegate = self;
+    _yobPicker.dataSource = self;
+    
+    _yobToolbarButton = [UIButton new];
+    [_yobToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
+    [_yobToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    _yobToolbarButton.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    _yobToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [_yobToolbar addSubview:_yobToolbarButton];
+    
+    _yobField.inputView = _yobPicker;
+    _yobField.inputAccessoryView = _yobToolbar;
+    
+    _yobToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [_yobField resignFirstResponder];
+        return [RACSignal empty];
     }];
 
     // Gender
@@ -220,8 +198,6 @@
     _genderField.font = labelFont;
     _genderField.translatesAutoresizingMaskIntoConstraints = NO;
     RACChannelTo(_viewModel, gender) = RACChannelTo(_genderField, text);
-    _genderField.inputView = _genderPicker;
-    _genderField.inputAccessoryView = _genderToolbar;
     _genderField.delegate = self;
     [_contentView addSubview:_genderField];
 
@@ -229,6 +205,28 @@
         _genderField.valid = [genderValid boolValue];
     }];
     
+    // Gender picker
+    _genderPicker = [UIPickerView new];
+    [_genderPicker setDataSource:self];
+    [_genderPicker setDelegate:self];
+    
+    _genderToolbarButton = [UIButton new];
+    [_genderToolbarButton setTitle:@"Enter" forState:UIControlStateNormal];
+    [_genderToolbarButton setTitleColor:self.tintColor forState:UIControlStateNormal];
+    _genderToolbarButton.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    _genderField.inputView = _genderPicker;
+    _genderField.inputAccessoryView = _genderToolbar;
+    
+    _genderToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 31)];
+    [_genderToolbar addSubview:_genderToolbarButton];
+    
+    _genderToolbarButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [_genderField resignFirstResponder];
+        return [RACSignal empty];
+    }];
+    
+    // Signup button
     _signupButton = [UIButton new];
     _signupButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_signupButton setTintColor:[UIColor whiteColor]];
@@ -238,7 +236,7 @@
     _signupButton.layer.cornerRadius = 4.0f;
     [_contentView addSubview:_signupButton];
     
-    //blue bit at the bottom
+    // Blue loading area
     _bottomArea = [UIView new];
     [_bottomArea setBackgroundColor:[UIColor whiteColor]];
     _bottomArea.translatesAutoresizingMaskIntoConstraints = NO;
@@ -260,8 +258,8 @@
 {
     [_contentView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
     
-    [_dobToolbarButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_dobToolbar withOffset:-12];
-    [_dobToolbarButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_dobToolbar];
+    [_yobToolbarButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_yobToolbar withOffset:-12];
+    [_yobToolbarButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_yobToolbar];
 
     [_genderToolbarButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_genderToolbar withOffset:-12];
     [_genderToolbarButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_genderToolbar];
@@ -301,13 +299,13 @@
     [_passwordField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_passwordField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordFieldLabel withOffset:labelPadding];
     
-    [_dobFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_dobFieldLabel autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:-padding/2];
-    [_dobFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
+    [_yobFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_yobFieldLabel autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:-padding/2];
+    [_yobFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_passwordField withOffset:padding];
 
-    [_dobField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_dobField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:-padding/2];
-    [_dobField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_dobFieldLabel withOffset:labelPadding];
+    [_yobField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_yobField autoConstrainAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:-padding/2];
+    [_yobField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_yobFieldLabel withOffset:labelPadding];
     
     [_genderFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_genderFieldLabel autoConstrainAttribute:NSLayoutAttributeLeft toAttribute:NSLayoutAttributeCenterX ofView:_contentView withOffset:padding/2];
@@ -337,24 +335,36 @@
 
 #pragma mark - UIPickerViewDelegate
 
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return _viewModel.genders[row];
+    if (pickerView == _genderPicker) {
+        return _viewModel.genders[row];
+    } else {
+        return _viewModel.birthYears[row];
+    }
 }
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return [_viewModel.genders count];
+    if (pickerView == _genderPicker) {
+        return [_viewModel.genders count];
+    } else {
+        return [_viewModel.birthYears count];
+    }
 }
 
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [_genderField setText:_viewModel.genders[row]];
+    if (pickerView == _genderPicker) {
+        [_genderField setText:_viewModel.genders[row]];
+    } else {
+        [_yobField setText:_viewModel.birthYears[row]];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -362,7 +372,13 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField.text.length == 0) {
-        [self pickerView:_genderPicker didSelectRow:0 inComponent:0];
+        if (textField == _genderField) {
+            [_genderPicker selectRow:0 inComponent:0 animated:NO];
+            [self pickerView:_genderPicker didSelectRow:0 inComponent:0];
+        } else if (textField == _yobField) {
+            [_yobPicker selectRow:90 inComponent:0 animated:NO];
+            [self pickerView:_yobPicker didSelectRow:90 inComponent:0];
+        }
     }
     
     CGFloat offset = 100;
