@@ -90,7 +90,8 @@
 - (CLLocationCoordinate2D)startCircleCoordinate
 {
     JCRoutePointViewModel *startPoint = self.points.firstObject;
-    JCRoutePointViewModel *nextPoint = self.points[self.points.count/2];
+    int nextIndex = ceil(self.points.count/10);
+    JCRoutePointViewModel *nextPoint = self.points[nextIndex];
     CLLocationDirection bearing = [startPoint.location bearingToLocation:nextPoint.location] + 180;
     
     double bearingRadians = (bearing * M_PI) / 180;
@@ -101,7 +102,14 @@
 - (CLLocationCoordinate2D)endCircleCoordinate
 {
     JCRoutePointViewModel *endPoint = self.points.lastObject;
-    JCRoutePointViewModel *nextPoint = self.points[self.points.count/2];
+    NSInteger nextIndex = self.points.count - ceil(self.points.count/10) - 1;
+    if (nextIndex > (self.points.count - 1)) {
+        nextIndex = self.points.count - 2;
+    }
+    if (nextIndex < 0) {
+        nextIndex = 0;
+    }
+    JCRoutePointViewModel *nextPoint = self.points[nextIndex];
     CLLocationDirection bearing = [endPoint.location bearingToLocation:nextPoint.location] + 180;
     
     double bearingRadians = (bearing * M_PI) / 180;
