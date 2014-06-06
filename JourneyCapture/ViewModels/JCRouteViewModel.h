@@ -7,6 +7,8 @@
 //
 
 #import "JCPathViewModel.h"
+#import <MapKit/MapKit.h>
+
 
 @interface JCRouteViewModel : JCPathViewModel
 
@@ -17,4 +19,7 @@
 @property (readwrite, nonatomic) double difficultyRating;
 
 - (RACSignal *)loadPoints;
+- (CLLocationCoordinate2D)startCircleCoordinate;
+- (CLLocationCoordinate2D)endCircleCoordinate;
+- (CLLocationCoordinate2D)locationWithBearing:(float)bearing distance:(float)distanceMeters fromLocation:(CLLocationCoordinate2D)origin;
 @end

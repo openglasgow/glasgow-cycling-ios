@@ -79,6 +79,17 @@
     free(pointsArray);
 
     [_mapView addOverlay:routeLine];
+    
+    // Draw fuzzy circles
+    CLLocationCoordinate2D startPoint = _viewModel.startCircleCoordinate;
+    MKCircle *startCircle = [MKCircle circleWithCenterCoordinate:startPoint
+                                                     radius:150];
+    [_mapView addOverlay:startCircle];
+    
+    CLLocationCoordinate2D endPoint = _viewModel.endCircleCoordinate;
+    MKCircle *endCircle = [MKCircle circleWithCenterCoordinate:endPoint
+                                                     radius:150];
+    [_mapView addOverlay:endCircle];
 
     // Zoom to points
     MKMapRect zoomRect = MKMapRectNull;
@@ -133,10 +144,18 @@
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
-    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
-    renderer.strokeColor = [UIColor jc_blueColor];
-    renderer.lineWidth = 3.5;
-    return  renderer;
-}
+    if ([overlay isKindOfClass:[MKCircle class]]) {
+        MKCircle *circle = overlay;
+        MKCircleRenderer *circleR = [[MKCircleRenderer alloc] initWithCircle:circle];
+        circleR.fillColor = [[UIColor jc_blueColor] colorWithAlphaComponent:0.4];
+        
+        return circleR;
+    } else {
+        MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+        renderer.strokeColor = [UIColor jc_blueColor];
+        renderer.lineWidth = 3.5;
+        return  renderer;
+    }
+ }
 
 @end
