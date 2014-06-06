@@ -140,19 +140,21 @@
                                                     cancelButtonTitle:@"Keep Going"
                                                     otherButtonTitles:@"Discard Route", nil];
         [cancelAlert show];
-        [RACObserve(self, viewModel.totalKm) subscribeNext:^(id x) {
-            if (_viewModel.totalKm >= 0.5) {
-                // Submit route
-                [cancelAlert dismissWithClickedButtonIndex:0 animated:NO];
-                [self submitRoute];
-            } else {
-                // Show error: too short
-                float distanceToGo = (0.5 - _viewModel.totalKm) * 1000;
-                if (distanceToGo < 0) {
-                    distanceToGo = 0;
+        _alertDisposable = [RACObserve(self, viewModel.totalKm) subscribeNext:^(id x) {
+            if (![cancelAlert isHidden]) {
+                if (_viewModel.totalKm >= 0.5) {
+                    // Submit route
+                    [cancelAlert dismissWithClickedButtonIndex:0 animated:NO];
+                    [self submitRoute];
+                } else {
+                    // Show error: too short
+                    float distanceToGo = (0.5 - _viewModel.totalKm) * 1000;
+                    if (distanceToGo < 0) {
+                        distanceToGo = 0;
+                    }
+                    NSString *errorString = [NSString stringWithFormat:@"The route needs to be %.1fm longer as it will be trimmed for privacy reasons", distanceToGo];
+                    cancelAlert.message = errorString;
                 }
-                NSString *errorString = [NSString stringWithFormat:@"The route needs to be %.1fm longer as it will be trimmed for privacy reasons", distanceToGo];
-                cancelAlert.message = errorString;
             }
         }];
         cancelAlert.delegate = self;
@@ -242,6 +244,9 @@
         [[JCLocationManager sharedManager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
         [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @NO}];
+    }
+    if (_alertDisposable) {
+        [_alertDisposable dispose];
     }
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 }

@@ -14,6 +14,7 @@
 @interface JCRouteCaptureViewController : UIViewController <JCLocationManagerDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) JCCaptureViewModel *viewModel;
 @property (strong, nonatomic) JCCaptureView *captureView;
+@property (strong, nonatomic) RACDisposable *alertDisposable;
 - (void)startRoute;
 - (void)endRoute;
 - (void)submitRoute;
