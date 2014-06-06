@@ -132,17 +132,45 @@
                                                     otherButtonTitles:@"Stop Capturing", nil];
         [cancelAlert show];
         cancelAlert.delegate = self;
+    } else if (_viewModel.totalKm < 0.5) {
+        NSString *errorString = [NSString stringWithFormat:@"The route needs to be %.1fm longer as it will be trimmed for privacy reasons", (0.5 - _viewModel.totalKm) * 1000];
+        UIAlertView *cancelAlert = [[UIAlertView alloc] initWithTitle:@"Route Too Short"
+                                                              message:errorString
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"Keep Going"
+                                                    otherButtonTitles:@"Discard Route", nil];
+        [cancelAlert show];
+        [RACObserve(self, viewModel.totalKm) subscribeNext:^(id x) {
+            if (_viewModel.totalKm >= 0.5) {
+                // Submit route
+                [cancelAlert dismissWithClickedButtonIndex:0 animated:NO];
+                [self submitRoute];
+            } else {
+                // Show error: too short
+                float distanceToGo = (0.5 - _viewModel.totalKm) * 1000;
+                if (distanceToGo < 0) {
+                    distanceToGo = 0;
+                }
+                NSString *errorString = [NSString stringWithFormat:@"The route needs to be %.1fm longer as it will be trimmed for privacy reasons", distanceToGo];
+                cancelAlert.message = errorString;
+            }
+        }];
+        cancelAlert.delegate = self;
     } else {
-        // Stop capturing
-        [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
-        [Flurry logEvent:@"Route Submit"];
-        [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
-        [[JCLocationManager sharedManager] setDelegate:nil];
-        
-        // Set route as completed
-        [_viewModel setCompleted];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self submitRoute];
     }
+}
+
+- (void)submitRoute {
+    // Stop capturing
+    [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
+    [Flurry logEvent:@"Route Submit"];
+    [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
+    [[JCLocationManager sharedManager] setDelegate:nil];
+    
+    // Set route as completed
+    [_viewModel setCompleted];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*
