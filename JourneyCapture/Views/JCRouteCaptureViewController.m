@@ -120,7 +120,6 @@
 
 - (void)endRoute
 {
-    [self cancelWarningNotification];
     NSLog(@"Ending route");
     
     // Only allow routes with captured locations
@@ -165,6 +164,7 @@
 
 - (void)submitRoute {
     // Stop capturing
+    [self cancelWarningNotification];
     [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
     [Flurry logEvent:@"Route Submit"];
     [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
