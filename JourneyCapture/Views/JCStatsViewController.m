@@ -107,7 +107,7 @@ CGFloat const kHeaderHeight = 213.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setTitle:@"Stats"];
+    [self setTitle:@"Week Stats"];
     
     _loadingView.loading = YES;
     _loadingView.infoLabel.text = @"Loading Stats";
