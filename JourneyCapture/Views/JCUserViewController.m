@@ -162,6 +162,12 @@
     [[JCRouteManager sharedManager] uploadCompletedRoutes];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [_userLoadDisposable dispose];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -170,7 +176,7 @@
 
 - (void)update
 {
-    [[_viewModel loadDetails] subscribeError:^(NSError *error) {
+    _userLoadDisposable = [[_viewModel loadDetails] subscribeError:^(NSError *error) {
         NSLog(@"Failed to load user");
     } completed:^{
         NSLog(@"User details loaded");

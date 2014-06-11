@@ -16,6 +16,7 @@
 @property (strong, nonatomic) JCUserView *userView;
 @property (strong, nonatomic) UIBarButtonItem *searchButton;
 @property (strong, nonatomic) UIBarButtonItem *settingsButton;
+@property (strong, nonatomic) RACDisposable *userLoadDisposable;
 @property (readwrite, nonatomic) BOOL updateOnAppear;
 
 - (void)update;
