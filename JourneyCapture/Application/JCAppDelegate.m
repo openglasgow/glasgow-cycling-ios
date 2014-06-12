@@ -23,6 +23,7 @@
     #if !TARGET_IPHONE_SIMULATOR
         //Flurry Analytics Setup - Crash reporting handled by Hockey App
         [Flurry setCrashReportingEnabled:NO];
+        [Flurry setSecureTransportEnabled:YES];
         [Flurry startSession:@"DDFSMM7RXYZNTB298YW3"];
 
         //Hockey App Setup
