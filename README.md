@@ -17,10 +17,10 @@ App Features
 * Record a route
 * Search for routes
 * View nearby routes
-* View hourly weathter for Glasgow
+* View hourly weather for Glasgow
 * View Glasgow 'cycle map' with racks, shops etc displayed
 * View user stats
-* USer profile overview
+* User profile overview
 * Settings and password control
 * Create account for Journey Capture
 
@@ -41,7 +41,8 @@ Notes
 
 Support
 ========
-Support should not be expected however <a href="http://twitter.com/chrisasur">Chris</a> or <a href="http://twitter.com/_MDHayes">Michael</a> from the Active Travel team can be contacted via twitter or email and will strive to answer questions.
+Support should not be expected however <a href="http://twitter.com/chrisasaur">Chris</a> or <a href="http://twitter.com/_MDHayes">Michael</a> from the Active Travel team can be contacted via twitter or email and will strive to answer questions.
+
 
 License
 ========
