@@ -34,8 +34,8 @@ App Requirements
 Notes
 ======
 * To run the app you must have Cocoa Pods installed and run the pod command to install latest version of the pods
-* iOS app uses AutoLayout for UI, not storyboards
-* iOS app uses Reactive Cocoa, please checkout the project Github repository for further infromation
+* Uses AutoLayout for UI
+* Uses Reactive Cocoa, please checkout the project Github repository for further infromation
 * App uses a Ruby on Rails application (source will be made available soon) to store and present data which has been developed alongside the mobile client.
 * App for now is used as is with no support or warranty
 * Steps have been taken to ensure privacy and data security however this system is in active development and has not been signed off
