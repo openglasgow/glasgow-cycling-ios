@@ -13,7 +13,6 @@ This app should be viewed as an example of the Go Cycling Journey Capture API an
 
 App Features
 ============
-
 * Record a route
 * Search for routes
 * View nearby routes
@@ -34,15 +33,27 @@ App Requirements
 
 Notes
 ======
-
-* app uses a Ruby on Rails application (source will be made available soon) to store and present data which has been developed alongside the mobile client.
-* app for now is used as is with no support or warranty
-* steps have been taken to ensure privacy and data security however this system is in active development and has not been signed off
+* To run the app you must have Cocoa Pods installed and run the pod command to install latest version of the pods
+* iOS app uses AutoLayout for UI, not storyboards
+* iOS app uses Reactive Cocoa, please checkout the project Github repository for further infromation
+* App uses a Ruby on Rails application (source will be made available soon) to store and present data which has been developed alongside the mobile client.
+* App for now is used as is with no support or warranty
+* Steps have been taken to ensure privacy and data security however this system is in active development and has not been signed off
 
 Support
 ========
 Support should not be expected however <a href="http://twitter.com/chrisasaur">Chris</a> or <a href="http://twitter.com/_MDHayes">Michael</a> from the Active Travel team can be contacted via twitter or email and will strive to answer questions.
 
+If you do use the app drop us a line. We would love to know how you;re using it and how we can help you progress.
+
+Useful Resources
+================
+
+* Open Glasgow Data Platform - http://data.glasgow.gov.uk
+* Geocoder gem - https://github.com/alexreisner/geocoder
+* Maidenhead Locator System - http://en.wikipedia.org/wiki/Maidenhead_Locator_System
+* Reactive Cocoa - https://github.com/ReactiveCocoa/ReactiveCocoa
+* Cocoa Pods - http://cocoapods.org
 
 License
 ========
