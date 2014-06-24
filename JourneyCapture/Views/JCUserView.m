@@ -41,10 +41,8 @@
     _pulldownView.translatesAutoresizingMaskIntoConstraints = NO;
     _pulldownView.backgroundColor = [UIColor jc_lightBlueColor];
     [_scrollView addSubview:_pulldownView];
-
-
     
-    // TODO header
+    // Header
     _headerView = [[JCUserHeaderView alloc] initWithViewModel:_viewModel];
     _headerView.translatesAutoresizingMaskIntoConstraints = NO;
     [_scrollView addSubview:_headerView];
