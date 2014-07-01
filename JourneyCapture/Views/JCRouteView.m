@@ -53,7 +53,7 @@
     _reviewStarView.displayMode = EDStarRatingDisplayFull;
     _reviewStarView.starImage = [UIImage imageNamed:@"star"];
     _reviewStarView.starHighlightedImage = [UIImage imageNamed:@"filled-star"];
-    _reviewStarView.rating = [_viewModel.averageRating intValue];
+    RACChannelTo(self.reviewStarView, rating) = RACChannelTo(self, viewModel.rating);
     _reviewStarView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_reviewStarView];
 

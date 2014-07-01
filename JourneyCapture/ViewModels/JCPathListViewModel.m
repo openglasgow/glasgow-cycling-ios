@@ -123,26 +123,11 @@
     // Average values
     NSDictionary *averages = itemData[@"averages"];
 
-    double safetyRating = 0;
-    if (averages[@"safety_rating"] != [NSNull null]) {
-        safetyRating = [averages[@"safety_rating"] doubleValue];
+    double rating = 0;
+    if (averages[@"rating"] != [NSNull null]) {
+        rating = [averages[@"rating"] doubleValue];
     }
-    [pathVM setSafetyRating:safetyRating];
-
-    double difficultyRating = 0;
-    if (averages[@"difficulty_rating"] != [NSNull null]) {
-        difficultyRating = [averages[@"difficulty_rating"] doubleValue];
-    }
-    [pathVM setDifficultyRating:difficultyRating];
-
-    double environmentRating = 0;
-    if (averages[@"environment_rating"] != [NSNull null]) {
-        environmentRating = [averages[@"environment_rating"] doubleValue];
-    }
-    [pathVM setSafetyRating:environmentRating];
-
-    double averageRating = (safetyRating + difficultyRating + environmentRating) / 3.0f;
-    [pathVM setSafetyRating:averageRating];
+    [pathVM setRating:rating];
 
     double time = 0;
     if (averages[@"time"] != [NSNull null]) {

@@ -77,11 +77,9 @@
     _ratingView.starImage = [UIImage imageNamed:@"star"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"filled-star"];
     _ratingView.userInteractionEnabled = NO;
-    
-    [RACChannelTo(self, viewModel.averageRating) subscribeNext:^(id rating) {
-        _ratingView.rating = [rating floatValue];
+    [RACObserve(self, viewModel.rating) subscribeNext:^(NSNumber *rating) {
+        _ratingView.rating = rating.floatValue;
     }];
-    
     [RACChannelTo(self, viewModel.numReviews) subscribeNext:^(id numReviews) {
         _numReviewsLabel.text = [NSString stringWithFormat:@"(%d)", [numReviews intValue]];
     }];

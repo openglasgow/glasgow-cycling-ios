@@ -136,4 +136,21 @@
     return target;
 }
 
+- (void)submitReview
+{
+    NSLog(@"Submitting review of %f", self.rating);
+    JCAPIManager *manager = [JCAPIManager manager];
+    NSDictionary *reviewParams = @{
+                                   @"route_id": @(_routeId),
+                                   @"rating": @(self.rating)
+                                   };
+    [manager POST:@"/review.json"
+       parameters:reviewParams
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"Review submitted successfully");
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"Review submision failed");
+          }];
+}
+
 @end

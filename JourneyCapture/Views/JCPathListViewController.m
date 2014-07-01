@@ -182,7 +182,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         [Flurry logEvent:@"Route selected" withParameters:@{
                                                             @"index": @(indexPath.row),
                                                             @"total_routes": @(self.viewModel.items.count),
-                                                            @"average_rating": @(pathVM.averageRating.floatValue)
+                                                            @"average_rating": @(pathVM.rating)
                                                             }];
     }
 }
