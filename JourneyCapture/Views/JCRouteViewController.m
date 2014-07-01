@@ -36,6 +36,7 @@
     
     _routeView = [[JCRouteView alloc] initWithViewModel:_viewModel];
     _routeView.translatesAutoresizingMaskIntoConstraints = NO;
+    _routeView.reviewStarView.delegate = self;
     [self.view addSubview:_routeView];
     
     // Load route points
@@ -68,6 +69,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - EDStarRating
+
+- (void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
+{
+    NSLog(@"Rating is now %f", rating);
+    [_viewModel submitReview];
 }
 
 @end

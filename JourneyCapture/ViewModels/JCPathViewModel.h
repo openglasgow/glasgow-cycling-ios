@@ -25,9 +25,7 @@
 @property (readwrite, nonatomic) NSInteger numReviews;
 
 // Review
-@property (readwrite, nonatomic) double safetyRating;
-@property (readwrite, nonatomic) double environmentRating;
-@property (readwrite, nonatomic) double difficultyRating;
+@property (readwrite, nonatomic) double rating;
 
 // Child paths
 @property (readwrite, nonatomic) BOOL hasChildren;
@@ -35,6 +33,5 @@
 - (JCPathListViewModel *)newChild;
 - (RACSignal *)readableInstanceCount;
 - (NSString *)readableTime;
-- (NSNumber *)averageRating;
 
 @end

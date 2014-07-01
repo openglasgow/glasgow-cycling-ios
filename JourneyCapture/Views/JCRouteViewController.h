@@ -8,10 +8,11 @@
 
 @import UIKit;
 @import MapKit;
+#import <EDStarRating/EDStarRating.h>
 @class JCRouteViewModel;
 @class JCRouteView;
 
-@interface JCRouteViewController : UIViewController <MKMapViewDelegate>
+@interface JCRouteViewController : UIViewController <MKMapViewDelegate, EDStarRatingProtocol>
 @property (strong, nonatomic) JCRouteViewModel *viewModel;
 @property (strong, nonatomic) JCRouteView *routeView;
 - (id)initWithViewModel:(JCRouteViewModel *)routeViewModel;
