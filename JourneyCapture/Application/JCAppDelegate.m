@@ -43,7 +43,7 @@
     [self.window makeKeyAndVisible];
 
     // Show the appropriate screen
-    BOOL loggedIn = [[GSKeychain systemKeychain] secretForKey:@"user_token"] != nil;
+    BOOL loggedIn = [[GSKeychain systemKeychain] secretForKey:@"access_token"] != nil;
     UIViewController *rootController;
     if (loggedIn) {
         rootController = [[JCUserViewController alloc] init];
