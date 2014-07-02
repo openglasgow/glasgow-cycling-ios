@@ -46,17 +46,15 @@
 
 - (AFHTTPRequestOperation *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
-    NSString *userToken = [[GSKeychain systemKeychain] secretForKey:@"user_token"];
-    NSString *userEmail = [[GSKeychain systemKeychain] secretForKey:@"user_email"];
-    if (userToken && userEmail) {
+    NSString *accessToken = [[GSKeychain systemKeychain] secretForKey:@"access_token"];
+    if (accessToken) {
         NSMutableDictionary *authParams;
         if (parameters) {
             authParams = [parameters mutableCopy];
         } else {
             authParams = [[NSMutableDictionary alloc] init];
         }
-        authParams[@"user_token"] = userToken;
-        authParams[@"user_email"] = userEmail;
+        authParams[@"access_token"] = accessToken;
         return [super GET:URLString parameters:authParams success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [self operation:operation error:error callback:failure];
         }];
@@ -70,12 +68,10 @@
 
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
-    NSString *userToken = [[GSKeychain systemKeychain] secretForKey:@"user_token"];
-    NSString *userEmail = [[GSKeychain systemKeychain] secretForKey:@"user_email"];
-    if (userToken && userEmail) {
+    NSString *accessToken = [[GSKeychain systemKeychain] secretForKey:@"access_token"];
+    if (accessToken) {
         NSMutableDictionary *authParams = [parameters mutableCopy];
-        authParams[@"user_token"] = userToken;
-        authParams[@"user_email"] = userEmail;
+        authParams[@"access_token"] = accessToken;
         return [super POST:URLString parameters:authParams success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [self operation:operation error:error callback:failure];
         }];
@@ -88,12 +84,10 @@
 
 - (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
-    NSString *userToken = [[GSKeychain systemKeychain] secretForKey:@"user_token"];
-    NSString *userEmail = [[GSKeychain systemKeychain] secretForKey:@"user_email"];
-    if (userToken && userEmail) {
+    NSString *accessToken = [[GSKeychain systemKeychain] secretForKey:@"access_token"];
+    if (accessToken) {
         NSMutableDictionary *authParams = [parameters mutableCopy];
-        authParams[@"user_token"] = userToken;
-        authParams[@"user_email"] = userEmail;
+        authParams[@"access_token"] = accessToken;
         return [super PUT:URLString parameters:authParams success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [self operation:operation error:error callback:failure];
         }];
@@ -107,7 +101,7 @@
 -(void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error callback:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
     BOOL isSignin = [operation.request.URL.lastPathComponent
-                                    rangeOfString:@"signin.json"].location != NSNotFound;
+                                    rangeOfString:@"token"].location != NSNotFound;
     BOOL isChangePassword = [operation.request.URL.lastPathComponent
                                     rangeOfString:@"reset_password.json"].location != NSNotFound;;
     if (operation.response.statusCode == 401 && !isSignin && !isChangePassword) {
