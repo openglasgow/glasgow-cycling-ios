@@ -11,6 +11,5 @@
 @interface JCUserManager : NSObject
 @property (strong, nonatomic) UINavigationController *navVC;
 - (void)logout;
-- (void)refreshToken;
 + (instancetype)sharedManager;
 @end

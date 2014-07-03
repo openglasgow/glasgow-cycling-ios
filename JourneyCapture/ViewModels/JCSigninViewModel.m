@@ -68,6 +68,10 @@
                      [[GSKeychain systemKeychain] setSecret:refreshToken forKey:@"refresh_token"];
                  }
                  
+                 NSNumber *expiresIn = [responseObject objectForKey:@"expires_in"];
+                 NSDate *expiresAt = [NSDate dateWithTimeIntervalSinceNow:expiresIn.integerValue];
+                 [[NSUserDefaults standardUserDefaults] setObject:expiresAt forKey:@"expires_at"];
+                 
                  if ([responseObject objectForKey:@"errors"]) {
                      [subscriber sendNext:[responseObject objectForKey:@"errors"]];
                  } else {

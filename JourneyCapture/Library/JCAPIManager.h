@@ -11,6 +11,12 @@
 
 @interface JCAPIManager : AFHTTPRequestOperationManager
 @property (strong, nonatomic) JCNavViewController *navController;
+
 + (JCAPIManager *)manager;
-- (void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error callback:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+- (AFHTTPRequestOperation *)refreshTokenOperationWithSuccessOperation:(AFHTTPRequestOperation *)successOperation
+                                                              success:(void (^)(AFHTTPRequestOperation *, id))success
+                                                              failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+- (void)operation:(AFHTTPRequestOperation *)operation error:(NSError *)error
+          success:(void (^)(AFHTTPRequestOperation *, id))success
+          failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 @end
