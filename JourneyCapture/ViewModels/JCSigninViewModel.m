@@ -59,11 +59,19 @@
                  NSLog(@"Signin success");
                  NSLog(@"%@", responseObject);
                  NSString *accessToken = [responseObject objectForKey:@"access_token"];
+                 NSString *refreshToken = [responseObject objectForKey:@"refresh_token"];
                  if (accessToken) {
                      [[GSKeychain systemKeychain] setSecret:accessToken forKey:@"access_token"];
-                     [subscriber sendCompleted];
-                 } else if ([responseObject objectForKey:@"errors"]) {
+                 }
+                 
+                 if (refreshToken) {
+                     [[GSKeychain systemKeychain] setSecret:refreshToken forKey:@"refresh_token"];
+                 }
+                 
+                 if ([responseObject objectForKey:@"errors"]) {
                      [subscriber sendNext:[responseObject objectForKey:@"errors"]];
+                 } else {
+                     [subscriber sendCompleted];
                  }
              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  NSLog(@"Signin failure");

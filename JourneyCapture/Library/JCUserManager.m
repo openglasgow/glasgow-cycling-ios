@@ -10,6 +10,7 @@
 #import <GSKeychain/GSKeychain.h>
 #import "JCSigninViewController.h"
 #import "JCAPIManager.h"
+#import "JCNotificationManager.h"
 #import "User.h"
 #import "Route.h"
 #import "RoutePoint.h"
@@ -37,6 +38,48 @@
         JCSigninViewController *welcomeVC = [[JCSigninViewController alloc] init];
         [_navVC setViewControllers:@[welcomeVC] animated:NO];
     }
+}
+
+- (void)refreshToken {
+    NSString *refreshToken = [[GSKeychain systemKeychain] secretForKey:@"refresh_token"];
+    if (!refreshToken) {
+        [[JCNotificationManager manager] displayErrorWithTitle:@"Logged Out"
+                                                      subtitle:@"Confirm your details to log in again"
+                                                          icon:[UIImage imageNamed:@"logged-out-icon"]];
+        [self logout];
+    }
+    
+    JCAPIManager *manager = [JCAPIManager manager];
+    NSDictionary *refreshParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  CLIENT_ID, @"client_id",
+                                  CLIENT_SECRET, @"client_secret",
+                                  @"refresh_token", @"grant_type",
+                                  refreshToken, @"refresh_token",
+                                  nil];
+    [manager POST:@"/oauth/token" parameters:refreshParams
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"Token details successfully retrieved");
+              NSLog(@"Signin success");
+              NSLog(@"%@", responseObject);
+              NSString *accessToken = [responseObject objectForKey:@"access_token"];
+              NSString *refreshToken = [responseObject objectForKey:@"refresh_token"];
+              if (accessToken) {
+                  [[GSKeychain systemKeychain] setSecret:accessToken forKey:@"access_token"];
+              }
+              
+              if (refreshToken) {
+                  [[GSKeychain systemKeychain] setSecret:refreshToken forKey:@"refresh_token"];
+              }
+              
+              if (!accessToken && !refreshToken) {
+                  [self logout];
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              [[JCNotificationManager manager] displayErrorWithTitle:@"Logged Out"
+                                                            subtitle:@"Confirm your details to log in again"
+                                                                icon:[UIImage imageNamed:@"logged-out-icon"]];
+              [self logout];
+          }];
 }
 
 #pragma mark - Singleton

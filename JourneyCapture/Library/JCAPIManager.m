@@ -105,12 +105,18 @@
     BOOL isChangePassword = [operation.request.URL.lastPathComponent
                                     rangeOfString:@"reset_password.json"].location != NSNotFound;;
     if (operation.response.statusCode == 401 && !isSignin && !isChangePassword) {
-        // Unauthorized, logout
-        [Flurry logEvent:@"Unauthorized Request"];
-        [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
-                                                      subtitle:@"Your user details are invalid"
-                                                          icon:[UIImage imageNamed:@"logged-out-icon"]];
-        [[JCUserManager sharedManager] logout];
+        NSString *refreshToken = [[GSKeychain systemKeychain] secretForKey:@"refresh_token"];
+        if (refreshToken) {
+            // Attempt to refresh out access token
+            [[JCUserManager sharedManager] refreshToken];
+        } else {
+            // Unauthorized, logout
+            [Flurry logEvent:@"Unauthorized Request"];
+            [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
+                                                          subtitle:@"Your user details are invalid"
+                                                              icon:[UIImage imageNamed:@"logged-out-icon"]];
+            [[JCUserManager sharedManager] logout];
+        }
     } else if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1004) {
         // Couldn't connect to server
         [Flurry logEvent:@"Connection Error"];
