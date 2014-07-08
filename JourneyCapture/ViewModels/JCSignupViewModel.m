@@ -99,10 +99,9 @@
                   // Registered, store user token
                   NSLog(@"Register success");
                   NSLog(@"%@", responseObject);
-                  NSString *userToken = responseObject[@"user_token"];
-                  if (userToken) {
-                      [[GSKeychain systemKeychain] setSecret:userToken forKey:@"user_token"];
-                      [[GSKeychain systemKeychain] setSecret:_email forKey:@"user_email"];
+                  NSString *accessToken = responseObject[@"access_token"];
+                  if (accessToken) {
+                      [[GSKeychain systemKeychain] setSecret:accessToken forKey:@"access_token"];
                       [subscriber sendCompleted];
                   } else if (responseObject[@"errors"]) {
                       [subscriber sendNext:responseObject[@"errors"]];

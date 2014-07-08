@@ -44,25 +44,38 @@
 {
     NSLog(@"Sign in");
     JCAPIManager *manager = [JCAPIManager manager];
-    NSDictionary *signinParams = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",
+    NSDictionary *signinParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  CLIENT_ID, @"client_id",
+                                  CLIENT_SECRET, @"client_secret",
+                                  @"password", @"grant_type",
+                                  email, @"email",
                                   password, @"password",
                                   nil];
-    NSDictionary *userParams = [NSDictionary dictionaryWithObject:signinParams forKey:@"user"];
-    
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        AFHTTPRequestOperation *op = [manager GET:@"/signin.json"
-          parameters:userParams
+        AFHTTPRequestOperation *op = [manager POST:@"/oauth/token"
+          parameters:signinParams
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  // Registered, store user token
                  NSLog(@"Signin success");
                  NSLog(@"%@", responseObject);
-                 NSString *userToken = [responseObject objectForKey:@"user_token"];
-                 if (userToken) {
-                     [[GSKeychain systemKeychain] setSecret:userToken forKey:@"user_token"];
-                     [[GSKeychain systemKeychain] setSecret:email forKey:@"user_email"];
-                     [subscriber sendCompleted];
-                 } else if ([responseObject objectForKey:@"errors"]) {
+                 NSString *accessToken = [responseObject objectForKey:@"access_token"];
+                 NSString *refreshToken = [responseObject objectForKey:@"refresh_token"];
+                 if (accessToken) {
+                     [[GSKeychain systemKeychain] setSecret:accessToken forKey:@"access_token"];
+                 }
+                 
+                 if (refreshToken) {
+                     [[GSKeychain systemKeychain] setSecret:refreshToken forKey:@"refresh_token"];
+                 }
+                 
+                 NSNumber *expiresIn = [responseObject objectForKey:@"expires_in"];
+                 NSDate *expiresAt = [NSDate dateWithTimeIntervalSinceNow:expiresIn.integerValue];
+                 [[NSUserDefaults standardUserDefaults] setObject:expiresAt forKey:@"expires_at"];
+                 
+                 if ([responseObject objectForKey:@"errors"]) {
                      [subscriber sendNext:[responseObject objectForKey:@"errors"]];
+                 } else {
+                     [subscriber sendCompleted];
                  }
              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  NSLog(@"Signin failure");

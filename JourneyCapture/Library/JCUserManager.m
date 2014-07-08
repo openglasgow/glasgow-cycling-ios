@@ -10,6 +10,7 @@
 #import <GSKeychain/GSKeychain.h>
 #import "JCSigninViewController.h"
 #import "JCAPIManager.h"
+#import "JCNotificationManager.h"
 #import "User.h"
 #import "Route.h"
 #import "RoutePoint.h"

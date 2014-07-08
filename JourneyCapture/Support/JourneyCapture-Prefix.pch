@@ -27,6 +27,10 @@
 
 #if TARGET_IPHONE_SIMULATOR
 static NSString *const API_URI = @"http://0.0.0.0:3000/";
+static NSString *const CLIENT_ID = @"913623efb87a2efa99860b74f0ee7d63c25a750efcd9d93bb62a177add26eccb";
+static NSString *const CLIENT_SECRET = @"84980d8bb9440cba2b3709ce30958e6c11da1e22a3475c4327a498c16b62fe0b";
 #else
 static NSString *const API_URI = @"https://activetravel.cloudapp.net/";
+static NSString *const CLIENT_ID = @"913623efb87a2efa99860b74f0ee7d63c25a750efcd9d93bb62a177add26eccb";
+static NSString *const CLIENT_SECRET = @"84980d8bb9440cba2b3709ce30958e6c11da1e22a3475c4327a498c16b62fe0b";
 #endif
