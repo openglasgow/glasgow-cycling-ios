@@ -89,26 +89,21 @@
 {
     [self autoSetDimensionsToSize:CGSizeMake(160, 124)];
     // Cyclist
-    [_cyclistView autoRemoveConstraintsAffectingView];
     [_cyclistView autoSetDimensionsToSize:CGSizeMake(100, 83)];
     [_cyclistView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_cyclistView];
     [_cyclistView autoAlignAxisToSuperviewAxis:ALAxisVertical];
     
-    [_bikeFrame autoRemoveConstraintsAffectingView];
     [_bikeFrame autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 26, 15, 28)];
     
-    [_backWheel autoRemoveConstraintsAffectingView];
     [_backWheel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bikeFrame withOffset:42];
     [_backWheel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_bikeFrame withOffset:-29];
     [_backWheel autoSetDimensionsToSize:CGSizeMake(41, 41)];
     
-    [_frontWheel autoRemoveConstraintsAffectingView];
     [_frontWheel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_backWheel];
     [_frontWheel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_bikeFrame withOffset:30];
     [_frontWheel autoSetDimensionsToSize:CGSizeMake(41, 41)];
 
     // Info
-    [_infoLabel autoRemoveConstraintsAffectingView];
     [_infoLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_cyclistView withOffset:38];
     [_infoLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
     [_infoLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
