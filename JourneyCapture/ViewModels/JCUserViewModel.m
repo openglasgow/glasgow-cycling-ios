@@ -40,20 +40,10 @@
     return self;
 }
 
--(RACSignal *)fullNameSignal
-{
-    RACSignal *firstNameSignal = RACObserve(self, firstName);
-    RACSignal *lastNameSignal = RACObserve(self, lastName);
-    return [[RACSignal combineLatest:@[firstNameSignal, lastNameSignal]] reduceEach:^id{
-        return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
-    }];
-}
-
 -(void)loadFromUser:(User *)userModel
 {
     _user = userModel;
-    [self setFirstName:_user.firstName];
-    [self setLastName:_user.lastName];
+    [self setUsername:_user.username];
     [self setGender:_user.gender];
     [self setEmail:_user.email];
     [self setSecondsThisMonth:_user.monthSeconds];
@@ -80,7 +70,7 @@
                   NSLog(@"%@", responseObject);
                   
                   // Update model
-                  _user.firstName = responseObject[@"username"];
+                  _user.username = responseObject[@"username"];
                   _user.gender = responseObject[@"gender"];
                   _user.email = responseObject[@"email"];
                   

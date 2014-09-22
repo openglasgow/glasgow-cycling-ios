@@ -16,8 +16,7 @@
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *passwordError;
 
-@property (nonatomic, strong) NSString *firstName;
-@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *username;
 @property (readwrite, nonatomic) NSUInteger yearOfBirth;
 @property (nonatomic, strong) NSString *gender;
 @property (nonatomic, strong) UIImage *profilePicture;

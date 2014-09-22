@@ -11,8 +11,7 @@
 
 @implementation User
 
-@dynamic firstName;
-@dynamic lastName;
+@dynamic username;
 @dynamic gender;
 @dynamic email;
 @dynamic monthRoutes;

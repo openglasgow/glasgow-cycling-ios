@@ -12,8 +12,7 @@
 
 @property (strong, nonatomic) User *user;
 
-@property (strong, nonatomic) NSString *firstName;
-@property (strong, nonatomic) NSString *lastName;
+@property (strong, nonatomic) NSString *username;
 @property (strong, nonatomic) NSString *gender;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSNumber *routesThisMonth;
@@ -23,7 +22,6 @@
 @property (strong, nonatomic) NSArray *menuItems;
 @property (strong, nonatomic) NSArray *menuItemImages;
 
--(RACSignal *)fullNameSignal;
 -(void)loadFromUser:(User *)userModel;
 -(RACSignal *)loadDetails;
 @end

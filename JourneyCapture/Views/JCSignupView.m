@@ -28,6 +28,7 @@
     // Content scroll view
     _contentView = [UIScrollView new];
     _contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    _contentView.backgroundColor = [UIColor whiteColor];
     [self addSubview: _contentView];
 
     // Profile picture
@@ -99,35 +100,23 @@
         _passwordField.error = _viewModel.passwordError.length > 0;
     }];
 
-    // First name
+    // Username
     _nameFieldLabel = [UILabel new];
-    _nameFieldLabel.text = @"Name";
+    _nameFieldLabel.text = @"Username";
     _nameFieldLabel.font = labelFont;
     _nameFieldLabel.textColor = [UIColor jc_darkGrayColor];
     _nameFieldLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_nameFieldLabel];
     
-    _firstNameField = [JCTextField new];
-    _firstNameField.borderStyle = UITextBorderStyleRoundedRect;
-    _firstNameField.placeholder = @"First Name";
-    _firstNameField.font = labelFont;
-    _firstNameField.translatesAutoresizingMaskIntoConstraints = NO;
-    RAC(_viewModel, firstName) = _firstNameField.rac_textSignal;
-    [_contentView addSubview:_firstNameField];
-    [_viewModel.firstNameValid subscribeNext:^(id firstNameValid) {
-        _firstNameField.valid = [firstNameValid boolValue];
-    }];
-
-    // Last name
-    _lastNameField = [JCTextField new];
-    _lastNameField.borderStyle = UITextBorderStyleRoundedRect;
-    _lastNameField.placeholder = @"Last Name";
-    _lastNameField.font = labelFont;
-    _lastNameField.translatesAutoresizingMaskIntoConstraints = NO;
-    RAC(_viewModel, lastName) = _lastNameField.rac_textSignal;
-    [_contentView addSubview:_lastNameField];
-    [_viewModel.lastNameValid subscribeNext:^(id lastNameValid) {
-        _lastNameField.valid = [lastNameValid boolValue];
+    _usernameField = [JCTextField new];
+    _usernameField.borderStyle = UITextBorderStyleRoundedRect;
+    _usernameField.placeholder = @"Username";
+    _usernameField.font = labelFont;
+    _usernameField.translatesAutoresizingMaskIntoConstraints = NO;
+    RAC(_viewModel, username) = _usernameField.rac_textSignal;
+    [_contentView addSubview:_usernameField];
+    [_viewModel.firstNameValid subscribeNext:^(id usernameValid) {
+        _usernameField.valid = [usernameValid boolValue];
     }];
 
     // Year of Birth
@@ -231,15 +220,15 @@
     
     // Blue loading area
     _bottomArea = [UIView new];
-    [_bottomArea setBackgroundColor:[UIColor whiteColor]];
+    _bottomArea.backgroundColor = [UIColor whiteColor];
     _bottomArea.translatesAutoresizingMaskIntoConstraints = NO;
     [_contentView addSubview:_bottomArea];
     
     _loadingView = [JCLoadingView new];
+    _loadingView.backgroundColor = [UIColor yellowColor];
     [_loadingView setBikerBlue];
     _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
     _loadingView.infoLabel.text = @"";
-    
     [_bottomArea addSubview:_loadingView];
 
     return self;
@@ -261,27 +250,23 @@
     int padding = 10;
     int picSize = 100;
     
-    [_profilePictureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_emailFieldLabel withOffset:-padding];
+    [_profilePictureButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_emailField];
     [_profilePictureButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_profilePictureButton autoSetDimensionsToSize:CGSizeMake(picSize, picSize)];
 
     [_nameFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_contentView withOffset:padding];
     [_nameFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     
-    [_firstNameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_nameFieldLabel withOffset:labelPadding];
-    [_firstNameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_firstNameField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
-
-    [_lastNameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_lastNameField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
-    [_lastNameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_firstNameField withOffset:padding];
+    [_usernameField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_nameFieldLabel withOffset:labelPadding];
+    [_usernameField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
+    [_usernameField autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:_profilePictureButton withOffset:-padding];
 
     [_emailFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_emailFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_lastNameField];
-    [_emailFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_lastNameField withOffset:padding];
+    [_emailFieldLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_usernameField];
+    [_emailFieldLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_usernameField withOffset:padding];
 
     [_emailField autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
-    [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
+    [_emailField autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_usernameField];
     [_emailField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_emailFieldLabel withOffset:labelPadding];
     
     [_passwordFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
@@ -320,8 +305,8 @@
     [_bottomArea autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_contentView];
     
     [_loadingView autoRemoveConstraintsAffectingView];
-    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomArea withOffset:150];
-    [_loadingView autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomArea withOffset:10];
+    [_loadingView autoAlignAxis:ALAxisVertical toSameAxisOfView:_bottomArea];
 
     [super layoutSubviews];
 }

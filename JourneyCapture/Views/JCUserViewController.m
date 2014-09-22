@@ -129,8 +129,8 @@
     [_userView.mapView addGestureRecognizer:captureTapGesture];
     
     // Nav title
-    [_viewModel.fullNameSignal subscribeNext:^(NSString *fullName) {
-        [self.navigationItem setTitle:fullName];
+    [RACObserve(self, viewModel.username) subscribeNext:^(NSString *username) {
+        [self.navigationItem setTitle:username];
     }];
     
     // Set back button for pushed VCs to be titled "Me" instead of the user's name
