@@ -52,6 +52,8 @@
     _profilePictureButton.tintColor = self.tintColor;
     _profilePictureButton.layer.masksToBounds = YES;
     _profilePictureButton.layer.cornerRadius = 50.0f;
+    _profilePictureButton.layer.borderColor = [UIColor jc_blueColor].CGColor;
+    _profilePictureButton.layer.borderWidth = 2.0f;
     _profilePictureButton.backgroundColor = [UIColor jc_blueColor];
     UIImage *defaultImage = [UIImage imageNamed:@"profile-pic-placeholder"];
     [_profilePictureButton setBackgroundImage:defaultImage forState:UIControlStateNormal];
