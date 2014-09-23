@@ -20,3 +20,5 @@ pod 'MBProgressHUD', '~> 0.8'
 pod 'UIView+AutoLayout', '~> 1.3.0'
 pod 'JBChartView', '~> 2.5.5'
 pod 'FormatterKit', '~> 1.4.3'
+
+link_with ['JourneyCapture', 'JourneyCaptureTests']
