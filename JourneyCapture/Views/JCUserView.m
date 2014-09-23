@@ -72,6 +72,9 @@
     _menuTableView = [UITableView new];
     _menuTableView.translatesAutoresizingMaskIntoConstraints = NO;
     [_scrollView addSubview:_menuTableView];
+    
+    // Hide separators between empty cells
+    _menuTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     return self;
 }
@@ -115,7 +118,7 @@
     [_menuTableView autoRemoveConstraintsAffectingView];
     [_menuTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
     [_menuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView];
-    [_menuTableView autoSetDimension:ALDimensionHeight toSize:180];
+    [_menuTableView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self];
 
     [super layoutSubviews];
 }
