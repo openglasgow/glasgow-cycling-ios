@@ -24,6 +24,8 @@
     #import "UIColor+Application.h"
 #endif
 
+#define BETA
+
 
 //#if TARGET_IPHONE_SIMULATOR
 //static NSString *const API_URI = @"http://0.0.0.0:3000/";

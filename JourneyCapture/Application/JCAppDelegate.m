@@ -20,19 +20,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    #if !TARGET_IPHONE_SIMULATOR
-        //Flurry Analytics Setup - Crash reporting handled by Hockey App
-        [Flurry setCrashReportingEnabled:NO];
-        [Flurry setSecureTransportEnabled:YES];
-        [Flurry startSession:@"DDFSMM7RXYZNTB298YW3"];
-
-        //Hockey App Setup
-        [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"
-                                                               delegate:self];
-        [[BITHockeyManager sharedHockeyManager] startManager];
-        [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-        [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
-    #endif
+#if !TARGET_IPHONE_SIMULATOR
+    //Flurry Analytics Setup - Crash reporting handled by Hockey App
+    [Flurry setSecureTransportEnabled:YES];
+    [Flurry startSession:@"DDFSMM7RXYZNTB298YW3"];
+    
+    //Hockey App Setup
+#ifdef BETA
+    [Flurry setCrashReportingEnabled:NO];
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"
+                                                           delegate:self];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
+#else
+    [Flurry setCrashReportingEnabled:YES];
+#endif
+#endif
     
     // Core Data
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"JourneyModel"];
