@@ -50,5 +50,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Giving the app access to this will allow you to record routes. The app will only track your location in the background when you are recording a route.</string>
 </dict>
 </plist>

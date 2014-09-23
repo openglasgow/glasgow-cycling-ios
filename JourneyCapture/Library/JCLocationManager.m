@@ -41,6 +41,11 @@
 
 -(void)startUpdatingCoarse
 {
+    // iOS 8+ location auth
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestAlwaysAuthorization];
+    }
+    
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyKilometer];
     [self.locationManager startUpdatingLocation];
 }
