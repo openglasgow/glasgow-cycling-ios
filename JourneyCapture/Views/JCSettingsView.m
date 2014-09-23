@@ -209,7 +209,7 @@
     [_submitButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_submitButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_submitButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_genderField withOffset:(3*padding)];
-    [_submitButton autoSetDimension:ALDimensionWidth toSize:320 - (2*padding)];
+    [_submitButton autoSetDimension:ALDimensionWidth toSize:self.frame.size.width - (2*padding)];
 
     [_passwordButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_passwordButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
