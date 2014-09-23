@@ -48,7 +48,7 @@
 {    
     [_titleLabel autoRemoveConstraintsAffectingView];
     [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
-    [_titleLabel autoSetDimension:ALDimensionWidth toSize:320];
+    [_titleLabel autoSetDimension:ALDimensionWidth toSize:self.frame.size.width];
     
     [_graphView autoRemoveConstraintsAffectingView];
     [_graphView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];

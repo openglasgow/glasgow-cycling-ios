@@ -65,7 +65,7 @@ CGFloat const kHeaderHeight = 213.0f;
     CGFloat screenHeight = [[UIScreen mainScreen] applicationFrame].size.height;
     CGFloat navHeight = self.navigationController.navigationBar.frame.size.height;
     CGFloat graphAreaHeight = screenHeight - navHeight - kHeaderHeight;
-    CGFloat graphAreaWidth = 320;
+    CGFloat graphAreaWidth = self.view.frame.size.width;
     
     _graphScrollView = [[JCGraphScrollView alloc] initWithFrame:CGRectMake(0, 0, graphAreaWidth, graphAreaHeight)
                                                       viewModel:_usageViewModel];

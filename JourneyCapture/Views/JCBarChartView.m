@@ -16,15 +16,16 @@
 {
     self = [super initWithViewModel:statsViewModel];
     if (self) {
+        float width = [UIScreen mainScreen].bounds.size.width;
         JBBarChartView *barChartView = [JBBarChartView new];
         barChartView.delegate = self;
         barChartView.dataSource = self;
         barChartView.translatesAutoresizingMaskIntoConstraints = NO;
-        barChartView.frame = CGRectMake(0, 0, 320, 250);
+        barChartView.frame = CGRectMake(0, 0, width, 250);
         barChartView.minimumValue = 0;
         barChartView.showsVerticalSelection = NO;
         UIImage *footerImage = [UIImage imageNamed:@"week-axis"];
-        JCGraphFooterView *axisView = [[JCGraphFooterView alloc] initWithFrame:CGRectMake(0, 0, 320, 37) image:footerImage];
+        JCGraphFooterView *axisView = [[JCGraphFooterView alloc] initWithFrame:CGRectMake(0, 0, width, 37) image:footerImage];
         barChartView.footerView = axisView;
         [self.graphView removeFromSuperview];
         self.graphView = barChartView;
