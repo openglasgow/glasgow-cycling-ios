@@ -296,7 +296,7 @@
     [_signupButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];
     [_signupButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_contentView withOffset:-padding];
     [_signupButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_genderField withOffset:padding];
-    [_signupButton autoSetDimension:ALDimensionWidth toSize:320 - (2*padding)];
+    [_signupButton autoSetDimension:ALDimensionWidth toSize:self.frame.size.width - (2*padding)];
     
     [_bottomArea autoSetDimension:ALDimensionHeight toSize:250.0f];
     [_bottomArea autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:0];
