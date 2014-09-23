@@ -225,7 +225,7 @@
     [_contentView addSubview:_bottomArea];
     
     _loadingView = [JCLoadingView new];
-    _loadingView.backgroundColor = [UIColor yellowColor];
+    _loadingView.backgroundColor = [UIColor whiteColor];
     [_loadingView setBikerBlue];
     _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
     _loadingView.infoLabel.text = @"";

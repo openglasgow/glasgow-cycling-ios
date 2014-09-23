@@ -25,7 +25,7 @@
         _loadingView = [JCLoadingView new];
         _loadingView.translatesAutoresizingMaskIntoConstraints = NO;
         _loadingView.loading = NO;
-        _loadingView.infoLabel.text = @"Where we going? Enter the destination above";
+        _loadingView.infoLabel.text = @"Where are we going? Enter the destination above";
         _loadingView.infoLabel.numberOfLines = 3;
         [self addSubview:_loadingView];
         
@@ -45,7 +45,7 @@
     [_searchBar autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
     
     [_loadingView autoRemoveConstraintsAffectingView];
-    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_searchBar withOffset:150];
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_searchBar withOffset:25];
     [_loadingView autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
     [_loadingView layoutSubviews];
     

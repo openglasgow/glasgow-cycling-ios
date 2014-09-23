@@ -90,7 +90,7 @@
     [self autoSetDimensionsToSize:CGSizeMake(160, 124)];
     // Cyclist
     [_cyclistView autoSetDimensionsToSize:CGSizeMake(100, 83)];
-    [_cyclistView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_cyclistView];
+    [_cyclistView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
     [_cyclistView autoAlignAxisToSuperviewAxis:ALAxisVertical];
     
     [_bikeFrame autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 26, 15, 28)];

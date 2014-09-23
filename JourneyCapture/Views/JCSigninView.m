@@ -125,7 +125,7 @@
     [_profileBackgroundView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_contentView withOffset:0];
     [_profileBackgroundView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:_emailFieldLabel withOffset:-padding];
     
-    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_profileBackgroundView withOffset:125];
+    [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_profileBackgroundView];
     [_loadingView autoAlignAxisToSuperviewAxis:ALAxisVertical];
     
     [_emailFieldLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_contentView withOffset:padding];

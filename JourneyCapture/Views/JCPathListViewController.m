@@ -80,7 +80,8 @@ static NSInteger const kLoadingCellTag = 1;
 {
     if ([[self.view subviews] containsObject:_loadingView]) {
         [_loadingView autoRemoveConstraintsAffectingView];
-        [_loadingView autoCenterInSuperview];
+        [_loadingView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:100];
+        [_loadingView autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
         [_loadingView layoutSubviews];
     }
     
