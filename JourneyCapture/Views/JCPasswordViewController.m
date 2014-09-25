@@ -36,7 +36,7 @@
 
 - (void)loadView
 {
-    NSLog(@"Loading view");
+    NSLog(@"Loading password view");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     

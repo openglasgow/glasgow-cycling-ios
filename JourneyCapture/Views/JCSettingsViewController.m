@@ -42,7 +42,7 @@
 
 - (void)loadView
 {
-    NSLog(@"Loading view");
+    NSLog(@"Loading settings view");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     

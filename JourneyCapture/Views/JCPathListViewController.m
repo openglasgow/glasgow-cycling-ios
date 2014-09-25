@@ -113,9 +113,8 @@ static NSInteger const kLoadingCellTag = 1;
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView
-  willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
+    forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (cell.tag == kLoadingCellTag) {
         _viewModel.currentPage++;
         [[_viewModel loadItems] subscribeError:^(NSError *error) {
