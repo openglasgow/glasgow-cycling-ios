@@ -27,12 +27,14 @@
     
     //Hockey App Setup
 #ifdef BETA
+#ifndef DEBUG
     [Flurry setCrashReportingEnabled:NO];
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"
                                                            delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
+#endif
 #else
     [Flurry setCrashReportingEnabled:YES];
 #endif
