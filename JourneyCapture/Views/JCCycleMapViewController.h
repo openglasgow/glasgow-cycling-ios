@@ -8,9 +8,10 @@
 
 @import UIKit;
 @import MapKit;
-@class JCCycleMapView, JCCycleMapViewModel;
+@class JCCycleMapView, JCCycleMapViewModel, FBClusteringManager;
 
 @interface JCCycleMapViewController : UIViewController <MKMapViewDelegate>
 @property (strong, nonatomic) JCCycleMapViewModel *viewModel;
 @property (strong, nonatomic) JCCycleMapView *cycleMapView;
+@property (strong, nonatomic) FBClusteringManager *clusteringManager;
 @end

@@ -9,6 +9,7 @@
 #import "JCCycleMapViewModel.h"
 #import "JCAPIManager.h"
 #import "JCCycleMapLocationViewModel.h"
+#import "JCCycleMapAnnotation.h"
 
 @implementation JCCycleMapViewModel
 
@@ -59,4 +60,21 @@
         
     }];
 }
+
+- (NSArray *)annotations
+{
+    if (!_annotations) {
+        NSMutableArray *annotationsTemp = [NSMutableArray new];
+        for (JCCycleMapLocationViewModel *location in _locations) {
+            JCCycleMapAnnotation *annotation = [JCCycleMapAnnotation new];
+            annotation.viewModel = location;
+            annotation.title = location.name;
+            annotation.coordinate = location.coordinate;
+            [annotationsTemp addObject:annotation];
+        }
+        _annotations = annotationsTemp;
+    }
+    return _annotations;
+}
+
 @end

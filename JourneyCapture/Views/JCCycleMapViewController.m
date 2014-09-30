@@ -12,6 +12,7 @@
 #import "JCCycleMapViewModel.h"
 #import "JCCycleMapLocationViewModel.h"
 #import "JCCycleMapAnnotation.h"
+#import "FBClusteringManager.h"
 
 @interface JCCycleMapViewController ()
 
@@ -60,6 +61,7 @@
         NSLog(@"Couldn't load cycle map data");
     } completed:^{
         NSLog(@"Loaded cycle map data");
+        _clusteringManager = [[FBClusteringManager alloc] initWithAnnotations:_viewModel.annotations];
         [_cycleMapView updateMap];
     }];
 }

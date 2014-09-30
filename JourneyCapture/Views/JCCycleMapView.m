@@ -45,11 +45,7 @@
 {
     // Add annotations
     [_mapView removeAnnotations:_mapView.annotations];
-    for (JCCycleMapLocationViewModel *location in _viewModel.locations) {
-        JCCycleMapAnnotation *annotation = [JCCycleMapAnnotation new];
-        annotation.viewModel = location;
-        annotation.title = location.name;
-        annotation.coordinate = location.coordinate;
+    for (JCCycleMapAnnotation *annotation in _viewModel.annotations) {
         [_mapView addAnnotation:annotation];
     }
     
