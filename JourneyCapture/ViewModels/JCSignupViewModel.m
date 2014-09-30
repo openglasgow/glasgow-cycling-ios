@@ -106,7 +106,7 @@
                       [subscriber sendNext:responseObject[@"errors"]];
                   }
               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  NSLog(@"Signin failure");
+                  NSLog(@"Signup failure");
                   NSLog(@"%@", error);
                   NSLog(@"Response: %@", [operation responseObject]);
                   NSDictionary *errorData = [operation responseObject];

@@ -50,7 +50,6 @@
 {
     [super viewWillLayoutSubviews];
 
-    [_questionView autoRemoveConstraintsAffectingView];
     [_questionView autoPinToTopLayoutGuideOfViewController:self withInset:0];
     [_questionView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
     
