@@ -22,6 +22,7 @@ PODS:
     - AFNetworking/NSURLSession
   - CRToast (0.0.7)
   - EDStarRating (1.1)
+  - FBAnnotationClustering (0.1.1)
   - FDTake (0.1.1)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK
@@ -103,6 +104,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.1)
   - CRToast (~> 0.0.3)
   - EDStarRating (~> 1.1)
+  - FBAnnotationClustering (~> 0.1.1)
   - FDTake (~> 0.1.1)
   - FlurrySDK (~> 4.3)
   - FormatterKit (~> 1.4.3)
@@ -123,6 +125,7 @@ SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
   EDStarRating: c7b87f9866be0ea29bb054964023b8eb3f18286c
+  FBAnnotationClustering: aa6f400b378767e6df6a58ff90254b75c2c29f9b
   FDTake: faef4e46909f879a65589a15e19e2bb00d2857e1
   FlurrySDK: abaedafc350afa41b004236b67ae14f7d3748b68
   FormatterKit: f744aa7928003eba8317d6fd6998414fbc78f7a5
