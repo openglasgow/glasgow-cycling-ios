@@ -70,6 +70,7 @@
     _userView.translatesAutoresizingMaskIntoConstraints = NO;
     _userView.menuTableView.delegate = self;
     _userView.menuTableView.dataSource = self;
+    _userView.menuTableView.rowHeight = 60;
     [self.view addSubview:_userView];
 }
 

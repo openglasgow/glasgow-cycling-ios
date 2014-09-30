@@ -95,18 +95,20 @@
     [_pulldownView autoSetDimension:ALDimensionHeight toSize:1000.0f];
     
     // User Header
+    CGFloat headerHeight = 213.0f;
     [_headerView autoRemoveConstraintsAffectingView];
     [_headerView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
     [_headerView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_scrollView];
-    [_headerView autoSetDimension:ALDimensionHeight toSize:213.0f];
+    [_headerView autoSetDimension:ALDimensionHeight toSize:headerHeight];
     [_headerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     
     // Capture
+    CGFloat mapHeight = 128;
     [_mapView autoRemoveConstraintsAffectingView];
     [_mapView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_headerView];
     [_mapView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_scrollView];
     [_mapView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_scrollView];
-    [_mapView autoSetDimension:ALDimensionHeight toSize:128];
+    [_mapView autoSetDimension:ALDimensionHeight toSize:mapHeight];
     
     [_captureButton autoRemoveConstraintsAffectingView];
     [_captureButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
@@ -118,7 +120,16 @@
     [_menuTableView autoRemoveConstraintsAffectingView];
     [_menuTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
     [_menuTableView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_mapView];
-    [_menuTableView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self];
+    [_menuTableView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_scrollView];
+    
+    // 1px bigger than available space to ensure scrollable
+    CGFloat availableHeight = self.bounds.size.height;
+    CGFloat minimumMenuHeight = _menuTableView.rowHeight * [_menuTableView numberOfRowsInSection:0];
+    CGFloat menuHeight = availableHeight-mapHeight-headerHeight+1;
+    if (menuHeight < minimumMenuHeight) {
+        menuHeight = minimumMenuHeight;
+    }
+    [_menuTableView autoSetDimension:ALDimensionHeight toSize:menuHeight];
 
     [super layoutSubviews];
 }
