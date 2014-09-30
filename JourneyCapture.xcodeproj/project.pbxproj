@@ -46,6 +46,7 @@
 		12F8E6FB190FFE3C00AA0216 /* JCScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F8E6FA190FFE3C00AA0216 /* JCScrollView.m */; };
 		12FBAC5B1920C58E00ADFF0F /* JCRouteListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC5A1920C58E00ADFF0F /* JCRouteListViewModel.m */; };
 		12FBAC6119211BFB00ADFF0F /* JCRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FBAC6019211BFB00ADFF0F /* JCRouteView.m */; };
+		565FCA5CCDA4448A81B452D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E8303FB46D4087967CEECE /* libPods.a */; };
 		6E101EAD192E2AE10046E096 /* JCQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E101EAC192E2AE10046E096 /* JCQuestionView.m */; };
 		6E15B11F19374B1E00459B8D /* JCResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E15B11E19374B1E00459B8D /* JCResetPasswordViewController.m */; };
 		6E15B12219374B3500459B8D /* JCResetPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E15B12119374B3500459B8D /* JCResetPasswordView.m */; };
@@ -178,6 +179,7 @@
 		12C76B0E1912A22400B7F964 /* JCLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCLoadingView.m; sourceTree = "<group>"; };
 		12CBB2971935E92400243A1E /* JCUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUserManager.h; sourceTree = "<group>"; };
 		12CBB2981935E92400243A1E /* JCUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCUserManager.m; sourceTree = "<group>"; };
+		12D5CEE319D1AF29001EA9FB /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		12DCCF2E192F4DBE0016B061 /* JCStatsSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCStatsSummaryView.h; sourceTree = "<group>"; };
 		12DCCF2F192F4DBE0016B061 /* JCStatsSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCStatsSummaryView.m; sourceTree = "<group>"; };
 		12E8303FB46D4087967CEECE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -321,6 +323,7 @@
 				831EDB6318BCBB34001468E4 /* XCTest.framework in Frameworks */,
 				831EDB6518BCBB34001468E4 /* UIKit.framework in Frameworks */,
 				831EDB6418BCBB34001468E4 /* Foundation.framework in Frameworks */,
+				565FCA5CCDA4448A81B452D4 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +538,7 @@
 		831EDB4818BCBB33001468E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				12D5CEE319D1AF29001EA9FB /* libPods.a */,
 				83735C0318CF730C0050AB09 /* CoreLocation.framework */,
 				83C1DB1918C7856C0005F79C /* MobileCoreServices.framework */,
 				837B15A718BE023B000EEFAB /* QuartzCore.framework */,
@@ -829,9 +833,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 831EDB7518BCBB34001468E4 /* Build configuration list for PBXNativeTarget "JourneyCaptureTests" */;
 			buildPhases = (
+				4E988E07F883430BBCFCBA33 /* Check Pods Manifest.lock */,
 				831EDB5D18BCBB34001468E4 /* Sources */,
 				831EDB5E18BCBB34001468E4 /* Frameworks */,
 				831EDB5F18BCBB34001468E4 /* Resources */,
+				5DE1DCE071724EC187EA7A9C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -854,7 +860,7 @@
 				ORGANIZATIONNAME = FCD;
 				TargetAttributes = {
 					831EDB4518BCBB33001468E4 = {
-						DevelopmentTeam = L342PDL5NN;
+						DevelopmentTeam = N22NQHGM2W;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -909,6 +915,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4E988E07F883430BBCFCBA33 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		53F421320060418A8F50E99C /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -922,6 +943,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5DE1DCE071724EC187EA7A9C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		78FDD1B960064994842C1C74 /* Copy Pods Resources */ = {
@@ -1177,6 +1213,7 @@
 		};
 		831EDB7618BCBB34001468E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JourneyCapture.app/JourneyCapture";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1191,6 +1228,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "JourneyCaptureTests/JourneyCaptureTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1199,6 +1240,7 @@
 		};
 		831EDB7718BCBB34001468E4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JourneyCapture.app/JourneyCapture";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1209,6 +1251,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
 				INFOPLIST_FILE = "JourneyCaptureTests/JourneyCaptureTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

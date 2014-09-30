@@ -76,8 +76,7 @@
     // User data
     NSMutableDictionary *userData = [NSMutableDictionary dictionaryWithObjectsAndKeys:_email, @"email",
                               _password, @"password",
-                              _firstName, @"first_name",
-                              _lastName, @"last_name",
+                              _username, @"username",
                               @(_yearOfBirth), @"year_of_birth",
                               _gender.lowercaseString, @"gender",
                               nil];

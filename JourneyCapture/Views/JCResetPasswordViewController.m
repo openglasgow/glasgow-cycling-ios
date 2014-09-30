@@ -50,7 +50,6 @@
 {
     [super viewWillLayoutSubviews];
     
-    [_resetView autoRemoveConstraintsAffectingView];
     [_resetView autoPinToTopLayoutGuideOfViewController:self withInset:0];
     [_resetView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
     

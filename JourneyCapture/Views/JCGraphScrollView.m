@@ -71,7 +71,7 @@
     [_statsScrollView addSubview:barChartDistanceView];
     
     // Page control
-    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 320, 1000)];
+    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 1000)];
     _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
     _pageControl.numberOfPages = _graphViews.count;
     _pageControl.currentPage = 0;
@@ -107,14 +107,14 @@
     [_statsScrollView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_pageControl];
     
     for (int i = 0; i < _graphViews.count; i++) {
-        CGFloat leftOffset = i * 320;
+        CGFloat leftOffset = i * self.frame.size.width;
         JCGraphView *graphView = _graphViews[i];
         
         [graphView autoRemoveConstraintsAffectingView];
         [graphView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_statsScrollView withOffset:leftOffset];
         [graphView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_statsScrollView];
         [graphView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_statsScrollView];
-        [graphView autoSetDimensionsToSize:CGSizeMake(320, _statsScrollView.contentSize.height)];
+        [graphView autoSetDimensionsToSize:CGSizeMake(self.frame.size.width, _statsScrollView.contentSize.height)];
         
         if (i == _graphViews.count - 1) {
             [graphView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_statsScrollView];
@@ -127,15 +127,15 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    _pageControl.currentPage = floorf(_statsScrollView.contentOffset.x/320);
+    _pageControl.currentPage = floorf(_statsScrollView.contentOffset.x/self.frame.size.width);
 }
 
 #pragma mark - UIPageControl
 
 - (void)pageChanged
 {
-    CGFloat xOffset = 320 * _pageControl.currentPage;
-    CGRect visibleRect = CGRectMake(xOffset, 0, 320, _statsScrollView.contentSize.height);
+    CGFloat xOffset = self.frame.size.width * _pageControl.currentPage;
+    CGRect visibleRect = CGRectMake(xOffset, 0, self.frame.size.width, _statsScrollView.contentSize.height);
     [_statsScrollView scrollRectToVisible:visibleRect
                                  animated:YES];
 }

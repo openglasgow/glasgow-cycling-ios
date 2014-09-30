@@ -15,8 +15,10 @@ pod 'FlurrySDK', '~> 4.3'
 pod 'InAppSettingsKit', '~> 2.0'
 pod 'GBDeviceInfo', '~> 2.2'
 pod 'CRToast', '~> 0.0.3'
-pod 'HockeySDK', '~> 3.5'
+pod 'HockeySDK'
 pod 'MBProgressHUD', '~> 0.8'
 pod 'UIView+AutoLayout', '~> 1.3.0'
 pod 'JBChartView', '~> 2.5.5'
 pod 'FormatterKit', '~> 1.4.3'
+
+link_with ['JourneyCapture', 'JourneyCaptureTests']

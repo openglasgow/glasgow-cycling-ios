@@ -24,13 +24,15 @@
     #import "UIColor+Application.h"
 #endif
 
+#define BETA
 
-#if TARGET_IPHONE_SIMULATOR
-static NSString *const API_URI = @"http://0.0.0.0:3000/";
-static NSString *const CLIENT_ID = @"123";
-static NSString *const CLIENT_SECRET = @"321";
-#else
+
+//#if TARGET_IPHONE_SIMULATOR
+//static NSString *const API_URI = @"http://0.0.0.0:3000/";
+//static NSString *const CLIENT_ID = @"123";
+//static NSString *const CLIENT_SECRET = @"321";
+//#else
 static NSString *const API_URI = @"https://activetravel.cloudapp.net/";
-static NSString *const CLIENT_ID = @"913623efb87a2efa99860b74f0ee7d63c25a750efcd9d93bb62a177add26eccb";
-static NSString *const CLIENT_SECRET = @"84980d8bb9440cba2b3709ce30958e6c11da1e22a3475c4327a498c16b62fe0b";
-#endif
+static NSString *const CLIENT_ID = @"3db23ee6dfb278fafb78f6cd3c5f2140ebbce0f2cde3a3fb612f669bb879b0c4";
+static NSString *const CLIENT_SECRET = @"8cb0159073b4df229a32f88e32ead76aa77608a606b3c69a77e36b4341ca2b6a";
+//#endif

@@ -18,8 +18,7 @@
 @property (strong, nonatomic) JCSettingsViewModel *viewModel;
 @property (strong, nonatomic) JCTextField *emailField;
 @property (strong, nonatomic) JCTextField *passwordField;
-@property (strong, nonatomic) JCTextField *firstNameField;
-@property (strong, nonatomic) JCTextField *lastNameField;
+@property (strong, nonatomic) JCTextField *usernameField;
 @property (strong, nonatomic) UIButton *profilePictureButton;
 
 // Gender Picker

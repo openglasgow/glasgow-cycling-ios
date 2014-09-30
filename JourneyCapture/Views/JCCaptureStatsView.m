@@ -132,7 +132,7 @@
     
     int hours = totalSeconds / 3600;
     int minutes = (totalSeconds - (hours * 3600)) / 60;
-    int seconds = totalSeconds - (minutes * 60);
+    int seconds = totalSeconds - (minutes * 60) - (hours * 3600);
     NSString *shortTime = @"";
     if (hours == 0) {
         shortTime = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
