@@ -29,21 +29,22 @@
         AFHTTPRequestOperation *op = [manager GET:@"/poi/all.json" parameters:nil
             success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
               NSArray *locations = responseObject[@"locations"];
-              _locations = [[NSMutableArray alloc] init];
+              _annotations = [[NSMutableArray alloc] init];
               for (NSDictionary *location in locations) {
                   double lat = [location[@"lat"] doubleValue];
                   double lng = [location[@"long"] doubleValue];
                   NSString *type = location[@"type"];
                   
-                  JCCycleMapLocationViewModel *locationVM = [[JCCycleMapLocationViewModel alloc] init];
-                  locationVM.coordinate = CLLocationCoordinate2DMake(lat, lng);
+                  JCCycleMapAnnotation *annotation = [JCCycleMapAnnotation new];
+                  annotation.coordinate = CLLocationCoordinate2DMake(lat, lng);
                   if (location[@"name"] != [NSNull null]) {
-                      locationVM.name = location[@"name"];
+                      annotation.title = location[@"name"];
                   } else {
-                      locationVM.name = type;
+                      annotation.title = type;
                   }
-                  locationVM.image = [UIImage imageNamed:[NSString stringWithFormat:@"map-pin-%@", type]];
-                  [_locations addObject:locationVM];
+                  annotation.groupTag = type;
+                  annotation.image = [UIImage imageNamed:[NSString stringWithFormat:@"map-pin-%@", type]];
+                  [_annotations addObject:annotation];
               }
               
               [subscriber sendCompleted];
@@ -59,22 +60,6 @@
         }];
         
     }];
-}
-
-- (NSArray *)annotations
-{
-    if (!_annotations) {
-        NSMutableArray *annotationsTemp = [NSMutableArray new];
-        for (JCCycleMapLocationViewModel *location in _locations) {
-            JCCycleMapAnnotation *annotation = [JCCycleMapAnnotation new];
-            annotation.viewModel = location;
-            annotation.title = location.name;
-            annotation.coordinate = location.coordinate;
-            [annotationsTemp addObject:annotation];
-        }
-        _annotations = annotationsTemp;
-    }
-    return _annotations;
 }
 
 @end

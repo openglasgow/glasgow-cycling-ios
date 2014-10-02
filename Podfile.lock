@@ -22,7 +22,6 @@ PODS:
     - AFNetworking/NSURLSession
   - CRToast (0.0.7)
   - EDStarRating (1.1)
-  - FBAnnotationClustering (0.1.1)
   - FDTake (0.1.1)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK
@@ -89,6 +88,7 @@ PODS:
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
   - MBProgressHUD (0.9)
+  - OCMapView (0.1.0)
   - ReactiveCocoa (2.3.1):
     - ReactiveCocoa/UI
   - ReactiveCocoa/Core (2.3.1):
@@ -104,7 +104,6 @@ DEPENDENCIES:
   - AFNetworking (~> 2.1)
   - CRToast (~> 0.0.3)
   - EDStarRating (~> 1.1)
-  - FBAnnotationClustering (~> 0.1.1)
   - FDTake (~> 0.1.1)
   - FlurrySDK (~> 4.3)
   - FormatterKit (~> 1.4.3)
@@ -117,6 +116,7 @@ DEPENDENCIES:
   - libextobjc (~> 0.4)
   - MagicalRecord (~> 2.2)
   - MBProgressHUD (~> 0.8)
+  - OCMapView (~> 0.1.0)
   - ReactiveCocoa (~> 2.2)
   - ReactiveViewModel (~> 0.2)
   - UIView+AutoLayout (~> 1.3.0)
@@ -125,7 +125,6 @@ SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
   EDStarRating: c7b87f9866be0ea29bb054964023b8eb3f18286c
-  FBAnnotationClustering: aa6f400b378767e6df6a58ff90254b75c2c29f9b
   FDTake: faef4e46909f879a65589a15e19e2bb00d2857e1
   FlurrySDK: abaedafc350afa41b004236b67ae14f7d3748b68
   FormatterKit: f744aa7928003eba8317d6fd6998414fbc78f7a5
@@ -138,6 +137,7 @@ SPEC CHECKSUMS:
   libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
+  OCMapView: b6c23a490834c7ac6d4c125cb8431e0ba33abcb9
   ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
   ReactiveViewModel: 78387196df2e7535bb2776c41df15dbb17300f8a
   UIView+AutoLayout: dc24ec6114498617510af759148a05b957af1b38

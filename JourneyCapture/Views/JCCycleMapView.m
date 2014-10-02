@@ -11,6 +11,7 @@
 #import "JCCycleMapLocationViewModel.h"
 #import "JCCycleMapAnnotation.h"
 #import "JCLocationManager.h"
+#import <OCMapView/OCMapView.h>
 
 @implementation JCCycleMapView
 
@@ -25,9 +26,10 @@
     
     _viewModel = mapViewModel;
     
-    _mapView = [MKMapView new];
+    _mapView = [OCMapView new];
     _mapView.translatesAutoresizingMaskIntoConstraints = NO;
     _mapView.showsUserLocation = YES;
+    _mapView.clusterByGroupTag = true;
     [self addSubview:_mapView];
     
     return self;

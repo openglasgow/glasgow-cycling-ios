@@ -8,10 +8,12 @@
 
 @import Foundation;
 @import MapKit;
-@class JCCycleMapLocationViewModel;
+#import <OCMapView/OCMapView.h>
 
-@interface JCCycleMapAnnotation : NSObject <MKAnnotation>
+@interface JCCycleMapAnnotation : NSObject <MKAnnotation, OCGrouping>
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (strong, nonatomic) JCCycleMapLocationViewModel *viewModel;
+@property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic, copy) NSString *groupTag;
+@property (strong, nonatomic) UIImage *image;
 @end

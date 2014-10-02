@@ -7,11 +7,11 @@
 //
 
 @import MapKit;
-@class JCCycleMapViewModel;
+@class JCCycleMapViewModel, OCMapView;
 
 @interface JCCycleMapView : UIView
 @property (strong, nonatomic) JCCycleMapViewModel *viewModel;
-@property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) OCMapView *mapView;
 - (id)initWithViewModel:(JCCycleMapViewModel *)mapViewModel;
 - (void)updateMap;
 @end

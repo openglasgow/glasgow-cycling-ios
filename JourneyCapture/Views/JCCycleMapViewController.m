@@ -12,7 +12,7 @@
 #import "JCCycleMapViewModel.h"
 #import "JCCycleMapLocationViewModel.h"
 #import "JCCycleMapAnnotation.h"
-#import "FBClusteringManager.h"
+#import <OCMapView/OCMapView.h>
 
 @interface JCCycleMapViewController ()
 
@@ -61,7 +61,6 @@
         NSLog(@"Couldn't load cycle map data");
     } completed:^{
         NSLog(@"Loaded cycle map data");
-        _clusteringManager = [[FBClusteringManager alloc] initWithAnnotations:_viewModel.annotations];
         [_cycleMapView updateMap];
     }];
 }
@@ -75,6 +74,23 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
+    JCCycleMapAnnotation *cycleAnnotation = (JCCycleMapAnnotation *)annotation;
+    if ([annotation isKindOfClass:[OCAnnotation class]]) {
+        static NSString *const AnnotatioViewReuseID = @"MKClusterAnnotation";
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotatioViewReuseID];
+        if (!annotationView) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotatioViewReuseID];
+        }
+
+        if ([cycleAnnotation.groupTag isEqualToString:@"rack"]) {
+            annotationView.pinColor = MKPinAnnotationColorGreen;
+        } else {
+            annotationView.pinColor = MKPinAnnotationColorPurple;
+        }
+        annotationView.canShowCallout = YES;
+        return annotationView;
+    }
+    
     if (![annotation isKindOfClass:[JCCycleMapAnnotation class]]) {
         return nil;
     }
@@ -86,10 +102,15 @@
         annotationView = [[MKAnnotationView alloc]
                            initWithAnnotation:annotation reuseIdentifier:viewId];
     }
-    annotationView.image = ((JCCycleMapAnnotation *) annotation).viewModel.image;
+    annotationView.image = cycleAnnotation.image;
     annotationView.layer.masksToBounds = YES;
     annotationView.layer.cornerRadius = 18.5f;
     return annotationView;
+}
+
+- (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated
+{
+    [_cycleMapView.mapView doClustering];
 }
 
 @end

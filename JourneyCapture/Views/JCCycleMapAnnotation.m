@@ -9,5 +9,4 @@
 #import "JCCycleMapAnnotation.h"
 
 @implementation JCCycleMapAnnotation
-@synthesize coordinate, title;
 @end
