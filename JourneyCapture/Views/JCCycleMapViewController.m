@@ -74,20 +74,19 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    JCCycleMapAnnotation *cycleAnnotation = (JCCycleMapAnnotation *)annotation;
+    static NSString *viewId = @"MKCycleAnnotation";
+    MKAnnotationView *annotationView = (MKAnnotationView*) [_cycleMapView.mapView
+                                                            dequeueReusableAnnotationViewWithIdentifier:viewId];
+    if (annotationView == nil) {
+        annotationView = [[MKAnnotationView alloc]
+                          initWithAnnotation:annotation reuseIdentifier:viewId];
+    }
+    
     if ([annotation isKindOfClass:[OCAnnotation class]]) {
-        static NSString *const AnnotatioViewReuseID = @"MKClusterAnnotation";
-        MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotatioViewReuseID];
-        if (!annotationView) {
-            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotatioViewReuseID];
-        }
-
-        if ([cycleAnnotation.groupTag isEqualToString:@"rack"]) {
-            annotationView.pinColor = MKPinAnnotationColorGreen;
-        } else {
-            annotationView.pinColor = MKPinAnnotationColorPurple;
-        }
-        annotationView.canShowCallout = YES;
+        NSString *groupTag = ((OCAnnotation *)annotation).groupTag;
+        annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"map-cluster-%@", groupTag]];
+        annotationView.layer.masksToBounds = YES;
+        annotationView.layer.cornerRadius = 18.5f;
         return annotationView;
     }
     
@@ -95,13 +94,7 @@
         return nil;
     }
     
-    static NSString *viewId = @"MKCycleAnnotation";
-    MKAnnotationView *annotationView = (MKAnnotationView*) [_cycleMapView.mapView
-                                                            dequeueReusableAnnotationViewWithIdentifier:viewId];
-    if (annotationView == nil) {
-        annotationView = [[MKAnnotationView alloc]
-                           initWithAnnotation:annotation reuseIdentifier:viewId];
-    }
+    JCCycleMapAnnotation *cycleAnnotation = (JCCycleMapAnnotation *)annotation;
     annotationView.image = cycleAnnotation.image;
     annotationView.layer.masksToBounds = YES;
     annotationView.layer.cornerRadius = 18.5f;
