@@ -30,14 +30,6 @@
     self.requestSerializer = [AFJSONRequestSerializer serializer];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    
-    // Pin self-signed SSL cert
-    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"server" ofType:@"cer"];
-    NSData *certData = [NSData dataWithContentsOfFile:cerPath];
-    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];
-    [securityPolicy setAllowInvalidCertificates:YES];
-    [securityPolicy setPinnedCertificates:@[certData]];
-    self.securityPolicy = securityPolicy;
 
     return self;
 }
