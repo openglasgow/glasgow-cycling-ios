@@ -196,6 +196,7 @@
 		12FBAC5A1920C58E00ADFF0F /* JCRouteListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteListViewModel.m; sourceTree = "<group>"; };
 		12FBAC5F19211BFB00ADFF0F /* JCRouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRouteView.h; sourceTree = "<group>"; };
 		12FBAC6019211BFB00ADFF0F /* JCRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRouteView.m; sourceTree = "<group>"; };
+		59CDE5E1C16F18B5CF3F4F17 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6E101EAB192E2AE10046E096 /* JCQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCQuestionView.h; sourceTree = "<group>"; };
 		6E101EAC192E2AE10046E096 /* JCQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionView.m; sourceTree = "<group>"; };
 		6E15B11D19374B1E00459B8D /* JCResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCResetPasswordViewController.h; sourceTree = "<group>"; };
@@ -298,9 +299,8 @@
 		83F811E018C49E860010B1CD /* JCJourneyModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JCJourneyModel.xcdatamodel; sourceTree = "<group>"; };
 		83F811E218C4C1470010B1CD /* JCAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAPIManager.h; sourceTree = "<group>"; };
 		83F811E318C4C1470010B1CD /* JCAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAPIManager.m; sourceTree = "<group>"; };
-		B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		A18673D1751A8DBF9A676857 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B9F63CCEB7BE445CAC45BA08 /* libPods-JourneyCapture.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JourneyCapture.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BFAE2B91575B49EFA76C55F4 /* Pods-JourneyCapture.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JourneyCapture.xcconfig"; path = "Pods/Pods-JourneyCapture.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -455,6 +455,15 @@
 			name = "Route List";
 			sourceTree = "<group>";
 		};
+		255F0ED3945C9B6B88E6F275 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59CDE5E1C16F18B5CF3F4F17 /* Pods.debug.xcconfig */,
+				A18673D1751A8DBF9A676857 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6E6701AF19333D3F00C6E02A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -521,8 +530,7 @@
 				831EDB6818BCBB34001468E4 /* JourneyCaptureTests */,
 				831EDB4818BCBB33001468E4 /* Frameworks */,
 				831EDB4718BCBB33001468E4 /* Products */,
-				BFAE2B91575B49EFA76C55F4 /* Pods-JourneyCapture.xcconfig */,
-				B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */,
+				255F0ED3945C9B6B88E6F275 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -860,7 +868,7 @@
 				ORGANIZATIONNAME = FCD;
 				TargetAttributes = {
 					831EDB4518BCBB33001468E4 = {
-						DevelopmentTeam = N22NQHGM2W;
+						DevelopmentTeam = L342PDL5NN;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -958,7 +966,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		78FDD1B960064994842C1C74 /* Copy Pods Resources */ = {
@@ -973,7 +981,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1178,7 +1186,7 @@
 		};
 		831EDB7318BCBB34001468E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */;
+			baseConfigurationReference = 59CDE5E1C16F18B5CF3F4F17 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1196,7 +1204,7 @@
 		};
 		831EDB7418BCBB34001468E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */;
+			baseConfigurationReference = A18673D1751A8DBF9A676857 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1214,7 +1222,7 @@
 		};
 		831EDB7618BCBB34001468E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */;
+			baseConfigurationReference = 59CDE5E1C16F18B5CF3F4F17 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JourneyCapture.app/JourneyCapture";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1241,7 +1249,7 @@
 		};
 		831EDB7718BCBB34001468E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1A40FB2A1D844C5BE8468BE /* Pods.xcconfig */;
+			baseConfigurationReference = A18673D1751A8DBF9A676857 /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JourneyCapture.app/JourneyCapture";
 				FRAMEWORK_SEARCH_PATHS = (

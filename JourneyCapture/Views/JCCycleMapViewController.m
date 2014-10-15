@@ -85,8 +85,6 @@
     if ([annotation isKindOfClass:[OCAnnotation class]]) {
         NSString *groupTag = ((OCAnnotation *)annotation).groupTag;
         annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"map-cluster-%@", groupTag]];
-        annotationView.layer.masksToBounds = YES;
-        annotationView.layer.cornerRadius = 18.5f;
         return annotationView;
     }
     
