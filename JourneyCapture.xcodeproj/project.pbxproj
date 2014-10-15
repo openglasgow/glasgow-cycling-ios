@@ -51,7 +51,6 @@
 		6E15B11F19374B1E00459B8D /* JCResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E15B11E19374B1E00459B8D /* JCResetPasswordViewController.m */; };
 		6E15B12219374B3500459B8D /* JCResetPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E15B12119374B3500459B8D /* JCResetPasswordView.m */; };
 		6E15B12519374CED00459B8D /* JCResetPasswordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E15B12419374CED00459B8D /* JCResetPasswordViewModel.m */; };
-		6E15B12719377C3700459B8D /* server.cer in Resources */ = {isa = PBXBuildFile; fileRef = 6E15B12619377C3700459B8D /* server.cer */; };
 		6E6701AE19333D3500C6E02A /* JCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */; };
 		6E6701B219333D6600C6E02A /* JCSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B119333D6600C6E02A /* JCSettingsView.m */; };
 		6E6701B5193344AC00C6E02A /* JCSettingsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6701B4193344AC00C6E02A /* JCSettingsViewModel.m */; };
@@ -205,7 +204,6 @@
 		6E15B12119374B3500459B8D /* JCResetPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCResetPasswordView.m; sourceTree = "<group>"; };
 		6E15B12319374CED00459B8D /* JCResetPasswordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCResetPasswordViewModel.h; sourceTree = "<group>"; };
 		6E15B12419374CED00459B8D /* JCResetPasswordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCResetPasswordViewModel.m; sourceTree = "<group>"; };
-		6E15B12619377C3700459B8D /* server.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = server.cer; sourceTree = "<group>"; };
 		6E6701AC19333D3500C6E02A /* JCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsViewController.h; sourceTree = "<group>"; };
 		6E6701AD19333D3500C6E02A /* JCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSettingsViewController.m; sourceTree = "<group>"; };
 		6E6701B019333D6600C6E02A /* JCSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSettingsView.h; sourceTree = "<group>"; };
@@ -696,7 +694,6 @@
 		838C16D718BCBBEB0053BFB1 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				6E15B12619377C3700459B8D /* server.cer */,
 				831EDB5118BCBB33001468E4 /* JourneyCapture-Info.plist */,
 				831EDB5218BCBB33001468E4 /* InfoPlist.strings */,
 				831EDB5518BCBB33001468E4 /* main.m */,
@@ -904,7 +901,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E15B12719377C3700459B8D /* server.cer in Resources */,
 				831EDB5418BCBB33001468E4 /* InfoPlist.strings in Resources */,
 				125340FE1913A489008E1856 /* JCPathCell.xib in Resources */,
 				83DC969918D0762800E66C26 /* Settings.bundle in Resources */,

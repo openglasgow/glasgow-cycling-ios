@@ -32,7 +32,7 @@
 //static NSString *const CLIENT_ID = @"123";
 //static NSString *const CLIENT_SECRET = @"321";
 //#else
-static NSString *const API_URI = @"https://activetravel.cloudapp.net/";
+static NSString *const API_URI = @"https://glasgowcycling.com/";
 static NSString *const CLIENT_ID = @"3db23ee6dfb278fafb78f6cd3c5f2140ebbce0f2cde3a3fb612f669bb879b0c4";
 static NSString *const CLIENT_SECRET = @"8cb0159073b4df229a32f88e32ead76aa77608a606b3c69a77e36b4341ca2b6a";
 //#endif

@@ -11,7 +11,7 @@
 			<string>Submit Feedback</string>
 			<key>IASKMailComposeToRecipents</key>
 			<array>
-				<string>team@codecreatedme.com</string>
+				<string>team@addjam.com</string>
 			</array>
 			<key>IASKMailComposeSubject</key>
 			<string>JourneyCapture Feedback</string>
