@@ -232,20 +232,20 @@
 		8303E2D718C62C2300215760 /* JCQuestionListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCQuestionListViewModel.m; sourceTree = "<group>"; };
 		830C31CC18BCDF4800B7CC47 /* JCSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCSignupViewController.h; sourceTree = "<group>"; };
 		830C31CD18BCDF4800B7CC47 /* JCSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCSignupViewController.m; sourceTree = "<group>"; };
-		831EDB4618BCBB33001468E4 /* GlasgowCycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlasgowCycling.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		831EDB4618BCBB33001468E4 /* Glasgow Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glasgow Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		831EDB4918BCBB33001468E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		831EDB4B18BCBB33001468E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		831EDB4D18BCBB33001468E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		831EDB5118BCBB33001468E4 /* GlasgowCycling-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlasgowCycling-Info.plist"; sourceTree = "<group>"; };
+		831EDB5118BCBB33001468E4 /* Glasgow Cycling-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Glasgow Cycling-Info.plist"; sourceTree = "<group>"; };
 		831EDB5318BCBB33001468E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		831EDB5518BCBB33001468E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		831EDB5718BCBB33001468E4 /* GlasgowCycling-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GlasgowCycling-Prefix.pch"; sourceTree = "<group>"; };
+		831EDB5718BCBB33001468E4 /* Glasgow Cycling-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Glasgow Cycling-Prefix.pch"; sourceTree = "<group>"; };
 		831EDB5818BCBB33001468E4 /* JCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JCAppDelegate.h; sourceTree = "<group>"; };
 		831EDB5918BCBB33001468E4 /* JCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JCAppDelegate.m; sourceTree = "<group>"; };
 		831EDB5B18BCBB34001468E4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		831EDB6118BCBB34001468E4 /* GlasgowCyclingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlasgowCyclingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		831EDB6118BCBB34001468E4 /* Glasgow CyclingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Glasgow CyclingTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		831EDB6218BCBB34001468E4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		831EDB6A18BCBB34001468E4 /* GlasgowCyclingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlasgowCyclingTests-Info.plist"; sourceTree = "<group>"; };
+		831EDB6A18BCBB34001468E4 /* Glasgow CyclingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Glasgow CyclingTests-Info.plist"; sourceTree = "<group>"; };
 		831EDB6C18BCBB34001468E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		831EDB6E18BCBB34001468E4 /* JourneyCaptureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JourneyCaptureTests.m; sourceTree = "<group>"; };
 		8341421018BF55B70020CF97 /* JCUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCUserViewController.h; sourceTree = "<group>"; };
@@ -535,8 +535,8 @@
 		831EDB4718BCBB33001468E4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				831EDB4618BCBB33001468E4 /* GlasgowCycling.app */,
-				831EDB6118BCBB34001468E4 /* GlasgowCyclingTests.xctest */,
+				831EDB4618BCBB33001468E4 /* Glasgow Cycling.app */,
+				831EDB6118BCBB34001468E4 /* Glasgow CyclingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -584,7 +584,7 @@
 		831EDB6918BCBB34001468E4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				831EDB6A18BCBB34001468E4 /* GlasgowCyclingTests-Info.plist */,
+				831EDB6A18BCBB34001468E4 /* Glasgow CyclingTests-Info.plist */,
 				831EDB6B18BCBB34001468E4 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -694,10 +694,10 @@
 		838C16D718BCBBEB0053BFB1 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				831EDB5118BCBB33001468E4 /* GlasgowCycling-Info.plist */,
+				831EDB5118BCBB33001468E4 /* Glasgow Cycling-Info.plist */,
 				831EDB5218BCBB33001468E4 /* InfoPlist.strings */,
 				831EDB5518BCBB33001468E4 /* main.m */,
-				831EDB5718BCBB33001468E4 /* GlasgowCycling-Prefix.pch */,
+				831EDB5718BCBB33001468E4 /* Glasgow Cycling-Prefix.pch */,
 				83DC969818D0762800E66C26 /* Settings.bundle */,
 			);
 			path = Support;
@@ -815,9 +815,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		831EDB4518BCBB33001468E4 /* GlasgowCycling */ = {
+		831EDB4518BCBB33001468E4 /* Glasgow Cycling */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 831EDB7218BCBB34001468E4 /* Build configuration list for PBXNativeTarget "GlasgowCycling" */;
+			buildConfigurationList = 831EDB7218BCBB34001468E4 /* Build configuration list for PBXNativeTarget "Glasgow Cycling" */;
 			buildPhases = (
 				53F421320060418A8F50E99C /* Check Pods Manifest.lock */,
 				831EDB4218BCBB33001468E4 /* Sources */,
@@ -829,14 +829,14 @@
 			);
 			dependencies = (
 			);
-			name = GlasgowCycling;
+			name = "Glasgow Cycling";
 			productName = JourneyCapture;
-			productReference = 831EDB4618BCBB33001468E4 /* GlasgowCycling.app */;
+			productReference = 831EDB4618BCBB33001468E4 /* Glasgow Cycling.app */;
 			productType = "com.apple.product-type.application";
 		};
-		831EDB6018BCBB34001468E4 /* GlasgowCyclingTests */ = {
+		831EDB6018BCBB34001468E4 /* Glasgow CyclingTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 831EDB7518BCBB34001468E4 /* Build configuration list for PBXNativeTarget "GlasgowCyclingTests" */;
+			buildConfigurationList = 831EDB7518BCBB34001468E4 /* Build configuration list for PBXNativeTarget "Glasgow CyclingTests" */;
 			buildPhases = (
 				4E988E07F883430BBCFCBA33 /* Check Pods Manifest.lock */,
 				831EDB5D18BCBB34001468E4 /* Sources */,
@@ -849,9 +849,9 @@
 			dependencies = (
 				831EDB6718BCBB34001468E4 /* PBXTargetDependency */,
 			);
-			name = GlasgowCyclingTests;
+			name = "Glasgow CyclingTests";
 			productName = JourneyCaptureTests;
-			productReference = 831EDB6118BCBB34001468E4 /* GlasgowCyclingTests.xctest */;
+			productReference = 831EDB6118BCBB34001468E4 /* Glasgow CyclingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -878,7 +878,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 831EDB4118BCBB33001468E4 /* Build configuration list for PBXProject "GlasgowCycling" */;
+			buildConfigurationList = 831EDB4118BCBB33001468E4 /* Build configuration list for PBXProject "Glasgow Cycling" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -890,8 +890,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				831EDB4518BCBB33001468E4 /* GlasgowCycling */,
-				831EDB6018BCBB34001468E4 /* GlasgowCyclingTests */,
+				831EDB4518BCBB33001468E4 /* Glasgow Cycling */,
+				831EDB6018BCBB34001468E4 /* Glasgow CyclingTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1084,7 +1084,7 @@
 /* Begin PBXTargetDependency section */
 		831EDB6718BCBB34001468E4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 831EDB4518BCBB33001468E4 /* GlasgowCycling */;
+			target = 831EDB4518BCBB33001468E4 /* Glasgow Cycling */;
 			targetProxy = 831EDB6618BCBB34001468E4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1189,10 +1189,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JourneyCapture/Support/GlasgowCycling-Prefix.pch";
-				INFOPLIST_FILE = "JourneyCapture/Support/GlasgowCycling-Info.plist";
+				GCC_PREFIX_HEADER = "JourneyCapture/Support/Glasgow Cycling-Prefix.pch";
+				INFOPLIST_FILE = "JourneyCapture/Support/Glasgow Cycling-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = GlasgowCycling;
+				PRODUCT_NAME = "Glasgow Cycling";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1207,10 +1207,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JourneyCapture/Support/GlasgowCycling-Prefix.pch";
-				INFOPLIST_FILE = "JourneyCapture/Support/GlasgowCycling-Info.plist";
+				GCC_PREFIX_HEADER = "JourneyCapture/Support/Glasgow Cycling-Prefix.pch";
+				INFOPLIST_FILE = "JourneyCapture/Support/Glasgow Cycling-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = GlasgowCycling;
+				PRODUCT_NAME = "Glasgow Cycling";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1232,12 +1232,12 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "JourneyCaptureTests/GlasgowCyclingTests-Info.plist";
+				INFOPLIST_FILE = "JourneyCaptureTests/Glasgow CyclingTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
-				PRODUCT_NAME = GlasgowCyclingTests;
+				PRODUCT_NAME = "Glasgow CyclingTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1255,12 +1255,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
-				INFOPLIST_FILE = "JourneyCaptureTests/GlasgowCyclingTests-Info.plist";
+				INFOPLIST_FILE = "JourneyCaptureTests/Glasgow CyclingTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
-				PRODUCT_NAME = GlasgowCyclingTests;
+				PRODUCT_NAME = "Glasgow CyclingTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1269,7 +1269,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		831EDB4118BCBB33001468E4 /* Build configuration list for PBXProject "GlasgowCycling" */ = {
+		831EDB4118BCBB33001468E4 /* Build configuration list for PBXProject "Glasgow Cycling" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				831EDB7018BCBB34001468E4 /* Debug */,
@@ -1278,7 +1278,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		831EDB7218BCBB34001468E4 /* Build configuration list for PBXNativeTarget "GlasgowCycling" */ = {
+		831EDB7218BCBB34001468E4 /* Build configuration list for PBXNativeTarget "Glasgow Cycling" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				831EDB7318BCBB34001468E4 /* Debug */,
@@ -1287,7 +1287,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		831EDB7518BCBB34001468E4 /* Build configuration list for PBXNativeTarget "GlasgowCyclingTests" */ = {
+		831EDB7518BCBB34001468E4 /* Build configuration list for PBXNativeTarget "Glasgow CyclingTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				831EDB7618BCBB34001468E4 /* Debug */,
