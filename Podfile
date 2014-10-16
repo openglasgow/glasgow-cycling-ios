@@ -22,4 +22,4 @@ pod 'JBChartView', '~> 2.5.5'
 pod 'FormatterKit', '~> 1.4.3'
 pod 'OCMapView', '~> 0.1.0'
 
-link_with ['JourneyCapture', 'JourneyCaptureTests']
+link_with ['Glasgow Cycling', 'Glasgow CyclingTests']
