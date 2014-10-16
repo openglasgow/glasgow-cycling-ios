@@ -1227,7 +1227,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
+				GCC_PREFIX_HEADER = "JourneyCapture/Support/Glasgow Cycling-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1254,7 +1254,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JourneyCapture/Support/JourneyCapture-Prefix.pch";
+				GCC_PREFIX_HEADER = "JourneyCapture/Support/Glasgow Cycling-Prefix.pch";
 				INFOPLIST_FILE = "JourneyCaptureTests/Glasgow CyclingTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
