@@ -15,6 +15,8 @@
 #import <GSKeychain/GSKeychain.h>
 #import "Flurry.h"
 #import "UIImage+color.h"
+#import "JCQuestionViewController.h"
+#import "JCQuestionListViewModel.h"
 
 @implementation JCAppDelegate
 
@@ -56,6 +58,9 @@
     } else {
         rootController = [[JCSigninViewController alloc] init];
     }
+    JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
+    rootController = [[JCQuestionViewController alloc] initWithViewModel:questionList
+                                                           questionIndex:0];
     
     JCNavViewController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
     [JCUserManager sharedManager].navVC = navController;
