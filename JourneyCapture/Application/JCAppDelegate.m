@@ -58,9 +58,6 @@
     } else {
         rootController = [[JCSigninViewController alloc] init];
     }
-    JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
-    rootController = [[JCQuestionViewController alloc] initWithViewModel:questionList
-                                                           questionIndex:0];
     
     JCNavViewController *navController = [[JCNavViewController alloc] initWithRootViewController:rootController];
     [JCUserManager sharedManager].navVC = navController;
