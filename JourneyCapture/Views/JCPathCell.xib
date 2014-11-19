@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="uT9-bQ-gk6" customClass="JCPathCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uT9-bQ-gk6" id="OKc-bP-F0d">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -48,8 +48,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(1)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-8O-0TD">
-                        <rect key="frame" x="150" y="56" width="19" height="16"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(1)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-8O-0TD">
+                        <rect key="frame" x="144" y="59" width="19" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="19" id="7f2-4U-754"/>
+                            <constraint firstAttribute="height" constant="16" id="lEd-4n-oeA"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -61,7 +65,7 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSG-LA-p8C" customClass="EDStarRating">
-                        <rect key="frame" x="20" y="54" width="125" height="18"/>
+                        <rect key="frame" x="10" y="58" width="125" height="18"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="8TL-f3-P2M"/>
@@ -71,17 +75,19 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="0V6-LT-ICG" firstAttribute="leading" secondItem="OKc-bP-F0d" secondAttribute="leading" constant="20" id="5ny-Rv-XaC"/>
-                    <constraint firstItem="hlH-pL-yHB" firstAttribute="top" secondItem="OKc-bP-F0d" secondAttribute="top" constant="33" id="9f8-hs-PbM"/>
                     <constraint firstItem="hOL-8g-toy" firstAttribute="leading" secondItem="hlH-pL-yHB" secondAttribute="trailing" constant="8" id="AGc-Kz-RRs"/>
-                    <constraint firstItem="BSG-LA-p8C" firstAttribute="top" secondItem="OKc-bP-F0d" secondAttribute="top" constant="54" id="BRf-so-7Ay"/>
                     <constraint firstItem="0V6-LT-ICG" firstAttribute="top" secondItem="OKc-bP-F0d" secondAttribute="top" constant="8" id="CyQ-Yo-Dy4"/>
+                    <constraint firstItem="lfu-8O-0TD" firstAttribute="top" secondItem="BSG-LA-p8C" secondAttribute="bottom" constant="-17" id="FOG-vV-pwp"/>
                     <constraint firstItem="MYx-HR-8AY" firstAttribute="top" secondItem="0V6-LT-ICG" secondAttribute="bottom" id="GE7-BV-6o3"/>
                     <constraint firstItem="NAH-Qh-uu4" firstAttribute="top" secondItem="hOL-8g-toy" secondAttribute="bottom" constant="-21" id="LeX-rt-jas"/>
-                    <constraint firstItem="BSG-LA-p8C" firstAttribute="leading" secondItem="OKc-bP-F0d" secondAttribute="leading" constant="20" id="Ot1-1H-oLp"/>
+                    <constraint firstItem="BSG-LA-p8C" firstAttribute="leading" secondItem="OKc-bP-F0d" secondAttribute="leading" constant="10" id="Ot1-1H-oLp"/>
+                    <constraint firstItem="BSG-LA-p8C" firstAttribute="top" secondItem="hlH-pL-yHB" secondAttribute="bottom" constant="4" id="UR3-Yj-FKh"/>
                     <constraint firstItem="NAH-Qh-uu4" firstAttribute="leading" secondItem="hOL-8g-toy" secondAttribute="trailing" constant="8" id="W6A-3x-vIj"/>
                     <constraint firstAttribute="trailing" secondItem="0V6-LT-ICG" secondAttribute="trailing" constant="30" id="YUi-gF-FNG"/>
                     <constraint firstAttribute="trailing" secondItem="MYx-HR-8AY" secondAttribute="trailing" constant="20" id="egU-vs-J1T"/>
                     <constraint firstItem="hOL-8g-toy" firstAttribute="top" secondItem="hlH-pL-yHB" secondAttribute="bottom" constant="-21" id="fdB-fH-xgK"/>
+                    <constraint firstItem="lfu-8O-0TD" firstAttribute="leading" secondItem="BSG-LA-p8C" secondAttribute="trailing" constant="9" id="nQx-O9-vLT"/>
+                    <constraint firstItem="hlH-pL-yHB" firstAttribute="top" secondItem="0V6-LT-ICG" secondAttribute="bottom" constant="4" id="uDO-MA-jfk"/>
                     <constraint firstItem="hlH-pL-yHB" firstAttribute="leading" secondItem="OKc-bP-F0d" secondAttribute="leading" constant="20" id="yZQ-8O-UYP"/>
                 </constraints>
             </tableViewCellContentView>
