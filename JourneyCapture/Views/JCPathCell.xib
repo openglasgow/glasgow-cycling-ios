@@ -49,7 +49,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(1)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-8O-0TD">
-                        <rect key="frame" x="144" y="59" width="19" height="16"/>
+                        <rect key="frame" x="135" y="59" width="19" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="19" id="7f2-4U-754"/>
                             <constraint firstAttribute="height" constant="16" id="lEd-4n-oeA"/>
@@ -86,7 +86,7 @@
                     <constraint firstAttribute="trailing" secondItem="0V6-LT-ICG" secondAttribute="trailing" constant="30" id="YUi-gF-FNG"/>
                     <constraint firstAttribute="trailing" secondItem="MYx-HR-8AY" secondAttribute="trailing" constant="20" id="egU-vs-J1T"/>
                     <constraint firstItem="hOL-8g-toy" firstAttribute="top" secondItem="hlH-pL-yHB" secondAttribute="bottom" constant="-21" id="fdB-fH-xgK"/>
-                    <constraint firstItem="lfu-8O-0TD" firstAttribute="leading" secondItem="BSG-LA-p8C" secondAttribute="trailing" constant="9" id="nQx-O9-vLT"/>
+                    <constraint firstItem="lfu-8O-0TD" firstAttribute="leading" secondItem="BSG-LA-p8C" secondAttribute="trailing" id="nQx-O9-vLT"/>
                     <constraint firstItem="hlH-pL-yHB" firstAttribute="top" secondItem="0V6-LT-ICG" secondAttribute="bottom" constant="4" id="uDO-MA-jfk"/>
                     <constraint firstItem="hlH-pL-yHB" firstAttribute="leading" secondItem="OKc-bP-F0d" secondAttribute="leading" constant="20" id="yZQ-8O-UYP"/>
                 </constraints>
