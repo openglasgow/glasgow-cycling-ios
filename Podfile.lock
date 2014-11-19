@@ -23,9 +23,6 @@ PODS:
   - CRToast (0.0.7)
   - EDStarRating (1.1)
   - FDTake (0.1.1)
-  - FlurrySDK (4.4.0):
-    - FlurrySDK/FlurrySDK
-  - FlurrySDK/FlurrySDK (4.4.0)
   - FormatterKit (1.4.3):
     - FormatterKit/AddressFormatter
     - FormatterKit/ArrayFormatter
@@ -45,7 +42,6 @@ PODS:
   - FormatterKit/URLRequestFormatter (1.4.3)
   - GBDeviceInfo (2.2.7)
   - GSKeychain (1.0.0)
-  - HockeySDK (3.5.7)
   - InAppSettingsKit (2.1)
   - JazzHands (0.0.4)
   - JBChartView (2.5.5)
@@ -105,11 +101,9 @@ DEPENDENCIES:
   - CRToast (~> 0.0.3)
   - EDStarRating (~> 1.1)
   - FDTake (~> 0.1.1)
-  - FlurrySDK (~> 4.3)
   - FormatterKit (~> 1.4.3)
   - GBDeviceInfo (~> 2.2)
   - GSKeychain (~> 1.0)
-  - HockeySDK
   - InAppSettingsKit (~> 2.0)
   - JazzHands (~> 0.0.3)
   - JBChartView (~> 2.5.5)
@@ -126,11 +120,9 @@ SPEC CHECKSUMS:
   CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
   EDStarRating: c7b87f9866be0ea29bb054964023b8eb3f18286c
   FDTake: faef4e46909f879a65589a15e19e2bb00d2857e1
-  FlurrySDK: abaedafc350afa41b004236b67ae14f7d3748b68
   FormatterKit: f744aa7928003eba8317d6fd6998414fbc78f7a5
   GBDeviceInfo: 13de4003fa2d159766d43f1405ad1403c0d32b77
   GSKeychain: 97f00f30c5a46825e8395e17de59900e7e94c13e
-  HockeySDK: f0e874d1c6833163ee0c4e423606faf33ad04071
   InAppSettingsKit: 853cdc9fcc76b87a4694f8d2b930e116463b5a29
   JazzHands: 6f1c9547e646c46dc2745a1d5280bfcab43adadc
   JBChartView: 666486d81dd16fa0cfac7bc32b4b70d6c52e7162

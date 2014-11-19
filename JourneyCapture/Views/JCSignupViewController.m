@@ -14,7 +14,6 @@
 #import "JCQuestionViewController.h"
 #import "JCQuestionViewModel.h"
 #import "JCQuestionListViewModel.h"
-#import "Flurry.h"
 
 @interface JCSignupViewController ()
 
@@ -36,7 +35,6 @@
 
 - (void)loadView
 {
-    NSLog(@"Loading signup view");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
@@ -63,6 +61,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CLS_LOG(@"Signup VC Loaded");
 
     [RACObserve(self, viewModel.email) subscribeNext:^(id x) {
          _signupView.emailField.text = _viewModel.email;
@@ -72,14 +71,12 @@
     _signupView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         RACSignal *signupSignal = [_viewModel signup];
         _signupView.loadingView.loading = YES;
-        [signupSignal subscribeNext:^(id x) {
-            NSLog(@"Signup::next");
-        } error:^(NSError *error) {
-            NSLog(@"Signup::error");
+        [signupSignal subscribeError:^(NSError *error) {
+            CLS_LOG(@"User signup error");
             _signupView.loadingView.loading = NO;
         } completed:^{
             NSLog(@"Signup::completed");
-            [Flurry logEvent:@"User signup success"];
+            CLS_LOG(@"User signup success");
             JCQuestionListViewModel *questionList = [[JCQuestionListViewModel alloc] init];
             JCQuestionViewController *questionVC = [[JCQuestionViewController alloc] initWithViewModel:questionList
                                                                                          questionIndex:0];
@@ -99,7 +96,7 @@
                                                                                 forKey:NSForegroundColorAttributeName];
     
     _signupView.profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [Flurry logEvent:@"Signup profile picture selected"];
+        CLS_LOG(@"Signup profile picture selected");
         [_takeController takePhotoOrChooseFromLibrary];
         return [RACSignal empty];
     }];

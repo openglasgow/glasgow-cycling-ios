@@ -8,7 +8,6 @@
 
 #import "JCPasswordViewController.h"
 #import "JCPasswordView.h"
-#import "Flurry.h"
 
 @interface JCPasswordViewController ()
 
@@ -68,11 +67,11 @@
     @weakify(self);
     _passwordView.submitButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
+        CLS_LOG("Changing password");
         [[_viewModel submit] subscribeError:^(NSError *error) {
-            NSLog(@"Login::error");
+            CLS_LOG("Failure changing password");
         } completed:^{
-            NSLog(@"Login::completed");
-            [Flurry logEvent:@"User password change success"];
+            CLS_LOG("Success changing password");
             [self.navigationController popViewControllerAnimated:YES];
         }];
         return [RACSignal empty];

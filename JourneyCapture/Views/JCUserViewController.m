@@ -29,7 +29,6 @@
 
 #import "Route.h"
 
-#import "Flurry.h"
 #import <GBDeviceInfo/GBDeviceInfo.h>
 #import <GSKeychain/GSKeychain.h>
 #import "JCRouteManager.h"
@@ -88,6 +87,7 @@
 {
     [super viewDidLoad];
     [self.navigationItem setHidesBackButton:YES];
+    CLS_LOG(@"Loaded User VC");
     
     // Search
     UIImage *magnifyingGlass = [UIImage imageNamed:@"magnifying-glass.png"];
@@ -188,14 +188,14 @@
 
 - (void)showStats
 {
-    [Flurry logEvent:@"Stats tapped"];
+    CLS_LOG(@"Showing stats");
     JCStatsViewController *statsController = [[JCStatsViewController alloc] initWithViewModel:_viewModel];
     [self.navigationController pushViewController:statsController animated:YES];
 }
 
 - (void)showCapture
 {
-    [Flurry logEvent:@"Route capture tapped"];
+    CLS_LOG(@"Showing capture");
     _updateOnAppear = YES;
     JCRouteCaptureViewController *captureController = [JCRouteCaptureViewController new];
     [self.navigationController pushViewController:captureController animated:YES];
@@ -203,7 +203,7 @@
 
 - (void)showSearch
 {
-    [Flurry logEvent:@"Search tapped"];
+    CLS_LOG(@"Showing search");
     _updateOnAppear = YES;
     JCSearchJourneyListViewModel *searchVM = [JCSearchJourneyListViewModel new];
     JCSearchViewController *searchController = [[JCSearchViewController alloc]
@@ -216,7 +216,7 @@
     BOOL showSettings = _canShowSettings;
     _canShowSettings = NO;
     if (showSettings) {
-        [Flurry logEvent:@"Settings tapped"];
+        CLS_LOG(@"Showing settings");
         _updateOnAppear = YES;
         JCSettingsViewController *settingsController = [JCSettingsViewController new];
         [self.navigationController pushViewController:settingsController animated:YES];
@@ -227,7 +227,6 @@
 
 - (void)didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"Got locations in user overview");
     CLLocation *location = locations[0];
     CLLocationCoordinate2D loc = location.coordinate;
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 2500, 2500);
@@ -248,23 +247,21 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Selected a row");
-    
     if (indexPath.row == 0) {
         // My Routes
-        [Flurry logEvent:@"My routes tapped"];
+        CLS_LOG(@"My routes tapped");
         JCUserJourneyListViewModel *userRoutesVM = [JCUserJourneyListViewModel new];
         JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:userRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     } else if (indexPath.row == 1) {
         // Nearby Routes
-        [Flurry logEvent:@"Nearby routes tapped"];
+        CLS_LOG(@"Nearby routes tapped");
         JCNearbyJourneyListViewModel *nearbyRoutesVM = [JCNearbyJourneyListViewModel new];
         JCPathListViewController *routesVC = [[JCPathListViewController alloc] initWithViewModel:nearbyRoutesVM];
         [self.navigationController pushViewController:routesVC animated:YES];
     } else {
         // Cycle Map
-        [Flurry logEvent:@"Cycle map tapped"];
+        CLS_LOG(@"Cycle map tapped");
         JCCycleMapViewController *cycleVC = [JCCycleMapViewController new];
         [self.navigationController pushViewController:cycleVC animated:YES];
     }

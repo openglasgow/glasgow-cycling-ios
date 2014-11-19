@@ -14,7 +14,6 @@
 #import "JCPathCell.h"
 #import "JCRouteViewController.h"
 #import "JCRouteViewModel.h"
-#import "Flurry.h"
 #import "JCPathListViewController.h"
 
 @interface JCSearchViewController ()
@@ -148,11 +147,8 @@
         JCRouteViewModel *routeVM = (JCRouteViewModel *)pathVM;
         JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
         [self.navigationController pushViewController:routeController animated:YES];
-        [Flurry logEvent:@"Route selected" withParameters:@{
-                                                            @"index": @(indexPath.row),
-                                                            @"total_routes": @(self.viewModel.items.count),
-                                                            @"average_rating": @(pathVM.rating)
-                                                            }];
+        CLS_LOG("Selected route from search VC");
+        [Crashlytics setObjectValue:routeVM.name forKey:@"Selected Route Name (Search)"];
     }
 }
 
@@ -163,6 +159,8 @@
     [self setResultsVisible:NO];
     
     NSString *query = _searchView.searchBar.text;
+    CLS_LOG(@"Performing search");
+    [Crashlytics setObjectValue:query forKey:@"Search term"];
     [[_viewModel setDestWithAddressString:query] subscribeError:^(NSError *error) {
         NSLog(@"Error");
         _searchView.loadingView.loading = NO;

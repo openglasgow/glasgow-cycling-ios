@@ -10,7 +10,6 @@
 #import "JCAPIManager.h"
 #import "Route.h"
 #import "RoutePoint.h"
-#import "Flurry.h"
 
 @implementation JCCaptureViewModel
 
@@ -86,10 +85,10 @@
         [geocoder reverseGeocodeLocation:location
                        completionHandler:^(NSArray *placemarks, NSError *error) {
                            if (error) {
-                               [Flurry logEvent:@"Geocode Failure" withParameters:@{@"error": error.localizedDescription}];
+                               CLS_LOG("Geocode failure");
                                return;
                            }
-                           [Flurry logEvent:@"Geocode Success"];
+                           CLS_LOG("Geocode success");
                            
                            CLPlacemark *placemark = [placemarks objectAtIndex:0];
                            NSLog(@"%@", [placemark.addressDictionary allKeys]);

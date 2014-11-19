@@ -11,7 +11,6 @@
 #import "JCResetPasswordViewModel.h"
 #import "JCTextField.h"
 #import "JCNotificationManager.h"
-#import "Flurry.h"
 
 @interface JCResetPasswordViewController ()
 
@@ -33,7 +32,6 @@
 
 - (void)loadView
 {
-    NSLog(@"Loading reset password view");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
@@ -59,6 +57,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CLS_LOG(@"Loaded reset password view");
     
     _resetView.emailField.delegate = self;
     

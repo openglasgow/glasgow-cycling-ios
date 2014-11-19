@@ -8,7 +8,6 @@
 
 #import "JCSettingsView.h"
 #import "JCSettingsViewModel.h"
-#import "Flurry.h"
 
 @implementation JCSettingsView
 

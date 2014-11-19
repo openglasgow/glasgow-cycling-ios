@@ -11,7 +11,6 @@
 #import "JCQuestionListViewModel.h"
 #import "JCQuestionViewModel.h"
 #import "JCQuestionView.h"
-#import "Flurry.h"
 
 @interface JCQuestionViewController ()
 
@@ -34,7 +33,7 @@
 
 - (void)loadView
 {
-    [Flurry logEvent:@"User responses started" withParameters:nil timed:YES];
+    CLS_LOG(@"Started user responses VC");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
@@ -85,14 +84,14 @@
                                                     questionIndex:(_questionIndex + 1)];
         [self.navigationController pushViewController:nextQuestionVC animated:YES];
     } else {
-        [Flurry endTimedEvent:@"User responses started" withParameters:nil];
+        CLS_LOG("Submitting responses");
         
         [[_viewModel submitResponses] subscribeNext:^(id x) {
             NSLog(@"Responses::next");
         } error:^(NSError *error) {
-            NSLog(@"Responses::error");
+            CLS_LOG("Error submitting responses");
         } completed:^{
-            NSLog(@"Responses::completed");
+            CLS_LOG("Success submitting responses");
             JCUserViewController *userController = [[JCUserViewController alloc] init];
             [self.navigationController pushViewController:userController animated:YES];
         }];

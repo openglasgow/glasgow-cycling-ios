@@ -15,7 +15,6 @@
 #import "JCResetPasswordViewModel.h"
 #import "JCUserViewController.h"
 #import "JCResetPasswordViewController.h"
-#import "Flurry.h"
 #import "JCTextField.h"
 
 @interface JCSigninViewController ()
@@ -38,15 +37,12 @@
 {
     _signinView.loadingView.loading = YES;
     [self dismissKeyboard];
-    [[_viewModel signin] subscribeNext:^(id x) {
-        NSLog(@"Login::next");
-    } error:^(NSError *error) {
-        NSLog(@"Login::error");
+    [[_viewModel signin] subscribeError:^(NSError *error) {
+        CLS_LOG(@"User sign in error");
         _signinView.loadingView.loading = NO;
         _signinView.loadingView.infoLabel.text = @"Problem Signing In";
     } completed:^{
-        NSLog(@"Login::completed");
-        [Flurry logEvent:@"User signin success"];
+        CLS_LOG(@"User sign in success");
         JCUserViewController *userController = [[JCUserViewController alloc] init];
         [self.navigationController pushViewController:userController animated:YES];
     }];
@@ -86,6 +82,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CLS_LOG(@"Sign in VC loaded");
     
     // Sign in
     @weakify(self);
@@ -97,7 +94,7 @@
     _signinView.signupButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         NSLog(@"Signup tapped");
-        [Flurry logEvent:@"Signup button tapped"];
+        CLS_LOG(@"Signup button tapped");
         JCSignupViewModel *signupVM = [JCSignupViewModel new];
         [signupVM setEmail:_viewModel.email];
         JCSignupViewController *signupController = [[JCSignupViewController alloc] initWithViewModel:signupVM];
@@ -108,8 +105,7 @@
     // Reset
     _signinView.resetButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        NSLog(@"Reset password tapped");
-        [Flurry logEvent:@"Reset password button tapped"];
+        CLS_LOG(@"Reset password tapped");
         JCResetPasswordViewModel *resetVM = [JCResetPasswordViewModel new];
         JCResetPasswordViewController *resetController = [[JCResetPasswordViewController alloc] initWithViewModel:resetVM];
         [self.navigationController pushViewController:resetController animated:YES];

@@ -14,7 +14,6 @@
 #import "JCRouteViewModel.h"
 #import "JCCaptureViewModel.h"
 #import "JCLoadingView.h"
-#import "Flurry.h"
 
 static NSInteger const kLoadingCellTag = 1;
 
@@ -179,11 +178,8 @@ static NSInteger const kLoadingCellTag = 1;
         JCRouteViewModel *routeVM = (JCRouteViewModel *)pathVM;
         JCRouteViewController *routeController = [[JCRouteViewController alloc] initWithViewModel:routeVM];
         [self.navigationController pushViewController:routeController animated:YES];
-        [Flurry logEvent:@"Route selected" withParameters:@{
-                                                            @"index": @(indexPath.row),
-                                                            @"total_routes": @(self.viewModel.items.count),
-                                                            @"average_rating": @(pathVM.rating)
-                                                            }];
+        CLS_LOG("Selected a route");
+        [Crashlytics setObjectValue:routeVM.name forKey:@"Selected Route Name"];
     }
 }
 

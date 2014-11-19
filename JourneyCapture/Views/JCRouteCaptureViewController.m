@@ -10,7 +10,6 @@
 #import "JCCaptureView.h"
 #import "JCCaptureViewModel.h"
 #import "JCRoutePointViewModel.h"
-#import "Flurry.h"
 
 @interface JCRouteCaptureViewController ()
 @property (readwrite, nonatomic) BOOL capturing;
@@ -63,6 +62,7 @@
 {
     [super viewDidLoad];
 	[self.navigationItem setTitle:@"Capture"];
+    CLS_LOG(@"Route Capture VC Loaded");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -86,9 +86,7 @@
 
 - (void)startRoute
 {
-    NSLog(@"Starting route");
-    
-    [Flurry logEvent:@"Route Capture" timed:YES];
+    CLS_LOG(@"Starting route capture");
     _capturing = YES;
     _captureStart = [NSDate date];
     
@@ -165,8 +163,11 @@
 - (void)submitRoute {
     // Stop capturing
     [self cancelWarningNotification];
-    [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @YES}];
-    [Flurry logEvent:@"Route Submit"];
+    
+    CLS_LOG("Ended route capture, submitting");
+    int numPoints = (int)_viewModel.points.count;
+    [Crashlytics setIntValue:numPoints forKey:@"Num Route Points"];
+    
     [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
     [[JCLocationManager sharedManager] setDelegate:nil];
     
@@ -243,7 +244,7 @@
         [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
         [[JCLocationManager sharedManager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
-        [Flurry endTimedEvent:@"Route Capture" withParameters:@{@"completed": @NO}];
+        CLS_LOG(@"Cancelled route capture");
     }
     if (_alertDisposable) {
         [_alertDisposable dispose];

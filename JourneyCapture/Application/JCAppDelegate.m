@@ -13,7 +13,6 @@
 #import "JCAPIManager.h"
 #import "JCUserManager.h"
 #import <GSKeychain/GSKeychain.h>
-#import "Flurry.h"
 #import "UIImage+color.h"
 #import "JCQuestionViewController.h"
 #import "JCQuestionListViewModel.h"
@@ -22,25 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if !TARGET_IPHONE_SIMULATOR
-    //Flurry Analytics Setup - Crash reporting handled by Hockey App
-    [Flurry setSecureTransportEnabled:YES];
-    [Flurry startSession:@"DDFSMM7RXYZNTB298YW3"];
-    
-    //Hockey App Setup
-#ifdef BETA
-#ifndef DEBUG
-    [Flurry setCrashReportingEnabled:NO];
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"934359ffd9d098406d81187e2348cb09"
-                                                           delegate:self];
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
-#endif
-#else
-    [Flurry setCrashReportingEnabled:YES];
-#endif
-#endif
+    [Crashlytics startWithAPIKey:@"bfe078d6ca5ea6f9689b7a5b694662ca3ebda224"];
     
     // Core Data
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"JourneyModel"];
@@ -85,12 +66,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if( [[BITHockeyManager sharedHockeyManager].authenticator handleOpenURL:url
-                                                          sourceApplication:sourceApplication
-                                                                 annotation:annotation]) {
-        return YES;
-    }
-    
     /* Your own custom URL handlers */
     
     return NO;

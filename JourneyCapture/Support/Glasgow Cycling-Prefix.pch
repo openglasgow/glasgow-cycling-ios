@@ -20,6 +20,8 @@
     #import <libextobjc/EXTScope.h>
     #import <CoreData+MagicalRecord.h>
     #import "UIView+AutoLayout.h"
+    #import <Crashlytics/Crashlytics.h>
+
 
     #import "UIColor+Application.h"
 #endif

@@ -8,7 +8,6 @@
 
 #import "JCTextField.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Flurry.h"
 
 @implementation JCTextField
 
@@ -52,8 +51,6 @@
 
 - (void)showError
 {
-    [Flurry logEvent:@"Text Field Error"];
-
     [self hideInvalid];
     [self hideError]; // Remove previous errors
     self.layer.borderWidth = 1.5f;

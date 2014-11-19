@@ -28,6 +28,7 @@
 		125D7ED319339AD200187A17 /* JCCycleMapLocationViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 125D7ED219339AD200187A17 /* JCCycleMapLocationViewModel.m */; };
 		129BE686191BC3DE0021437F /* JCPathViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE685191BC3DE0021437F /* JCPathViewModel.m */; };
 		129BE689191BC5470021437F /* JCCaptureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 129BE688191BC5470021437F /* JCCaptureViewModel.m */; };
+		129D9C111A1CE4C100F89C05 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 129D9C101A1CE4C100F89C05 /* Crashlytics.framework */; };
 		12A9C26D190FAB8C004BB4B5 /* UIColor+Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */; };
 		12AABA36192C9D51005DE6AC /* JCStatViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AABA35192C9D51005DE6AC /* JCStatViewModel.m */; };
 		12AABA39192CABE2005DE6AC /* JCGraphScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AABA38192CABE2005DE6AC /* JCGraphScrollView.m */; };
@@ -158,6 +159,7 @@
 		129BE685191BC3DE0021437F /* JCPathViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCPathViewModel.m; sourceTree = "<group>"; };
 		129BE687191BC5470021437F /* JCCaptureViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCCaptureViewModel.h; sourceTree = "<group>"; };
 		129BE688191BC5470021437F /* JCCaptureViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCCaptureViewModel.m; sourceTree = "<group>"; };
+		129D9C101A1CE4C100F89C05 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		12A9C26B190FAB8C004BB4B5 /* UIColor+Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Application.h"; sourceTree = "<group>"; };
 		12A9C26C190FAB8C004BB4B5 /* UIColor+Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Application.m"; sourceTree = "<group>"; };
 		12AABA34192C9D51005DE6AC /* JCStatViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCStatViewModel.h; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				831EDB4E18BCBB33001468E4 /* UIKit.framework in Frameworks */,
 				831EDB4A18BCBB33001468E4 /* Foundation.framework in Frameworks */,
 				EA1572DE908A4ADA8D403842 /* libPods.a in Frameworks */,
+				129D9C111A1CE4C100F89C05 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +547,7 @@
 		831EDB4818BCBB33001468E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				129D9C101A1CE4C100F89C05 /* Crashlytics.framework */,
 				12D5CEE319D1AF29001EA9FB /* libPods.a */,
 				83735C0318CF730C0050AB09 /* CoreLocation.framework */,
 				83C1DB1918C7856C0005F79C /* MobileCoreServices.framework */,
@@ -824,6 +828,7 @@
 				831EDB4318BCBB33001468E4 /* Frameworks */,
 				831EDB4418BCBB33001468E4 /* Resources */,
 				78FDD1B960064994842C1C74 /* Copy Pods Resources */,
+				120E01901A1CC1FE0045B40D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -920,6 +925,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		120E01901A1CC1FE0045B40D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run bfe078d6ca5ea6f9689b7a5b694662ca3ebda224 2516c71973de20e76534ec3156a02959da2582578c6b6661b16a3a7421c2d6af";
+		};
 		4E988E07F883430BBCFCBA33 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1188,6 +1206,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/CrashlyticsFramework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JourneyCapture/Support/Glasgow Cycling-Prefix.pch";
 				INFOPLIST_FILE = "JourneyCapture/Support/Glasgow Cycling-Info.plist";
@@ -1206,6 +1229,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/CrashlyticsFramework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JourneyCapture/Support/Glasgow Cycling-Prefix.pch";
 				INFOPLIST_FILE = "JourneyCapture/Support/Glasgow Cycling-Info.plist";

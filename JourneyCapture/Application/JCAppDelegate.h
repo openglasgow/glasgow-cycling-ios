@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <HockeySDK/HockeySDK.h>
 
-@interface JCAppDelegate : UIResponder <UIApplicationDelegate, BITHockeyManagerDelegate>
+@interface JCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

@@ -13,7 +13,6 @@
 #import "JCSigninViewController.h"
 #import "JCNavViewController.h"
 #import "JCNotificationManager.h"
-#import "Flurry.h"
 
 @implementation JCAPIManager
 
@@ -80,7 +79,7 @@
     if (operation.response.statusCode == 401 && !isSignin && !isChangePassword) {
         if (isRefresh) {
             // Unauthorized, logout
-            [Flurry logEvent:@"Unauthorized Request"];
+            CLS_LOG(@"Unauthorized request, logging out user");
             [[JCNotificationManager manager] displayErrorWithTitle:@"Logged out"
                                                           subtitle:@"Your user details are invalid"
                                                               icon:[UIImage imageNamed:@"logged-out-icon"]];
@@ -91,7 +90,7 @@
         }
     } else if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1004) {
         // Couldn't connect to server
-        [Flurry logEvent:@"Connection Error"];
+        CLS_LOG("Connection error");
         [[JCNotificationManager manager] displayErrorWithTitle:@"Connection Error"
                                                       subtitle:@"There was a problem connecting to the server"
                                                           icon:[UIImage imageNamed:@"connection-issue-icon"]];

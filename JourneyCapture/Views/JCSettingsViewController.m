@@ -12,7 +12,6 @@
 #import "JCSettingsView.h"
 #import "JCSigninViewController.h"
 #import "JCPasswordViewController.h"
-#import "Flurry.h"
 #import "JCUserManager.h"
 #import "User.h"
 
@@ -42,7 +41,6 @@
 
 - (void)loadView
 {
-    NSLog(@"Loading settings view");
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
@@ -69,6 +67,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CLS_LOG(@"Settings VC viewDidLoad");
     
     // Profile pic select
     _takeController = [FDTakeController new];
@@ -80,7 +79,7 @@
     imagePicker.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
                                                                                 forKey:NSForegroundColorAttributeName];
     _settingsView.profilePictureButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        [Flurry logEvent:@"Signup profile picture selected"];
+        CLS_LOG(@"Selecting a profile picture (settings VC)");
         [_takeController takePhotoOrChooseFromLibrary];
         return [RACSignal empty];
     }];
@@ -90,10 +89,9 @@
     _settingsView.submitButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         [[_viewModel submit] subscribeError:^(NSError *error) {
-            NSLog(@"Login::error");
+            CLS_LOG(@"Error submitting settings");
         } completed:^{
-            NSLog(@"Login::completed");
-            [Flurry logEvent:@"User settings change success"];
+            CLS_LOG(@"Success submitting settings");
             [self.navigationController popViewControllerAnimated:YES];
         }];
         return [RACSignal empty];

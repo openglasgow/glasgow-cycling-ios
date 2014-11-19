@@ -10,7 +10,6 @@
 #import "JCSignupViewModel.h"
 #import <QuartzCore/QuartzCore.h>
 #import "JCTextField.h"
-#import "Flurry.h"
 
 @implementation JCSignupView
 

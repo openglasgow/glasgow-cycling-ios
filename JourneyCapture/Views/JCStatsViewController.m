@@ -20,8 +20,6 @@
 #import "JCGraphScrollView.h"
 #import "JCLoadingView.h"
 
-#import "Flurry.h"
-
 @interface JCStatsViewController ()
 
 @end
@@ -108,19 +106,20 @@ CGFloat const kHeaderHeight = 213.0f;
 {
     [super viewDidLoad];
     [self setTitle:@"Week Stats"];
+    CLS_LOG(@"Loaded stats VC");
     
     _loadingView.loading = YES;
     _loadingView.infoLabel.text = @"Loading Stats";
     [[_usageViewModel loadStatsForDays:7] subscribeError:^(NSError *error) {
         NSLog(@"Couldn't load usage");
-        [Flurry logEvent:@"Load Stats" withParameters:@{@"success": @YES}];
+        CLS_LOG(@"Failed to load stats");
         _loadingView.loading = NO;
         _loadingView.hidden = NO;
         _loadingView.infoLabel.text = @"Error loading stats";
         _graphScrollView.hidden = YES;
     } completed:^{
         NSLog(@"Got usage data");
-        [Flurry logEvent:@"Loaded Stats" withParameters:@{@"success": @NO}];
+        CLS_LOG(@"Loaded stats");
         _loadingView.loading = NO;
         _loadingView.hidden = YES;
         _graphScrollView.hidden = NO;
