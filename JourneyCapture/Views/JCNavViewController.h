@@ -8,5 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JCNavViewController : UINavigationController
+@interface JCNavViewController : UINavigationController <UINavigationControllerDelegate>
+
+@property (nonatomic, assign) BOOL shouldIgnorePushingViewControllers;
+
 @end

@@ -18,6 +18,4 @@
 @property (strong, nonatomic) JCSettingsView *settingsView;
 @property (strong, nonatomic) FDTakeController *takeController;
 
-- (id)initWithViewModel:(JCSettingsViewModel *)settingsViewModel;
-
 @end

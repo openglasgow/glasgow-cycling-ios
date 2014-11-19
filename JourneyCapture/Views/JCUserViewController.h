@@ -12,6 +12,7 @@
 
 @interface JCUserViewController : UIViewController <JCLocationManagerDelegate,
     UITableViewDelegate, UITableViewDataSource>
+@property (readwrite, nonatomic) BOOL canShowSettings;
 @property (strong, nonatomic) JCUserViewModel *viewModel;
 @property (strong, nonatomic) JCUserView *userView;
 @property (strong, nonatomic) UIBarButtonItem *searchButton;

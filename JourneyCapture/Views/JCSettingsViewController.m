@@ -22,11 +22,11 @@
 
 @implementation JCSettingsViewController
 
-- (id)initWithViewModel:(JCSettingsViewModel *)settingsViewModel
+- (id)init
 {
     self = [super init];
     if (self) {
-        _viewModel = settingsViewModel;
+        _viewModel = [JCSettingsViewModel new];;
         NSLog(@"Init settings controller");
     }
     return self;

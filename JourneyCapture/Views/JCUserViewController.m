@@ -151,6 +151,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    _canShowSettings = YES;
+    
     [[JCLocationManager sharedManager] startUpdatingCoarse];
     
     if (_updateOnAppear) {
@@ -211,12 +213,14 @@
 
 - (void)showSettings
 {
-    [Flurry logEvent:@"Settings tapped"];
-    _updateOnAppear = YES;
-    JCSettingsViewModel *settingsVM = [JCSettingsViewModel new];
-    JCSettingsViewController *settingsController = [[JCSettingsViewController alloc]
-                                                initWithViewModel:settingsVM];
-    [self.navigationController pushViewController:settingsController animated:YES];
+    BOOL showSettings = _canShowSettings;
+    _canShowSettings = NO;
+    if (showSettings) {
+        [Flurry logEvent:@"Settings tapped"];
+        _updateOnAppear = YES;
+        JCSettingsViewController *settingsController = [JCSettingsViewController new];
+        [self.navigationController pushViewController:settingsController animated:YES];
+    }
 }
 
 #pragma mark - JCLocationManagerDelegate
