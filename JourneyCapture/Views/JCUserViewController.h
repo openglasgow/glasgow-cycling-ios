@@ -22,4 +22,5 @@
 
 - (void)update;
 - (void)showCapture;
+- (void)cancelWarningNotification;
 @end

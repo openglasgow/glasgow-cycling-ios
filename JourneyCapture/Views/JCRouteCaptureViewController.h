@@ -19,5 +19,4 @@
 - (void)endRoute;
 - (void)submitRoute;
 - (void)scheduleWarningNotification;
-- (void)cancelWarningNotification;
 @end
