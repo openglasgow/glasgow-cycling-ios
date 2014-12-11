@@ -162,8 +162,6 @@
 
 - (void)submitRoute {
     // Stop capturing
-    [self cancelWarningNotification];
-    
     CLS_LOG("Ended route capture, submitting");
     int numPoints = (int)_viewModel.points.count;
     [Crashlytics setIntValue:numPoints forKey:@"Num Route Points"];
@@ -210,27 +208,15 @@
 
 - (void)scheduleWarningNotification
 {
-    // Ensure we don't schedule too many
-    [self cancelWarningNotification];
-
     // Capturing - Schedule notifications in case the user forgets to stop capturing
-    int oneHour = 60 * 60; // seconds
-    NSDate *notificatinTime = [NSDate dateWithTimeIntervalSinceNow:oneHour];
-
-    for (int i = 0; i < 2; i++) {
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.fireDate = notificatinTime;
-        notification.alertBody = @"You are still capturing a route.";
-        notification.soundName = UILocalNotificationDefaultSoundName;
-        notification.applicationIconBadgeNumber = 0;
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-        notificatinTime = [notificatinTime dateByAddingTimeInterval:oneHour];
-    }
-}
-
-- (void)cancelWarningNotification
-{
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    NSDate *notificatinTime = [NSDate dateWithTimeIntervalSinceNow:10];
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.fireDate = notificatinTime;
+    notification.alertBody = @"You are still capturing a route.";
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.applicationIconBadgeNumber = 0;
+    notification.repeatInterval = NSCalendarUnitSecond;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 #pragma mark - UIAlertViewDelgate
@@ -240,7 +226,6 @@
     if (buttonIndex == 1) {
         // Stop route capture (route cancel alert)
         NSLog(@"Cancelling route");
-        [self cancelWarningNotification];
         [[[JCLocationManager sharedManager] locationManager] stopUpdatingLocation];
         [[JCLocationManager sharedManager] setDelegate:nil];
         [self.navigationController popViewControllerAnimated:YES];
