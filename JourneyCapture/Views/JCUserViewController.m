@@ -89,8 +89,6 @@
     [self.navigationItem setHidesBackButton:YES];
     CLS_LOG(@"Loaded User VC");
     
-    [self cancelWarningNotification];
-    
     // Search
     UIImage *magnifyingGlass = [UIImage imageNamed:@"magnifying-glass.png"];
     _searchButton = [[UIBarButtonItem alloc] initWithImage:magnifyingGlass style:UIBarButtonItemStyleBordered target:nil action:nil];
@@ -153,6 +151,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self cancelWarningNotification];
+
     _canShowSettings = YES;
     
     [[JCLocationManager sharedManager] startUpdatingCoarse];
