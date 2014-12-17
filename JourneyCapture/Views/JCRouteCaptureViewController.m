@@ -215,13 +215,13 @@
 - (void)scheduleWarningNotification
 {
     // Capturing - Schedule notifications in case the user forgets to stop capturing
-    NSDate *notificatinTime = [NSDate dateWithTimeIntervalSinceNow:10];
+    NSDate *notificatinTime = [NSDate dateWithTimeIntervalSinceNow:60*60];
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.fireDate = notificatinTime;
     notification.alertBody = @"You are still capturing a route.";
     notification.soundName = UILocalNotificationDefaultSoundName;
     notification.applicationIconBadgeNumber = 0;
-    notification.repeatInterval = NSCalendarUnitSecond;
+    notification.repeatInterval = NSCalendarUnitMinute;
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
