@@ -63,6 +63,12 @@
     [super viewDidLoad];
 	[self.navigationItem setTitle:@"Capture"];
     CLS_LOG(@"Route Capture VC Loaded");
+    
+    // get permission to show notifications
+    // iOS 8+ notification auth
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
