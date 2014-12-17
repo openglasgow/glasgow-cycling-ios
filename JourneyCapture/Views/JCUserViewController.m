@@ -70,6 +70,10 @@
     _userView.menuTableView.delegate = self;
     _userView.menuTableView.dataSource = self;
     _userView.menuTableView.rowHeight = 60;
+    
+    // Set hint
+    _userView.headerView.hintLabel.text = @"MORE STATS";
+    
     [self.view addSubview:_userView];
 }
 

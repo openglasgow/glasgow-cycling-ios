@@ -67,6 +67,13 @@
     }] subscribe:distanceLabelChannel];
     [self addSubview:_distanceThisMonthLabel];
     
+    _hintLabel = [UILabel new];
+    _hintLabel.textColor = [UIColor whiteColor];
+    _hintLabel.text = @"";
+    _hintLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [_hintLabel setFont:statsFont];
+    [self addSubview:_hintLabel];
+    
     return self;
 }
 
@@ -90,6 +97,10 @@
     [_timeThisMonthLabel autoRemoveConstraintsAffectingView];
     [_timeThisMonthLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_distanceThisMonthLabel withOffset:5];
     [_timeThisMonthLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    
+    [_hintLabel autoRemoveConstraintsAffectingView];
+    [_hintLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_timeThisMonthLabel withOffset:8];
+    [_hintLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
     
     [super layoutSubviews];
 }

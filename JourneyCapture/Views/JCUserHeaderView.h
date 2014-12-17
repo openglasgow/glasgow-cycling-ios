@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UIImageView *profileImageView;
 @property (strong, nonatomic) UILabel *distanceThisMonthLabel;
 @property (strong, nonatomic) UILabel *timeThisMonthLabel;
+@property (strong, nonatomic) UILabel *hintLabel;
 
 - (id)initWithViewModel:(JCUserViewModel *)userViewModel;
 @end

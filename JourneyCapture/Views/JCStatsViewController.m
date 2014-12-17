@@ -51,13 +51,8 @@ CGFloat const kHeaderHeight = 213.0f;
     [self.view addSubview:_headerView];
     
     // Hint label
-    _hintLabel = [UILabel new];
-    _hintLabel.textColor = [UIColor whiteColor];
-    _hintLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _hintLabel.text = @"Press graph for details";
-    _hintLabel.textAlignment = NSTextAlignmentCenter;
-    _hintLabel.font = [UIFont systemFontOfSize:12];
-    [self.view addSubview:_hintLabel];
+    _headerView.hintLabel.text = @"Press graph for details";
+
     
     // Graphs
     CGFloat screenHeight = [[UIScreen mainScreen] applicationFrame].size.height;
@@ -86,11 +81,6 @@ CGFloat const kHeaderHeight = 213.0f;
     [_headerView autoRemoveConstraintsAffectingView];
     [_headerView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];
     [_headerView autoSetDimension:ALDimensionHeight toSize:kHeaderHeight];
-    
-    [_hintLabel autoRemoveConstraintsAffectingView];
-    [_hintLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_headerView withOffset:-10];
-    [_hintLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_headerView];
-    [_hintLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_headerView];
     
     [_graphScrollView autoRemoveConstraintsAffectingView];
     [_graphScrollView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
